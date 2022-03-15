@@ -2,7 +2,6 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const { sequelize } = require("./models");
 
 // let server = "";
 let localhost = "http://localhost:3000";
