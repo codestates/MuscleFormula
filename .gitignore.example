@@ -7,6 +7,10 @@
 .env
 .env.local
 .env*.local=
+.env.test
+.env.development
+.env.production
+
 node_modules/
 package-lock.json
 
