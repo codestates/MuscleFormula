@@ -1,8 +1,9 @@
 /**네비게이션바**/
 import React from 'react';
 import {useSelector} from 'react-redux';
+import '../css/Nav.css';
 
-function Nav() {
+export default function Nav() {
   const state = useSelector(state => state.userInfoReducer);
   return (
     <div>
@@ -13,4 +14,3 @@ function Nav() {
     </div>
   );
 }
-export default Nav;
