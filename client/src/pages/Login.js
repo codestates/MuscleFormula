@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
-import "../css/Login.css";
+import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -57,6 +56,8 @@ export default function Login() {
     setLoginInfo({ ...userInfo, [key]: e.target.value });
   };
   //input 값 설정
+
+  const serverURL = 'http://localhost:8080'
 
   const handleGuestLogin = () => {
     const url = `${serverURL}/login`;
