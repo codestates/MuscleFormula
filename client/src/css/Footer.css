@@ -1,0 +1,12 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#footer-container {
+  display: flex;
+  padding: 1rem;
+  background-color: rgb(155, 170, 170);
+}
