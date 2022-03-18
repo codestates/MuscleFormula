@@ -9,7 +9,7 @@ export class Users extends BaseEntity {
   @Column({
     unique: true,
   })
-  email!: string;
+  emal!: string;
 
   @Column()
   nickname!: string;
