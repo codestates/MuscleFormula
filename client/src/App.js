@@ -10,13 +10,13 @@ import Signup from "./pages/Signup";
 function App() {
   return (
     <div>
-      {/* <Nav /> */}
+      <Nav />
       <Routes>
         <Route exact path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

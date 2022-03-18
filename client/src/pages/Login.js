@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 //npm install styled-components
@@ -66,6 +68,27 @@ const passwordInput = styled(Input).attrs({
 `;
 
 export default function Login() {
+  const [userInfo, setLoginInfo] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputValue = (key) => (e) => {
+    setLoginInfo({ ...userInfo, [key]: e.target.value });
+  };
+  //input 값 설정
+
+  const serverURL = 'http://localhost:8080'
+
+  const handleGuestLogin = () => {
+    const url = `${serverURL}/login`;
+  };
+
+  const handleLogin = () => {
+    if (!userInfo.email || !userInfo.password) {
+      return alert("아이디와 비밀번호 모두 입력 하세요.");
+    }
+  };
   return (
     <div>
       <ModalContainer>

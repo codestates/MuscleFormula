@@ -8,7 +8,7 @@
 //   display: flex;
 //   justify-content: center;
 //   align-items: center;
-//   position: relative;
+//   position: relative;z
 //   border: dashed red;
 // `;
 import axios from "axios";
@@ -138,7 +138,7 @@ export default function Signup() {
     <div>
       <SignupPage>
         <Headers>
-          <img src={require("../images/logo.png")} width="150vw" alt="logo" />
+          <img src="images/logo.png" width="150vw" alt="logo" />
         </Headers>
         <Body className="modal">
           <h1>회원 가입</h1>
