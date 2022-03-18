@@ -28,7 +28,7 @@ app.use(
     extended: true,
   })
 );
-app.use("/login", loginrouter);
+app.use("/", loginrouter);
 app.get("/", (req, res) => {
   res.status(200).send("server is work!!");
 });
