@@ -2,11 +2,16 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import loginrouter from "./routers/login";
-import createConnection from "./models/index";
+import { createConnection } from "typeorm";
 import * as dotenv from "dotenv";
 
+createConnection()
+  .then(async () => {
+    console.log("mysql connected!!");
+  })
+  .catch((err) => console.log("에러요:", err));
+
 const app = express();
-createConnection();
 
 const corsOption = {
   Header: { "content-type": "application/json" },
@@ -23,7 +28,7 @@ app.use(
     extended: true,
   })
 );
-app.use("/login", loginrouter);
+app.use("/", loginrouter);
 app.get("/", (req, res) => {
   res.status(200).send("server is work!!");
 });
