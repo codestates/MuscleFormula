@@ -10,7 +10,7 @@ export default function Nav() {
     <header>
 
       <PC>
-      <div id='nav__container--PC'>
+      <nav id='nav__container--PC'>
         <span className='nav__title--PC'>
         <img id='logo' src='../logo.png' alt='logo'/>
         근의 공식
@@ -21,18 +21,23 @@ export default function Nav() {
           <li>채팅</li>
         </ul>
         <span className='nav__user--PC'>로그인</span>
-      </div>
+      </nav>
       </PC>
 
       <Mobile>
-      <div id='nav__container--M'>
-        <img id='icon__menu--M' src={require('../images/menu.png')} alt='menu'/>
+      <nav id='nav__container--M'>
+        <ul className='nav__menu--M'>
+          <img id='icon__menu--M' src={require('../images/menu.png')} alt='menu'/>
+            <li>운동기록</li>
+            <li>알림</li>
+            <li>채팅</li>
+        </ul>
         <span className='nav__title--M'>
         <img id='logo' src='../logo.png' alt='logo'/>
           근의 공식
         </span>
         <span className='nav__user--M'>로그인</span>
-      </div>
+      </nav>
       </Mobile>
 
     </header>

@@ -44,7 +44,7 @@ header {
   font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-.nav__menu--PC ul{
+.nav__menu--PC{
   list-style-type: none;
 }
 
@@ -55,6 +55,18 @@ header {
 
 .nav__menu--PC li:hover {
   color:#00cc99;
+}
+
+.nav__menu--M{
+  list-style-type: none;
+}
+
+.nav__menu--M li {
+  display: none;
+  text-align: left;
+}
+.nav__menu--M li:hover {
+  display: block;
 }
 
 #icon__menu--M {
