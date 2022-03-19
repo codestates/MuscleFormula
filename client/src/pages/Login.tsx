@@ -20,7 +20,7 @@ const ModalBackdrop = styled.div`
 
 const ModalContainer = styled.div`
   // TODO : Modal을 구현하는데 전체적으로 필요한 CSS를 구현합니다.
-  top: 2.5rem;
+  top: 10rem;
   height: 100%;
   width: 100%;
   display: flex;
@@ -32,6 +32,7 @@ const ModalContainer = styled.div`
 
 const ModalDiv = styled.div`
   /* margin-top: -1em; */
+  top: 5em;
   margin: 1em;
 `;
 
@@ -48,18 +49,18 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Input = styled.input.attrs((props) => ({
+const Input = styled.input.attrs((props :any) => ({
   type: "text",
   size: props.size || "0.5em",
 }))`
   background-color: grey;
   border: 2px solid palevioletred;
-  margin: ${(props) => props.size};
-  padding: ${(props) => props.size};
+  margin: ${(props :any) => props.size};
+  padding: ${(props :any) => props.size};
 `;
 
 //비번 입력창
-const passwordInput = styled(Input).attrs({
+const PasswordInput = styled.input.attrs({
   type: "password",
 })`
   // similarly, border will override Input's border
@@ -73,7 +74,7 @@ export default function Login() {
     password: "",
   });
 
-  const handleInputValue = (key) => (e) => {
+  const handleInputValue = (key :any) => (e :any) => {
     setLoginInfo({ ...userInfo, [key]: e.target.value });
   };
   //input 값 설정
@@ -93,9 +94,9 @@ export default function Login() {
     <div>
       <ModalContainer>
         <ModalDiv>
-          <Input placeholder="이메일을 입력하세요 " size="2em" />
+          <Input placeholder="이메일을 입력하세요 "/>
           <br />
-          <passwordInput placeholder="패스워드를 입력하세요" size="2em" />
+          <PasswordInput placeholder="패스워드를 입력하세요"/>
         </ModalDiv>
       </ModalContainer>
     </div>

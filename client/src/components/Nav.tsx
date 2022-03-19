@@ -5,7 +5,7 @@ import { Mobile, PC } from '../mediaQuery';
 import '../css/Nav.css';
 
 export default function Nav() {
-  const state = useSelector(state => state.userInfoReducer);
+  let userInfo = useSelector((state :any) => state.userInfoReducer);
   return (
     <header>
 
