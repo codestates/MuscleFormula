@@ -48,7 +48,8 @@ module.exports = async (req: Request, res: Response) => {
 
   console.log("userResponse :",userResponse.data)
 
-  res.status(200).json(userResponse.data);
+  // res.status(200).json(userResponse.data);
+  res.status(200).send("hello");
 
 
 };
