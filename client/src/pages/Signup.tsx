@@ -11,11 +11,10 @@
 //   position: relative;z
 //   border: dashed red;
 // `;
-import axios from "axios";
+
 import React, { useState } from "react";
 import styled from "styled-components";
 
-//nav 지우기..?
 
 const SignupPage = styled.div`
   display: flex;
@@ -64,29 +63,29 @@ const Input = styled.input.attrs((props) => ({
   padding: ${(props) => props.size};
 `;
 
-const passwordInput = styled(Input).attrs({
-  type: "password",
-})`
-  // similarly, border will override Input's border
-  border: 2px solid aqua;
-  background-color: grey;
-`;
+// const passwordInput = styled(Input).attrs({
+//   type: "password",
+// })`
+//   // similarly, border will override Input's border
+//   border: 2px solid aqua;
+//   background-color: grey;
+// `;
 
 const Button = styled.div`
   // border: 1px solid red;
   /* padding: 10px; */
   margin-top: 10px;
-  color: ${(props) => props.theme.fg};
-  border: 2px solid ${(props) => props.theme.fg};
+  color: ${(props :any) => props.theme.fg};
+  border: 2px solid ${(props :any) => props.theme.fg};
   display: flex;
-  background: ${(props) => props.theme.bg};
+  background: ${(props :any) => props.theme.bg};
 
   width: 220px;
   > button {
     //border: 1px solid red;
     /* padding: 10px; */
     border: 0;
-    background-color: antiquewhite;
+    background-color: #00cc99;
     cursor: pointer;
     margin: 0.5rem;
     width: 15vw;
@@ -94,42 +93,10 @@ const Button = styled.div`
     font-size: 1rem;
   }
   > button:hover {
-    color: #a14efc; //
+    color: #00ffcc; //
   }
 `;
-const theme = {
-  fg: "#00FFCC",
-  bg: "white",
-};
 
-const invertTheme = ({ fg, bg }) => ({
-  fg: bg,
-  bg: fg,
-});
-
-Button.defaultProps = {
-  theme: {
-    main: "palevioletred",
-  },
-};
-//애니메이션 돌리기! //안돌아간다! reactnative에서는 지원되지 않음
-// const rotate = keyframes`
-//   from {
-//     transform: rotate(0deg);
-//   }
-
-//   to {
-//     transform: rotate(360deg);
-//   }
-// `;
-
-//로고돌리기!
-/* const Rotate = styled.div`
-  display: inline-block;
-  animation: ${rotate} 2s linear infinite;
-  padding: 2rem 1rem;
-  font-size: 1.2rem;
-`; */
 export default function Signup() {
   //유저 정보, 관리
   //함수 만들필요없다.
@@ -161,14 +128,13 @@ export default function Signup() {
             <input
               type="password"
               placeholder="패스워드를 입력하세요"
-              size="1em"
             />
           </div>
           <br />
           <div>
             <h3>
               비밀번호 확인{" "}
-              <input type="password" placeholder="패스워드 확인" size="1em" />
+              <input type="password" placeholder="패스워드 확인" />
             </h3>
           </div>
           <Button>
