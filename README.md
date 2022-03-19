@@ -105,7 +105,7 @@
 <br>
 
 
-### 추옹욱 [`ChooHongWook`](https://github.com/ChooHongWook)
+### 추홍욱 [`ChooHongWook`](https://github.com/ChooHongWook)
 * position : Back-end 
 * Stack: 추후작성
 * contributions
