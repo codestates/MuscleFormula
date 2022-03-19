@@ -7,6 +7,7 @@ const PORT = process.env.PORT;
 
 const server = http.createServer(app);
 
+console.log("port:",PORT)
 server.listen(PORT, () => {
-  console.log("server is on!");
+  console.log(`port:${PORT} server is on!`);
 });
