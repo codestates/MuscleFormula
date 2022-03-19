@@ -15,7 +15,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-//nav 지우기..?
 
 const SignupPage = styled.div`
   display: flex;
@@ -76,10 +75,10 @@ const Button = styled.div`
   // border: 1px solid red;
   /* padding: 10px; */
   margin-top: 10px;
-  color: ${(props) => props.theme.fg};
-  border: 2px solid ${(props) => props.theme.fg};
+  color: ${(props :any) => props.theme.fg};
+  border: 2px solid ${(props :any) => props.theme.fg};
   display: flex;
-  background: ${(props) => props.theme.bg};
+  background: ${(props :any) => props.theme.bg};
 
   width: 220px;
   > button {
@@ -129,14 +128,13 @@ export default function Signup() {
             <input
               type="password"
               placeholder="패스워드를 입력하세요"
-              size="1em"
             />
           </div>
           <br />
           <div>
             <h3>
               비밀번호 확인{" "}
-              <input type="password" placeholder="패스워드 확인" size="1em" />
+              <input type="password" placeholder="패스워드 확인" />
             </h3>
           </div>
           <Button>

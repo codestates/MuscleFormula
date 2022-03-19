@@ -50,6 +50,7 @@ const ModalBackdrop = styled.div`
 
 const ModalDiv = styled.div`
   /* margin-top: -1em; */
+  top: 5em;
   margin: 1em;
   height: 5rem;
   width: 5rem;
@@ -103,7 +104,7 @@ export default function Login() {
     password: "",
   });
 
-  const handleInputValue = (key) => (e) => {
+  const handleInputValue = (key :any) => (e :any) => {
     setLoginInfo({ ...userInfo, [key]: e.target.value });
   };
   //input 값 설정
