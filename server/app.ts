@@ -9,7 +9,7 @@ createConnection()
   .then(async () => {
     console.log("mysql connected!!");
   })
-  .catch((err) => console.log("에러요:", err));
+  .catch((err) => console.log("mysql connected ERR:", err));
 
 const app = express();
 
