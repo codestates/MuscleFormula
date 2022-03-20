@@ -1,23 +1,20 @@
-import { initialState } from "./initialState";
+import { initialState } from "../store/initialState";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const testReducer = (state = initialState, action: any) => {
-  switch(action.type) {
-    case 'ADD' :
-      return Object.assign({}, state, {
-        test: [...state.test, action.payload]
-      })
-    case 'QUANTITY_UP' :
+export const testReducer = createSlice({
+  name: 'test',
+  initialState: initialState,
+  reducers: {
+    ADD : (state, action: PayloadAction<{id: number, name: string, quan: number}>) => {
+      state.test.push(action.payload)
+    },
+    QUAN : state => {
       state.test.forEach(el => el.quan++);
-      return Object.assign({}, state, {
-        test: [...state.test]
-      })
-    case 'OUT' :
+    },
+    OUT : state => {
       state.test.pop();
-      return Object.assign({}, state, {
-        test: [...state.test]
-      })
-    default: 
-    return state
+    }
   }
-}
-export default testReducer;
+})
+export const {ADD, QUAN, OUT}  = testReducer.actions;
+export default testReducer.reducer
