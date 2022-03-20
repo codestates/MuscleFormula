@@ -5,10 +5,7 @@ import './index.css';
 import App from './App';
 //provider로 리덕스 쓸 수 있다
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducer from './reducer'
-
-const store = createStore(reducer);
+import {store} from './store';
 
 ReactDOM.render(
   <BrowserRouter>
