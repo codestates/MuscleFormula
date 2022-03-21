@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import loginrouter from "./routers/login";
+import userRouter from "./routers/users";
 import { createConnection } from "typeorm";
 import * as dotenv from "dotenv";
 
@@ -29,6 +30,7 @@ app.use(
   })
 );
 app.use("/", loginrouter);
+app.use("/users", userRouter);
 app.get("/", (req, res) => {
   res.status(200).send("server is work!!");
 });
