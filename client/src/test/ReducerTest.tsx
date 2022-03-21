@@ -5,6 +5,12 @@ import { ADD, QUAN, OUT } from '../reducer/testReducer';
 import { LOG_IN, LOG_OUT } from '../reducer/userInfoReducer';
 import {useState} from 'react';
 import type {RootState, AppDispatch} from '../store'
+import styled from 'styled-components';
+import StarPoint from '../components/StarPoint';
+
+const Test = styled.div`
+  margin : 6rem;
+`
 
 function ReducerTest() {
 
@@ -27,7 +33,7 @@ function ReducerTest() {
   }
 
   return (
-    <div>
+    <Test>
       <p>
         <button onClick={()=> dispatch(ADD({id:2, name:'새상품', quan: 3}))}>항목추가</button>
         <button onClick={()=> dispatch(QUAN())}>수량증가</button>
@@ -44,7 +50,8 @@ function ReducerTest() {
         {number}
         <button onClick={()=> dispatch(CHOICE(Number(number)))}>CHOICE</button>
       </p>
-    </div>
+      <StarPoint/>
+    </Test>
   );
 }
 
