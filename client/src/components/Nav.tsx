@@ -101,7 +101,7 @@ export default function Nav () {
     <Mobile>
     <NavMobile>
       <ul className='nav-menu'>
-        <img id='icon-menu' src={require('../images/menu.png')} alt='menu'/>
+        <img id='icon-menu' src={require('../images/icon_menu.png')} alt='menu'/>
         <li>운동기록</li>
         <li>알림</li>
         <li>채팅</li>

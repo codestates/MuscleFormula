@@ -7,10 +7,18 @@
   border-style: solid;
   border-color: black;
 }
+.todayking-container {
+  display: flex;
+  justify-content: center;
+}
 
 .search-container {
-  flex: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
 .postthumb-container {
-  flex: none;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
 }
