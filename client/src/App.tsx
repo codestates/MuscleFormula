@@ -6,7 +6,7 @@ import Nav from './components/Nav';
 import Main from './pages/Main';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import ReducerTest from './components/ReducerTest';
+import ReducerTest from './test/ReducerTest';
 
 const App: React.FC = () => {
   return (
