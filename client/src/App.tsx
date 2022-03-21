@@ -11,14 +11,13 @@ import ReducerTest from './components/ReducerTest';
 const App: React.FC = () => {
   return (
   <div>
-    <Nav/>
     <Routes>
         <Route path="/" element={<Main/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/test" element={<ReducerTest/>} />
       </Routes>
-    <Footer/>
+    <Nav/>
   </div>
   )
 };
