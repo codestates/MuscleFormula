@@ -1,6 +1,14 @@
-const editUserInfo = require("../controllers/login/editUserInfo")
-import express from "express";
-const loginrouter = express.Router();
+const signup = require("../controllers/user/signup");
+const profile = require("../controllers/user/postWorkOut");
+const editUserInfo = require("../controllers/user/editUserInfo");
+const deleteUserInfo = require("../controllers/user/deleteUserInfo");
 
-loginrouter.post("/edit", editUserInfo);
-export default loginrouter;
+import express from "express";
+const userRouter = express.Router();
+
+userRouter.post("/signup", signup);
+userRouter.post("/Record", profile);
+userRouter.put("/editUserInfo", editUserInfo);
+userRouter.delete("/deleteUserInfo", deleteUserInfo);
+
+export default userRouter;
