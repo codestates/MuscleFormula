@@ -6,7 +6,7 @@ dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
   const { email } = req.body;
-  console.log("user Info : ", email)
+  console.log("user Info : ", email);
 
   const user = await getRepository(Users).findOne({
     where: { email },
@@ -15,7 +15,7 @@ module.exports = async (req: Request, res: Response) => {
     try {
       await user.remove();
       const allUsers = await getRepository(Users).find();
-      console.log("allUsers:", allUsers)
+      console.log("allUsers:", allUsers);
       res.status(200).json({ message: `회원 삭제 성공` });
     } catch (e) {
       console.log("회원정보 삭제 실패");
