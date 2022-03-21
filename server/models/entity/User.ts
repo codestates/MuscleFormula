@@ -6,6 +6,9 @@ import {
   OneToMany,
 } from "typeorm";
 import { Profile } from "./Profile";
+import { Posts } from "./Post";
+import { Post_Comments } from "./Post_Comments";
+import { Post_Likes } from "./Post_Likes";
 
 @Entity()
 export class Users extends BaseEntity {
@@ -24,6 +27,15 @@ export class Users extends BaseEntity {
   })
   image: string;
 
-  @OneToMany((type) => Profile, (profile) => profile.user)
+  @OneToMany((type) => Profile, (e) => e.user)
   profile: Profile[];
+
+  @OneToMany((type) => Posts, (e) => e.users)
+  posts: Posts[];
+
+  @OneToMany((type) => Post_Comments, (e) => e.users)
+  post_comments: Post_Comments[];
+
+  @OneToMany((type) => Post_Likes, (e) => e.users)
+  post_likes: Post_Likes[];
 }

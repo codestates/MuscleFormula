@@ -5,23 +5,22 @@ import {
   BaseEntity,
   ManyToOne,
 } from "typeorm";
+import { Posts } from "./Post";
 import { Users } from "./User";
 
 @Entity()
-export class Profile extends BaseEntity {
+export class Post_Comments extends BaseEntity {
   // 이엔티티 (테이블) 에서 저장 삭제를 하기위해서 baseEntity
   @PrimaryGeneratedColumn()
-  id!: number;
+  id: number;
   @Column()
-  genre!: string;
-  @Column()
-  weight: number;
-  @Column()
-  count!: string;
-  @Column()
-  time_record!: string;
+  comment: string;
   @Column()
   created_At: Date;
-  @ManyToOne((type) => Users, (e) => e.profile)
-  user: Users;
+
+  @ManyToOne((type) => Users, (e) => e.post_comments)
+  users: Users;
+
+  @ManyToOne((type) => Posts, (e) => e.post_comments)
+  post: Posts;
 }
