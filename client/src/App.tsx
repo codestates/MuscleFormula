@@ -7,6 +7,10 @@ import Main from './pages/Main';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ReducerTest from './test/ReducerTest';
+import RecordShare from './pages/RecordShare';
+import Record from './pages/Record';
+import Alarm from './pages/Alarm';
+import Chat from './pages/Chat';
 
 const App: React.FC = () => {
   return (
@@ -15,6 +19,10 @@ const App: React.FC = () => {
         <Route path="/" element={<Main/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/record" element={<Record />} />
+        <Route path="/share" element={<RecordShare />} />
+        <Route path="/alarm" element={<Alarm/>}/>
+        <Route path="/chat" element={<Chat/>} />
         <Route path="/test" element={<ReducerTest/>} />
       </Routes>
     <Nav/>

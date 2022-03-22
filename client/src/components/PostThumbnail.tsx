@@ -2,7 +2,8 @@
 import styled from "styled-components"
 export const Postthumb = styled.div`
   flex: none;
-  max-width: 260px;
+  width: 80vw;
+  max-width: 300px;
   border: 1px solid black;
   > img {
     width: 100%;
@@ -39,7 +40,7 @@ export default function PostThumbnail() {
       <div id="title-container">
         <span className="post-title">제목입니다</span>
         <span className="post-likes">
-          <img src={require("../images/icon_fullheart.png")} alt="likes"/>
+          <img src={require("../images/icon_heart_fill.png")} alt="likes"/>
           100
         </span>
         <span className="post-comments">💬 2</span>
