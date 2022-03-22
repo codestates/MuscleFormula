@@ -3,6 +3,7 @@ import { getRepository } from "typeorm";
 import dotenv from "dotenv";
 import { Users } from "../../models/entity/User";
 import { Posts } from "../../models/entity/Post";
+import { Post_Comments } from "../../models/entity/Post_Comment";
 
 
 dotenv.config();
