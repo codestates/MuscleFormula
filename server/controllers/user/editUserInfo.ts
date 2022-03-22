@@ -13,8 +13,8 @@ module.exports = async (req: Request, res: Response) => {
   });
   if (user) {
     (user.email = req.body.email),
-      (user.password = req.body.password),
-      (user.nickname = req.body.nickname);
+    (user.password = req.body.password),
+    (user.nickname = req.body.nickname);
     user.image = req.body.image;
 
     try {

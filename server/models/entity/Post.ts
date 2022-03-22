@@ -16,9 +16,13 @@ export class Posts extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  info: string;
+  title:string;
   @Column()
-  total_Likes: string;
+  info: string;
+  @Column({
+    default:0
+  })
+  total_Likes: number;
   @Column()
   total_time: string;
   @Column()
