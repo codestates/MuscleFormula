@@ -20,11 +20,13 @@ function ReducerTest() {
   const test = useSelector((state:RootState) => state.test.test); 
   const count = useSelector((state:RootState) => state.counter.count); 
   const user = useSelector((state:RootState) => state.userInfo.userInfo);
+  const isLogin = useSelector((state:RootState) => state.userInfo.isLogin);
 
   let dispatch :AppDispatch = useDispatch();
   console.log('테스트용',test);
   console.log('카운터',count);
   console.log('유저정보', user);
+  console.log('로그인', isLogin);
 
   const [number, setNumber] = useState('');
 

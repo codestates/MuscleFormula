@@ -6,10 +6,12 @@ export const userInfoReducer = createSlice({
   initialState: initialState,
   reducers: {
     LOG_IN : (state, action: PayloadAction<{id: number, nickname: string, email: string}>) => {
-      state.userInfo.push(action.payload)
+      state.userInfo.push(action.payload);
+      state.isLogin = true;
     },
     LOG_OUT : state => {
       state.userInfo = [];
+      state.isLogin = false;
     },
   }
 })

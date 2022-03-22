@@ -2,6 +2,7 @@ type InitialState = {
   'test': {id: number, name: string, quan: number}[],
   'count': number,
   'userInfo': {id: number, nickname: string, email: string}[]
+  'isLogin': boolean,
   'notification': []
 }
 
@@ -12,8 +13,8 @@ export const initialState :InitialState = {
   ],
   'count' : 0,
   'userInfo' : [
-
   ],
+  'isLogin' : false,
   'notification': [
 
   ]
