@@ -21,7 +21,7 @@ export class Users extends BaseEntity {
   password: string;
   @Column()
   nickname: string;
-  @Column({
+  @Column({ 
     default:
       "https://practice-bucket-deploy7.s3.ap-northeast-2.amazonaws.com/default-profile-picture_150.jpg",
   })

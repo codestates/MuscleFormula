@@ -4,4 +4,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-module.exports = async (req: Request, res: Response) => {};
+module.exports = async (req: Request, res: Response) => {
+  const { email, password, nickname, image } = req.body;
+
+
+
+};
