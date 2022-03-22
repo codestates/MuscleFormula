@@ -28,18 +28,27 @@ import '../css/StarPoint.css';
 // `
 
 export default function StarPoint() {
+  const [value, setValue] = useState(0);
+
+  const handleValue = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setValue(Number(e.target.value));
+  }
+
   return (
+<>
+평점 {value}를 선택하셨습니다
 <div className="star-rating">
-  <input type="radio" id="5-stars" name="rating" value="5" />
+  <input type="radio" id="5-stars" name="rating" value='5' onChange={handleValue} />
   <label htmlFor="5-stars" className="star">&#9733;</label>
-  <input type="radio" id="4-stars" name="rating" value="4" />
+  <input type="radio" id="4-stars" name="rating" value='4' onChange={handleValue} />
   <label htmlFor="4-stars" className="star">&#9733;</label>
-  <input type="radio" id="3-stars" name="rating" value="3" />
+  <input type="radio" id="3-stars" name="rating" value='3' onChange={handleValue} />
   <label htmlFor="3-stars" className="star">&#9733;</label>
-  <input type="radio" id="2-stars" name="rating" value="2" />
+  <input type="radio" id="2-stars" name="rating" value='2' onChange={handleValue} />
   <label htmlFor="2-stars" className="star">&#9733;</label>
-  <input type="radio" id="1-star" name="rating" value="1" />
+  <input type="radio" id="1-star" name="rating" value='1' onChange={handleValue}/>
   <label htmlFor="1-star" className="star">&#9733;</label>
 </div>
+</>
   )
 }
