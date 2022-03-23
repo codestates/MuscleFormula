@@ -6,8 +6,8 @@ import {
   OneToMany,
   ManyToOne,
 } from "typeorm";
-import { Post_Comments } from "./Post_Comments";
-import { Post_Likes } from "./Post_Likes";
+import { Post_Comments } from "./Post_Comment";
+import { Post_Likes } from "./Post_Like";
 import { Users } from "./User";
 
 @Entity()

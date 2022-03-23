@@ -7,8 +7,8 @@ import {
 } from "typeorm";
 import { Profile } from "./Profile";
 import { Posts } from "./Post";
-import { Post_Comments } from "./Post_Comments";
-import { Post_Likes } from "./Post_Likes";
+import { Post_Comments } from "./Post_Comment";
+import { Post_Likes } from "./Post_Like";
 
 @Entity()
 export class Users extends BaseEntity {
