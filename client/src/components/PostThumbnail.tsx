@@ -5,6 +5,8 @@ export const Postthumb = styled.div`
   width: 80vw;
   max-width: 300px;
   border: 1px solid black;
+  border-radius: 15px;
+  overflow: hidden;
   > img {
     width: 100%;
   }
@@ -22,12 +24,27 @@ export const Postthumb = styled.div`
       }
     }
   }
-  > #profile-container{
+  > #profile-container {
     padding: 1rem;
+    display: flex;
+    > #photo-container{
+      position: relative;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      overflow: hidden;
     > img {
-      width: 30px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      }
     }
   }
+  
+  
   > #summary-container{
     padding: 1rem;
   }
@@ -40,16 +57,21 @@ export default function PostThumbnail() {
       <div id="title-container">
         <span className="post-title">제목입니다</span>
         <span className="post-likes">
-          <img src="../images/icon_heart_fill.png" alt="likes"/>
+          <i className="fa-regular fa-heart"></i>
           100
         </span>
-        <span className="post-comments">💬 2</span>
+        <span className="post-comments">
+          <i className="fa-regular fa-comment-dots"></i>
+          2
+        </span>
       </div>
-      <div id="profile-container">
-        <img src="../images/photo_defaultuser.png" alt="profile_image"/>
-        <strong>
-          닉네임
-        </strong>
+      <div id= "profile-container">
+      <div id="photo-container">
+        <img className='user-photo' src="../images/photo_defaultuser.png" alt="profile_image"/>
+      </div>
+      <strong>
+        닉네임
+      </strong>
       </div>
       <div id="summary-container">
       소요시간
