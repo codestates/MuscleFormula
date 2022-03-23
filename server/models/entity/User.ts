@@ -5,10 +5,11 @@ import {
   BaseEntity,
   OneToMany,
 } from "typeorm";
-import { Profile } from "./Profile";
+//import { Profile } from "./Profile";
 import { Posts } from "./Post";
 import { Post_Comments } from "./Post_Comment";
 import { Post_Likes } from "./Post_Like";
+import { Ex_Records } from "./Ex_Record";
 
 @Entity()
 export class Users extends BaseEntity {
@@ -21,17 +22,19 @@ export class Users extends BaseEntity {
   password: string;
   @Column()
   nickname: string;
-  @Column({ 
+  @Column({
     default:
       "https://practice-bucket-deploy7.s3.ap-northeast-2.amazonaws.com/default-profile-picture_150.jpg",
   })
   image: string;
 
-  @OneToMany((type) => Profile, (e) => e.user)
-  profile: Profile[];
+  // @OneToMany((type) => Profile, (e) => e.user)
+  // profile: Profile[];
 
   @OneToMany((type) => Posts, (e) => e.users)
   posts: Posts[];
+  @OneToMany((type) => Ex_Records, (e) => e.users)
+  ex_records: Ex_Records[];
 
   @OneToMany((type) => Post_Comments, (e) => e.users)
   post_comments: Post_Comments[];
