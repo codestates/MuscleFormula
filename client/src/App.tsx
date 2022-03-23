@@ -35,7 +35,7 @@ const App: React.FC = () => {
         <Route path="/chat" element={<Chat/>} />
         <Route path="/test" element={<ReducerTest/>} />
       </Routes>
-    {/* <Nav/>  */}
+    <Nav/> 
   </div>
   )
 };

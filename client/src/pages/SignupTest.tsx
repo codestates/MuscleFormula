@@ -21,13 +21,16 @@ export default function LoginTest() {
             <div>비밀번호</div>
             <input type="password"></input>
           </div>
-          <div className='userPassword'>
+          <div className='userPasswordCheck'>
             <div>비밀번호 확인</div>
             <input type="password"></input>
           </div>
+          <div id="signupButten">
+          
+          <button>회원가입</button>
         </div>
-        <div id="oAuth">
         </div>
+
       </div>
     </div>
   )

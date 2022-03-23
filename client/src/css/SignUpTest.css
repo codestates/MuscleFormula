@@ -1,12 +1,12 @@
 * {
-  box-sizing: border-box;
-  border: 3px solid red;
-  padding: 10px;
+  /* border: 3px solid red; */
+  /* padding: 10px; */
 }
 
 #LoginPage {
-  /* 화면 중앙으로 만들기 */
+  padding: 10px;
   border: 3px solid green;
+  /* 화면 중앙으로 만들기 */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,6 +14,9 @@
 }
 
 #innerBox {
+  padding: 10px;
+
+  /* border: 3px solid green; */
   height: 60vh;
   width: 40vh;
   display: flex;
@@ -27,6 +30,8 @@
 
 .userLonginInfo {
   /* background-color: red; */
+  padding: 10px;
+
   height: 30vh;
   display: flex;
   flex-direction: column;
@@ -34,33 +39,60 @@
 }
 .userLonginInfo > div > input {
   /* margin: 30px 10px; */
+  padding: 10px;
+
   margin-left: 10px;
 }
 
 .userId {
+  padding: 10px;
+
   display: flex;
 }
 .userId > div {
+  padding: 10px;
+
   width: 90px;
   text-align: center;
 }
 
 .userPassword {
+  padding: 10px;
   display: flex;
 }
 .userPassword > div {
+  padding: 10px;
   width: 90px;
   text-align: center;
 }
+.userPasswordCheck {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+.userPasswordCheck > div {
+  padding: 10px;
+  width: 90px;
+  text-align: center;
+}
+.userPasswordCheck > input {
+  height: 40px;
+}
 
 .userNick {
+  padding: 10px;
   display: flex;
 }
 .userNick > div {
+  padding: 10px;
   width: 90px;
   text-align: center;
 }
 .userNick > button {
+  padding: 10px;
   margin-left: 5px;
-  size: 5px;
+  font-size: 5px;
+}
+
+#signupButten {
 }
