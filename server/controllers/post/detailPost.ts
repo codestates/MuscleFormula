@@ -7,7 +7,6 @@ import { Posts } from "../../models/entity/Post";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
-<<<<<<< HEAD
   const { postId } = req.body;
   console.log("makePost body : ", req.body);
 
@@ -33,8 +32,4 @@ module.exports = async (req: Request, res: Response) => {
   } else {
     res.status(404);
   }
-=======
-
-  
->>>>>>> f68bfc51ac24bf805489ca95d7e0b1a71b43315d
 };
