@@ -16,6 +16,9 @@ export default function LoginTest() {
             <div>비밀번호</div>
             <input type="password"></input>
           </div>
+          <div className='loginButten'>
+            <button>로그인</button>
+          </div>
           <div>
             아이디가 없으시나요?
           </div>
