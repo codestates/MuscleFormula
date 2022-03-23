@@ -167,7 +167,7 @@ export default function Nav () {
               </li>
             </Link>
   {isLogin? <span className='nav-user'>
-              회원정보
+              <img src={user.image} alt="users_photo"/>
             </span>
           : <Link to='/login' className='nav-user'>
                 <span>
@@ -199,24 +199,24 @@ export default function Nav () {
       <Foot>
         <DownNavMobile>
           <Link to='/' className='nav-menu'>
-            <img className="click-no" src={require("../images/icon_main_outline.png")} alt="main"/>
-            <img className="click-yes" src={require("../images/icon_main_fill.png")} alt="main"/>
+            <img className="click-no" src="../images/icon_main_outline.png" alt="main"/>
+            <img className="click-yes" src="../images/icon_main_fill.png" alt="main"/>
           </Link>
           <Link to='/record' className='nav-menu'>
-            <img className="click-no" src={require("../images/icon_record_outline.png")} alt="record"/>
-            <img className="click-yes" src={require("../images/icon_record_fill.png")} alt="record"/>
+            <img className="click-no" src="../images/icon_record_outline.png" alt="record"/>
+            <img className="click-yes" src="../images/icon_record_fill.png" alt="record"/>
           </Link>
           <Link to='/share' className='nav-menu'>
-            <img className="click-no" src={require("../images/icon_share_outline.png")} alt="share"/>
-            <img className="click-yes" src={require("../images/icon_share_fill.png")} alt="share"/>
+            <img className="click-no" src="../images/icon_share_outline.png" alt="share"/>
+            <img className="click-yes" src="../images/icon_share_fill.png" alt="share"/>
           </Link>
           <Link to='/alarm' className='nav-menu'>
-            <img className="click-no" src={require("../images/icon_alarm_outline.png")} alt="alarm"/>
-            <img className="click-yes" src={require("../images/icon_alarm_fill.png")} alt="alarm"/>
+            <img className="click-no" src="../images/icon_alarm_outline.png" alt="alarm"/>
+            <img className="click-yes" src="../images/icon_alarm_fill.png" alt="alarm"/>
           </Link>
           <Link to='/chat' className='nav-menu'>
-            <img className="click-no" src={require("../images/icon_chat_outline.png")} alt="chat"/>
-            <img className="click-yes" src={require("../images/icon_chat_fill.png")} alt="chat"/>
+            <img className="click-no" src="../images/icon_chat_outline.png" alt="chat"/>
+            <img className="click-yes" src="../images/icon_chat_fill.png" alt="chat"/>
           </Link>
         </DownNavMobile>
       </Foot>

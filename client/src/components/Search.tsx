@@ -29,7 +29,7 @@ export default function Search() {
   return (
     <SearchBar>
       <input type="text" placeholder="검색어를 입력하세요"/>
-      <img src={require("../images/icon_search.png")} alt='search'/>
+      <img src="../images/icon_search.png" alt='search'/>
     </SearchBar>
   )
 }

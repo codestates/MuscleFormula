@@ -124,7 +124,7 @@ export default function Login() {
     <div id="container">
       <ModalContainer>
         <Headers>
-          <img src={require("../images/logo.png")} width="220px" alt="logo" />
+          <img src="../logo.png" width="220px" alt="logo" />
         </Headers>
         <div id="top">
           <h3>

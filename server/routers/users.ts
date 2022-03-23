@@ -1,5 +1,5 @@
 const signup = require("../controllers/user/signup");
-const profile = require("../controllers/user/postWorkOut");
+const profile = require("../controllers/user_record/userExRecord");
 const editUserInfo = require("../controllers/user/editUserInfo");
 const deleteUserInfo = require("../controllers/user/deleteUserInfo");
 
