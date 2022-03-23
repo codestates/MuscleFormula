@@ -3,9 +3,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import loginrouter from "./routers/login";
 import userRouter from "./routers/users";
-import postRouter from "./routers/posts";
 import { createConnection } from "typeorm";
 import * as dotenv from "dotenv";
+import postrouter from "./routers/posts";
 
 createConnection()
   .then(async () => {
@@ -32,7 +32,7 @@ app.use(
 );
 app.use("/", loginrouter);
 app.use("/users", userRouter);
-app.use("/posts", postRouter);
+app.use("/posts", postrouter);
 app.get("/", (req, res) => {
   res.status(200).send("server is work!!");
 });

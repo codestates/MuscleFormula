@@ -7,7 +7,7 @@ import express from "express";
 const userRouter = express.Router();
 
 userRouter.post("/signup", signup);
-userRouter.post("/Record", profile);
+userRouter.post("/record", profile);
 userRouter.put("/editUserInfo", editUserInfo);
 userRouter.delete("/deleteUserInfo", deleteUserInfo);
 
