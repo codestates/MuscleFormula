@@ -24,7 +24,7 @@ export default function TodayKing() {
   return (
     <TodayKingContainer>
         <li>
-          <img src={require("../images/icon_goldmedal.png")} alt= "goldmedal"/>
+          <img src="../images/icon_goldmedal.png" alt= "goldmedal"/>
           <strong>
             닉네임1
           </strong>
@@ -33,7 +33,7 @@ export default function TodayKing() {
           </data>
         </li>
         <li>
-          <img src={require("../images/icon_silvermedal.png")} alt= "goldmedal"/>
+          <img src="../images/icon_silvermedal.png" alt= "goldmedal"/>
           <strong>
             닉네임2
           </strong>
@@ -42,7 +42,7 @@ export default function TodayKing() {
           </data>
         </li>
         <li>
-          <img src={require("../images/icon_bronzemedal.png")} alt= "goldmedal"/>
+          <img src="../images/icon_bronzemedal.png" alt= "goldmedal"/>
           <strong>
             닉네임3
           </strong>

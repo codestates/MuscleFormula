@@ -1,7 +1,7 @@
 type InitialState = {
   'test': {id: number, name: string, quan: number}[],
   'count': number,
-  'userInfo': {id: number, nickname: string, email: string}[]
+  'userInfo': {id: number|string, nickname: string, image: string}
   'isLogin': boolean,
   'notification': []
 }
@@ -12,8 +12,7 @@ export const initialState :InitialState = {
     {id: 1, name: '예쁜신발', quan: 3}
   ],
   'count' : 0,
-  'userInfo' : [
-  ],
+  'userInfo' : {id: '', nickname: '', image: ''},
   'isLogin' : false,
   'notification': [
 

@@ -1,16 +1,17 @@
 import { initialState } from "../store/initialState";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { stringify } from "querystring";
 
 export const userInfoReducer = createSlice({
   name: 'userInfo',
   initialState: initialState,
   reducers: {
-    LOG_IN : (state, action: PayloadAction<{id: number, nickname: string, email: string}>) => {
-      state.userInfo.push(action.payload);
+    LOG_IN : (state, action: PayloadAction<{id: number, nickname: string, image: string}>) => {
+      state.userInfo = action.payload;
       state.isLogin = true;
     },
     LOG_OUT : state => {
-      state.userInfo = [];
+      state.userInfo = {id: '', nickname: '', image: ''};
       state.isLogin = false;
     },
   }
