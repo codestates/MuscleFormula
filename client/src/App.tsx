@@ -11,14 +11,18 @@ import RecordShare from './pages/RecordShare';
 import Record from './pages/Record';
 import Alarm from './pages/Alarm';
 import Chat from './pages/Chat';
+import Maypage from './pages/Mypage';
+import Profile from './pages/Profile';
 
 const App: React.FC = () => {
   return (
   <div>
     <Routes>
-        <Route path="/" element={<Main/>} />
+        <Route path="/main" element={<Main/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/mypage" element={<Maypage />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/record" element={<Record />} />
         <Route path="/share" element={<RecordShare />} />
         <Route path="/alarm" element={<Alarm/>}/>

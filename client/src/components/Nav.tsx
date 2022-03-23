@@ -1,11 +1,14 @@
+//state 관리
+import { useState } from 'react';
 //redux
-import { useSelector } from 'react-redux';
-import type { RootState } from '../store'
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState, AppDispatch} from '../store'
+import { LOG_OUT } from '../reducer/userInfoReducer';
 //style
 import { Mobile, PC } from '../mediaQuery';
 import styled from "styled-components";
 //router
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Head = styled.header`
   position: fixed;
@@ -46,6 +49,7 @@ export const NavPC = styled.nav`
   > .nav-menu {
     list-style-type: none;
     text-decoration: none;
+    color: black;
     &:focus, &:hover, &:visited, &link, &:active {
       text-decoration: none;
       color: black;
@@ -67,6 +71,40 @@ export const NavPC = styled.nav`
     &:focus, &:hover, &:visited, &link, &:active {
       text-decoration: none;
       color: black;
+    }
+    > .profile-container {
+      position: relative;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      overflow: hidden;
+      > img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    &:hover .dropdown-content {
+      display: block;
+    }
+    > .dropdown-content {
+      display: none;
+      list-style-type: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 100px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 100;
+      > li {
+        padding: 0.5rem;
+      }
+      > li:hover {
+        background-color: #00cc99;
+      }
     }
   }
 `
@@ -93,9 +131,44 @@ export const UpNavMobile = styled.nav`
   > .nav-user {
     margin-left: auto;
     text-decoration: none;
+    color: black;
     &:focus, &:hover, &:visited, &link, &:active {
     text-decoration: none;
     color: black;
+    }
+    > .profile-container {
+      position: relative;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      overflow: hidden;
+      > img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    &:hover .dropdown-content {
+      display: block;
+    }
+    > .dropdown-content {
+      display: none;
+      list-style-type: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 100px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 100;
+      > li {
+        padding: 0.5rem;
+      }
+      > li:hover {
+        background-color: #00cc99;
+      }
     }
   }
 `
@@ -113,24 +186,77 @@ export const DownNavMobile = styled.nav`
     list-style-type: none;
     flex: none;
     padding: 0.5rem;
+    cursor: pointer;
     img {
       width: 2rem;
-    }
-    .click-yes {
-      display: none;
-    }
-    &:hover .click-no {
-      display: none;
-    }
-    &:hover .click-yes {
-      display: block;
     }
   }
 `
 
 export default function Nav () {
+  //redux store에서 꺼내온 값
   const user = useSelector((state:RootState) => state.userInfo.userInfo);
   const isLogin = useSelector((state:RootState) => state.userInfo.isLogin);
+  //dispatch 정의
+  let dispatch :AppDispatch = useDispatch();
+
+  //useHistory 대신 useNavigate사용함
+  const navigate = useNavigate();
+
+  //이미지 바꾸기
+  const [main, setMain] = useState('outline');
+  const [record, setRecord] = useState('outline');
+  const [share, setShare] = useState('outline');
+  const [alarm, setAlarm] = useState('outline');
+  const [chat, setChat] = useState('outline');
+
+  const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
+    const className = e.currentTarget.className;
+    switch(className) {
+      case 'nav-menu main' :
+        navigate('/main');
+        setMain('fill');
+        setRecord('outline');
+        setShare('outline');
+        setAlarm('outline');
+        setChat('outline');
+        break;
+      case 'nav-menu record' :
+        navigate('/record');
+        setMain('outline');
+        setRecord('fill');
+        setShare('outline');
+        setAlarm('outline');
+        setChat('outline');
+        break;
+      case 'nav-menu share' :
+        navigate('/share');
+        setMain('outline');
+        setRecord('outline');
+        setShare('fill');
+        setAlarm('outline');
+        setChat('outline');
+        break;
+      case 'nav-menu alarm' :
+        navigate('/alarm');
+        setMain('outline');
+        setRecord('outline');
+        setShare('outline');
+        setAlarm('fill');
+        setChat('outline');
+        break;
+      case 'nav-menu chat' :
+        navigate('/chat');
+        setMain('outline');
+        setRecord('outline');
+        setShare('outline');
+        setAlarm('outline');
+        setChat('fill');
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
     <div>
@@ -141,7 +267,7 @@ export default function Nav () {
             <img id='logo' src='../logo.png' alt='logo'/>
             근의 공식
           </span>
-            <Link to ='/' className= 'nav-menu'>
+            <Link to ='/main' className= 'nav-menu'>
               <li>
                 메인
               </li>
@@ -167,7 +293,14 @@ export default function Nav () {
               </li>
             </Link>
   {isLogin? <span className='nav-user'>
-              <img src={user.image} alt="users_photo"/>
+              <div className='profile-container'>      
+                <img src={user.image} alt="user_photo"/>
+              </div>
+              <div className='dropdown-content'>
+                <li onClick={()=>navigate('/mypage')}>마이페이지</li>
+                <li onClick={()=>navigate('/profile')}>프로필설정</li>
+                <li onClick={()=>dispatch(LOG_OUT())}>로그아웃</li>
+              </div>
             </span>
           : <Link to='/login' className='nav-user'>
                 <span>
@@ -186,7 +319,14 @@ export default function Nav () {
             근의 공식
           </span>
   {isLogin? <span className='nav-user'>
-              회원정보
+              <div className='profile-container'>      
+                <img src={user.image} alt="user_photo"/>
+              </div>
+              <div className='dropdown-content'>
+                <li onClick={()=>navigate('/mypage')}>마이페이지</li>
+                <li onClick={()=>navigate('/profile')}>프로필설정</li>
+                <li onClick={()=>dispatch(LOG_OUT())}>로그아웃</li>
+              </div>
             </span>
           : <Link to='/login' className='nav-user'>
                 <span>
@@ -198,26 +338,21 @@ export default function Nav () {
       </Head>
       <Foot>
         <DownNavMobile>
-          <Link to='/' className='nav-menu'>
-            <img className="click-no" src="../images/icon_main_outline.png" alt="main"/>
-            <img className="click-yes" src="../images/icon_main_fill.png" alt="main"/>
-          </Link>
-          <Link to='/record' className='nav-menu'>
-            <img className="click-no" src="../images/icon_record_outline.png" alt="record"/>
-            <img className="click-yes" src="../images/icon_record_fill.png" alt="record"/>
-          </Link>
-          <Link to='/share' className='nav-menu'>
-            <img className="click-no" src="../images/icon_share_outline.png" alt="share"/>
-            <img className="click-yes" src="../images/icon_share_fill.png" alt="share"/>
-          </Link>
-          <Link to='/alarm' className='nav-menu'>
-            <img className="click-no" src="../images/icon_alarm_outline.png" alt="alarm"/>
-            <img className="click-yes" src="../images/icon_alarm_fill.png" alt="alarm"/>
-          </Link>
-          <Link to='/chat' className='nav-menu'>
-            <img className="click-no" src="../images/icon_chat_outline.png" alt="chat"/>
-            <img className="click-yes" src="../images/icon_chat_fill.png" alt="chat"/>
-          </Link>
+          <li className='nav-menu main' onClick={handleClick}>
+            <img src={`../images/icon_main_${main}.png`} alt="main"/>
+          </li>
+          <li className='nav-menu record' onClick={handleClick}>
+            <img src={`../images/icon_record_${record}.png`} alt="record"/>
+          </li>
+          <li className='nav-menu share' onClick={handleClick}>
+            <img src={`../images/icon_share_${share}.png`} alt="share"/>
+          </li>
+          <li className='nav-menu alarm' onClick={handleClick}>
+            <img src={`../images/icon_alarm_${alarm}.png`} alt="alarm"/>
+          </li>
+          <li className='nav-menu chat' onClick={handleClick}>
+            <img src={`../images/icon_chat_${chat}.png`} alt="chat"/>
+          </li>
         </DownNavMobile>
       </Foot>
     </Mobile>
