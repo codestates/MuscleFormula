@@ -34,8 +34,8 @@ export const NavPC = styled.nav`
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-bottom-style: solid;
-  border-width: 2px;
+  border-bottom: solid 2px;
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
   > .nav-title {
     flex: none;
     margin-right: 5rem;
@@ -66,6 +66,7 @@ export const NavPC = styled.nav`
     }
   }
   > .nav-user {
+    cursor: pointer;
     margin-left: auto;
     text-decoration: none;
     &:focus, &:hover, &:visited, &link, &:active {
@@ -87,10 +88,10 @@ export const NavPC = styled.nav`
         object-fit: cover;
       }
     }
-    &:hover .dropdown-content {
+    &:hover .nav-user-content {
       display: block;
     }
-    > .dropdown-content {
+    > .nav-user-content {
       display: none;
       list-style-type: none;
       position: absolute;
@@ -106,18 +107,21 @@ export const NavPC = styled.nav`
         background-color: #00cc99;
       }
     }
+    > .nav-user-login:hover {
+      color: #00cc99
+    }
   }
 `
 export const UpNavMobile = styled.nav`
-  height: 4rem;
+  height: 4.5rem;
   padding: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   background: #f2f2f2;
-  border-bottom-style: solid;
-  border-width: 2px;
+  border-bottom: solid 2px;
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
   > .nav-title {
     flex: none;
     margin-right : auto;
@@ -129,6 +133,7 @@ export const UpNavMobile = styled.nav`
     }
   }
   > .nav-user {
+    cursor: pointer;
     margin-left: auto;
     text-decoration: none;
     color: black;
@@ -151,10 +156,10 @@ export const UpNavMobile = styled.nav`
         object-fit: cover;
       }
     }
-    &:hover .dropdown-content {
+    &:hover .nav-user-content {
       display: block;
     }
-    > .dropdown-content {
+    > .nav-user-content {
       display: none;
       list-style-type: none;
       position: absolute;
@@ -170,6 +175,9 @@ export const UpNavMobile = styled.nav`
         background-color: #00cc99;
       }
     }
+    > .nav-user-login:hover {
+      color: #00cc99
+    }
   }
 `
 export const DownNavMobile = styled.nav`
@@ -182,6 +190,7 @@ export const DownNavMobile = styled.nav`
   background: #f2f2f2;
   border-bottom-style: solid;
   border-width: 2px;
+  box-shadow: 0px -3px 10px 0px rgba(0,0,0,0.2);
   > .nav-menu {
     list-style-type: none;
     flex: none;
@@ -296,14 +305,14 @@ export default function Nav () {
               <div className='profile-container'>      
                 <img src={user.image} alt="user_photo"/>
               </div>
-              <div className='dropdown-content'>
+              <div className='nav-user-content'>
                 <li onClick={()=>navigate('/mypage')}>마이페이지</li>
                 <li onClick={()=>navigate('/profile')}>프로필설정</li>
                 <li onClick={()=>dispatch(LOG_OUT())}>로그아웃</li>
               </div>
             </span>
           : <Link to='/login' className='nav-user'>
-                <span>
+                <span className='nav-user-login'>
                   로그인
                 </span>
             </Link>
@@ -322,14 +331,14 @@ export default function Nav () {
               <div className='profile-container'>      
                 <img src={user.image} alt="user_photo"/>
               </div>
-              <div className='dropdown-content'>
+              <div className='nav-user-content'>
                 <li onClick={()=>navigate('/mypage')}>마이페이지</li>
                 <li onClick={()=>navigate('/profile')}>프로필설정</li>
                 <li onClick={()=>dispatch(LOG_OUT())}>로그아웃</li>
               </div>
             </span>
           : <Link to='/login' className='nav-user'>
-                <span>
+                <span className='nav-user-login'>
                   로그인
                 </span>
             </Link>
