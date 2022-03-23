@@ -1,3 +1,4 @@
+
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import dotenv from "dotenv";
@@ -13,29 +14,18 @@ let todaySring =
   "-" +
   (today.getMonth() + 1) +
   "-" +
-  (today.getDate() + 1);
+  (today.getDate() + 2);
 module.exports = async (req: Request, res: Response) => {
   const { user_id, record } = req.body;
 
-  //   const user = await getRepository(Users).findOne({
-  //     relations: ["profile"],
-  //     where: { id: user_id },
-  //   });
   const user = await getRepository(Users).findOne({
-    relations: ["ex_records"],
     where: { id: user_id },
   });
 
-  //console.log("유저입니다", user);
+  console.log("user :", user);
   if (!user) {
     return res.status(404).json({ message: "계정이 존재하지 않습니다" });
-  } else if (user) {
-    const findExRecord = await getRepository(Ex_Records).findOne({
-      relations: ["records_", "users"],
-      where: { users: user_id, created_at: todaySring },
-    });
-    //console.log("유저2", findExRecord);
-    if (!findExRecord) {
+  } else {
       const makeExRecord = Ex_Records.create({
         users: user_id,
         created_at: todaySring,
@@ -46,7 +36,7 @@ module.exports = async (req: Request, res: Response) => {
       } catch (err) {
         console.log("err발생", err);
       }
-    }
+    
   }
   const findrecord = await getRepository(Ex_Records).findOne({
     relations: ["users", "records_"],
