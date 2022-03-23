@@ -3,7 +3,7 @@ export default function Maypage() {
   console.log('마이페이지입니다')
   return (
     <div>
-      
+
     </div>
   )
 }
