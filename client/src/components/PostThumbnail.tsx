@@ -36,17 +36,17 @@ export const Postthumb = styled.div`
 export default function PostThumbnail() {
   return (
     <Postthumb>
-      <img src={require("../images/photo_postthumb.jpg")} alt="post_image"/>
+      <img src="../images/photo_postthumb.jpg" alt="post_image"/>
       <div id="title-container">
         <span className="post-title">제목입니다</span>
         <span className="post-likes">
-          <img src={require("../images/icon_heart_fill.png")} alt="likes"/>
+          <img src="../images/icon_heart_fill.png" alt="likes"/>
           100
         </span>
         <span className="post-comments">💬 2</span>
       </div>
       <div id="profile-container">
-        <img src={require("../images/photo_defaultuser.png")} alt="profile_image"/>
+        <img src="../images/photo_defaultuser.png" alt="profile_image"/>
         <strong>
           닉네임
         </strong>
