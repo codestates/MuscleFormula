@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+  border: 3px solid red;
+  padding: 10px;
+}
+
+#LoginPage {
+  /* 화면 중앙으로 만들기 */
+  border: 3px solid green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+#innerBox {
+  height: 60vh;
+  width: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-content: space-evenly;
+}
+#innerBox > img {
+  /* height: 70px; */
+}
+
+.userLonginInfo {
+  /* background-color: red; */
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.userLonginInfo > div > input {
+  /* margin: 30px 10px; */
+  margin-left: 10px;
+}
+
+.userId {
+  display: flex;
+}
+.userId > div {
+  width: 90px;
+  text-align: center;
+}
+
+.userPassword {
+  display: flex;
+}
+.userPassword > div {
+  width: 90px;
+  text-align: center;
+}
+
+.userNick {
+  display: flex;
+}
+.userNick > div {
+  width: 90px;
+  text-align: center;
+}
+.userNick > button {
+  margin-left: 5px;
+  size: 5px;
+}

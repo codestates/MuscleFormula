@@ -5,7 +5,9 @@ import Footer from './components/Footer';
 import Nav from './components/Nav';
 import Main from './pages/Main';
 import Login from './pages/Login';
+import LoginTest from './pages/LoginTest';
 import Signup from './pages/Signup';
+import SignupTest from './pages/SignupTest';
 import ReducerTest from './test/ReducerTest';
 import RecordShare from './pages/RecordShare';
 import Record from './pages/Record';
@@ -20,7 +22,9 @@ const App: React.FC = () => {
     <Routes>
         <Route path="/main" element={<Main/>} />
         <Route path="/login" element={<Login />} />
+        <Route path="/logintest" element={<LoginTest />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/signuptest" element={<SignupTest />} />
         <Route path="/mypage" element={<Maypage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/record" element={<Record />} />
@@ -29,7 +33,7 @@ const App: React.FC = () => {
         <Route path="/chat" element={<Chat/>} />
         <Route path="/test" element={<ReducerTest/>} />
       </Routes>
-    <Nav/>
+    {/* <Nav/>  */}
   </div>
   )
 };
