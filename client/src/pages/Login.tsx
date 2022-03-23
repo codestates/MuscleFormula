@@ -109,7 +109,7 @@ export default function Login() {
   };
   //input 값 설정
 
-  const serverURL = 'http://localhost:8080'
+  const serverURL = 'http://localhost:4000'
 
   const handleGuestLogin = () => {
     const url = `${serverURL}/login`;
