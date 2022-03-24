@@ -6,7 +6,7 @@ export default function Login() {
   return (
     <div className="flex_container">
       <div className="login">
-        <img src={"../images/logo.png"} width="220px" alt="logo" />
+        <img src="../logo.png" width="220px" alt="logo" />
       </div>
       <div className="col-center LoginWrapper">
         <h2>로그인 </h2>
