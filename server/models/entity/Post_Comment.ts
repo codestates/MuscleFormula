@@ -18,9 +18,15 @@ export class Post_Comments extends BaseEntity {
   @Column()
   created_At: Date;
 
-  @ManyToOne((type) => Users, (e) => e.post_comments)
+  @ManyToOne((type) => Users, (e) => e.post_comments, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
   users: Users;
 
-  @ManyToOne((type) => Posts, (e) => e.post_comments)
+  @ManyToOne((type) => Posts, (e) => e.post_comments, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
   post: Posts;
 }

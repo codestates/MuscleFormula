@@ -30,9 +30,9 @@ module.exports = async (req: Request, res: Response) => {
     res.status(200).cookie("refreshToken", refeshToken, {
       domain: "localhost",
       path: "/",
-      // sameSite:"none",
-      // httpOnly:true,
-      // secure:true
+      sameSite: "none",
+      httpOnly: true,
+      //secure: true,
     });
     res.json({
       message: "login Success",

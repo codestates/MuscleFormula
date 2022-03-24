@@ -8,9 +8,15 @@ export class Post_Likes extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => Users, (e) => e.post_likes)
+  @ManyToOne((type) => Users, (e) => e.post_likes, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
   users: Users;
 
-  @ManyToOne((type) => Posts, (e) => e.post_likes)
+  @ManyToOne((type) => Posts, (e) => e.post_likes, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
   post: Posts;
 }
