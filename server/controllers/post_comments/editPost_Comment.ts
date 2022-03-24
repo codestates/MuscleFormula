@@ -5,18 +5,17 @@ import { Users } from "../../models/entity/User";
 import { Posts } from "../../models/entity/Post";
 import { Post_Comments } from "../../models/entity/Post_Comment";
 
-
 dotenv.config();
 let today = new Date(Date.now());
-let todaySring= (today.getFullYear()+"-"+(today.getMonth()+1)+"-"+(today.getDate()+1))
+let todaySring =
+  today.getFullYear() +
+  "-" +
+  (today.getMonth() + 1) +
+  "-" +
+  (today.getDate() + 1);
 module.exports = async (req: Request, res: Response) => {
-  const { userId, 
-    postId, 
-    postCommentId,
-    comment
-  } = req.body;
+  const { userId, postId, postCommentId, comment } = req.body;
   console.log("makePost_Commets : ", req.body);
-
 
   // const user = await getRepository(Users).findOne({
   //   where: { id:userId },
@@ -25,12 +24,10 @@ module.exports = async (req: Request, res: Response) => {
   //   where: { id:postId },
   // });
   const postCommnet = await getRepository(Post_Comments).findOne({
-    where: { id:postCommentId },
+    where: { id: postCommentId },
   });
 
-
   if (postCommnet) {
-    
     // const post = new Posts();
     // (post.title = postTitle),
     // (post.info = info),
@@ -43,14 +40,13 @@ module.exports = async (req: Request, res: Response) => {
     // (post.post_comments = []),
     // (post.post_likes = []);
 
- 
-      postCommnet.comment= comment;
+    postCommnet.comment = comment;
 
     try {
       await postCommnet.save();
       // await post.save();
       const allPost_Comment = await getRepository(Post_Comments).find({
-        relations: ["users","post"]
+        relations: ["users", "post"],
       });
       console.log("allPost_Comment:", allPost_Comment);
       res.status(200).json({ message: `코멘트 수정 성공` });

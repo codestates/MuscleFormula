@@ -56,11 +56,10 @@ module.exports = async (req: Request, res: Response) => {
   // console.log(findrecord);
   if (findrecord) {
     record.forEach(async (item) => {
-
       const recode = await getRepository(Records).findOne({
         // relations: ["records_", "users"],
         where: { genre: item.genre },
-      });  
+      });
       if (!recode) {
         const createed = Records.create({
           records_: findrecordId,
@@ -71,14 +70,13 @@ module.exports = async (req: Request, res: Response) => {
         });
         await createed.save();
       } else {
-        recode.records_= findrecordId,
-        recode.genre= item.genre,
-        recode.count= item.count,
-        recode.weight= item.weight,
-        recode.time_record= item.time_record,
-        await recode.save();
+        (recode.records_ = findrecordId),
+          (recode.genre = item.genre),
+          (recode.count = item.count),
+          (recode.weight = item.weight),
+          (recode.time_record = item.time_record),
+          await recode.save();
       }
-      
     });
     setTimeout(async () => {
       const returndata = await getRepository(Records).find({

@@ -6,7 +6,7 @@ const kakao = require("../controllers/login/kakaoOauth");
 import express from "express";
 const loginrouter = express.Router();
 
-loginrouter.get("/login", emaillogin);
+loginrouter.post("/login", emaillogin);
 loginrouter.post("/logout", logout);
 loginrouter.get("/googleoauth", google);
 loginrouter.get("/kakaooauth", kakao);

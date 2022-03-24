@@ -14,10 +14,10 @@ createConnection()
   .catch((err) => console.log("mysql connected ERR:", err));
 
 const app = express();
-
+const client = "http://localhost:3000";
 const corsOption = {
-  Header: { "content-type": "application/json" },
-  origin: true,
+  Headers: { "content-type": "application/json" },
+  origin: [`${client}`],
   method: ["post", "get", "delete", "options", "put"],
   credentials: true,
 };
