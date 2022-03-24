@@ -14,7 +14,7 @@ createConnection()
   .catch((err) => console.log("mysql connected ERR:", err));
 
 const app = express();
-const client = "http://localhost:3000";
+const client = "https://ed33-112-168-33-55.ngrok.io";
 const corsOption = {
   Headers: { "content-type": "application/json" },
   origin: [`${client}`],

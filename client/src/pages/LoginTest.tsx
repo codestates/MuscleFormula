@@ -103,9 +103,9 @@ export default function LoginTest() {
       password: userPassword,
     };
     console.log("login info : ", loginUserinfo);
-    let serverURL = "http://localhost:4000";
+    let serverURL = "https://021c-112-168-33-55.ngrok.io";
 
-    axios.post(`${serverURL}/login`, loginUserinfo).then((res) => {
+    axios.post(`${serverURL}/sign/in`, loginUserinfo).then((res) => {
       console.log("받은 유저정보:", res);
       console.log("받은 유저정보:", res);
 
