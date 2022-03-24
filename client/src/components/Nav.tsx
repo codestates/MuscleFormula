@@ -34,7 +34,6 @@ export const NavPC = styled.nav`
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-bottom: solid 2px;
   box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
   > .nav-title {
     flex: none;
@@ -120,7 +119,6 @@ export const UpNavMobile = styled.nav`
   justify-content: space-between;
   align-items: center;
   background: #f2f2f2;
-  border-bottom: solid 2px;
   box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
   > .nav-title {
     flex: none;
