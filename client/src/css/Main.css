@@ -1,7 +1,6 @@
 #main-container {
   margin-top: 5rem;
   margin-bottom: 4rem;
-  padding: 1rem;
   display: flex;
   flex-direction:column;
   justify-content: center;
@@ -14,10 +13,10 @@
 #search-container {
   display: flex;
   justify-content: center;
-  width: 100vw;
-  padding-bottom: 0.5rem;
+  width: 100%;
+  padding-bottom: 0.2rem;
   position: sticky;
-  top: 4.5rem;
+  top: 4.4rem;
   background-color: white;
   z-index: 100;
 }
