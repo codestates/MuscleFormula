@@ -1,0 +1,87 @@
+p,
+div {
+  font-family: "IBM Plex Sans KR", sans-serif;
+}
+
+form {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  border: solid purple;
+}
+.flex_container {
+  display: flex;
+
+  flex-direction: column;
+  width: 100%;
+  height: 300%;
+  border: solid 1px black;
+}
+.login {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: solid green;
+}
+.login > img {
+  margin-top: 5rem;
+  display: flex;
+}
+
+.col-center {
+  display: flex;
+  align-items: center;
+  flex: 1 0 auto;
+  border: 1px solid red;
+}
+
+.login-wrapper {
+  /* position: relative; */
+  margin: 100px auto 0 auto;
+
+  padding: 50px 26px;
+  width: 480px;
+  border: 1px solid black;
+  background: white;
+  box-sizing: border-box;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+}
+footer {
+  margin: 1em;
+  border: dashed blue;
+  margin: 1em;
+  height: 50%;
+  width: 100%;
+}
+
+.LoginWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+.LoginWrapper h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  margin-top: -15px;
+  color: #444;
+}
+.login-wrapper input {
+  margin-bottom: 10px;
+  border: dashed black;
+}
+
+.login-wrapper button {
+  float: right;
+}
+.login-wrapper footer {
+  display: flex;
+  margin-top: 20px;
+}
+.login-wrapper button:hover {
+  background-color: orangered;
+  color: #fff;
+}
