@@ -1,4 +1,3 @@
-
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import dotenv from "dotenv";
@@ -26,17 +25,16 @@ module.exports = async (req: Request, res: Response) => {
   if (!user) {
     return res.status(404).json({ message: "계정이 존재하지 않습니다" });
   } else {
-      const makeExRecord = Ex_Records.create({
-        users: user_id,
-        created_at: todaySring,
-      });
-      try {
-        await makeExRecord.save();
-        // console.log("??", makeExRecord);
-      } catch (err) {
-        console.log("err발생", err);
-      }
-    
+    const makeExRecord = Ex_Records.create({
+      users: user_id,
+      created_at: todaySring,
+    });
+    try {
+      await makeExRecord.save();
+      // console.log("??", makeExRecord);
+    } catch (err) {
+      console.log("err발생", err);
+    }
   }
   const findrecord = await getRepository(Ex_Records).findOne({
     relations: ["users", "records_"],

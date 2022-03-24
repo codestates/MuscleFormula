@@ -12,10 +12,9 @@ const readAllPost_Comment = require("../controllers/post_comments/readPost_Comme
 const editPost_Comment = require("../controllers/post_comments/editPost_Comment");
 const deletePost_Comment = require("../controllers/post_comments/deletePost_Comment");
 
-const makePost_Like= require("../controllers/post_like/makePost_Like");
-const readAllPost_Like= require("../controllers/post_like/readPost_Like");
-const deletePost_Like= require("../controllers/post_like/deletePost_Like");
-
+const makePost_Like = require("../controllers/post_like/makePost_Like");
+const readAllPost_Like = require("../controllers/post_like/readPost_Like");
+const deletePost_Like = require("../controllers/post_like/deletePost_Like");
 
 //post
 postrouter.post("/", makePost);
@@ -34,6 +33,5 @@ postrouter.delete("/comment", deletePost_Comment);
 postrouter.post("/like", makePost_Like);
 // postrouter.get("/like", readAllPost_Like);
 postrouter.delete("/like", deletePost_Like);
-
 
 export default postrouter;

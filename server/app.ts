@@ -16,7 +16,7 @@ createConnection()
 const app = express();
 
 const corsOption = {
-  Header: { "content-type": "application/json" },
+  Headers: { "content-type": "application/json" },
   origin: true,
   method: ["post", "get", "delete", "options", "put"],
   credentials: true,
@@ -30,7 +30,7 @@ app.use(
     extended: true,
   })
 );
-app.use("/", loginrouter);
+app.use("/sign", loginrouter);
 app.use("/users", userRouter);
 app.use("/posts", postrouter);
 app.get("/", (req, res) => {

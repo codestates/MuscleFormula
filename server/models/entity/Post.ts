@@ -16,11 +16,11 @@ export class Posts extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  title:string;
+  title: string;
   @Column()
   info: string;
   @Column({
-    default:0
+    default: 0,
   })
   total_Likes: number;
   @Column()
@@ -34,7 +34,10 @@ export class Posts extends BaseEntity {
   @Column()
   image: string;
 
-  @ManyToOne((type) => Users, (e) => e.posts)
+  @ManyToOne((type) => Users, (e) => e.posts, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
   users: Users;
 
   @OneToMany((type) => Post_Comments, (e) => e.post)
