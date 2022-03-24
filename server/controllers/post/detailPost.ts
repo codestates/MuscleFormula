@@ -8,7 +8,7 @@ dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
   const { postId } = req.body;
-  console.log("makePost body : ", req.body);
+  //console.log("makePost body : ", req.body);
 
   const detailPost = await getRepository(Posts).findOne({
     relations: ["post_comments", "post_likes", "users"],

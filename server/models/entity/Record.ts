@@ -24,6 +24,9 @@ export class Records extends BaseEntity {
   time_record: string;
   @Column()
   weight: number;
-  @ManyToOne((type) => Ex_Records, (e) => e.records_)
+  @ManyToOne((type) => Ex_Records, (e) => e.records_, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
   records_: Ex_Records;
 }

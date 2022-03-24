@@ -1,20 +1,17 @@
-const signup = require("../controllers/user/signup");
-const login = require("../controllers/login/emailLogin");
+import express from "express";
 const editUserInfo = require("../controllers/user/editUserInfo");
 const deleteUserInfo = require("../controllers/user/deleteUserInfo");
-
+const readMypage = require("../controllers/user/readMypage");
 const createUserExRecord = require("../controllers/user_record/createUserExRecord");
 const readUserExRecord = require("../controllers/user_record/readUserExRecord");
 const editUserExRecord = require("../controllers/user_record/editUserExRecord");
 const deleteUserExRecord = require("../controllers/user_record/deleteUserExRecord");
 
-import express from "express";
 const userRouter = express.Router();
 
-//유저정보
-userRouter.post("/signup", signup);
-userRouter.put("/editUserInfo", editUserInfo);
-userRouter.delete("/deleteUserInfo", deleteUserInfo);
+userRouter.get("/mypage", readMypage);
+userRouter.put("/", editUserInfo);
+userRouter.delete("/", deleteUserInfo);
 
 // user Records
 userRouter.post("/record", createUserExRecord);

@@ -18,7 +18,10 @@ export class Ex_Records extends BaseEntity {
   id: number;
   @Column()
   created_at: Date;
-  @ManyToOne((type) => Users, (e) => e.ex_records)
+  @ManyToOne((type) => Users, (e) => e.ex_records, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
   users: Users;
   @OneToMany((type) => Records, (e) => e.records_)
   records_: Records[];

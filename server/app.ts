@@ -30,7 +30,7 @@ app.use(
     extended: true,
   })
 );
-app.use("/", loginrouter);
+app.use("/sign", loginrouter);
 app.use("/users", userRouter);
 app.use("/posts", postrouter);
 app.get("/", (req, res) => {
