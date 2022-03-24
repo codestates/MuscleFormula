@@ -103,7 +103,7 @@ export default function LoginTest() {
       password: userPassword,
     };
     console.log("login info : ", loginUserinfo);
-    let serverURL = "https://d6eb-112-168-33-55.ngrok.io";
+    let serverURL = "https://a404-112-168-33-55.ngrok.io";
 
     axios.post(`${serverURL}/sign/in`, loginUserinfo, { withCredentials:true }).then((res) => {
       console.log("받은 유저정보:", res);
