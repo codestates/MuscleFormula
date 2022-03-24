@@ -105,20 +105,22 @@ export default function LoginTest() {
     console.log("login info : ", loginUserinfo);
     let serverURL = "http://localhost:4000";
 
-    axios.post(`${serverURL}/login`, loginUserinfo).then((res) => {
-      console.log("받은 유저정보:", res);
-      console.log("받은 유저정보:", res);
+    axios
+      .post(`${serverURL}/sign/in`, loginUserinfo, { withCredentials: true })
+      .then((res) => {
+        console.log("받은 유저정보:", res);
+        console.log("받은 유저정보:", res);
 
-      const { id, image, nickname } = res.data.user;
-      dispatch(
-        LOG_IN({
-          id,
-          nickname,
-          image,
-        })
-      );
-      navigate("/main");
-    });
+        const { id, image, nickname } = res.data.user;
+        dispatch(
+          LOG_IN({
+            id,
+            nickname,
+            image,
+          })
+        );
+        navigate("/main");
+      });
   };
 
   const changeEmail = (e: string | any) => {

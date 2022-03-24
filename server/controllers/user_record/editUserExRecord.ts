@@ -24,51 +24,6 @@ module.exports = async (req: Request, res: Response) => {
       relations: ["ex_records"],
       where: { id: user_id },
     });
-<<<<<<< HEAD
-    //console.log("유저2", findExRecord);
-    if (!findExRecord) {
-      const makeExRecord = Ex_Records.create({
-        users: user_id,
-        created_at: todaySring,
-      });
-      try {
-        await makeExRecord.save();
-        // console.log("??", makeExRecord);
-      } catch (err) {
-        console.log("err발생", err);
-      }
-    }
-  }
-  const findrecord = await getRepository(Ex_Records).findOne({
-    relations: ["users", "records_"],
-    where: { users: user_id, created_at: todaySring },
-  });
-  let findrecordId: any = findrecord?.id;
-  // console.log(findrecord);
-  if (findrecord) {
-    record.forEach(async (item) => {
-      const recode = await getRepository(Records).findOne({
-        // relations: ["records_", "users"],
-        where: { genre: item.genre },
-      });
-      if (!recode) {
-        const createed = Records.create({
-          records_: findrecordId,
-          genre: item.genre,
-          count: item.count,
-          weight: item.weight,
-          time_record: item.time_record,
-        });
-        await createed.save();
-      } else {
-        (recode.records_ = findrecordId),
-          (recode.genre = item.genre),
-          (recode.count = item.count),
-          (recode.weight = item.weight),
-          (recode.time_record = item.time_record),
-          await recode.save();
-      }
-=======
 
     //console.log("유저입니다", user);
     if (!user) {
@@ -96,7 +51,6 @@ module.exports = async (req: Request, res: Response) => {
     const findrecord = await getRepository(Ex_Records).findOne({
       relations: ["users", "records_"],
       where: { users: user_id, created_at: req.query.date },
->>>>>>> 33b29b60c1dca6ba1cd96ed220eb6db01862ca80
     });
     let findrecordId: any = findrecord?.id;
     console.log("핵심", findrecord?.users.email);
