@@ -116,11 +116,17 @@ export default function LoginTest() {
     let serverURL = "http://localhost:4000";
 
     axios
-      .post(`${serverURL}/users/signup`, {
-        email: userEmail,
-        nickname: userNickname,
-        password: userPassword,
-      })
+      .post(
+        `${serverURL}/sign/up`,
+        {
+          email: userEmail,
+          nickname: userNickname,
+          password: userPassword,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         console.log(res);
       });

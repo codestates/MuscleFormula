@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
 module.exports = async (req: Request, res: Response) => {
-  if (req.headers.token || req.cookies.token) {
-    delete req.headers.token;
-    res.clearCookie("token");
+  if (req.headers.authorization || req.cookies.refreshToken) {
+    delete req.headers.authorization;
+    res.clearCookie("refreshToken");
     res.status(200).json({ message: "logout Success" });
   } else {
   }

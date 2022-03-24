@@ -14,12 +14,12 @@ createConnection()
   .catch((err) => console.log("mysql connected ERR:", err));
 
 const app = express();
-const client = "https://ed33-112-168-33-55.ngrok.io";
+const client = "https://gg-one-delta.vercel.app";
+const local = "http://localhost:3000";
 const corsOption = {
-  Headers: { "content-type": "application/json" },
-  origin: [`${client}`],
-  method: ["post", "get", "delete", "options", "put"],
+  origin: [`${local}`],
   credentials: true,
+  methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
 };
 
 app.use(cors(corsOption));
