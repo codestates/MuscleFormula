@@ -5,27 +5,26 @@ import { Users } from "../../models/entity/User";
 import { Posts } from "../../models/entity/Post";
 import { Post_Comments } from "../../models/entity/Post_Comment";
 
-
 dotenv.config();
 let today = new Date(Date.now());
-let todaySring= (today.getFullYear()+"-"+(today.getMonth()+1)+"-"+(today.getDate()+1))
+let todaySring =
+  today.getFullYear() +
+  "-" +
+  (today.getMonth() + 1) +
+  "-" +
+  (today.getDate() + 1);
 module.exports = async (req: Request, res: Response) => {
-  const { userId, 
-    postId, 
-    comment,
-  } = req.body;
+  const { userId, postId, comment } = req.body;
   console.log("makePost_Commets : ", req.body);
 
-
   const user = await getRepository(Users).findOne({
-    where: { id:userId },
+    where: { id: userId },
   });
   const post = await getRepository(Posts).findOne({
-    where: { id:postId },
+    where: { id: postId },
   });
 
   if (user) {
-    
     // const post = new Posts();
     // (post.title = postTitle),
     // (post.info = info),
@@ -40,16 +39,16 @@ module.exports = async (req: Request, res: Response) => {
 
     const created = Post_Comments.create({
       comment: comment,
-      created_At : todaySring,
-      users : user,
-      post : post,
+      created_At: todaySring,
+      users: user,
+      post: post,
     });
 
     try {
       await created.save();
       // await post.save();
       const allPost_Comment = await getRepository(Post_Comments).find({
-        relations: ["users","post"]
+        relations: ["users", "post"],
       });
       console.log("allPost_Comment:", allPost_Comment);
       res.status(200).json({ message: `코멘트 생성 성공` });
@@ -57,6 +56,8 @@ module.exports = async (req: Request, res: Response) => {
       console.log("comment 생성 실패", e);
     }
   } else {
-    res.status(404).json({ message: `해당 유저가 존재하지 않습니다(id가잘못됨)` });
+    res
+      .status(404)
+      .json({ message: `해당 유저가 존재하지 않습니다(id가잘못됨)` });
   }
 };

@@ -1,14 +1,14 @@
 //state 관리
-import { useState } from 'react';
+import { useState } from "react";
 //redux
-import { useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch} from '../store'
-import { LOG_OUT } from '../reducer/userInfoReducer';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../store";
+import { LOG_OUT } from "../reducer/userInfoReducer";
 //style
-import { Mobile, PC } from '../mediaQuery';
+import { Mobile, PC } from "../mediaQuery";
 import styled from "styled-components";
 //router
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 export const Head = styled.header`
   position: fixed;
@@ -17,7 +17,7 @@ export const Head = styled.header`
   right: 0;
   font-size: 18px;
   color: black;
-`
+`;
 export const Foot = styled.header`
   position: fixed;
   bottom: 0;
@@ -25,21 +25,21 @@ export const Foot = styled.header`
   right: 0;
   font-size: 18px;
   color: black;
-`
+`;
 
 export const NavPC = styled.nav`
   height: 5rem;
   padding: 1rem;
-  background : #f2f2f2;
+  background: #f2f2f2;
   display: flex;
   flex-direction: row;
   align-items: center;
-  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
   > .nav-title {
     flex: none;
     margin-right: 5rem;
     font-size: 2rem;
-    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-family: "IBM Plex Sans KR", sans-serif;
     > #logo {
       width: 50px;
       vertical-align: middle;
@@ -49,7 +49,11 @@ export const NavPC = styled.nav`
     list-style-type: none;
     text-decoration: none;
     color: black;
-    &:focus, &:hover, &:visited, &link, &:active {
+    &:focus,
+    &:hover,
+    &:visited,
+    &link,
+    &:active {
       text-decoration: none;
       color: black;
     }
@@ -68,7 +72,11 @@ export const NavPC = styled.nav`
     cursor: pointer;
     margin-left: auto;
     text-decoration: none;
-    &:focus, &:hover, &:visited, &link, &:active {
+    &:focus,
+    &:hover,
+    &:visited,
+    &link,
+    &:active {
       text-decoration: none;
       color: black;
     }
@@ -97,7 +105,7 @@ export const NavPC = styled.nav`
       right: 0;
       background-color: white;
       min-width: 100px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 100;
       > li {
         padding: 0.5rem;
@@ -107,10 +115,10 @@ export const NavPC = styled.nav`
       }
     }
     > .nav-user-login:hover {
-      color: #00cc99
+      color: #00cc99;
     }
   }
-`
+`;
 export const UpNavMobile = styled.nav`
   height: 4.5rem;
   padding: 1rem;
@@ -119,12 +127,12 @@ export const UpNavMobile = styled.nav`
   justify-content: space-between;
   align-items: center;
   background: #f2f2f2;
-  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
   > .nav-title {
     flex: none;
-    margin-right : auto;
+    margin-right: auto;
     font-size: 1.5rem;
-    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-family: "IBM Plex Sans KR", sans-serif;
     > #logo {
       width: 50px;
       vertical-align: middle;
@@ -135,9 +143,13 @@ export const UpNavMobile = styled.nav`
     margin-left: auto;
     text-decoration: none;
     color: black;
-    &:focus, &:hover, &:visited, &link, &:active {
-    text-decoration: none;
-    color: black;
+    &:focus,
+    &:hover,
+    &:visited,
+    &link,
+    &:active {
+      text-decoration: none;
+      color: black;
     }
     > .profile-container {
       position: relative;
@@ -164,7 +176,7 @@ export const UpNavMobile = styled.nav`
       right: 0;
       background-color: white;
       min-width: 100px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 100;
       > li {
         padding: 0.5rem;
@@ -174,10 +186,10 @@ export const UpNavMobile = styled.nav`
       }
     }
     > .nav-user-login:hover {
-      color: #00cc99
+      color: #00cc99;
     }
   }
-`
+`;
 export const DownNavMobile = styled.nav`
   height: 4rem;
   padding: 1rem;
@@ -188,7 +200,7 @@ export const DownNavMobile = styled.nav`
   background: #f2f2f2;
   border-bottom-style: solid;
   border-width: 2px;
-  box-shadow: 0px -3px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px -3px 10px 0px rgba(0, 0, 0, 0.2);
   > .nav-menu {
     list-style-type: none;
     flex: none;
@@ -198,171 +210,161 @@ export const DownNavMobile = styled.nav`
       width: 2rem;
     }
   }
-`
+`;
 
-export default function Nav () {
+export default function Nav() {
   //redux store에서 꺼내온 값
-  const user = useSelector((state:RootState) => state.userInfo.userInfo);
-  const isLogin = useSelector((state:RootState) => state.userInfo.isLogin);
+  const user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
   //dispatch 정의
-  let dispatch :AppDispatch = useDispatch();
+  let dispatch: AppDispatch = useDispatch();
 
   //useHistory 대신 useNavigate사용함
   const navigate = useNavigate();
 
   //이미지 바꾸기
-  const [main, setMain] = useState('outline');
-  const [record, setRecord] = useState('outline');
-  const [share, setShare] = useState('outline');
-  const [alarm, setAlarm] = useState('outline');
-  const [chat, setChat] = useState('outline');
+  const [main, setMain] = useState("outline");
+  const [record, setRecord] = useState("outline");
+  const [share, setShare] = useState("outline");
+  const [alarm, setAlarm] = useState("outline");
+  const [chat, setChat] = useState("outline");
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const className = e.currentTarget.className;
-    switch(className) {
-      case 'nav-menu main' :
-        navigate('/main');
-        setMain('fill');
-        setRecord('outline');
-        setShare('outline');
-        setAlarm('outline');
-        setChat('outline');
+    switch (className) {
+      case "nav-menu main":
+        navigate("/main");
+        setMain("fill");
+        setRecord("outline");
+        setShare("outline");
+        setAlarm("outline");
+        setChat("outline");
         break;
-      case 'nav-menu record' :
-        navigate('/record');
-        setMain('outline');
-        setRecord('fill');
-        setShare('outline');
-        setAlarm('outline');
-        setChat('outline');
+      case "nav-menu record":
+        navigate("/record");
+        setMain("outline");
+        setRecord("fill");
+        setShare("outline");
+        setAlarm("outline");
+        setChat("outline");
         break;
-      case 'nav-menu share' :
-        navigate('/share');
-        setMain('outline');
-        setRecord('outline');
-        setShare('fill');
-        setAlarm('outline');
-        setChat('outline');
+      case "nav-menu share":
+        navigate("/share");
+        setMain("outline");
+        setRecord("outline");
+        setShare("fill");
+        setAlarm("outline");
+        setChat("outline");
         break;
-      case 'nav-menu alarm' :
-        navigate('/alarm');
-        setMain('outline');
-        setRecord('outline');
-        setShare('outline');
-        setAlarm('fill');
-        setChat('outline');
+      case "nav-menu alarm":
+        navigate("/alarm");
+        setMain("outline");
+        setRecord("outline");
+        setShare("outline");
+        setAlarm("fill");
+        setChat("outline");
         break;
-      case 'nav-menu chat' :
-        navigate('/chat');
-        setMain('outline');
-        setRecord('outline');
-        setShare('outline');
-        setAlarm('outline');
-        setChat('fill');
+      case "nav-menu chat":
+        navigate("/chat");
+        setMain("outline");
+        setRecord("outline");
+        setShare("outline");
+        setAlarm("outline");
+        setChat("fill");
         break;
       default:
         break;
     }
-  }
+  };
 
   return (
     <div>
-    <PC>
-      <Head>
-        <NavPC>
-          <span className='nav-title'>
-            <img id='logo' src='../logo.png' alt='logo'/>
-            근의 공식
-          </span>
-            <Link to ='/main' className= 'nav-menu'>
-              <li>
-                메인
-              </li>
-            </Link>
-            <Link to ='/record' className= 'nav-menu'>
-              <li>
-                운동기록
-              </li>
-            </Link>
-            <Link to ='/share' className= 'nav-menu'>
-              <li>
-                공유하기
-              </li>
-            </Link>
-            <Link to ='/alarm' className='nav-menu'>
-              <li>
-                알림
-              </li>
-            </Link>
-            <Link to='/chat' className='nav-menu'>
-              <li>
-                채팅
-              </li>
-            </Link>
-  {isLogin? <span className='nav-user'>
-              <div className='profile-container'>      
-                <img src={user.image} alt="user_photo"/>
-              </div>
-              <div className='nav-user-content'>
-                <li onClick={()=>navigate('/mypage')}>마이페이지</li>
-                <li onClick={()=>navigate('/profile')}>프로필설정</li>
-                <li onClick={()=>dispatch(LOG_OUT())}>로그아웃</li>
-              </div>
+      <PC>
+        <Head>
+          <NavPC>
+            <span className="nav-title">
+              <img id="logo" src="../logo.png" alt="logo" />
+              근의 공식
             </span>
-          : <Link to='/login' className='nav-user'>
-                <span className='nav-user-login'>
-                  로그인
-                </span>
+            <Link to="/main" className="nav-menu">
+              <li>메인</li>
             </Link>
-  }
-        </NavPC>
-      </Head>
-    </PC>
-    <Mobile>
-      <Head>
-        <UpNavMobile>
-          <span className='nav-title'>
-            <img id='logo' src='../logo.png' alt='logo'/>
-            근의 공식
-          </span>
-  {isLogin? <span className='nav-user'>
-              <div className='profile-container'>      
-                <img src={user.image} alt="user_photo"/>
-              </div>
-              <div className='nav-user-content'>
-                <li onClick={()=>navigate('/mypage')}>마이페이지</li>
-                <li onClick={()=>navigate('/profile')}>프로필설정</li>
-                <li onClick={()=>dispatch(LOG_OUT())}>로그아웃</li>
-              </div>
+            <Link to="/record" className="nav-menu">
+              <li>운동기록</li>
+            </Link>
+            <Link to="/share" className="nav-menu">
+              <li>공유하기</li>
+            </Link>
+            <Link to="/alarm" className="nav-menu">
+              <li>알림</li>
+            </Link>
+            <Link to="/chat" className="nav-menu">
+              <li>채팅</li>
+            </Link>
+            {isLogin ? (
+              <span className="nav-user">
+                <div className="profile-container">
+                  <img src={user.image} alt="user_photo" />
+                </div>
+                <div className="nav-user-content">
+                  <li onClick={() => navigate("/mypage")}>마이페이지</li>
+                  <li onClick={() => navigate("/profile")}>프로필설정</li>
+                  <li onClick={() => dispatch(LOG_OUT())}>로그아웃</li>
+                </div>
+              </span>
+            ) : (
+              <Link to="/login" className="nav-user">
+                <span className="nav-user-login">로그인</span>
+              </Link>
+            )}
+          </NavPC>
+        </Head>
+      </PC>
+      <Mobile>
+        <Head>
+          <UpNavMobile>
+            <span className="nav-title">
+              <img id="logo" src="../logo.png" alt="logo" />
+              근의 공식
             </span>
-          : <Link to='/login' className='nav-user'>
-                <span className='nav-user-login'>
-                  로그인
-                </span>
-            </Link>
-  }
-        </UpNavMobile>
-      </Head>
-      <Foot>
-        <DownNavMobile>
-          <li className='nav-menu main' onClick={handleClick}>
-            <img src={`../images/icon_main_${main}.png`} alt="main"/>
-          </li>
-          <li className='nav-menu record' onClick={handleClick}>
-            <img src={`../images/icon_record_${record}.png`} alt="record"/>
-          </li>
-          <li className='nav-menu share' onClick={handleClick}>
-            <img src={`../images/icon_share_${share}.png`} alt="share"/>
-          </li>
-          <li className='nav-menu alarm' onClick={handleClick}>
-            <img src={`../images/icon_alarm_${alarm}.png`} alt="alarm"/>
-          </li>
-          <li className='nav-menu chat' onClick={handleClick}>
-            <img src={`../images/icon_chat_${chat}.png`} alt="chat"/>
-          </li>
-        </DownNavMobile>
-      </Foot>
-    </Mobile>
-  </div>
-  )
+            {isLogin ? (
+              <span className="nav-user">
+                <div className="profile-container">
+                  <img src={user.image} alt="user_photo" />
+                </div>
+                <div className="nav-user-content">
+                  <li onClick={() => navigate("/mypage")}>마이페이지</li>
+                  <li onClick={() => navigate("/profile")}>프로필설정</li>
+                  <li onClick={() => dispatch(LOG_OUT())}>로그아웃</li>
+                </div>
+              </span>
+            ) : (
+              <Link to="/login" className="nav-user">
+                <span className="nav-user-login">로그인</span>
+              </Link>
+            )}
+          </UpNavMobile>
+        </Head>
+        <Foot>
+          <DownNavMobile>
+            <li className="nav-menu main" onClick={handleClick}>
+              <img src={`../images/icon_main_${main}.png`} alt="main" />
+            </li>
+            <li className="nav-menu record" onClick={handleClick}>
+              <img src={`../images/icon_record_${record}.png`} alt="record" />
+            </li>
+            <li className="nav-menu share" onClick={handleClick}>
+              <img src={`../images/icon_share_${share}.png`} alt="share" />
+            </li>
+            <li className="nav-menu alarm" onClick={handleClick}>
+              <img src={`../images/icon_alarm_${alarm}.png`} alt="alarm" />
+            </li>
+            <li className="nav-menu chat" onClick={handleClick}>
+              <img src={`../images/icon_chat_${chat}.png`} alt="chat" />
+            </li>
+          </DownNavMobile>
+        </Foot>
+      </Mobile>
+    </div>
+  );
 }

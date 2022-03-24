@@ -9,6 +9,7 @@ dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
   const { email, password } = req.body;
+  console.log("login req : ", req.body);
 
   const findUser = await getRepository(Users).findOne({
     where: { email, password },
