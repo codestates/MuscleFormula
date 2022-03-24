@@ -1,83 +1,166 @@
 /**메인 화면에 뜨는 포스트 썸네일**/
+import React from "react"
 import styled from "styled-components"
 export const Postthumb = styled.div`
   flex: none;
   width: 80vw;
-  max-width: 300px;
-  border: 1px solid black;
+  max-width: 270px;
+  border: 1px solid lightgrey;
   border-radius: 15px;
+  box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.2);
   overflow: hidden;
-  > img {
-    width: 100%;
+  &:hover {
+    opacity: 0.6;
   }
-  > #title-container{
-    padding: 1rem;
-    >.post-title {
-      font-size: 1.5rem;
-    }
-    > .post-likes {
-      position: relative;
-      > img {
-        width: 20px;
-        top: 50%;
-        left: 50%;
-      }
-    }
-  }
-  > #profile-container {
-    padding: 1rem;
-    display: flex;
-    > #photo-container{
-      position: relative;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      overflow: hidden;
+  > #image-container {
+    height: 120px;
+    overflow: hidden;
     > img {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      }
     }
   }
-  
-  
-  > #summary-container{
+  > #up-container{
     padding: 1rem;
+    height: 110px;
+    > .post-title {
+      font-size: large;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      max-height: 1.3em;
+      overflow: hidden;
+    }
+    > .post-content {
+      margin-bottom: 0.7rem;
+      font-size: small;
+      max-height: 1.3em;
+      overflow: hidden;
+    }
+    > .post-social {
+      font-size: small;
+      > .post-likes {
+        margin-right : 1rem;
+      }
+      > .post-comments {
+      }
+    }
+    
+  }
+  > #down-container {
+    padding: 0rem 1rem 1rem 1rem;
+    display: flex;
+    height: 100px;
+    justify-content: space-between;
+    > #profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 3.6rem;
+      > #profile-photo-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        > #photo-container{
+          position: relative;
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 50%;
+          overflow: hidden;
+          > img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+      >.user-nickname{
+        padding-top: 0.3rem;
+        font-size: small;
+        overflow: hidden;
+        max-height: 3em;
+      }
+    }
+    > #exercise-container{
+      text-align: left;
+      border-collapse: collapse;
+      margin-left: 0.5rem;
+      font-size: small;
+      > tr:not(:last-of-type) {
+        text-align: left;
+        border-bottom: 1px solid lightgrey;
+      }
+      > th, td {
+        padding-left: 0.5rem;
+      }
+    }
   }
 `
 
-export default function PostThumbnail() {
+interface PostThumbnailProps {
+  postThumb: {
+    postImage: string,
+    title: string,
+    content: string,
+    likes: number,
+    comments: number,
+    image: string,
+    nickname: string,
+    difficulty: number,
+    record: string,
+    bodypart:string
+  }
+}
+
+const PostThumbnail:React.FC<PostThumbnailProps> = ({postThumb}) => {
   return (
     <Postthumb>
-      <img src="../images/photo_postthumb.jpg" alt="post_image"/>
-      <div id="title-container">
-        <span className="post-title">제목입니다</span>
-        <span className="post-likes">
-          <i className="fa-regular fa-heart"></i>
-          100
-        </span>
-        <span className="post-comments">
-          <i className="fa-regular fa-comment-dots"></i>
-          2
-        </span>
+      <div id="image-container">
+        <img src={postThumb.postImage} alt="post_image"/>
       </div>
-      <div id= "profile-container">
+      <div id="up-container">
+        <div className="post-title">{postThumb.title}</div>
+        <div className='post-content'>{postThumb.content}</div>
+        <div className="post-social">
+          <span className="post-likes">
+            <i className="fa-regular fa-heart"></i>
+            {postThumb.likes}
+          </span>
+          <span className="post-comments">
+            <i className="fa-regular fa-comment-dots"></i>
+            {postThumb.comments}
+          </span>
+        </div>
+      </div>
+      <div id='down-container'>
+      <div id="profile-container">
+        <div id="profile-photo-container">
       <div id="photo-container">
-        <img className='user-photo' src="../images/photo_defaultuser.png" alt="profile_image"/>
+        <img className='user-photo' src={postThumb.image} alt="profile_image"/>
       </div>
-      <strong>
-        닉네임
+      </div>
+      <strong className='user-nickname'>
+      {postThumb.nickname}
       </strong>
       </div>
-      <div id="summary-container">
-      소요시간
-      난이도
-      운동부위
+      <table id ="exercise-container">
+	      <tr>
+	        <th>난이도</th>
+	        <td>{postThumb.difficulty}</td>
+	      </tr>
+	      <tr>
+	        <th>소요시간</th>
+	        <td>{postThumb.record}</td>
+	      </tr>
+        <tr>
+	        <th>운동부위</th>
+	        <td>{postThumb.bodypart}</td>
+	      </tr>
+      </table>
       </div>
     </Postthumb>
   )
 }
+export default PostThumbnail;

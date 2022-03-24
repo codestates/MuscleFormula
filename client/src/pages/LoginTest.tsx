@@ -107,6 +107,8 @@ export default function LoginTest() {
 
     axios.post(`${serverURL}/login`, loginUserinfo).then((res) => {
       console.log("받은 유저정보:", res);
+      console.log("받은 유저정보:", res);
+
       const { id, image, nickname } = res.data.user;
       dispatch(
         LOG_IN({

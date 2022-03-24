@@ -1,0 +1,7 @@
+#record-container {
+  margin-top: 5rem;
+  margin-bottom: 4rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction:column;
+}
