@@ -122,7 +122,11 @@ export default function LoginTest() {
     console.log("login info : ", loginUserinfo);
     let serverURL = "http://localhost:4000";
 
-    axios.post(`${serverURL}/login`, loginUserinfo).then((res) => {
+    axios.post(`${serverURL}/sign/in`, loginUserinfo,{
+      withCredentials: true
+    }
+    
+    ).then((res) => {
       console.log("받은 유저정보:", res);
       console.log("받은 유저정보:", res);
 

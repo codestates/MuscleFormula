@@ -6,7 +6,6 @@ import Nav from "./components/Nav";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import SignupTest from "./pages/SignupTest";
 import ReducerTest from "./test/ReducerTest";
 import Share from "./pages/Share";
 import Record from "./pages/Record";
@@ -22,8 +21,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/main" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signuptest" element={<Signup />} />
-        <Route path="/signup" element={<SignupTest />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/mypage" element={<Maypage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/record" element={<Record />} />

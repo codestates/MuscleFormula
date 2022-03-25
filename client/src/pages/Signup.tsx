@@ -1,123 +1,180 @@
-import React, { useState } from "react";
-import styled from 'styled-components';
+import axios from "axios";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { PLUS, MINUS, CHOICE } from "../reducer/counterReducer";
+import { ADD, QUAN, OUT } from "../reducer/testReducer";
+import { LOG_IN, LOG_OUT } from "../reducer/userInfoReducer";
+import { useState } from "react";
+import type { RootState, AppDispatch } from "../store";
+import StarPoint from "../components/StarPoint";
+import styled from "styled-components";
 
-export const SignupPage = styled.div`
-font-family: "IBM Plex Sans KR", sans-serif;
-display: flex;
-border: green;
-flex-direction: column;
-border-radius: 10px;
-`;
-
-export const Headers = styled.div`
-border: 1px solid red;
-padding: 10px;
-flex: 1 0 auto;
-display: flex;
-justify-content: space-around;
-
-> img {
-  display: flex;
-  width : 10px;  
-}
-`;
-
-export const Body = styled.div`
-border: 1px solid red;
-padding: 10px;
-flex: 8 0 auto;
-
-> div {
-  border: 1px solid red;
+export const Main = styled.div`
+  border: 3px solid green;
   padding: 10px;
-}
-> #usersecretInput {
+  /* 화면 중앙으로 만들기 */
   display: flex;
-  > input {
-    margin-left: 10px;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  > #innerBox {
+    border: 3px solid green;
+    padding: 10px;
+    height: 60vh;
+    width: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: space-evenly;
+    > .userLonginInfo {
+      /* border: 3px solid green; */
+
+      padding: 10px;
+      height: 30vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      > div > input {
+        padding: 10px;
+        margin-left: 10px;
+      }
+      > .userEmail {
+        padding: 10px;
+        display: flex;
+        > div {
+          padding: 10px;
+          width: 90px;
+          text-align: center;
+        }
+      }
+      > .userNick {
+        padding: 10px;
+        display: flex;
+        > div {
+          padding: 10px;
+          width: 90px;
+          text-align: center;
+        }
+      }
+      > .userPassword {
+        display: flex;
+        padding: 10px;
+        > div {
+          padding: 10px;
+          width: 90px;
+          text-align: center;
+        }
+      }
+      > .userPasswordCheck {
+        display: flex;
+        padding: 10px;
+        > div {
+          padding: 10px;
+          width: 90px;
+          text-align: center;
+        }
+      }
+      > .signUpButten {
+        padding: 10px;
+        margin-top: 0px;
+        display: flex;
+        justify-content: center;
+        > button {
+          padding: 10px;
+          width: 110px;
+        }
+      }
+    }
+    > #oAuth {
+      display: flex;
+      justify-content: space-evenly;
+    }
   }
-}
 `;
 
-export const Input = styled.input.attrs((props) => ({
-type: "text",
-size: props.size || "0.5em",
-}))`
-background-color: grey;
-border: 2px solid palevioletred;
-margin: ${(props) => props.size};
-padding: ${(props) => props.size};
-`;
+export default function LoginTest() {
+  const count = useSelector((state: RootState) => state.counter.count);
+  const user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
 
-export const Button = styled.div`
-// border: 1px solid red;
-/* padding: 10px; */
-margin-top: 10px;
-color: ${(props :any) => props.theme.fg};
-border: 2px solid ${(props :any) => props.theme.fg};
-display: flex;
-background: ${(props :any) => props.theme.bg};
+  const [userEmail, setUserEmail] = useState("");
+  const [userNickname, setUserNickname] = useState("");
+  const [userPassword, serUserPassword] = useState("");
+  // const [userPasswordCheck, serUserPasswordCheck] = useState("");
 
-width: 220px;
-> button {
-  border: 0;
-  background-color: #00cc99;
-  cursor: pointer;
-  margin: 0.5rem;
-  width: 15vw;
-  height: 5vh;
-  font-size: 1rem;
-}
-> button:hover {
-  color: #00ffcc; 
-}
-`;
+  // console.log("signUp test페이지");
+  // console.log("카운터", count);
+  // console.log("유저정보", user);
+  // console.log("로그인", isLogin);
 
+  const navigate = useNavigate();
 
+  let dispatch: AppDispatch = useDispatch();
 
-export default function Signup() {
-  //유저 정보, 관리
-  //함수 만들필요없다.
-  //
+  const signupHandle = async () => {
+    let serverURL = "http://localhost:4000";
+
+    axios
+      .post(
+        `${serverURL}/sign/up`,
+        {
+          email: userEmail,
+          nickname: userNickname,
+          password: userPassword,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      });
+
+    navigate("/login");
+  };
+  const changeEmail = (e: string | any) => {
+    setUserEmail(e.target.value);
+  };
+  const changeNickname = (e: string | any) => {
+    setUserNickname(e.target.value);
+  };
+  const changePassword = (e: string | any) => {
+    serUserPassword(e.target.value);
+  };
+
   return (
-    <div >
-      <SignupPage>
-        <Headers>
-          <img src="images/logo.png" width="150vw" alt="logo" />
-        </Headers>
-        <Body className="modal">
-          <h1>회원 가입</h1>
-          
-          <ul>
-            <li>
-              이메일
-              <input type ="test" placeholder="이메일을 입력하세요 "  />
-            </li>
- 
-          <br />
- 
-            <li>
-              nickname <input type="text" placeholder="닉네임을 적어주세요" />
-              <button>중복확인</button>
-            </li>
-            <li>비밀번호
-            <input
-              type="password"
-              placeholder="패스워드를 입력하세요"
-            /></li>
-            </ul>
-          <br />
-                <div>
-            <li>
-              비밀번호 확인{" "}
-              <input type="password" placeholder="패스워드 확인" />
-            </li>
+    <div id="LoginPage">
+      <Main>
+        <div id="innerBox">
+          <img id="logo" src="../logo.png" alt="logo" />
+
+          <div className="userLonginInfo">
+            <div className="userEmail">
+              <div>이메일</div>
+              <input type="text" onChange={changeEmail}></input>
+            </div>
+            <div className="userNick">
+              <div>닉네임</div>
+              <input type="text" onChange={changeNickname}></input>
+              <button>
+                중복<br></br>확인
+              </button>
+            </div>
+            <div className="userPassword">
+              <div>비밀번호</div>
+              <input type="password" onChange={changePassword}></input>
+            </div>
+            <div className="userPasswordCheck">
+              <div>비밀번호 확인</div>
+              <input type="password"></input>
+            </div>
+            <div className="signUpButten">
+              <button onClick={signupHandle}>회원가입</button>
+            </div>
           </div>
-          <Button>
-            <button className="SignupBtn">회원가입</button>
-          </Button>
-        </Body>
-      </SignupPage>
+        </div>
+      </Main>
     </div>
   );
 }
