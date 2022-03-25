@@ -19,7 +19,6 @@ module.exports = async (req: Request, res: Response) => {
   //   comment,
   // } = req.body;
   // console.log("makePost_Commets : ", req.body);
-
   // const user = await getRepository(Users).findOne({
   //   where: { id:userId },
   // });
@@ -29,14 +28,13 @@ module.exports = async (req: Request, res: Response) => {
   // const postCommnet = await getRepository(Post_Comments).findOne({
   //   where: { id:postCommentId },
   // });
-
-  try {
-    const allPost_Comment = await getRepository(Post_Comments).find({
-      relations: ["users", "post"],
-    });
-    console.log("allPost_Comment:", allPost_Comment);
-    res.status(200).json({ message: `코멘트 읽기 성공` });
-  } catch (e) {
-    console.log("comment 읽기 실패", e);
-  }
+  // try {
+  //   const allPost_Comment = await getRepository(Post_Comments).find({
+  //     relations: ["users", "post"],
+  //   });
+  //   console.log("allPost_Comment:", allPost_Comment);
+  //   res.status(200).json({ message: `코멘트 읽기 성공` });
+  // } catch (e) {
+  //   console.log("comment 읽기 실패", e);
+  // }
 };

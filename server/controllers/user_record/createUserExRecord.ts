@@ -12,11 +12,12 @@ let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
-  const { user_id, record } = req.body;
+  const { userId, record } = req.body;
+
   //console.log(todaySring);
   //   const user = await getRepository(Users).findOne({
   //     relations: ["profile"],
-  //     where: { id: user_id },
+  //     where: { id: userId },
   //   });
   const auth = req.headers["authorization"];
 
@@ -27,7 +28,7 @@ module.exports = async (req: Request, res: Response) => {
     const verify = await verifyToken(token);
     const user = await getRepository(Users).findOne({
       relations: ["ex_records"],
-      where: { id: user_id },
+      where: { id: userId },
     });
 
     console.log("유저입니다", user?.email);
@@ -37,11 +38,11 @@ module.exports = async (req: Request, res: Response) => {
     } else if (user.email === verify.email) {
       const findExRecord = await getRepository(Ex_Records).findOne({
         relations: ["users", "records_"],
-        where: { users: user_id, created_at: todaySring },
+        where: { users: userId, created_at: todaySring },
       });
       if (!findExRecord) {
         const makeExRecord = Ex_Records.create({
-          users: user_id,
+          users: userId,
           created_at: todaySring,
         });
         try {
@@ -54,7 +55,7 @@ module.exports = async (req: Request, res: Response) => {
     }
     const findrecord = await getRepository(Ex_Records).findOne({
       relations: ["users", "records_"],
-      where: { users: user_id, created_at: todaySring },
+      where: { users: userId, created_at: todaySring },
     });
     let a: any = findrecord?.id;
     console.log(findrecord?.users.email);
@@ -90,7 +91,7 @@ module.exports = async (req: Request, res: Response) => {
       //   console.log("에러가 발생하엿습니다", err);
       // }
     } else {
-      res.status(400).send({ message: "유저정보가 같지 않습니다" });
+      res.status(400).send({ message: "유저정보가 일치하지 않습니다" });
     }
   }
 };

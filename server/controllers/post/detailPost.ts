@@ -7,7 +7,8 @@ import { Posts } from "../../models/entity/Post";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
-  const { postId } = req.body;
+  const { postId } = req.query;
+  console.log(req.query);
   //console.log("makePost body : ", req.body);
 
   const detailPost = await getRepository(Posts).findOne({
