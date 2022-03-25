@@ -57,6 +57,7 @@ export const LoginBox = styled.div`
         display: flex;
         justify-content: center;
         > button {
+          cursor: pointer;
           width: 100%;
           height: 2rem;
           border-radius: 10px;
