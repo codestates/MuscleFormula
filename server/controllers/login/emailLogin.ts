@@ -36,7 +36,7 @@ module.exports = async (req: Request, res: Response) => {
       sameSite: "none",
     });
 
-    console.log(req.cookies);
+    console.log(req.cookies.refreshToken);
     res.json({
       message: "login Success",
       accessToken: accessToken,
