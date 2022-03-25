@@ -37,8 +37,12 @@ export const Postthumb = styled.div`
     }
     > .post-social {
       font-size: small;
+      > .post-date {
+        color: grey;
+        margin-right: 0.5rem;
+      }
       > .post-likes {
-        margin-right : 1rem;
+        margin-right : 0.5rem;
       }
       > .post-comments {
       }
@@ -110,7 +114,8 @@ interface PostThumbnailProps {
     nickname: string,
     difficulty: number,
     record: string,
-    bodypart:string
+    bodypart:string,
+    createdAt: string
   }
 }
 
@@ -124,6 +129,7 @@ const PostThumbnail:React.FC<PostThumbnailProps> = ({postThumb}) => {
         <div className="post-title">{postThumb.title}</div>
         <div className='post-content'>{postThumb.content}</div>
         <div className="post-social">
+          <span className="post-date">{postThumb.createdAt}</span>
           <span className="post-likes">
             <i className="fa-regular fa-heart"></i>
             {postThumb.likes}
