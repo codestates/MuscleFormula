@@ -9,12 +9,15 @@ import styled from "styled-components";
 
 export const LoginBox = styled.div`
   /* 화면 중앙으로 만들기 */
+  /* border: 3px solid red; */
   margin-top: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 90vh;
   > #login-container {
+    border: 3px solid red;
+
     display: flex;
     flex-direction: column;
     > #greeting-container {
@@ -64,6 +67,7 @@ export const LoginBox = styled.div`
           font-size: medium;
           font-weight: bold;
           background-color: #00cc99;
+          cursor: pointer;
         }
       }
       > .signup-container {
@@ -88,6 +92,7 @@ export const LoginBox = styled.div`
         > th {
           > img {
             width: 30px;
+            cursor: pointer;
           }
         }
         > td,
@@ -108,8 +113,8 @@ export default function LoginTest() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, serUserPassword] = useState("");
 
-  console.log("유저정보", user);
-  console.log("로그인", isLogin);
+  // console.log("유저정보", user);
+  // console.log("로그인", isLogin);
 
   const navigate = useNavigate();
 
@@ -120,7 +125,7 @@ export default function LoginTest() {
       email: userEmail,
       password: userPassword,
     };
-    console.log("login info : ", loginUserinfo);
+    // console.log("login info : ", loginUserinfo);
     let serverURL = "http://localhost:4000";
 
     axios
@@ -128,8 +133,7 @@ export default function LoginTest() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log("받은 유저정보:", res);
-        console.log("받은 유저정보:", res);
+        // console.log("받은 유저정보:", res);
 
         const { id, image, nickname } = res.data.user;
         dispatch(

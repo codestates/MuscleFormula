@@ -1,13 +1,7 @@
 import axios from "axios";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { PLUS, MINUS, CHOICE } from "../reducer/counterReducer";
-import { ADD, QUAN, OUT } from "../reducer/testReducer";
-import { LOG_IN, LOG_OUT } from "../reducer/userInfoReducer";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import type { RootState, AppDispatch } from "../store";
-import StarPoint from "../components/StarPoint";
 import styled from "styled-components";
 
 export const Main = styled.div`
@@ -18,7 +12,7 @@ export const Main = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 90vh;
-  > #innerBox {
+  > #signup-container {
     border: 3px solid green;
     padding: 10px;
     height: 60vh;
@@ -27,7 +21,7 @@ export const Main = styled.div`
     flex-direction: column;
     justify-content: center;
     justify-content: space-evenly;
-    > .userLonginInfo {
+    > .user-signup-container {
       /* border: 3px solid green; */
 
       padding: 10px;
@@ -35,6 +29,9 @@ export const Main = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
+      > p {
+        color: red;
+      }
       > div > input {
         padding: 10px;
         margin-left: 10px;
@@ -94,81 +91,122 @@ export const Main = styled.div`
 `;
 
 export default function LoginTest() {
-  const count = useSelector((state: RootState) => state.counter.count);
-  const user = useSelector((state: RootState) => state.userInfo.userInfo);
-  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+  const navigate = useNavigate();
 
   const [userEmail, setUserEmail] = useState("");
   const [userNickname, setUserNickname] = useState("");
   const [userPassword, serUserPassword] = useState("");
-  // const [userPasswordCheck, serUserPasswordCheck] = useState("");
+  const [userPasswordCheck, serUserPasswordCheck] = useState("");
+  const [userNicknameCheck, serUserNicknameCheck] = useState(false);
 
-  // console.log("signUp test페이지");
-  // console.log("카운터", count);
-  // console.log("유저정보", user);
-  // console.log("로그인", isLogin);
+  const matchEmail =
+    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  const matchPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
-  const navigate = useNavigate();
+  const isValidEmail = matchEmail.test(userEmail);
+  const isValidPassword = matchPassword.test(userPassword);
+  const isValidPasswordCheck =
+    userPassword === userPasswordCheck && userPasswordCheck !== "";
+  const isAlltrue =
+    isValidEmail &&
+    isValidPassword &&
+    isValidPasswordCheck &&
+    userNicknameCheck;
 
-  let dispatch: AppDispatch = useDispatch();
-
-  const signupHandle = async () => {
-    let serverURL = "http://localhost:4000";
-
-    axios
-      .post(
-        `${serverURL}/sign/up`,
-        {
-          email: userEmail,
-          nickname: userNickname,
-          password: userPassword,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        console.log(res);
-      });
-
-    navigate("/login");
+  const signupHandle = () => {
+    if (isAlltrue) {
+      axios
+        .post(
+          `http://localhost:4000/sign/up`,
+          {
+            email: userEmail,
+            nickname: userNickname,
+            password: userPassword,
+          },
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          navigate("/login");
+        })
+        .catch((err) => {
+          alert("중복된 이메일이 있습니다");
+        });
+    } else {
+      alert("회원가입 조건을 모두 맞추어 주십시오");
+    }
   };
   const changeEmail = (e: string | any) => {
     setUserEmail(e.target.value);
   };
-  const changeNickname = (e: string | any) => {
+  const changeNickname = async (e: string | any) => {
     setUserNickname(e.target.value);
   };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/users/nickname`, {
+        params: {
+          nickname: userNickname,
+        },
+      })
+      .then((res) => {
+        serUserNicknameCheck(!(res.data.length > 0) && userNickname.length > 0);
+      });
+  }, [userNickname]);
+
   const changePassword = (e: string | any) => {
     serUserPassword(e.target.value);
+  };
+  const changePasswordCheck = (e: string | any) => {
+    serUserPasswordCheck(e.target.value);
   };
 
   return (
     <div id="LoginPage">
       <Main>
-        <div id="innerBox">
-          <img id="logo" src="../logo.png" alt="logo" />
+        <div id="signup-container">
+          {/* <img id="logo" src="../logo.png" alt="logo" /> */}
 
-          <div className="userLonginInfo">
+          <div className="user-signup-container">
             <div className="userEmail">
               <div>이메일</div>
               <input type="text" onChange={changeEmail}></input>
             </div>
+            {isValidEmail ? <p></p> : <p>이메일의 형식에 맞게 적어주세요</p>}
             <div className="userNick">
               <div>닉네임</div>
               <input type="text" onChange={changeNickname}></input>
-              <button>
+              {/* <button onClick={findNick}>
                 중복<br></br>확인
-              </button>
+              </button> */}
             </div>
+            {userNicknameCheck ? <p> </p> : <p>동일한 닉네임이 존재합니다</p>}
+
             <div className="userPassword">
               <div>비밀번호</div>
-              <input type="password" onChange={changePassword}></input>
+              <input type="text" onChange={changePassword}></input>
             </div>
+            {isValidPassword ? (
+              <p> </p>
+            ) : (
+              <p>
+                비밀번호는 8자 이상, 숫자, 문자, 특수문자를 하나이상 포함 하여야
+                합니다
+              </p>
+            )}
+
             <div className="userPasswordCheck">
               <div>비밀번호 확인</div>
-              <input type="password"></input>
+              <input type="password" onChange={changePasswordCheck}></input>
             </div>
+            {isValidPasswordCheck ? (
+              <p> </p>
+            ) : (
+              <p>비밀번호가 일치하지 않습니다</p>
+            )}
+
             <div className="signUpButten">
               <button onClick={signupHandle}>회원가입</button>
             </div>
