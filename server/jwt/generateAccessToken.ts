@@ -11,7 +11,8 @@ export async function generateAccessToken(
       email: email,
       password: password,
       iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 2,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 2, // 2시간 짜리
+      //연습용 exp: Math.floor(Date.now() / 1000) + 60 * 5, 5분 짜리
     },
     process.env.ACCESS_SECRET
   );

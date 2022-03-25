@@ -6,8 +6,29 @@ import { Posts } from "../../models/entity/Post";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
-      const allUsers = await getRepository(Posts).find();
-      console.log("allUsers:", allUsers);
+  const allInfo = await getRepository(Posts).find({
+    relations: ["users", "post_comments", "post_likes"],
+  });
 
-      res.status(200).json(allUsers)
+  const createed = allInfo.map((item) => {
+    const data = {
+      id: item.id,
+      postTitle: item.title,
+      postImage: item.image,
+      user: {
+        id: item.users.id,
+        nickname: item.users.nickname,
+        image: item.users.image,
+      },
+      bodyPart: item.body_Part,
+      difficult: item.difficult,
+      totalTime: item.total_time,
+      total_comments: item.post_comments,
+      total_Likes: item.post_likes,
+    };
+    return data;
+  });
+  res.status(200).json({
+    posts: createed,
+  });
 };
