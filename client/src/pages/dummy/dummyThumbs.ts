@@ -8,7 +8,8 @@ interface ThumbType {
   nickname: string,
   difficulty: number,
   record: string,
-  bodypart:string
+  bodypart:string,
+  createdAt: string
 }
 
 const dummyThumbs :ThumbType[] = [
@@ -23,6 +24,7 @@ const dummyThumbs :ThumbType[] = [
     difficulty: 3,
     record: '1시간 30분 31초',
     bodypart: '전신',
+    createdAt: '2022.03.25'
   },
   {
     postImage: '../images/photo_testpost_2.jpg',
@@ -35,6 +37,7 @@ const dummyThumbs :ThumbType[] = [
     difficulty: 5,
     record: '7시간 30분 31초',
     bodypart: '하체',
+    createdAt: '2022.03.25'
   },
   {
     postImage: '../images/photo_testpost_3.jpg',
@@ -47,6 +50,7 @@ const dummyThumbs :ThumbType[] = [
     difficulty: 5,
     record: '12시간 30분 31초',
     bodypart: '상체',
+    createdAt: '2022.03.25'
   },
   {
     postImage: '../images/photo_testpost_3.jpg',
@@ -59,6 +63,7 @@ const dummyThumbs :ThumbType[] = [
     difficulty: 5,
     record: '12시간 30분 31초',
     bodypart: '상체',
+    createdAt: '2022.03.25'
   },
   {
     postImage: '../images/photo_testpost_3.jpg',
@@ -71,6 +76,7 @@ const dummyThumbs :ThumbType[] = [
     difficulty: 5,
     record: '12시간 30분 31초',
     bodypart: '상체',
+    createdAt: '2022.03.25'
   },
   {
     postImage: '../images/photo_testpost_3.jpg',
@@ -83,6 +89,7 @@ const dummyThumbs :ThumbType[] = [
     difficulty: 5,
     record: '12시간 30분 31초',
     bodypart: '상체',
+    createdAt: '2022.03.27'
   },
   {
     postImage: '../images/photo_testpost_3.jpg',
@@ -95,6 +102,7 @@ const dummyThumbs :ThumbType[] = [
     difficulty: 5,
     record: '12시간 30분 31초',
     bodypart: '상체',
+    createdAt: '2022.03.26'
   },
   {
     postImage: '../images/photo_testpost_3.jpg',
@@ -107,6 +115,7 @@ const dummyThumbs :ThumbType[] = [
     difficulty: 5,
     record: '12시간 30분 31초',
     bodypart: '상체',
+    createdAt: '2022.03.26'
   },
 ]
 
