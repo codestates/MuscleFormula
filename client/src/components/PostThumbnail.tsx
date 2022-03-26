@@ -1,13 +1,15 @@
 /**메인 화면에 뜨는 포스트 썸네일**/
-import React from "react"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 export const Postthumb = styled.div`
   flex: none;
   width: 80vw;
   max-width: 270px;
   border: 1px solid lightgrey;
   border-radius: 15px;
-  box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   &:hover {
     opacity: 0.6;
@@ -19,7 +21,7 @@ export const Postthumb = styled.div`
       width: 100%;
     }
   }
-  > #up-container{
+  > #up-container {
     padding: 1rem;
     height: 110px;
     > .post-title {
@@ -42,12 +44,11 @@ export const Postthumb = styled.div`
         margin-right: 0.5rem;
       }
       > .post-likes {
-        margin-right : 0.5rem;
+        margin-right: 0.5rem;
       }
       > .post-comments {
       }
     }
-    
   }
   > #down-container {
     padding: 0rem 1rem 1rem 1rem;
@@ -60,11 +61,11 @@ export const Postthumb = styled.div`
       align-items: center;
       justify-content: center;
       max-width: 3.6rem;
-      > #profile-photo-container{
+      > #profile-photo-container {
         display: flex;
         align-items: center;
         justify-content: center;
-        > #photo-container{
+        > #photo-container {
           position: relative;
           width: 2.5rem;
           height: 2.5rem;
@@ -80,14 +81,14 @@ export const Postthumb = styled.div`
           }
         }
       }
-      >.user-nickname{
+      > .user-nickname {
         padding-top: 0.3rem;
         font-size: small;
         overflow: hidden;
         max-height: 3em;
       }
     }
-    > #exercise-container{
+    > #exercise-container {
       text-align: left;
       border-collapse: collapse;
       margin-left: 0.5rem;
@@ -96,48 +97,53 @@ export const Postthumb = styled.div`
         text-align: left;
         border-bottom: 1px solid lightgrey;
       }
-      > th, td {
+      > th,
+      td {
         padding-left: 0.5rem;
       }
     }
   }
-`
+`;
 
 interface PostThumbnailProps {
   postThumb: {
-    postImage: string,
-    title: string,
-    content: string,
-    likes: number,
-    comments: number,
-    image: string,
-    nickname: string,
-    difficulty: number,
-    record: string,
-    bodypart:string,
-    createdAt: string
-  }
+    postImage: string;
+    title: string;
+    content: string;
+    likes: number;
+    comments: number;
+    image: string;
+    nickname: string;
+    difficulty: number;
+    record: string;
+    bodypart: string;
+    createdAt: string;
+  };
 }
 
-const PostThumbnail:React.FC<PostThumbnailProps> = ({postThumb}) => {
-
-  const numToStar = (num :number) => {
-    if(num === 1) return '★'
-    if(num === 2) return '★★'
-    if(num === 3) return '★★★'
-    if(num === 4) return '★★★★'
-    if(num === 5) return '★★★★★'
-    else return '☆'
-  }
+const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
+  const navigate = useNavigate();
+  const numToStar = (num: number) => {
+    if (num === 1) return "★";
+    if (num === 2) return "★★";
+    if (num === 3) return "★★★";
+    if (num === 4) return "★★★★";
+    if (num === 5) return "★★★★★";
+    else return "☆";
+  };
 
   return (
-    <Postthumb>
+    <Postthumb
+      onClick={() => {
+        navigate("/detail");
+      }}
+    >
       <div id="image-container">
-        <img src={postThumb.postImage} alt="post_image"/>
+        <img src={postThumb.postImage} alt="post_image" />
       </div>
       <div id="up-container">
         <div className="post-title">{postThumb.title}</div>
-        <div className='post-content'>{postThumb.content}</div>
+        <div className="post-content">{postThumb.content}</div>
         <div className="post-social">
           <span className="post-date">{postThumb.createdAt}</span>
           <span className="post-likes">
@@ -150,33 +156,35 @@ const PostThumbnail:React.FC<PostThumbnailProps> = ({postThumb}) => {
           </span>
         </div>
       </div>
-      <div id='down-container'>
-      <div id="profile-container">
-        <div id="profile-photo-container">
-      <div id="photo-container">
-        <img className='user-photo' src={postThumb.image} alt="profile_image"/>
-      </div>
-      </div>
-      <strong className='user-nickname'>
-      {postThumb.nickname}
-      </strong>
-      </div>
-      <table id ="exercise-container">
-	      <tr>
-	        <th>난이도</th>
-	        <td>{numToStar(postThumb.difficulty)}</td>
-	      </tr>
-	      <tr>
-	        <th>소요시간</th>
-	        <td>{postThumb.record}</td>
-	      </tr>
-        <tr>
-	        <th>운동부위</th>
-	        <td>{postThumb.bodypart}</td>
-	      </tr>
-      </table>
+      <div id="down-container">
+        <div id="profile-container">
+          <div id="profile-photo-container">
+            <div id="photo-container">
+              <img
+                className="user-photo"
+                src={postThumb.image}
+                alt="profile_image"
+              />
+            </div>
+          </div>
+          <strong className="user-nickname">{postThumb.nickname}</strong>
+        </div>
+        <table id="exercise-container">
+          <tr>
+            <th>난이도</th>
+            <td>{numToStar(postThumb.difficulty)}</td>
+          </tr>
+          <tr>
+            <th>소요시간</th>
+            <td>{postThumb.record}</td>
+          </tr>
+          <tr>
+            <th>운동부위</th>
+            <td>{postThumb.bodypart}</td>
+          </tr>
+        </table>
       </div>
     </Postthumb>
-  )
-}
+  );
+};
 export default PostThumbnail;

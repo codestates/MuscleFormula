@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 
+import { axios_Signup, axios_GetNickname } from "../axios";
+
 export const Main = styled.div`
   border: 3px solid green;
   padding: 10px;
@@ -115,28 +117,18 @@ export default function LoginTest() {
 
   const signupHandle = () => {
     if (isAlltrue) {
-      axios
-        .post(
-          `http://localhost:4000/sign/up`,
-          {
-            email: userEmail,
-            nickname: userNickname,
-            password: userPassword,
-          },
-          {
-            withCredentials: true,
-          }
-        )
-        .then((res) => {
+      axios_Signup(userEmail, userNickname, userPassword)
+        .then(() => {
           navigate("/login");
         })
-        .catch((err) => {
+        .catch(() => {
           alert("중복된 이메일이 있습니다");
         });
     } else {
       alert("회원가입 조건을 모두 맞추어 주십시오");
     }
   };
+
   const changeEmail = (e: string | any) => {
     setUserEmail(e.target.value);
   };
@@ -145,15 +137,9 @@ export default function LoginTest() {
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/users/nickname`, {
-        params: {
-          nickname: userNickname,
-        },
-      })
-      .then((res) => {
-        serUserNicknameCheck(!(res.data.length > 0) && userNickname.length > 0);
-      });
+    axios_GetNickname(userNickname).then((res) => {
+      serUserNicknameCheck(!(res.data.length > 0) && userNickname.length > 0);
+    });
   }, [userNickname]);
 
   const changePassword = (e: string | any) => {
@@ -162,7 +148,6 @@ export default function LoginTest() {
   const changePasswordCheck = (e: string | any) => {
     serUserPasswordCheck(e.target.value);
   };
-
   return (
     <div id="LoginPage">
       <Main>
@@ -178,9 +163,6 @@ export default function LoginTest() {
             <div className="userNick">
               <div>닉네임</div>
               <input type="text" onChange={changeNickname}></input>
-              {/* <button onClick={findNick}>
-                중복<br></br>확인
-              </button> */}
             </div>
             {userNicknameCheck ? <p> </p> : <p>동일한 닉네임이 존재합니다</p>}
 
@@ -192,7 +174,7 @@ export default function LoginTest() {
               <p> </p>
             ) : (
               <p>
-                비밀번호는 8자 이상, 숫자, 문자, 특수문자를 하나이상 포함 하여야
+                비밀번호는 8자 이상, 숫자, 영어, 특수문자를 하나이상 포함 하여야
                 합니다
               </p>
             )}
