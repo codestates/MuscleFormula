@@ -120,6 +120,16 @@ interface PostThumbnailProps {
 }
 
 const PostThumbnail:React.FC<PostThumbnailProps> = ({postThumb}) => {
+
+  const numToStar = (num :number) => {
+    if(num === 1) return '★'
+    if(num === 2) return '★★'
+    if(num === 3) return '★★★'
+    if(num === 4) return '★★★★'
+    if(num === 5) return '★★★★★'
+    else return '☆'
+  }
+
   return (
     <Postthumb>
       <div id="image-container">
@@ -154,7 +164,7 @@ const PostThumbnail:React.FC<PostThumbnailProps> = ({postThumb}) => {
       <table id ="exercise-container">
 	      <tr>
 	        <th>난이도</th>
-	        <td>{postThumb.difficulty}</td>
+	        <td>{numToStar(postThumb.difficulty)}</td>
 	      </tr>
 	      <tr>
 	        <th>소요시간</th>
