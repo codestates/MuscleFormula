@@ -163,9 +163,6 @@ export default function LoginTest() {
             <div className="userNick">
               <div>닉네임</div>
               <input type="text" onChange={changeNickname}></input>
-              {/* <button onClick={findNick}>
-                중복<br></br>확인
-              </button> */}
             </div>
             {userNicknameCheck ? <p> </p> : <p>동일한 닉네임이 존재합니다</p>}
 
@@ -177,7 +174,7 @@ export default function LoginTest() {
               <p> </p>
             ) : (
               <p>
-                비밀번호는 8자 이상, 숫자, 문자, 특수문자를 하나이상 포함 하여야
+                비밀번호는 8자 이상, 숫자, 영어, 특수문자를 하나이상 포함 하여야
                 합니다
               </p>
             )}

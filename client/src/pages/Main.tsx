@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 import "../css/Main.css";
@@ -14,6 +16,8 @@ export default function Main() {
     });
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <div id="main-container">
       <div id="todayking-container">
@@ -21,6 +25,13 @@ export default function Main() {
       </div>
       <div id="search-container">
         <Search />
+        <button
+          onClick={() => {
+            navigate("/editor");
+          }}
+        >
+          글쓰기
+        </button>
       </div>
       <div id="postthumb-container">
         {dummyThumbs.map((el, idx) => (
