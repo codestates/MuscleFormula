@@ -47,7 +47,7 @@ const dummyThumbs :ThumbType[] = [
     comments: 2,
     image: '../images/photo_testuser_3.jpg',
     nickname: '쿠크다스',
-    difficulty: 5,
+    difficulty: 4,
     record: '12시간 30분 31초',
     bodypart: '상체',
     createdAt: '2022.03.25'
@@ -60,7 +60,7 @@ const dummyThumbs :ThumbType[] = [
     comments: 2,
     image: '../images/photo_testuser_3.jpg',
     nickname: '쿠크다스',
-    difficulty: 5,
+    difficulty: 2,
     record: '12시간 30분 31초',
     bodypart: '상체',
     createdAt: '2022.03.25'
@@ -73,7 +73,7 @@ const dummyThumbs :ThumbType[] = [
     comments: 2,
     image: '../images/photo_testuser_3.jpg',
     nickname: '쿠크다스',
-    difficulty: 5,
+    difficulty: 1,
     record: '12시간 30분 31초',
     bodypart: '상체',
     createdAt: '2022.03.25'
@@ -99,7 +99,7 @@ const dummyThumbs :ThumbType[] = [
     comments: 2,
     image: '../images/photo_testuser_3.jpg',
     nickname: '쿠크다스',
-    difficulty: 5,
+    difficulty: 0,
     record: '12시간 30분 31초',
     bodypart: '상체',
     createdAt: '2022.03.26'

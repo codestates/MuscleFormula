@@ -29,14 +29,14 @@ export default function Records() {
   //총 시간 기록
   const [totalSec, setTotalSec] = useState(0);
 
-  function secToTime(duration:number) {
+  function showTime(duration:number) {
     let seconds :(number|string) = Math.floor(duration % 60); 
     let minutes :(number|string) = Math.floor((duration / 60) % 60); 
     let hours :(number|string) = Math.floor((duration / (60 * 60)) % 24); 
     hours = (hours < 10) ? "0" + hours : hours; 
     minutes = (minutes < 10) ? "0" + minutes : minutes; 
     seconds = (seconds < 10) ? "0" + seconds : seconds; 
-    return hours + ":" + minutes + ":" + seconds; 
+    return hours + "시간 " + minutes + "분 " + seconds + "초"; 
   }
 
   interface RecordType {
@@ -71,13 +71,17 @@ export default function Records() {
   }
 
   const addExercise = () => {
-    setExercise({
-      genre: '',
-      weight: 0,
-      count: 0,
-      time_record: 0
-    });
-    setRecords((currentList) => [...currentList, exercise]);
+    if (exercise.genre==='') {
+      return alert('운동명을 입력하세요')
+    } else {
+      setExercise({
+        genre: '',
+        weight: 0,
+        count: 0,
+        time_record: 0
+      });
+      setRecords((currentList) => [...currentList, exercise]);
+    }
   }
 
   console.log('레코드기록', records);
@@ -85,19 +89,26 @@ export default function Records() {
   return (
     <div id='record-container'>
       <div className='record-today'>
-        {year}년 {month}월 {date}일 {checkDay(daynum)}요일
+      <i className="fa-solid fa-calendar-days"></i> {month}월 {date}일 {checkDay(daynum)}요일
       </div>
       <div className='record-total'>
-        {secToTime(totalSec)} 운동했습니다
+        <div className='record-time'>
+        {showTime(totalSec)} 
+        </div>
+        <div className='record-time-detail'>
+        운동했습니다
+        </div> 
       </div>
       <div className='exercise-input-container'>
-          오늘 할 운동 <input type='text' value={exercise.genre} onChange={handleInputValue('genre')}/>
-          중량 <input type='number' min="0" value={exercise.weight} onChange={handleInputValue('weight')}/>kg
-          목표 횟수 <input type='number' min="0" value={exercise.count} onChange={handleInputValue('count')}/> 회
-          <button onClick={addExercise}>추가</button> 
+          <div className="greeting">오늘은 어떤 운동을 할까요?</div>
+          <input className="exercise" type='text' placeholder="운동명을 입력하세요" value={exercise.genre} onChange={handleInputValue('genre')}/>
+          <div className='number-container'>
+            <input className="number" type='number' min="0" value={exercise.weight} onChange={handleInputValue('weight')}/> kg 
+            <input className="number" type='number' min="0" value={exercise.count} onChange={handleInputValue('count')}/> 회
+          </div>
+          <button onClick={addExercise}>입력</button> 
       </div>
       <div className='exercise-container'>
-        <div className='exercise-name'>
           {records.map((exercise, idx) => 
           <Record key={idx} 
                   exercise={exercise} 
@@ -106,8 +117,8 @@ export default function Records() {
                   getRecordValue={getRecordValue} 
                   idx={idx}
                   />)}
-        </div>
       </div>
+      {records.length? <div className="record-save"><button className='record-save'>기록하기</button></div> : null}
     </div>
   )
 }
