@@ -21,7 +21,7 @@ export class Records extends BaseEntity {
   @Column()
   count: number;
   @Column()
-  time_record: string;
+  time_record: number;
   @Column()
   weight: number;
   @ManyToOne((type) => Ex_Records, (e) => e.records_, {

@@ -21,7 +21,7 @@ postrouter.post("/", makePost);
 postrouter.get("/", readAllPost);
 postrouter.get("/detail", detailPost);
 postrouter.put("/", editPost);
-postrouter.delete("/delete", deletePost);
+postrouter.delete("/", deletePost);
 
 //Post_Comments
 postrouter.post("/comment", makePost_Comment);

@@ -24,7 +24,7 @@ export class Posts extends BaseEntity {
   })
   total_Likes: number;
   @Column()
-  total_time: string;
+  total_time: number;
   @Column()
   created_At: Date;
   @Column()

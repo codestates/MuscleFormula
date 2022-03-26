@@ -29,6 +29,7 @@ function ReducerTest() {
   console.log('로그인', isLogin);
 
   const [number, setNumber] = useState('');
+  const [isShow, setIsShow] = useState(true);
 
   const handleInputValue = (e :React.ChangeEvent<HTMLInputElement>) => {
     setNumber(e.target.value);
