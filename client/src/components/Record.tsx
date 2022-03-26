@@ -2,7 +2,14 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components';
 
 export const ExerciseContainer = styled.div`
-  color: green;
+  display:flex;
+  flex-direction: row;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-size: large;
+  padding-left: 1rem;
+  > div {
+    padding-right: 1rem;
+  }
 `
 
 export const TimerContainer = styled.div`
@@ -11,15 +18,13 @@ export const TimerContainer = styled.div`
   flex-flow: row wrap;
   > .start, .stop {
     margin: 0.5rem;
-    width: 80px;
+    width: 70px;
     font-size: large;
-    font-family: "IBM Plex Sans KR", sans-serif;
     font-size: large;
-    background-color: #00cc99;
+    background-color: white;
     color:black;
-    border: none;
-    border-radius: 20px;
-    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
+    border: 2px solid black;
+    border-radius: 15px;
     cursor: pointer;
   }
   > .stop {
@@ -29,7 +34,7 @@ export const TimerContainer = styled.div`
   > .time {
     margin: 0.5rem;
     font-family: "IBM Plex Sans KR", sans-serif;
-    font-size: xx-large;
+    font-size: x-large;
   }
   > .false {
     color: black;
@@ -38,11 +43,11 @@ export const TimerContainer = styled.div`
     color: #00cc99
   }
   > .delete-button{
-    font-size: x-large;
+    font-size: large;
     cursor: pointer;
   }
   > .delete-button:hover{
-    color: #FF6969
+    color: red;
   }
 `
 interface RecordType {
@@ -108,11 +113,15 @@ const Record:React.FC<RecordProps> = (
   return (
     <div>
       <ExerciseContainer>
-          <li>
-            운동명 : {exercise.genre}
-            중량 : {exercise.weight} kg
-            횟수 : {exercise.count} 회
-          </li>
+          <div className='exercise-name'>
+            {exercise.genre}  
+          </div>
+          <div className='exercise-weight'>
+            {exercise.weight} kg
+          </div>
+          <div className='exercise-count'>
+            {exercise.count} 회
+          </div>
       </ExerciseContainer>
       <TimerContainer>
           <button className={start? "stop":"start"} onClick={recordStart}>

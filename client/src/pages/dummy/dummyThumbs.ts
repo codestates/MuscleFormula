@@ -46,12 +46,21 @@ const dummyThumbs: ThumbType[] = [
     content: "나는 내용이라네",
     likes: 3,
     comments: 2,
+<<<<<<< HEAD
     image: "../images/photo_testuser_3.jpg",
     nickname: "쿠크다스",
     difficulty: 5,
     record: "12시간 30분 31초",
     bodypart: "상체",
     createdAt: "2022.03.25",
+=======
+    image: '../images/photo_testuser_3.jpg',
+    nickname: '쿠크다스',
+    difficulty: 4,
+    record: '12시간 30분 31초',
+    bodypart: '상체',
+    createdAt: '2022.03.25'
+>>>>>>> 3a4d76f432d2783c64815ef937f5b2b769025a19
   },
   {
     postImage: "../images/photo_testpost_3.jpg",
@@ -59,12 +68,21 @@ const dummyThumbs: ThumbType[] = [
     content: "나는 내용이라네",
     likes: 3,
     comments: 2,
+<<<<<<< HEAD
     image: "../images/photo_testuser_3.jpg",
     nickname: "쿠크다스",
     difficulty: 5,
     record: "12시간 30분 31초",
     bodypart: "상체",
     createdAt: "2022.03.25",
+=======
+    image: '../images/photo_testuser_3.jpg',
+    nickname: '쿠크다스',
+    difficulty: 2,
+    record: '12시간 30분 31초',
+    bodypart: '상체',
+    createdAt: '2022.03.25'
+>>>>>>> 3a4d76f432d2783c64815ef937f5b2b769025a19
   },
   {
     postImage: "../images/photo_testpost_3.jpg",
@@ -72,12 +90,21 @@ const dummyThumbs: ThumbType[] = [
     content: "나는 내용이라네",
     likes: 3,
     comments: 2,
+<<<<<<< HEAD
     image: "../images/photo_testuser_3.jpg",
     nickname: "쿠크다스",
     difficulty: 5,
     record: "12시간 30분 31초",
     bodypart: "상체",
     createdAt: "2022.03.25",
+=======
+    image: '../images/photo_testuser_3.jpg',
+    nickname: '쿠크다스',
+    difficulty: 1,
+    record: '12시간 30분 31초',
+    bodypart: '상체',
+    createdAt: '2022.03.25'
+>>>>>>> 3a4d76f432d2783c64815ef937f5b2b769025a19
   },
   {
     postImage: "../images/photo_testpost_3.jpg",
@@ -98,12 +125,21 @@ const dummyThumbs: ThumbType[] = [
     content: "나는 내용이라네",
     likes: 3,
     comments: 2,
+<<<<<<< HEAD
     image: "../images/photo_testuser_3.jpg",
     nickname: "쿠크다스",
     difficulty: 5,
     record: "12시간 30분 31초",
     bodypart: "상체",
     createdAt: "2022.03.26",
+=======
+    image: '../images/photo_testuser_3.jpg',
+    nickname: '쿠크다스',
+    difficulty: 0,
+    record: '12시간 30분 31초',
+    bodypart: '상체',
+    createdAt: '2022.03.26'
+>>>>>>> 3a4d76f432d2783c64815ef937f5b2b769025a19
   },
   {
     postImage: "../images/photo_testpost_3.jpg",
