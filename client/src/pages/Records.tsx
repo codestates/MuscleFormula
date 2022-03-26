@@ -2,6 +2,7 @@
 import '../css/Record.css'
 import Record from '../components/Record'
 import React, { useState} from 'react';
+import axios from 'axios';
 export default function Records() {
 
   let today = new Date();
@@ -53,6 +54,15 @@ export default function Records() {
     count: 0,
     time_record: 0
   })
+
+  let serverURL = "http://localhost:4000";
+
+  const submitRecord = () => {
+    axios
+    .post(`${serverURL}/users/recordx`, {
+      records
+    });
+  }
 
   const deleteRecord = (sec:number, deleteIndex:number) => {
     setTotalSec((cur)=> cur - sec);
@@ -118,7 +128,7 @@ export default function Records() {
                   idx={idx}
                   />)}
       </div>
-      {records.length? <div className="record-save"><button className='record-save'>기록하기</button></div> : null}
+      {records.length? <div className="record-save"><button className='record-save' onClick={submitRecord}>기록하기</button></div> : null}
     </div>
   )
 }
