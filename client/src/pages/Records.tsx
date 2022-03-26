@@ -1,8 +1,8 @@
 /**날짜별 운동 기록 페이지**/
 import '../css/Record.css'
-import Timer from '../components/Timer'
-import React, { useState } from 'react';
-export default function Record() {
+import Record from '../components/Record'
+import React, { useState} from 'react';
+export default function Records() {
 
   let today = new Date();
   let year = today.getFullYear();
@@ -39,11 +39,11 @@ export default function Record() {
     return hours + ":" + minutes + ":" + seconds; 
   }
 
-
   interface RecordType {
     genre: string,
     weight: number,
     count: number,
+    time_record: number
   }
 
   const [records, setRecords] = useState<RecordType[]>([]);
@@ -51,20 +51,36 @@ export default function Record() {
     genre: '',
     weight: 0,
     count: 0,
+    time_record: 0
   })
+
+  const deleteRecord = (sec:number, deleteIndex:number) => {
+    setTotalSec((cur)=> cur - sec);
+    const restRecords = records.filter((record, idx)=> idx !== deleteIndex);
+    setRecords(restRecords);
+  }
 
   const handleInputValue = (key:string) => (e:React.ChangeEvent<HTMLInputElement>) => {
     setExercise({...exercise, [key]: e.target.value})
+  }
+
+  const getRecordValue = (sec: number, idx: number) => {
+    records.forEach((record, i) => {
+      if(i === idx) record.time_record = sec;
+    });
   }
 
   const addExercise = () => {
     setExercise({
       genre: '',
       weight: 0,
-      count: 0
+      count: 0,
+      time_record: 0
     });
-    setRecords((currentList) => [...currentList, exercise])
+    setRecords((currentList) => [...currentList, exercise]);
   }
+
+  console.log('레코드기록', records);
 
   return (
     <div id='record-container'>
@@ -83,12 +99,13 @@ export default function Record() {
       <div className='exercise-container'>
         <div className='exercise-name'>
           {records.map((exercise, idx) => 
-          <li key={idx}>
-            {exercise.genre}  
-            {exercise.weight}kg  
-            {exercise.count}회
-            <Timer setTotalSec={setTotalSec}/>
-            </li>)}
+          <Record key={idx} 
+                  exercise={exercise} 
+                  setTotalSec={setTotalSec} 
+                  deleteRecord={deleteRecord}
+                  getRecordValue={getRecordValue} 
+                  idx={idx}
+                  />)}
         </div>
       </div>
     </div>

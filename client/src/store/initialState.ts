@@ -1,17 +1,8 @@
-interface RecordType {
-  id: number;
-  genre: string,
-  weight: number,
-  count: number,
-  time_record: number
-}
-
 type InitialState = {
   'test': {id: number, name: string, quan: number}[],
   'count': number,
   'userInfo': {id: number|string, nickname: string, image: string}
   'isLogin': boolean,
-  'record': RecordType[]
   'notification': []
 }
 
@@ -23,9 +14,6 @@ export const initialState :InitialState = {
   'count' : 0,
   'userInfo' : {id: '', nickname: '', image: ''},
   'isLogin' : false,
-  'record': [
-
-  ],
   'notification': [
 
   ]
