@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Mobile, PC } from "../mediaQuery";
 import axios from "axios";
-
+import Footer from "../components/Footer";
 import "../css/Main.css";
 import dummyThumbs from "./dummy/dummyThumbs";
 import Search from "../components/Search";
@@ -41,6 +41,9 @@ export default function Main() {
           </div>
         ))}
       </div>
+      <PC>
+        <Footer/>
+      </PC>
     </div>
   );
 }

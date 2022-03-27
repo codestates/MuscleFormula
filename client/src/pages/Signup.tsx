@@ -27,7 +27,6 @@ export const Main = styled.div`
     justify-content: space-evenly;
     > .user-signup-container {
       /* border: 3px solid green; */
-
       padding: 10px;
       height: 30vh;
       display: flex;
@@ -95,8 +94,6 @@ export const Main = styled.div`
 `;
 
 export default function LoginTest() {
-  const navigate = useNavigate();
-
   const [userEmail, setUserEmail] = useState("");
   const [userNickname, setUserNickname] = useState("");
   const [userPassword, serUserPassword] = useState("");
@@ -106,6 +103,11 @@ export default function LoginTest() {
   const matchEmail =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   const matchPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+  // console.log("signUp test페이지");
+  // console.log("카운터", count);
+  // console.log("유저정보", user);
+  // console.log("로그인", isLogin);
+  const navigate = useNavigate();
 
   const isValidEmail = matchEmail.test(userEmail);
   const isValidPassword = matchPassword.test(userPassword);
