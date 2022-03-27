@@ -15,6 +15,7 @@ import Maypage from "./pages/Mypage";
 import Profile from "./pages/Profile";
 import Editor from "./pages/Editor";
 
+
 const App: React.FC = () => {
   return (
     <div>
@@ -32,6 +33,7 @@ const App: React.FC = () => {
         <Route path="/test" element={<ReducerTest />} />
       </Routes>
       <Nav />
+      <Footer/>
     </div>
   );
 };

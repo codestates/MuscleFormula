@@ -9,7 +9,6 @@ import { useState } from "react";
 import type { RootState, AppDispatch } from "../store";
 import StarPoint from "../components/StarPoint";
 import styled from "styled-components";
-
 export const Main = styled.div`
   border: 3px solid green;
   padding: 10px;
@@ -29,7 +28,6 @@ export const Main = styled.div`
     justify-content: space-evenly;
     > .userLonginInfo {
       /* border: 3px solid green; */
-
       padding: 10px;
       height: 30vh;
       display: flex;
@@ -97,7 +95,6 @@ export default function LoginTest() {
   const count = useSelector((state: RootState) => state.counter.count);
   const user = useSelector((state: RootState) => state.userInfo.userInfo);
   const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
-
   const [userEmail, setUserEmail] = useState("");
   const [userNickname, setUserNickname] = useState("");
   const [userPassword, serUserPassword] = useState("");
@@ -107,7 +104,6 @@ export default function LoginTest() {
   // console.log("카운터", count);
   // console.log("유저정보", user);
   // console.log("로그인", isLogin);
-
   const navigate = useNavigate();
 
   let dispatch: AppDispatch = useDispatch();
