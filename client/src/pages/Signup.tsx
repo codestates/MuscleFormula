@@ -142,7 +142,8 @@ export default function LoginTest() {
 
   useEffect(() => {
     axios_GetNickname(userNickname).then((res) => {
-      serUserNicknameCheck(!(res.data.length > 0) && userNickname.length > 0);
+      // console.log("nickname res :", res);
+      serUserNicknameCheck(!(res.data.length > 0));
     });
   }, [userNickname]);
 
@@ -172,11 +173,7 @@ export default function LoginTest() {
               <div>닉네임</div>
               <input type="text" onChange={changeNickname}></input>
             </div>
-            {userNicknameCheck || userNickname.length === 0 ? (
-              <p> </p>
-            ) : (
-              <p>동일한 닉네임이 존재합니다</p>
-            )}
+            {userNicknameCheck ? <p> </p> : <p>동일한 닉네임이 존재합니다</p>}
 
             <div className="userPassword">
               <div>비밀번호</div>

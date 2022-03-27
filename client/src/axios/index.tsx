@@ -24,9 +24,7 @@ export const axios_Signup = (
 };
 
 export const axios_GetNickname = (userNickname: string) => {
-  return axios.get(`${serverURI}/users/nickname`, {
-    params: {
-      nickname: userNickname,
-    },
+  return axios.post(`${serverURI}/sign/nickname`, {
+    nickname: userNickname,
   });
 };
