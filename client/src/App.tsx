@@ -14,7 +14,6 @@ import Chat from "./pages/Chat";
 import Maypage from "./pages/Mypage";
 import Profile from "./pages/Profile";
 import Editor from "./pages/Editor";
-
 import ReducerTest from "./test/ReducerTest";
 import EditorTest from "./test/EditorTest";
 
@@ -37,6 +36,7 @@ const App: React.FC = () => {
         <Route path="/testEdit" element={<EditorTest />} />
       </Routes>
       <Nav />
+      <Footer/>
     </div>
   );
 };
