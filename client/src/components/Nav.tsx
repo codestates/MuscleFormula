@@ -198,8 +198,6 @@ export const DownNavMobile = styled.nav`
   justify-content: space-between;
   align-items: center;
   background: #f2f2f2;
-  border-bottom-style: solid;
-  border-width: 2px;
   box-shadow: 0px -3px 10px 0px rgba(0, 0, 0, 0.2);
   > .nav-menu {
     list-style-type: none;

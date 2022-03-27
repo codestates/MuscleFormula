@@ -10,46 +10,60 @@ export const TodayKingContainer = styled.ol`
   width: 80vw;
   max-width: 350px;
   list-style-type: none;
-  border-radius: 50px;
+  border-radius: 40px;
   background-color: #f2f2f2;
-  > li {
-    display: flex;
-    flex-direction: column;
-    > img {
-      width: 45px;
+  > table {
+    > tr {
+      > th {
+        > img {
+          width: 40px;
+        }
+      }
+      > td {
+        text-align: center;
+        padding: 0rem 1rem;
+      }
     }
   }
 `
 export default function TodayKing() {
   return (
     <TodayKingContainer>
-        <li>
+      <table>
+        <tr>
+          <th>
           <img src="../images/icon_goldmedal.png" alt= "goldmedal"/>
-          <strong>
-            닉네임1
-          </strong>
-          <data>
-            운동기록1
-          </data>
-        </li>
-        <li>
-          <img src="../images/icon_silvermedal.png" alt= "goldmedal"/>
-          <strong>
-            닉네임2
-          </strong>
-          <data>
-            운동기록2
-          </data>
-        </li>
-        <li>
-          <img src="../images/icon_bronzemedal.png" alt= "goldmedal"/>
-          <strong>
-            닉네임3
-          </strong>
-          <data>
-            운동기록3
-          </data>
-        </li>
+          </th>
+          <th>
+          <img src="../images/icon_silvermedal.png" alt= "silvermedal"/>
+          </th>
+          <th>
+          <img src="../images/icon_bronzemedal.png" alt= "bronzemedal"/>
+          </th>
+        </tr>
+        <tr>
+          <th>
+           금메달유저
+          </th>
+          <th>
+            은메달유저
+          </th>
+          <th>
+            동메달유저
+          </th>
+        </tr>
+        <tr>
+          <td>
+            00:00:00
+          </td>
+          <td>
+            00:00:00
+          </td>
+          <td>
+            00:00:00
+          </td>
+        </tr>
+      </table>
     </TodayKingContainer>
   )
 }
