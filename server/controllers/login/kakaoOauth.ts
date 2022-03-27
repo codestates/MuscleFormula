@@ -17,7 +17,7 @@ const kakao = {
 // const kakaoInfoUrl = `https://www.kakaoapis.com/oauth2/v3/userinfo`;
 
 module.exports = async (req: Request, res: Response) => {
-  console.log("Client 코드 : ", req.query.code);
+  console.log("Client 코드3 : ", req.query.code);
 
   const tokenResponse = await axios({
     method: "POST",
