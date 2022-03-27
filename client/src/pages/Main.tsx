@@ -17,7 +17,8 @@ export default function Main() {
   }, []);
 
   const navigate = useNavigate();
-
+  const code = new URLSearchParams(window.location.search).get("code");
+  console.log("code", code);
   return (
     <div id="main-container">
       <div id="todayking-container">
@@ -35,7 +36,7 @@ export default function Main() {
       </div>
       <div id="postthumb-container">
         {dummyThumbs.map((el, idx) => (
-          <div className="post-thumbs">
+          <div className="post-thumbs" key={idx}>
             <PostThumbnail postThumb={el} key={idx} />
           </div>
         ))}
