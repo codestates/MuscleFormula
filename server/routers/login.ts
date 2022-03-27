@@ -4,7 +4,7 @@ const logout = require("../controllers/login/logout");
 const google = require("../controllers/login/googleOauth");
 const kakao = require("../controllers/login/kakaoOauth");
 const signup = require("../controllers/user/signup");
-const readNick = require("../controllers/user/readNickname");
+const readNickname = require("../controllers/user/readNicks");
 
 const test = require("../controllers/login/testLongin");
 
@@ -18,5 +18,5 @@ loginrouter.get("/kakaooauth", kakao);
 
 loginrouter.get("/test", test);
 
-// loginrouter.get("/:nickname", readNick);
+loginrouter.post("/nickname", readNickname);
 export default loginrouter;

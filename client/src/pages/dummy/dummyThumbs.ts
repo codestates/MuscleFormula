@@ -59,21 +59,12 @@ const dummyThumbs: ThumbType[] = [
     content: "나는 내용이라네",
     likes: 3,
     comments: 2,
-<<<<<<< HEAD
     image: "../images/photo_testuser_3.jpg",
     nickname: "쿠크다스",
     difficulty: 2,
     record: "12시간 30분 31초",
     bodypart: "상체",
     createdAt: "2022.03.25",
-=======
-    image: '../images/photo_testuser_3.jpg',
-    nickname: '쿠크다스',
-    difficulty: 2,
-    record: '12시간 30분 31초',
-    bodypart: '상체',
-    createdAt: '2022.03.25'
->>>>>>> da3b4fb2e9f7a97f66fb3654626f9988f7d53c9a
   },
   {
     postImage: "../images/photo_testpost_3.jpg",
@@ -107,21 +98,12 @@ const dummyThumbs: ThumbType[] = [
     content: "나는 내용이라네",
     likes: 3,
     comments: 2,
-<<<<<<< HEAD
     image: "../images/photo_testuser_3.jpg",
     nickname: "쿠크다스",
     difficulty: 0,
     record: "12시간 30분 31초",
     bodypart: "상체",
     createdAt: "2022.03.26",
-=======
-    image: '../images/photo_testuser_3.jpg',
-    nickname: '쿠크다스',
-    difficulty: 0,
-    record: '12시간 30분 31초',
-    bodypart: '상체',
-    createdAt: '2022.03.26'
->>>>>>> da3b4fb2e9f7a97f66fb3654626f9988f7d53c9a
   },
   {
     postImage: "../images/photo_testpost_3.jpg",

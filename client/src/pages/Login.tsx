@@ -114,9 +114,7 @@ export default function LoginTest() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [getcode, setGetcode] = useState("");
-  //
-  // console.log("유저정보", user);
-  // console.log("로그인", isLogin);
+
   const kakaoCodeGetURI = `https://kauth.kakao.com/oauth/authorize?client_id=7d8937ab746c6e3604651e33e259fc1d&redirect_uri=http://localhost:3000/login&response_type=code`;
   const code: any = new URLSearchParams(window.location.search).get("code");
   console.log("받음 code :", typeof code);

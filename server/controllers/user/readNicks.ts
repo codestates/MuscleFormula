@@ -6,7 +6,9 @@ dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
   console.log("req.query: ", req.query);
-  const { nickname } = req.query;
+  console.log("req.prams: ", req.params);
+  console.log("req.body: ", req.body);
+  const { nickname } = req.body;
 
   const findNick = await getRepository(Users).find({
     where: { nickname },
