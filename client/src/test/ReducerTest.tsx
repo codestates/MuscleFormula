@@ -7,6 +7,7 @@ import { useState } from "react";
 import type { RootState, AppDispatch } from "../store";
 import styled from "styled-components";
 import StarPoint from "../components/StarPoint";
+import BoxTest from "./BoxTest";
 
 const Test = styled.div`
   margin: 6rem;
@@ -73,6 +74,8 @@ function ReducerTest() {
         <button onClick={() => dispatch(CHOICE(Number(number)))}>CHOICE</button>
       </p>
       <StarPoint />
+      <BoxTest />
+
     </Test>
   );
 }
