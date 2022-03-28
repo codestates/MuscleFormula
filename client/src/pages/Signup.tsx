@@ -5,7 +5,6 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
-
 import { axios_Signup, axios_GetNickname } from "../axios";
 
 export const Main = styled.div`
@@ -94,6 +93,12 @@ export const Main = styled.div`
 `;
 
 export default function LoginTest() {
+ 
+  const navigate = useNavigate();
+  const count = useSelector((state: RootState) => state.counter.count);
+  const user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+
   const [userEmail, setUserEmail] = useState("");
   const [userNickname, setUserNickname] = useState("");
   const [userPassword, serUserPassword] = useState("");
@@ -142,7 +147,8 @@ export default function LoginTest() {
 
   useEffect(() => {
     axios_GetNickname(userNickname).then((res) => {
-      serUserNicknameCheck(!(res.data.length > 0) && userNickname.length > 0);
+      // console.log("nickname res :", res);
+      serUserNicknameCheck(!(res.data.length > 0));
     });
   }, [userNickname]);
 
@@ -172,11 +178,7 @@ export default function LoginTest() {
               <div>닉네임</div>
               <input type="text" onChange={changeNickname}></input>
             </div>
-            {userNicknameCheck || userNickname.length === 0 ? (
-              <p> </p>
-            ) : (
-              <p>동일한 닉네임이 존재합니다</p>
-            )}
+            {userNicknameCheck ? <p> </p> : <p>동일한 닉네임이 존재합니다</p>}
 
             <div className="userPassword">
               <div>비밀번호</div>
