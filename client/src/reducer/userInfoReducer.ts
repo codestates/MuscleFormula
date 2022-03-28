@@ -9,10 +9,16 @@ export const userInfoReducer = createSlice({
     LOG_IN : (state, action: PayloadAction<{id: number, nickname: string, image: string}>) => {
       state.userInfo = action.payload;
       state.isLogin = true;
+      //localStorage에도 저장
+      localStorage.setItem('userInfo', JSON.stringify(action.payload));
+      localStorage.setItem('isLogin', JSON.stringify(true));
     },
     LOG_OUT : state => {
       state.userInfo = {id: '', nickname: '', image: ''};
       state.isLogin = false;
+      //localStorage에서도 수정
+      localStorage.removeItem('userInfo');
+      localStorage.removeItem('isLogin');
     },
   }
 })

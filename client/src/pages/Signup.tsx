@@ -1,11 +1,9 @@
 // 시작하자마자 보이는 뻘건색 삭제
-
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
-
 import { axios_Signup, axios_GetNickname } from "../axios";
 
 export const Main = styled.div`
@@ -94,6 +92,9 @@ export const Main = styled.div`
 `;
 
 export default function LoginTest() {
+ 
+  const navigate = useNavigate();
+
   const [userEmail, setUserEmail] = useState("");
   const [userNickname, setUserNickname] = useState("");
   const [userPassword, serUserPassword] = useState("");
@@ -107,7 +108,6 @@ export default function LoginTest() {
   // console.log("카운터", count);
   // console.log("유저정보", user);
   // console.log("로그인", isLogin);
-  const navigate = useNavigate();
 
   const isValidEmail = matchEmail.test(userEmail);
   const isValidPassword = matchPassword.test(userPassword);
