@@ -125,53 +125,52 @@ export default function LoginTest() {
 
   const kakaoCodeGetURI = `https://kauth.kakao.com/oauth/authorize?client_id=7d8937ab746c6e3604651e33e259fc1d&redirect_uri=http://localhost:3000/login&response_type=code`;
   const code: any = new URLSearchParams(window.location.search).get("code");
-  console.log("받음 code :", typeof code);
+  console.log("받음 code :", code);
   const navigate = useNavigate();
-
-  let dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     console.log("getcode:", getcode);
 
-    if (getcode) {
-      axios({
-        method: "POST",
-        url: "https://kauth.kakao.com/oauth/token",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-        },
-        data: qs.stringify({
-          grant_type: "authorization_code",
-          client_id: kakao.clientID,
-          client_secret: kakao.clientSecret,
-          redirect_uri: kakao.redirectUri,
-          code: getcode,
-        }),
-      }).then((res) => {
-        const kakao_access_token = res.data.access_token;
-        const kakao_refresh_token = res.data.refresh_token;
-        axios
-          .post(
-            `http://localhost:4000/sign/kakaooauth`,
-            { kakao_access_token, kakao_refresh_token },
-            {
-              withCredentials: true,
-            }
-          )
-          .then((res) => {
-            console.log("kakao res:", res);
-            const { id, image, nickname } = res.data.user;
-            dispatch(
-              LOG_IN({
-                id,
-                nickname,
-                image,
-              })
-            );
-            navigate("/main");
-          });
-      });
-    }
+    // if (getcode) {
+    //   axios({
+    //     method: "POST",
+    //     url: "https://kauth.kakao.com/oauth/token",
+    //     headers: {
+    //       "content-type": "application/x-www-form-urlencoded",
+    //     },
+    //     data: qs.stringify({
+    //       grant_type: "authorization_code",
+    //       client_id: kakao.clientID,
+    //       client_secret: kakao.clientSecret,
+    //       redirect_uri: kakao.redirectUri,
+    //       code: getcode,
+    //     }),
+    //   }).then((res) => {
+    //     const kakao_access_token = res.data.access_token;
+    //     const kakao_refresh_token = res.data.refresh_token;
+    //     axios
+    //       .post(
+    //         `http://localhost:4000/sign/kakaooauth`,
+    //         { kakao_access_token, kakao_refresh_token },
+    //         {
+    //           withCredentials: true,
+    //         }
+    //       )
+    //       .then((res) => {
+    //         console.log("kakao res:", res);
+    //         const { id, image, nickname } = res.data.user;
+    //         dispatch(
+    //           LOG_IN({
+    //             id,
+    //             nickname,
+    //             image,
+    //           })
+    //         );
+    //         navigate("/main");
+    //       });
+    //   });
+    // }
   }, [getcode]);
 
   const getCodeClickHandler = () => {
