@@ -14,7 +14,7 @@ loginrouter.post("/up", signup);
 loginrouter.post("/in", emaillogin);
 loginrouter.post("/out", logout);
 loginrouter.get("/googleoauth", google);
-loginrouter.get("/kakaooauth", kakao);
+loginrouter.post("/kakaooauth", kakao);
 
 loginrouter.get("/test", test);
 

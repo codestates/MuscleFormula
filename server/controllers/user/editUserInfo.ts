@@ -19,9 +19,9 @@ module.exports = async (req: Request, res: Response) => {
       where: { email },
     });
     if (user.email === verify.email) {
-      (user.email = email),
-        (user.password = password),
-        (user.nickname = nickname);
+      user.email = email;
+      user.password = password;
+      user.nickname = nickname;
       user.image = image;
 
       try {

@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import type { RootState, AppDispatch } from "../store";
 import styled from "styled-components";
 
+const qs = require("qs");
+
 export const LoginBox = styled.div`
   /* 화면 중앙으로 만들기 */
   /* border: 3px solid red; */
@@ -108,6 +110,12 @@ export const LoginBox = styled.div`
 `;
 
 export default function LoginTest() {
+  const kakao = {
+    clientID: "7d8937ab746c6e3604651e33e259fc1d",
+    clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
+    redirectUri: "http://localhost:3000/login",
+  };
+
   const user = useSelector((state: RootState) => state.userInfo.userInfo);
   const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
 
@@ -123,17 +131,47 @@ export default function LoginTest() {
   let dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .post(
-        `http://localhost:4000/sign/kakaooauth`,
-        { code: getcode },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        console.log("kakao res:", res);
+    console.log("getcode:", getcode);
+
+    if (getcode) {
+      axios({
+        method: "POST",
+        url: "https://kauth.kakao.com/oauth/token",
+        headers: {
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        data: qs.stringify({
+          grant_type: "authorization_code",
+          client_id: kakao.clientID,
+          client_secret: kakao.clientSecret,
+          redirect_uri: kakao.redirectUri,
+          code: getcode,
+        }),
+      }).then((res) => {
+        const kakao_access_token = res.data.access_token;
+        const kakao_refresh_token = res.data.refresh_token;
+        axios
+          .post(
+            `http://localhost:4000/sign/kakaooauth`,
+            { kakao_access_token, kakao_refresh_token },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log("kakao res:", res);
+            const { id, image, nickname } = res.data.user;
+            dispatch(
+              LOG_IN({
+                id,
+                nickname,
+                image,
+              })
+            );
+            navigate("/main");
+          });
       });
+    }
   }, [getcode]);
 
   const getCodeClickHandler = () => {

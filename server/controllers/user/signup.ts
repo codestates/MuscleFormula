@@ -20,10 +20,10 @@ module.exports = async (req: Request, res: Response) => {
   } else {
     if (!user) {
       const signup = new Users();
-      (signup.email = req.body.email),
-        (signup.password = req.body.password),
-        (signup.nickname = req.body.nickname);
-      signup.image = req.body.image;
+      signup.email = req.body.email;
+      signup.password = req.body.password;
+      signup.nickname = req.body.nickname;
+      // signup.image = req.body.image;
 
       try {
         await signup.save();
