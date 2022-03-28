@@ -15,6 +15,7 @@ import Profile from "./pages/Profile";
 import Editor from "./pages/Editor";
 import ReducerTest from "./test/ReducerTest";
 import EditorTest from "./test/EditorTest";
+import CallbackKakao from "./callback/callbackKakao";
 
 const App: React.FC = () => {
   return (
@@ -33,6 +34,7 @@ const App: React.FC = () => {
         <Route path="/chat" element={<Chat />} />
         <Route path="/test" element={<ReducerTest />} />
         <Route path="/testEdit" element={<EditorTest />} />
+        <Route path="/callbackKakao" element={<CallbackKakao />} />
       </Routes>
       <Nav />
     </div>
