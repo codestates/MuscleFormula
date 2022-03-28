@@ -16,7 +16,7 @@ export const userInfoReducer = createSlice({
     LOG_OUT : state => {
       state.userInfo = {id: '', nickname: '', image: ''};
       state.isLogin = false;
-      //localStorage에서도 수정
+      //localStorage에서도 삭제
       localStorage.removeItem('userInfo');
       localStorage.removeItem('isLogin');
     },
