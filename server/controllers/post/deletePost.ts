@@ -8,7 +8,8 @@ import { verifyToken } from "../../jwt/authChecker";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
-  const { postId } = req.body;
+  const { postId } = req.query;
+  console.log(req.query);
   const auth = req.headers["authorization"];
   console.log("delete body", req.body);
   if (!auth) {

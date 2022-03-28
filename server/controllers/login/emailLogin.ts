@@ -28,7 +28,7 @@ module.exports = async (req: Request, res: Response) => {
     const accessToken = await generateAccessToken(email, password);
     const refreshToken = await generateRefreshToken(email, password);
     res.cookie("refreshToken", refreshToken, {
-      maxAge: 60 * 60 * 24,
+      maxAge: 60 * 60 * 24 * 7, // 1주일
       //domain: "gg-one-delta.vercel.app",
       //path: "/",
       httpOnly: true,
@@ -36,7 +36,7 @@ module.exports = async (req: Request, res: Response) => {
       sameSite: "none",
     });
 
-    console.log(req.cookies);
+    console.log(req.cookies.refreshToken);
     res.json({
       message: "login Success",
       accessToken: accessToken,

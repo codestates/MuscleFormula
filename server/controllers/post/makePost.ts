@@ -74,7 +74,7 @@ module.exports = async (req: Request, res: Response) => {
         const allPosters = await getRepository(Posts).find({
           relations: ["users", "post_comments", "post_likes"],
         });
-        console.log("allPosters:", allPosters);
+        //console.log("allPosters:", allPosters);
         res.status(200).json({ message: `포스트 생성 성공` });
       } catch (e) {
         console.log("포스트 생성 실패", e);

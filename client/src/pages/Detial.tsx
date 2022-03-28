@@ -1,3 +1,13 @@
+/**포스트 상세 페이지**/
+// export default function Detail() {
+//   console.log("알림 페이지");
+
+//   return (
+//     <div id="main-container">
+//       <div></div>
+//     </div>
+//   );
+// }
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -12,7 +22,7 @@ export const Main = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 90vh;
-  > #editor-container {
+  > #detial-container {
     border: 3px solid green;
     padding: 10px;
     height: 60vh;
@@ -24,15 +34,14 @@ export const Main = styled.div`
   }
 `;
 
-export default function Editor() {
+export default function Detail() {
   const navigate = useNavigate();
 
   return (
-    <div id="EditorPage">
+    <div id="DetailPage">
       <Main>
-        <div id="editor-container">
-          <div>글쓰기</div>
-          <div></div>
+        <div id="detial-container">
+          <h1>상세페이지</h1>
         </div>
       </Main>
     </div>

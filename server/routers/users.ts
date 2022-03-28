@@ -9,6 +9,8 @@ const deleteUserExRecord = require("../controllers/user_record/deleteUserExRecor
 
 const userRouter = express.Router();
 
+// user nickname is
+
 userRouter.get("/mypage", readMypage);
 userRouter.put("/", editUserInfo);
 userRouter.delete("/", deleteUserInfo);
