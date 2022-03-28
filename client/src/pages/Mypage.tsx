@@ -1,11 +1,14 @@
 /**마이 페이지**/
 import '../css/Mypage.css'
-import { useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch} from '../store'
+import { useSelector } from 'react-redux';
+import type { RootState} from '../store'
 
 export default function Maypage() {
-  console.log('user')
-  const user = useSelector((state:RootState) => state.userInfo.userInfo);
+  let user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const localUser = localStorage.getItem('userInfo');
+  if (localUser !== null ) {
+    user = JSON.parse(localUser);
+  };
   return (
     <div id='mypage-container'>
       <header className='mypage-greeting'>
