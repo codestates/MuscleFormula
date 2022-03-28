@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Mobile, PC } from "../mediaQuery";
 import axios from "axios";
-
+import Footer from "../components/Footer";
 import "../css/Main.css";
 import dummyThumbs from "./dummy/dummyThumbs";
 import Search from "../components/Search";
@@ -17,7 +17,8 @@ export default function Main() {
   }, []);
 
   const navigate = useNavigate();
-
+  const code = new URLSearchParams(window.location.search).get("code");
+  console.log("code", code);
   return (
     <div id="main-container">
       <div id="todayking-container">
@@ -35,11 +36,14 @@ export default function Main() {
       </div>
       <div id="postthumb-container">
         {dummyThumbs.map((el, idx) => (
-          <div className="post-thumbs">
+          <div className="post-thumbs" key={idx}>
             <PostThumbnail postThumb={el} key={idx} />
           </div>
         ))}
       </div>
+      <PC>
+        <Footer/>
+      </PC>
     </div>
   );
 }

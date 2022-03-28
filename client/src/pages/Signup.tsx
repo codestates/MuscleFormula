@@ -1,3 +1,5 @@
+// 시작하자마자 보이는 뻘건색 삭제
+
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -91,10 +93,12 @@ export const Main = styled.div`
 `;
 
 export default function LoginTest() {
+ 
   const navigate = useNavigate();
   const count = useSelector((state: RootState) => state.counter.count);
   const user = useSelector((state: RootState) => state.userInfo.userInfo);
   const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+
   const [userEmail, setUserEmail] = useState("");
   const [userNickname, setUserNickname] = useState("");
   const [userPassword, serUserPassword] = useState("");
@@ -137,13 +141,14 @@ export default function LoginTest() {
   const changeEmail = (e: string | any) => {
     setUserEmail(e.target.value);
   };
-  const changeNickname = async (e: string | any) => {
+  const changeNickname = (e: string | any) => {
     setUserNickname(e.target.value);
   };
 
   useEffect(() => {
     axios_GetNickname(userNickname).then((res) => {
-      serUserNicknameCheck(!(res.data.length > 0) && userNickname.length > 0);
+      // console.log("nickname res :", res);
+      serUserNicknameCheck(!(res.data.length > 0));
     });
   }, [userNickname]);
 
@@ -164,7 +169,11 @@ export default function LoginTest() {
               <div>이메일</div>
               <input type="text" onChange={changeEmail}></input>
             </div>
-            {isValidEmail ? <p></p> : <p>이메일의 형식에 맞게 적어주세요</p>}
+            {isValidEmail || userEmail.length === 0 ? (
+              <p></p>
+            ) : (
+              <p>이메일의 형식에 맞게 적어주세요</p>
+            )}
             <div className="userNick">
               <div>닉네임</div>
               <input type="text" onChange={changeNickname}></input>
@@ -173,9 +182,9 @@ export default function LoginTest() {
 
             <div className="userPassword">
               <div>비밀번호</div>
-              <input type="text" onChange={changePassword}></input>
+              <input type="password" onChange={changePassword}></input>
             </div>
-            {isValidPassword ? (
+            {isValidPassword || userPassword.length === 0 ? (
               <p> </p>
             ) : (
               <p>
@@ -188,7 +197,7 @@ export default function LoginTest() {
               <div>비밀번호 확인</div>
               <input type="password" onChange={changePasswordCheck}></input>
             </div>
-            {isValidPasswordCheck ? (
+            {isValidPasswordCheck || userPasswordCheck.length === 0 ? (
               <p> </p>
             ) : (
               <p>비밀번호가 일치하지 않습니다</p>

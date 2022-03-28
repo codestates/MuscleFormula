@@ -1,20 +1,15 @@
 import styled from 'styled-components';
 
-
-
-export const Foot = styled.footer`
  
+ export const Foot = styled.footer`  
   font-family: "IBM Plex Sans KR", sans-serif;
-  bottom :0 ;
   /* margin-top:40rem; */
   display:flex ;
+  flex-direction: column;
   width: 100%;
-  position: fixed;
   background-color: rgb(155, 170, 170);
   color: #000000cc;
-
- 
- > button.btn-big{
+  > button.btn-big{
     padding: .3rem 1rem;
     background: #00ff99;
     color: black;
@@ -23,9 +18,11 @@ export const Foot = styled.footer`
   }  
  
   > .footer-container {
-  
+   
+
     width:100%;
     display: flex;
+    flex-direction: row;
     height: 300px;
   }
 
@@ -51,6 +48,7 @@ export const Foot = styled.footer`
 }
 
 > .footer-container .about a {
+
 border: 1.5px solid gray;
 width:  30px; 
 /* width:768px  모바일*/
@@ -68,6 +66,8 @@ border-radius: 5px;
 border: 1px solid white;
 color: white;
 transition: all .3s;
+ 
+
 } 
 
 > .footer-container .links ul a {
@@ -101,20 +101,17 @@ transition: all .3s;
 > .footer-container .contact-input:focus{
 background: #000000;
 }
-  > .footer-bottom{
-    color: #686868;
-    background : #303036;
-    height: 1px;
-     width: 100%;
-    text-align : center;
-    position:absolute;
-    bottom :0px;
-    left:0px;
-    padding-top: 20px;
-    border: 1px solid darkblue;
-  }
- 
-
+> .footer-bottom{
+  color: #686868;
+  background : #303036;
+  height: 1px;
+  width: 100%;
+  text-align : center;
+  bottom :0px;
+  left:0px;
+  padding-top: 20px;
+  border: 1px solid darkblue;
+} 
 `;
 
 export default function Footer() {
@@ -137,11 +134,12 @@ export default function Footer() {
               <a href="#"><i className='fab fa-twitter'></i></a>
               <a href="#"><i className='fab fa-youtube'></i></a>
             </div>
+ 
             </div> 
         <div className="footer-section links">
           <h2>Quick Links</h2>
           <ul>
-            <a href="/main"><li>메인</li></a>
+           <a href="/main"><li>메인</li></a>
             <a href="/record"><li>운동기록</li></a>
             <a href="/mypage"><li>공유하기</li></a>
             <a href="/alarm"><li>알림</li></a>
@@ -162,9 +160,10 @@ export default function Footer() {
         </div>
       
       </div> 
-        <div className="footer-bottom"> 
+ 
+      <div className="footer-bottom"> 
         &copy; Muscle Formula || Desinged by GG 
-        </div>
-      
+      </div>  
+ 
     </Foot>
   )}

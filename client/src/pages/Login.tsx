@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { LOG_IN } from "../reducer/userInfoReducer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { RootState, AppDispatch } from "../store";
 import styled from "styled-components";
 
@@ -112,30 +112,46 @@ export default function LoginTest() {
   const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
 
   const [userEmail, setUserEmail] = useState("");
-  const [userPassword, serUserPassword] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [getcode, setGetcode] = useState("");
 
-  // console.log("유저정보", user);
-  // console.log("로그인", isLogin);
-
+  const kakaoCodeGetURI = `https://kauth.kakao.com/oauth/authorize?client_id=7d8937ab746c6e3604651e33e259fc1d&redirect_uri=http://localhost:3000/login&response_type=code`;
+  const code: any = new URLSearchParams(window.location.search).get("code");
+  console.log("받음 code :", typeof code);
   const navigate = useNavigate();
 
   let dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    axios
+      .post(
+        `http://localhost:4000/sign/kakaooauth`,
+        { code: getcode },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log("kakao res:", res);
+      });
+  }, [getcode]);
+
+  const getCodeClickHandler = () => {
+    console.log("kakao 클릭함");
+    setGetcode(code);
+  };
 
   const loginHangle = async () => {
     const loginUserinfo = {
       email: userEmail,
       password: userPassword,
     };
-    // console.log("login info : ", loginUserinfo);
-    let serverURL = "http://localhost:4000";
 
     axios
-      .post(`${serverURL}/sign/in`, loginUserinfo, {
+      .post(`http://localhost:4000/sign/in`, loginUserinfo, {
         withCredentials: true,
       })
       .then((res) => {
-        // console.log("받은 유저정보:", res);
-
         const { id, image, nickname } = res.data.user;
         dispatch(
           LOG_IN({
@@ -147,12 +163,18 @@ export default function LoginTest() {
         navigate("/main");
       });
   };
+  const loginKakaoHangle = async () => {
+    // console.log("kakao");
+    // axios.get(kakaoCodeGetURI).then((res) => {
+    //   console.log("res", res);
+    // });
+  };
 
   const changeEmail = (e: string | any) => {
     setUserEmail(e.target.value);
   };
   const changePassword = (e: string | any) => {
-    serUserPassword(e.target.value);
+    setUserPassword(e.target.value);
   };
 
   return (
@@ -195,19 +217,19 @@ export default function LoginTest() {
               <img
                 src="../images/icon_google.png"
                 alt="logoGoogle"
-                onClick={() => {
-                  console.log("google");
-                }}
+                onClick={loginKakaoHangle}
               />
             </th>
             <th>
-              <img
-                src="../images/icon_kakao.png"
-                alt="logoKakao"
-                onClick={() => {
-                  console.log("kakao");
-                }}
-              />
+              <a href={kakaoCodeGetURI} onClick={getCodeClickHandler}>
+                <img
+                  src="../images/icon_kakao.png"
+                  alt="logoKakao"
+                  onClick={() => {
+                    console.log("kakao");
+                  }}
+                />
+              </a>
             </th>
           </tr>
           <tr>
