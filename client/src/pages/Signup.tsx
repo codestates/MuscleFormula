@@ -1,5 +1,4 @@
 // 시작하자마자 보이는 뻘건색 삭제
-
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -95,9 +94,6 @@ export const Main = styled.div`
 export default function LoginTest() {
  
   const navigate = useNavigate();
-  const count = useSelector((state: RootState) => state.counter.count);
-  const user = useSelector((state: RootState) => state.userInfo.userInfo);
-  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
 
   const [userEmail, setUserEmail] = useState("");
   const [userNickname, setUserNickname] = useState("");
@@ -112,7 +108,6 @@ export default function LoginTest() {
   // console.log("카운터", count);
   // console.log("유저정보", user);
   // console.log("로그인", isLogin);
-  const navigate = useNavigate();
 
   const isValidEmail = matchEmail.test(userEmail);
   const isValidPassword = matchPassword.test(userPassword);

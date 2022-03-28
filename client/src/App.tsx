@@ -35,7 +35,6 @@ const App: React.FC = () => {
         <Route path="/testEdit" element={<EditorTest />} />
       </Routes>
       <Nav />
-      <Footer/>
     </div>
   );
 };
