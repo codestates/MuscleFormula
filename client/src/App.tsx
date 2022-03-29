@@ -16,6 +16,7 @@ import Editor from "./pages/Editor";
 import ReducerTest from "./test/ReducerTest";
 import EditorTest from "./test/EditorTest";
 import Landing from "./pages/Landing";
+
 import CallbackKakao from "./callback/callbackKakao";
 
 const App: React.FC = () => {
@@ -38,8 +39,11 @@ const App: React.FC = () => {
         <Route path="/callbackKakao" element={<CallbackKakao />} />
         <Route path="/" element={<Landing/>} />
       </Routes>
+
       <Nav />
+      
     </div>
+    
   );
 };
 
