@@ -8,25 +8,26 @@ export const BoxType = styled.div`
     border: 1px solid grey;
     width: 50vw;
     height: 50vh;
-  } 
+  }
   > textarea {
     border: 1px solid red;
     width: 50vw;
     height: 50vh;
-    ;
   }
-`
+`;
 
-export default function BoxTest (){
-  const [content, setContent] = useState<string|null>('');
+export default function BoxTest() {
+  const [content, setContent] = useState<string | null>("");
 
-
+  console.log("div content : ", content);
   return (
     <BoxType>
-      <div id="editor" contentEditable="true" onInput={(e)=> setContent(e.currentTarget.textContent)}>
-      </div>
-      <textarea>
-      </textarea>
+      <div
+        id="editor"
+        contentEditable="true"
+        onInput={(e) => setContent(e.currentTarget.textContent)}
+      ></div>
+      <textarea></textarea>
       {content}
     </BoxType>
   );
