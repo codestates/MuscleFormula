@@ -65,6 +65,7 @@ export const NavPC = styled.nav`
       }
     }
     > li:hover {
+      transition:all .3s ease;
       color: #00cc99;
     }
   }

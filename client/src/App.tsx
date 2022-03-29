@@ -3,7 +3,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Main from "./pages/Main";
-import Detail from "./pages/Detial";
+import Detail from "./pages/Detail";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Share from "./pages/Share";
@@ -15,6 +15,7 @@ import Profile from "./pages/Profile";
 import Editor from "./pages/Editor";
 import ReducerTest from "./test/ReducerTest";
 import EditorTest from "./test/EditorTest";
+import Landing from "./pages/Landing";
 import CallbackKakao from "./callback/callbackKakao";
 
 const App: React.FC = () => {
@@ -35,6 +36,7 @@ const App: React.FC = () => {
         <Route path="/test" element={<ReducerTest />} />
         <Route path="/testEdit" element={<EditorTest />} />
         <Route path="/callbackKakao" element={<CallbackKakao />} />
+        <Route path="/" element={<Landing/>} />
       </Routes>
       <Nav />
     </div>
