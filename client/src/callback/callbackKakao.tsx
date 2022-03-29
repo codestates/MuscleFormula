@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { LOG_IN } from "../reducer/userInfoReducer";
 import type { AppDispatch } from "../store";
 
-import { axios_GetKakaoToken, axios_GetUser_TOKakaoToken } from "../axios";
+import { axios_GetKakaoToken, axios_GetUser_toKakaoToken } from "../axios";
 
 const qs = require("qs");
 
@@ -18,7 +18,7 @@ function CallbackKakao() {
     if (code) {
       console.log("useEffect if 문이 실행됨?");
       axios_GetKakaoToken(code).then((res) => {
-        axios_GetUser_TOKakaoToken(
+        axios_GetUser_toKakaoToken(
           res.data.access_token,
           res.data.refresh_token
         ).then((res) => {
