@@ -53,7 +53,7 @@ export const axios_GetKakaoToken = (code: string) => {
   });
 };
 
-export const axios_GetUser_TOKakaoToken = (
+export const axios_GetUser_toKakaoToken = (
   kakao_access_token: string,
   kakao_refresh_token: string
 ) => {
@@ -64,4 +64,23 @@ export const axios_GetUser_TOKakaoToken = (
       withCredentials: true,
     }
   );
+};
+
+const googleUrl = `https://accounts.google.com/o/oauth2/token`;
+const googleInfo = `https://www.googleapis.com/oauth2/v3/userinfo`;
+
+export const axios_GetGoogleToken = (code: string) => {
+  return axios.post(googleUrl, {
+    client_id:
+      "1062811618314-04ajm3grgt3c9hf51lq1911qt3el9ro9.apps.googleusercontent.com",
+    client_secret: "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",
+    code: code,
+    grant_type: "authorization_code",
+    redirect_uri: "http://localhost:3000/callbackGoogle",
+  });
+};
+export const axios_GetUser_toGoogleTOken = (accessToken: string) => {
+  return axios.post("http://localhost:4000/sign/googleoauth", {
+    accessToken,
+  });
 };
