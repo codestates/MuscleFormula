@@ -2,46 +2,39 @@ import { Request, Response } from "express";
 import axios from "axios";
 import dotenv from "dotenv";
 import { Users } from "../../models/entity/User";
+import { generateAccessToken } from "../../jwt/generateAccessToken";
+import { generateRefreshToken } from "../../jwt/generateRefreshToken";
+import { getRepository } from "typeorm";
 
 dotenv.config();
 
 const googleUrl = `https://accounts.google.com/o/oauth2/token`;
 const googleInfo = `https://www.googleapis.com/oauth2/v3/userinfo`;
+let userData: any;
 module.exports = async (req: Request, res: Response) => {
-  //res.status(200).send("hello");
-  //console.log(req.query); code
-  axios
-    .post(googleUrl, {
-      client_id: process.env.GOOGLE_CLIENTID,
-      client_secret: process.env.GOOGLE_CLIENTPASSWORD,
-      code: req.query.code,
-      grant_type: "authorization_code",
-      redirect_uri: "http://localhost:4000/googleoauth",
+  console.log(req.body);
+
+  let accessToken = req.body.accessToken;
+  const resInfo = await axios
+    .get(googleInfo, {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
     })
     .then(async (result) => {
-      //console.log(result.data);
-      let accessToken = result.data.access_token;
-      let refreshToken = result.data.refresh_token;
-      const resInfo = await axios
-        .get(googleInfo, {
-          headers: {
-            authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then((result) => result.data)
-        .catch((err) => {
-          console.log("유저정보를 가져올수 없습니다!", err.message);
-        });
-      // console.log(resInfo.email);
+      console.log("result 유저정보", result.data);
+      console.log("email : ", result.data.email);
+      const email = result.data.email;
       const userInfo = await Users.findOne({
-        email: `${resInfo.email}`,
+        email,
       });
+      console.log("userInfo:", userInfo);
       if (!userInfo) {
         let makeUser: Users = new Users();
-        makeUser.email = `${resInfo.email}`;
-        makeUser.nickname = `${resInfo.email.split("@")[0]}`;
-        makeUser.image = `${resInfo.picture}`;
-        makeUser.password = `${resInfo.sub}`;
+        makeUser.email = email;
+        makeUser.nickname = email.split("@")[0];
+        makeUser.image = result.data.picture;
+        makeUser.password = result.data.sub;
         try {
           makeUser.save();
           console.log("성공적으로 로그인이 되었습니다.");
@@ -49,25 +42,37 @@ module.exports = async (req: Request, res: Response) => {
           console.log("유저생성 에러!");
         }
       }
+      const findUser = await getRepository(Users).findOne({
+        where: { email },
+      });
+      if (findUser) {
+        userData = {
+          id: findUser.id,
+          email: findUser.email,
+          nickname: findUser.nickname,
+          image: findUser.image,
+        };
+      }
 
+      const accessToken = await generateAccessToken(email, result.data.sub);
+      const refreshToken = await generateRefreshToken(email, result.data.sub);
       res.cookie("refreshToken", refreshToken, {
-        maxAge: 1000 * 60 * 60 * 24 * 7,
+        maxAge: 60 * 60 * 24 * 7, // 1주일
+        //domain: "gg-one-delta.vercel.app",
+        //path: "/",
         httpOnly: true,
         secure: true,
         sameSite: "none",
       });
-      res.status(200).json({
-        accessToken,
-        userInfo: {
-          email: resInfo.email,
-          nickname: resInfo.email.split("@")[0],
-          image: resInfo.picture,
-        },
+
+      console.log(req.cookies.refreshToken);
+      res.json({
+        message: "login Success",
+        accessToken: accessToken,
+        user: userData,
       });
     })
     .catch((err) => {
-      res.status(401).json({
-        message: "로그인 실패하엿습니다!!",
-      });
+      console.log("유저정보를 가져올수 없습니다!", err.message);
     });
 };
