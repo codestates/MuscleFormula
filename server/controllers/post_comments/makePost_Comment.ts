@@ -14,18 +14,18 @@ module.exports = async (req: Request, res: Response) => {
   console.log("makePost_Commets : ", req.body);
   const auth = req.headers["authorization"];
 
-  const user: any = await getRepository(Users).findOne({
-    where: { id: userId },
-  });
-  //console.log(user);
-  const post = await getRepository(Posts).findOne({
-    where: { id: postId },
-  });
   if (!auth) {
     res.status(400).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
   } else {
     const token: any = auth?.split(" ")[1];
     const verify = await verifyToken(token);
+    const user: any = await getRepository(Users).findOne({
+      where: { id: userId },
+    });
+    //console.log(user);
+    const post = await getRepository(Posts).findOne({
+      where: { id: postId },
+    });
     // console.log(verify.email);
     if (user.email === verify.email) {
       // const post = new Posts();
@@ -54,7 +54,7 @@ module.exports = async (req: Request, res: Response) => {
           relations: ["users", "post"],
         });
         console.log("allPost_Comment:", allPost_Comment);
-        res.status(200).json({ message: `코멘트 생성 성공` });
+        res.status(200).json({ message: `코멘트 생성 성공`, data: created });
       } catch (e) {
         console.log("comment 생성 실패", e);
       }

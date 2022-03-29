@@ -4,15 +4,11 @@ import dotenv from "dotenv";
 import { Users } from "../../models/entity/User";
 import { Posts } from "../../models/entity/Post";
 import { verifyToken } from "../../jwt/authChecker";
-
+import { Record } from "../../models/entity/Record";
 dotenv.config();
 let today = new Date(Date.now());
 let todaySring =
-  today.getFullYear() +
-  "-" +
-  (today.getMonth() + 1) +
-  "-" +
-  (today.getDate() + 1);
+  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 // date 속성으로 넣으면날짜가 하루 -1 됨 ㅋㅋㅋ
 module.exports = async (req: Request | any, res: Response) => {
   //console.log(req.cookies);
@@ -42,7 +38,12 @@ module.exports = async (req: Request | any, res: Response) => {
     const user = await getRepository(Users).findOne({
       where: { id: userId },
     });
-    console.log(user?.email);
+    const exInfo = await getRepository(Record).findOne({
+      where: { id: exerciseInfo },
+      relations: ["ex_record"],
+    });
+    //console.log("exInfo", exInfo);
+
     if (user?.email === verify.email) {
       const created = Posts.create({
         title: postTitle,
@@ -53,6 +54,7 @@ module.exports = async (req: Request | any, res: Response) => {
         image: `${getImageUrl}/post/${postImage.filename}`,
         created_At: todaySring,
         users: user,
+        exerciseInfo: exInfo,
         post_comments: [],
         post_likes: [],
       });
@@ -61,10 +63,10 @@ module.exports = async (req: Request | any, res: Response) => {
         await created.save();
         // await post.save();
         const allPosters = await getRepository(Posts).find({
-          relations: ["users", "post_comments", "post_likes"],
+          relations: ["users", "post_comments", "post_likes", "exerciseInfo"],
         });
-        console.log("allPosters:", allPosters);
-        res.status(200).json({ message: `포스트 생성 성공` });
+        //console.log("allPosters:", allPosters);
+        res.status(200).json({ message: `포스트 생성 성공`, data: created });
       } catch (e) {
         console.log("포스트 생성 실패", e);
       }
