@@ -7,6 +7,7 @@ import { useState } from "react";
 import type { RootState, AppDispatch } from "../store";
 import styled from "styled-components";
 import StarPoint from "../components/StarPoint";
+import { useForm } from "react-hook-form";
 
 const Test = styled.div`
   margin: 6rem;
@@ -53,6 +54,12 @@ const ImgFile = styled.input`
 `;
 
 function EditorTest() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data: any) => console.log(data);
   const [titleContent, setTitleContent] = useState<string | null>("");
   const [togle, setTogle] = useState<boolean | null>(false);
   const [myImage, setMyImage] = useState<any>([]);
@@ -98,7 +105,7 @@ function EditorTest() {
   return (
     <Test>
       <button type="button" onClick={handleClick}>
-        토글버튼
+        수정버튼
       </button>
       <p>
         제목
@@ -132,6 +139,17 @@ function EditorTest() {
       <p>운동부위</p>
       <p>
         소감 <textarea></textarea>
+      </p>
+      <p>
+        {" "}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input {...register("firstName")} />
+          <input {...register("lastName", { required: true })} />
+          {errors.lastName && <p>Last name is required.</p>}
+          <input {...register("age", { pattern: /\d+/ })} />
+          {errors.age && <p>Please enter number for age.</p>}
+          <input type="submit" />
+        </form>
       </p>
     </Test>
   );

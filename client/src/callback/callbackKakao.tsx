@@ -23,6 +23,7 @@ function CallbackKakao() {
           res.data.refresh_token
         ).then((res) => {
           const { id, image, nickname } = res.data.user;
+          console.log("user info :", id, image, nickname);
           dispatch(
             LOG_IN({
               id,

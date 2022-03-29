@@ -32,46 +32,46 @@ module.exports = async (req: Request | any, res: Response) => {
   console.log("makePost body : ", req.body);
   //console.log("todaySring body : ", todaySring);
 
-  if (!auth) {
-    res.status(400).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
-  } else {
-    const token: any = auth?.split(" ")[1];
-    const verify = await verifyToken(token);
+  // if (!auth) {
+  //   res.status(400).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
+  // } else {
+  // const token: any = auth?.split(" ")[1];
+  // const verify = await verifyToken(token);
 
-    //console.log(data);
-    const user = await getRepository(Users).findOne({
-      where: { id: userId },
+  //console.log(data);
+  const user = await getRepository(Users).findOne({
+    where: { id: userId },
+  });
+  console.log(user?.email);
+  if (user?.email) {
+    const created = Posts.create({
+      title: postTitle,
+      info: info,
+      total_time: totalTime,
+      body_Part: bodyPart,
+      difficult: difficult,
+      image: `${getImageUrl}/post/${postImage.filename}`,
+      created_At: todaySring,
+      users: user,
+      post_comments: [],
+      post_likes: [],
     });
-    console.log(user?.email);
-    if (user?.email === verify.email) {
-      const created = Posts.create({
-        title: postTitle,
-        info: info,
-        total_time: totalTime,
-        body_Part: bodyPart,
-        difficult: difficult,
-        image: `${getImageUrl}/post/${postImage.filename}`,
-        created_At: todaySring,
-        users: user,
-        post_comments: [],
-        post_likes: [],
-      });
 
-      try {
-        await created.save();
-        // await post.save();
-        const allPosters = await getRepository(Posts).find({
-          relations: ["users", "post_comments", "post_likes"],
-        });
-        console.log("allPosters:", allPosters);
-        res.status(200).json({ message: `포스트 생성 성공` });
-      } catch (e) {
-        console.log("포스트 생성 실패", e);
-      }
-    } else {
-      res
-        .status(404)
-        .json({ message: `해당 유저가 존재하지 않습니다(id가잘못됨)` });
+    try {
+      await created.save();
+      // await post.save();
+      const allPosters = await getRepository(Posts).find({
+        relations: ["users", "post_comments", "post_likes"],
+      });
+      console.log("allPosters:", allPosters);
+      res.status(200).json({ message: `포스트 생성 성공` });
+    } catch (e) {
+      console.log("포스트 생성 실패", e);
     }
+  } else {
+    res
+      .status(404)
+      .json({ message: `해당 유저가 존재하지 않습니다(id가잘못됨)` });
   }
+  // }
 };
