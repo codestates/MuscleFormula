@@ -10,6 +10,9 @@ import StarPoint from "../components/StarPoint";
 
 const Test = styled.div`
   margin: 6rem;
+  > p > div {
+    border: 1px solid red;
+  }
 `;
 const LabelWrap = styled.div`
   display: flex;
@@ -50,47 +53,77 @@ const ImgFile = styled.input`
 `;
 
 function EditorTest() {
+  const [titleContent, setTitleContent] = useState<string | null>("");
+  const [togle, setTogle] = useState<boolean | null>(false);
+  const [myImage, setMyImage] = useState<any>([]);
+
+  const [postfiles, setPostfiles] = useState<any>({
+    file: [],
+    previewURL: "",
+  });
+
+  const uploadFile = (e: any) => {
+    e.stopPropagation();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    const filesInArr = Array.from(e.target.files);
+
+    reader.onloadend = () => {
+      setPostfiles({
+        file: filesInArr,
+        previewURL: reader.result,
+      });
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+  let profile_preview = null;
+  if (postfiles.file !== null) {
+    profile_preview = postfiles.file[0]?.type.includes("image/") ? (
+      <img src={postfiles.previewURL} />
+    ) : (
+      <video src={postfiles.previewURL} />
+    );
+  }
+
+  console.log("togle:", togle);
+  console.log("titleContent:", titleContent);
+  const handleClick = () => {
+    setTogle(!togle);
+  };
+
   return (
     <Test>
+      <button type="button" onClick={handleClick}>
+        토글버튼
+      </button>
       <p>
         제목
-        <input type="text"></input>
+        {togle ? (
+          <div
+            id="editor"
+            contentEditable="true"
+            onInput={(e) => setTitleContent(e.currentTarget.textContent)}
+          ></div>
+        ) : (
+          <div>{titleContent}</div>
+        )}
       </p>
       <p>사진넣기</p>
-      <Label htmlFor="input_file">
-        <i className="fas fa-camera"></i>
-        {/* //들어갈 아이콘 */}
-        <ImgTitle>이미지 업로드</ImgTitle>
-        {/* //이미지업로드라는 글씨 */}
-        <ImgFile
-          id="input_file"
-          type="file"
-          accept="image/*"
-          // multiple
-          // {...register("img", {
-          //   required: "이미지를 업로드해주세요",
-          //   onChange: async (event) => {
-          //     let files = event.target.files;
-          //     if (files && files.length) {
-          //       if (imageUrls.length > 2) {
-          //         return Swal.fire({
-          //           text: "사진첨부는 최대 3장까지 가능합니다",
-          //           confirmButtonText: "확인",
-          //           confirmButtonColor: "#2f6218",
-          //           icon: "warning",
-          //         });
-          //       }
-          //       let urls = await convertManyFilesToURL(files);
-          //       setImageUrls((prev) => {
-          //         return [...prev, ...urls];
-          //       });
-          //       setImageStore([...imageStore, ...files]);
-          //     }
-          //   },
-          // })}
-        />
-      </Label>
+      <input
+        id="upload-file"
+        type="file"
+        accept="image/*, video/*"
+        multiple
+        onChange={uploadFile}
+      ></input>
+      <label htmlFor="upload-file">파일선택</label>
+
       <p>미리보기 사진</p>
+
       <p>공유된내용</p>
       <p>
         난이도
@@ -98,7 +131,7 @@ function EditorTest() {
       </p>
       <p>운동부위</p>
       <p>
-        소감 <input type="text"></input>
+        소감 <textarea></textarea>
       </p>
     </Test>
   );

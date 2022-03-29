@@ -17,7 +17,7 @@ import ReducerTest from "./test/ReducerTest";
 import EditorTest from "./test/EditorTest";
 import Landing from "./pages/Landing";
 import CallbackKakao from "./callback/callbackKakao";
-import { useState } from "react";
+import CallbackGoogle from "./callback/callbackGoogle";
 
 const App: React.FC = () => {
 
@@ -38,7 +38,8 @@ const App: React.FC = () => {
         <Route path="/test" element={<ReducerTest />} />
         <Route path="/testEdit" element={<EditorTest />} />
         <Route path="/callbackKakao" element={<CallbackKakao />} />
-        <Route path="/" element={<Landing/>} />
+        <Route path="/callbackGoogle" element={<CallbackGoogle />} />
+        <Route path="/" element={<Landing />} />
       </Routes>
       <Nav />
     </div>
