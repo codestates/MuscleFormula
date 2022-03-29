@@ -9,7 +9,6 @@ import type { RootState, AppDispatch } from "../store";
 import styled from "styled-components";
 const qs = require("qs");
 
-
 export const LoginPC = styled.div`
   margin-top: 1.5rem;
   display: flex;
@@ -17,10 +16,10 @@ export const LoginPC = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 90vh;
-  > #login-container-left{
-      padding: 0rem 2rem;
-      display: flex;
-      flex-direction: column;
+  > #login-container-left {
+    padding: 0rem 2rem;
+    display: flex;
+    flex-direction: column;
     > #greeting-container {
       display: flex;
       flex-direction: row;
@@ -42,7 +41,8 @@ export const LoginPC = styled.div`
         > th {
           cursor: pointer;
         }
-        > th, td {
+        > th,
+        td {
           font-size: small;
           text-align: center;
           color: grey;
@@ -105,7 +105,7 @@ export const LoginPC = styled.div`
       }
     }
   }
-`
+`;
 export const LoginMobile = styled.div`
   margin-top: 1.5rem;
   display: flex;
@@ -189,7 +189,8 @@ export const LoginMobile = styled.div`
         > th {
           cursor: pointer;
         }
-        > th, td {
+        > th,
+        td {
           font-size: small;
           text-align: center;
           color: grey;
@@ -213,56 +214,11 @@ export default function LoginTest() {
   const [userPassword, setUserPassword] = useState("");
   const [getcode, setGetcode] = useState("");
 
-  const kakaoCodeGetURI = `https://kauth.kakao.com/oauth/authorize?client_id=7d8937ab746c6e3604651e33e259fc1d&redirect_uri=http://localhost:3000/login&response_type=code`;
+  const kakaoCodeGetURI = `https://kauth.kakao.com/oauth/authorize?client_id=7d8937ab746c6e3604651e33e259fc1d&redirect_uri=http://localhost:3000/callbackKakao&response_type=code`;
   const code: any = new URLSearchParams(window.location.search).get("code");
-  console.log("받음 code :", typeof code);
+  console.log("받음 code :", code);
   const navigate = useNavigate();
-
-  let dispatch: AppDispatch = useDispatch();
-
-  useEffect(() => {
-    console.log("getcode:", getcode);
-
-    if (getcode) {
-      axios({
-        method: "POST",
-        url: "https://kauth.kakao.com/oauth/token",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-        },
-        data: qs.stringify({
-          grant_type: "authorization_code",
-          client_id: kakao.clientID,
-          client_secret: kakao.clientSecret,
-          redirect_uri: kakao.redirectUri,
-          code: getcode,
-        }),
-      }).then((res) => {
-        const kakao_access_token = res.data.access_token;
-        const kakao_refresh_token = res.data.refresh_token;
-        axios
-          .post(
-            `http://localhost:4000/sign/kakaooauth`,
-            { kakao_access_token, kakao_refresh_token },
-            {
-              withCredentials: true,
-            }
-          )
-          .then((res) => {
-            console.log("kakao res:", res);
-            const { id, image, nickname } = res.data.user;
-            dispatch(
-              LOG_IN({
-                id,
-                nickname,
-                image,
-              })
-            );
-            navigate("/main");
-          });
-      });
-    }
-  }, [getcode]);
+  const dispatch: AppDispatch = useDispatch();
 
   const getCodeClickHandler = () => {
     console.log("kakao 클릭함");
@@ -307,134 +263,134 @@ export default function LoginTest() {
 
   return (
     <div>
-    <PC>
-    <LoginPC>
-      <div id="login-container-left">
-        <div id="greeting-container">
-          <div className="greeting">오늘도 힘차게 운동해볼까요?</div>
-          <img src="../images/icon_exerciseman.png" alt="exercising_man" />
-        </div>
-        <table id="oauth-container">
-          <tr>
-            <th>
-              <img
-                src="../images/icon_google.png"
-                alt="logoGoogle"
-                onClick={loginKakaoHangle}
-              />
-            </th>
-            <th>
-              <a href={kakaoCodeGetURI} onClick={getCodeClickHandler}>
-                <img
-                  src="../images/icon_kakao.png"
-                  alt="logoKakao"
-                  onClick={() => {
-                    console.log("kakao");
-                  }}
+      <PC>
+        <LoginPC>
+          <div id="login-container-left">
+            <div id="greeting-container">
+              <div className="greeting">오늘도 힘차게 운동해볼까요?</div>
+              <img src="../images/icon_exerciseman.png" alt="exercising_man" />
+            </div>
+            <table id="oauth-container">
+              <tr>
+                <th>
+                  <img
+                    src="../images/icon_google.png"
+                    alt="logoGoogle"
+                    onClick={loginKakaoHangle}
+                  />
+                </th>
+                <th>
+                  <a href={kakaoCodeGetURI} onClick={getCodeClickHandler}>
+                    <img
+                      src="../images/icon_kakao.png"
+                      alt="logoKakao"
+                      onClick={() => {
+                        console.log("kakao");
+                      }}
+                    />
+                  </a>
+                </th>
+              </tr>
+              <tr>
+                <td>구글로 로그인</td>
+                <td>카카오로 로그인</td>
+              </tr>
+            </table>
+          </div>
+          <div id="login-container-right">
+            <div id="user-container">
+              <div className="user-input-container">
+                <div>아이디</div>
+                <input
+                  type="text"
+                  placeholder="아이디를 입력해주세요"
+                  onChange={changeEmail}
                 />
-              </a>
-            </th>
-          </tr>
-          <tr>
-            <td>구글로 로그인</td>
-            <td>카카오로 로그인</td>
-          </tr>
-        </table>
-      </div>
-      <div id="login-container-right">
-        <div id="user-container">
-          <div className="user-input-container">
-            <div>아이디</div>
-            <input
-              type="text"
-              placeholder="아이디를 입력해주세요"
-              onChange={changeEmail}
-            />
-          </div>
-          <div className="user-input-container">
-            <div>비밀번호</div>
-            <input
-              type="password"
-              placeholder="비밀번호를 입력해주세요"
-              onChange={changePassword}
-            />
-          </div>
-          <div className="button-container">
-            <button onClick={loginHangle}>로그인</button>
-          </div>
-          <div className="signup-container">
-            아이디가 없으시나요?{" "}
-            <Link className="signup-link" to="/signup">
-              회원가입
-            </Link>
-          </div>
-        </div>
-      </div>
-    </LoginPC>
-    </PC>
-    <Mobile>
-    <LoginMobile>
-    <div id="login-container">
-        <div id="greeting-container">
-          <div className="greeting">오늘도 힘차게 운동해볼까요?</div>
-          <img src="../images/icon_exerciseman.png" alt="exercising_man" />
-        </div>
-        <div id="user-container">
-          <div className="user-input-container">
-            <div>아이디</div>
-            <input
-              type="text"
-              placeholder="아이디를 입력해주세요"
-              onChange={changeEmail}
-            />
-          </div>
-          <div className="user-input-container">
-            <div>비밀번호</div>
-            <input
-              type="password"
-              placeholder="비밀번호를 입력해주세요"
-              onChange={changePassword}
-            />
-          </div>
-          <div className="button-container">
-            <button onClick={loginHangle}>로그인</button>
-          </div>
-          <div className="signup-container">
-            아이디가 없으시나요?{" "}
-            <Link className="signup-link" to="/signup">
-              회원가입
-            </Link>
-          </div>
-        </div>
-        <table id="oauth-container">
-          <tr>
-            <th>
-              <img
-                src="../images/icon_google.png"
-                alt="logoGoogle"
-                onClick={loginKakaoHangle}
-              />
-            </th>
-            <th>
-              <a href={kakaoCodeGetURI} onClick={getCodeClickHandler}>
-                <img
-                  src="../images/icon_kakao.png"
-                  alt="logoKakao"
-                  onClick={() => {
-                    console.log("kakao");
-                  }}
+              </div>
+              <div className="user-input-container">
+                <div>비밀번호</div>
+                <input
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요"
+                  onChange={changePassword}
                 />
-              </a>
-            </th>
-          </tr>
-          <tr>
-            <td>구글로 로그인</td>
-            <td>카카오로 로그인</td>
-          </tr>
-        </table>
-      </div>
-    </LoginMobile>
-    </Mobile>
+              </div>
+              <div className="button-container">
+                <button onClick={loginHangle}>로그인</button>
+              </div>
+              <div className="signup-container">
+                아이디가 없으시나요?{" "}
+                <Link className="signup-link" to="/signup">
+                  회원가입
+                </Link>
+              </div>
+            </div>
+          </div>
+        </LoginPC>
+      </PC>
+      <Mobile>
+        <LoginMobile>
+          <div id="login-container">
+            <div id="greeting-container">
+              <div className="greeting">오늘도 힘차게 운동해볼까요?</div>
+              <img src="../images/icon_exerciseman.png" alt="exercising_man" />
+            </div>
+            <div id="user-container">
+              <div className="user-input-container">
+                <div>아이디</div>
+                <input
+                  type="text"
+                  placeholder="아이디를 입력해주세요"
+                  onChange={changeEmail}
+                />
+              </div>
+              <div className="user-input-container">
+                <div>비밀번호</div>
+                <input
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요"
+                  onChange={changePassword}
+                />
+              </div>
+              <div className="button-container">
+                <button onClick={loginHangle}>로그인</button>
+              </div>
+              <div className="signup-container">
+                아이디가 없으시나요?{" "}
+                <Link className="signup-link" to="/signup">
+                  회원가입
+                </Link>
+              </div>
+            </div>
+            <table id="oauth-container">
+              <tr>
+                <th>
+                  <img
+                    src="../images/icon_google.png"
+                    alt="logoGoogle"
+                    onClick={loginKakaoHangle}
+                  />
+                </th>
+                <th>
+                  <a href={kakaoCodeGetURI} onClick={getCodeClickHandler}>
+                    <img
+                      src="../images/icon_kakao.png"
+                      alt="logoKakao"
+                      onClick={() => {
+                        console.log("kakao");
+                      }}
+                    />
+                  </a>
+                </th>
+              </tr>
+              <tr>
+                <td>구글로 로그인</td>
+                <td>카카오로 로그인</td>
+              </tr>
+            </table>
+          </div>
+        </LoginMobile>
+      </Mobile>
     </div>
   );
 }
