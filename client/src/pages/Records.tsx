@@ -84,16 +84,10 @@ export default function Records() {
   const getRecordValue = (sec :number, idx:number) => {
     const newRecords = records.forEach((record, i) => {
       if (idx === i) {
-        record.time_record = sec;
+        record.time_record = sec + 1;
       }
     })
   };
-
-  // const getRecordValue = (sec: number, idx: number) => {
-  //   records.forEach((record, i) => {
-  //     if(i === idx) record.time_record = sec;
-  //   });
-  // }
 
   const addExercise = () => {
     if (exercise.genre==='') {

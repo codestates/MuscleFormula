@@ -77,7 +77,7 @@ const Record:React.FC<RecordProps> = (
   const [start, setStart] = useState(false);
 
   const handleDelete = () => {
-    deleteRecord(sec, idx);
+    deleteRecord(exercise.time_record, idx);
     setStart(false);
   }
 
@@ -91,7 +91,7 @@ const Record:React.FC<RecordProps> = (
       interval = setInterval(()=> {
         setSec((cur) => cur + 1);
         setTotalSec((cur) => cur + 1);
-        getRecordValue(sec+1, idx);
+        getRecordValue(sec, idx);
       }, 1000);
     } else if (!start && sec !== 0) {
       clearInterval(interval);
@@ -130,7 +130,7 @@ const Record:React.FC<RecordProps> = (
             {start? '멈춤':'시작'}
           </button>
           <div className={`time ${start}`}>
-            {secToTime(sec)}
+            {secToTime(exercise.time_record)}
           </div>
           <div className='delete-button' onClick={handleDelete}>
             <i className="fa-solid fa-trash-can"></i>
