@@ -26,13 +26,6 @@ export default function Main() {
       </div>
       <div id="search-container">
         <Search />
-        <button
-          onClick={() => {
-            navigate("/editor");
-          }}
-        >
-          글쓰기
-        </button>
       </div>
       <div id="postthumb-container">
         {dummyThumbs.map((el, idx) => (
