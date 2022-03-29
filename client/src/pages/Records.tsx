@@ -81,11 +81,19 @@ export default function Records() {
     setExercise({...exercise, [key]: e.target.value})
   }
 
-  const getRecordValue = (sec: number, idx: number) => {
-    records.forEach((record, i) => {
-      if(i === idx) record.time_record = sec;
-    });
-  }
+  const getRecordValue = (sec :number, idx:number) => {
+    const newRecords = records.forEach((record, i) => {
+      if (idx === i) {
+        record.time_record = sec;
+      }
+    })
+  };
+
+  // const getRecordValue = (sec: number, idx: number) => {
+  //   records.forEach((record, i) => {
+  //     if(i === idx) record.time_record = sec;
+  //   });
+  // }
 
   const addExercise = () => {
     if (exercise.genre==='') {
@@ -131,8 +139,8 @@ export default function Records() {
                   exercise={exercise} 
                   setTotalSec={setTotalSec} 
                   deleteRecord={deleteRecord}
-                  getRecordValue={getRecordValue} 
                   idx={idx}
+                  getRecordValue={getRecordValue}
                   />)}
       </div>
       {records.length? <div className="record-save"><button className='record-save' onClick={submitRecord}>기록하기</button></div> : null}

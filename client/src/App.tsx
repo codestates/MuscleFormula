@@ -17,7 +17,6 @@ import ReducerTest from "./test/ReducerTest";
 import EditorTest from "./test/EditorTest";
 import Landing from "./pages/Landing";
 import CallbackKakao from "./callback/callbackKakao";
-import { useState } from "react";
 
 const App: React.FC = () => {
 
