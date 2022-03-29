@@ -59,7 +59,6 @@ module.exports = async (req: Request, res: Response) => {
       await signup.save();
       const allUsers = await getRepository(Users).find();
       console.log("allUsers:", allUsers);
-      res.status(200).json({ message: `kakao 회원가입 성공` });
     } catch (e) {
       console.log("kakao 회원가입실패", e);
     }

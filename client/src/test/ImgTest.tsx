@@ -36,8 +36,9 @@ function ImgTest() {
     formData.append("totalTime", 100);
     formData.append("bodyPart", "상체");
     formData.append("difficult", 4);
+    formData.append("userId", 1);
 
-    axios.post("http://localhost:4000/post", formData, {
+    axios.post("http://localhost:4000/posts", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         // authorization: `Bearer ${token}`,
