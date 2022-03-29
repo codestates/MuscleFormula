@@ -1,8 +1,13 @@
-/**운동이 기록된 캘린더**/
-export default function Calendar() {
+interface CalendarProps{
+  date: string;
+  setDate: React.Dispatch<React.SetStateAction<string>>;
+}
+const Calendar:React.FC<CalendarProps> = ({date, setDate}) => {
   return (
     <div>
-      <input type="date"/>
+      <input type="date" value={date} onChange={(e)=>setDate(e.target.value)}/>
     </div>
   )
 }
+
+export default Calendar
