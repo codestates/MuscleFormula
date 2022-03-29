@@ -5,11 +5,14 @@ import { Users } from "../../models/entity/User";
 import { verifyToken } from "../../jwt/authChecker";
 dotenv.config();
 
-module.exports = async (req: Request, res: Response) => {
-  const { email, password, nickname, image } = req.body;
-  //console.log("signup Info : ", email, password, nickname, image);
+module.exports = async (req: Request | any, res: Response) => {
+  const { email, password, nickname } = req.body;
+  //console.log("signup Info : ", email, password, nickname);
   const auth = req.headers["authorization"];
-
+  const files = req.file;
+  console.log("body", req.file);
+  const userImage = files;
+  const getImageUrl = "http://localhost:4000";
   if (!auth) {
     res.status(400).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
   } else {
@@ -22,7 +25,7 @@ module.exports = async (req: Request, res: Response) => {
       user.email = email;
       user.password = password;
       user.nickname = nickname;
-      user.image = image;
+      user.image = `${getImageUrl}/user/${userImage.filename}`;
 
       try {
         await user.save();

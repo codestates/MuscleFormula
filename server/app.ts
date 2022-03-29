@@ -21,7 +21,8 @@ const corsOption = {
   credentials: true,
   methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
 };
-
+app.use("/user", express.static("images/userImages"));
+app.use("/post", express.static("images/postImages"));
 app.use(cors(corsOption));
 app.use(cookieParser());
 app.use(express.json());

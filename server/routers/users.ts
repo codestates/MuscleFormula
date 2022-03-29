@@ -1,5 +1,7 @@
 import express from "express";
+const userUpload = require("../images/multer");
 const editUserInfo = require("../controllers/user/editUserInfo");
+//const editUserImage = require("../controllers/user/editUserImage");
 const deleteUserInfo = require("../controllers/user/deleteUserInfo");
 const readMypage = require("../controllers/user/readMypage");
 const createUserExRecord = require("../controllers/user_record/createUserExRecord");
@@ -12,9 +14,9 @@ const userRouter = express.Router();
 // user nickname is
 
 userRouter.get("/mypage", readMypage);
-userRouter.put("/", editUserInfo);
+userRouter.put("/", userUpload.single("userImage"), editUserInfo);
+//userRouter.put("/userImage", upload.single("userImage"), editUserImage);
 userRouter.delete("/", deleteUserInfo);
-
 // user Records
 userRouter.post("/record", createUserExRecord);
 // userRouter.get("/record", readUserExRecord);
