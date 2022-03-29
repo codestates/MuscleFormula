@@ -3,7 +3,8 @@ type InitialState = {
   'count': number,
   'userInfo': {id: number|string, nickname: string, image: string}
   'isLogin': boolean,
-  'notification': []
+  'notification': [],
+  'shareRecord': {genre: string, weight: number, count: number, time_record :number}[]
 }
 
 export const initialState :InitialState = {
@@ -15,6 +16,9 @@ export const initialState :InitialState = {
   'userInfo' : {id: '', nickname: '', image: ''},
   'isLogin' : false,
   'notification': [
+
+  ],
+  'shareRecord' : [
 
   ]
 }

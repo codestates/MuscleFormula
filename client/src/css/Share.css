@@ -1,0 +1,16 @@
+#share-container {
+  margin-top: 5rem;
+  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.show {
+  display: block;
+}
+
+.no-show {
+  display: none;
+}
+

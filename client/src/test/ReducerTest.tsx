@@ -75,7 +75,6 @@ function ReducerTest() {
       </p>
       <StarPoint />
       <BoxTest />
-
     </Test>
   );
 }
