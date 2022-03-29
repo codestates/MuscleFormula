@@ -30,7 +30,7 @@
 //         console.log("allUsers:", allUsers);
 //         res.status(200).json({ message: `수정 성공` });
 //       } catch (e) {
-//         console.log("회원정보 수정 실패");
+//         console.log("회원정보 수정 실패")
 //       }
 //     } else {
 //       res.status(404).json({ message: `유저정보가 일치하지 않습니다` });
