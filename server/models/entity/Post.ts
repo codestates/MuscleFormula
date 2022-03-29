@@ -5,11 +5,13 @@ import {
   BaseEntity,
   OneToMany,
   ManyToOne,
+  OneToOne,
 } from "typeorm";
+import { Ex_Records } from "./Ex_Records";
 import { Post_Comments } from "./Post_Comment";
 import { Post_Likes } from "./Post_Like";
 import { Users } from "./User";
-
+import { Record } from "../../models/entity/Record";
 @Entity()
 export class Posts extends BaseEntity {
   // 이엔티티 (테이블) 에서 저장 삭제를 하기위해서 baseEntity
@@ -39,6 +41,12 @@ export class Posts extends BaseEntity {
     onDelete: "CASCADE",
   })
   users: Users;
+
+  @ManyToOne((type) => Record, (e) => e.posts, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
+  exerciseInfo: Record;
 
   @OneToMany((type) => Post_Comments, (e) => e.post)
   post_comments: Post_Comments[];

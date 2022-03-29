@@ -55,7 +55,9 @@ module.exports = async (req: Request, res: Response) => {
           relations: ["users", "post"],
         });
         console.log("allPost_Comment:", allPost_Comment);
-        res.status(200).json({ message: `코멘트 수정 성공` });
+        res
+          .status(200)
+          .json({ message: `코멘트 수정 성공`, data: postCommnet });
       } catch (e) {
         console.log("comment 생성 실패", e);
       }

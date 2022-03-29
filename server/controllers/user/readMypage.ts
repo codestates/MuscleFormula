@@ -3,7 +3,7 @@ import { getRepository } from "typeorm";
 import dotenv from "dotenv";
 import { Users } from "../../models/entity/User";
 import { verifyToken } from "../../jwt/authChecker";
-import { Ex_Records } from "../../models/entity/Ex_Record";
+import { Record } from "../../models/entity/Record";
 dotenv.config();
 let today = new Date(Date.now());
 let yesterday =
@@ -13,11 +13,7 @@ let yesterday =
   "-" +
   (today.getDate() - 1);
 let findtoday =
-  today.getFullYear() +
-  "-" +
-  (today.getMonth() + 1) +
-  "-" +
-  (today.getDate() + 1);
+  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
   const auth = req.headers["authorization"];
@@ -32,22 +28,22 @@ module.exports = async (req: Request, res: Response) => {
       where: { email: verify.email },
     });
     //console.log("mypage", allInfo);
-    const findLastTime = await getRepository(Ex_Records).findOne({
-      relations: ["records_"],
+    const findLastTime = await getRepository(Record).findOne({
+      relations: ["ex_record"],
       where: { users: allInfo?.id, created_at: yesterday },
     });
-    //console.log(findLastTime);
-    const findTodayTime = await getRepository(Ex_Records).findOne({
-      relations: ["records_"],
+    // console.log("???", findLastTime);
+    const findTodayTime = await getRepository(Record).findOne({
+      relations: ["ex_record"],
       where: { users: allInfo?.id, created_at: findtoday },
     });
 
     //console.log("123", findTodayTime);
-    const crawlLastTime = findLastTime?.records_.map((el) => {
+    const crawlLastTime = findLastTime?.ex_record.map((el) => {
       const data = el.time_record;
       return Number(data);
     });
-    const crawltodayTime = findTodayTime?.records_.map((el) => {
+    const crawltodayTime = findTodayTime?.ex_record.map((el) => {
       const data = el.time_record;
       return Number(data);
     });
@@ -78,11 +74,11 @@ module.exports = async (req: Request, res: Response) => {
     if (allInfo) {
       const createed = allInfo.posts.map((item) => {
         const data = {
-          id: item.id,
+          postId: item.id,
           postTitle: item.title,
           postImage: item.image,
           user: {
-            id: allInfo.id,
+            userId: allInfo.id,
             nickname: allInfo.nickname,
             image: allInfo.image,
           },
@@ -95,7 +91,7 @@ module.exports = async (req: Request, res: Response) => {
       });
       const mypageData = {
         users: {
-          image: allInfo.email,
+          image: allInfo.image,
           exerciseInfo: {
             LastTime: lastTime,
             todayTime: todayTime,

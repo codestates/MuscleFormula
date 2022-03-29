@@ -22,7 +22,7 @@ postrouter.post("/", postUpload.single("postImage"), makePost);
 
 postrouter.get("/", readAllPost);
 postrouter.get("/detail", detailPost);
-postrouter.put("/", editPost);
+postrouter.put("/", postUpload.single("postImage"), editPost);
 postrouter.delete("/", deletePost);
 
 //Post_Comments

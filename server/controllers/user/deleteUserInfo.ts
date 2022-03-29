@@ -6,16 +6,16 @@ import { verifyToken } from "../../jwt/authChecker";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
-  const { id } = req.body;
+  const { userId } = req.body;
   const auth = req.headers["authorization"];
-  console.log("user Info : ", id);
+  console.log("user Info : ", userId);
   if (!auth) {
     res.status(400).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
   } else {
     const token: any = auth?.split(" ")[1];
     const verify = await verifyToken(token);
     const user: any = await getRepository(Users).findOne({
-      where: { id },
+      where: { userId },
     });
     console.log(user);
     if (user.email === verify.email) {
