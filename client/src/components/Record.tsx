@@ -89,9 +89,9 @@ const Record:React.FC<RecordProps> = (
     let interval :any = null;
     if(start) {
       interval = setInterval(()=> {
+        getRecordValue(sec, idx);
         setSec((cur) => cur + 1);
         setTotalSec((cur) => cur + 1);
-        getRecordValue(sec, idx);
       }, 1000);
     } else if (!start && sec !== 0) {
       clearInterval(interval);
