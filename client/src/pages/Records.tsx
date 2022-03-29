@@ -55,13 +55,20 @@ export default function Records() {
     time_record: 0
   })
 
-  let serverURL = "http://localhost:4000";
+  const getDate = () => {
+    let today = new Date();
+    let year:(number | string) = today.getFullYear();
+    let month:(number | string) = today.getMonth() + 1;
+    let date:(number | string) = today.getDate();
+    month = (month < 10) ? "0" + month : month;
+    date = (date < 10) ? "0" + date : date;
+    return `${year}-${month}-${date}`;
+  }
 
   const submitRecord = () => {
-    axios
-    .post(`${serverURL}/users/recordx`, {
-      records
-    });
+    //test: 로컬스토리지로 해당 날짜에 값 넣기
+    localStorage.setItem(`${getDate()}`, JSON.stringify(records));
+    //TODO서버로 해당 날짜에 값 넣기
   }
 
   const deleteRecord = (sec:number, deleteIndex:number) => {
@@ -74,11 +81,13 @@ export default function Records() {
     setExercise({...exercise, [key]: e.target.value})
   }
 
-  const getRecordValue = (sec: number, idx: number) => {
-    records.forEach((record, i) => {
-      if(i === idx) record.time_record = sec;
-    });
-  }
+  const getRecordValue = (sec :number, idx:number) => {
+    const newRecords = records.forEach((record, i) => {
+      if (idx === i) {
+        record.time_record = sec + 1;
+      }
+    })
+  };
 
   const addExercise = () => {
     if (exercise.genre==='') {
@@ -124,8 +133,8 @@ export default function Records() {
                   exercise={exercise} 
                   setTotalSec={setTotalSec} 
                   deleteRecord={deleteRecord}
-                  getRecordValue={getRecordValue} 
                   idx={idx}
+                  getRecordValue={getRecordValue}
                   />)}
       </div>
       {records.length? <div className="record-save"><button className='record-save' onClick={submitRecord}>기록하기</button></div> : null}

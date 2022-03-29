@@ -1,6 +1,5 @@
 import { initialState } from "../store/initialState";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { stringify } from "querystring";
 
 export const userInfoReducer = createSlice({
   name: 'userInfo',
@@ -24,24 +23,3 @@ export const userInfoReducer = createSlice({
 })
 export const {LOG_IN, LOG_OUT}  = userInfoReducer.actions;
 export default userInfoReducer.reducer
-
-
-
-// import { initialState } from "../store/initialState";
-
-// const userInfoReducer = (state = initialState, action: any) => {
-//   switch(action.type) {
-//     case 'LOG_IN' :
-//       return Object.assign({}, state, {
-//         userInfo: [...state.userInfo, action.payload]
-//       })
-//     case 'LOG_OUT' :
-//       state.test.forEach(el => el.quan++);
-//       return Object.assign({}, state, {
-//         userInfo: []
-//       })
-//     default: 
-//     return state
-//   }
-// }
-// export default userInfoReducer;

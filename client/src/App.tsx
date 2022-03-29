@@ -18,8 +18,10 @@ import EditorTest from "./test/EditorTest";
 import Landing from "./pages/Landing";
 import CallbackKakao from "./callback/callbackKakao";
 import CallbackGoogle from "./callback/callbackGoogle";
+import ImgTest from "./test/ImgTest";
 
 const App: React.FC = () => {
+
   return (
     <div>
       <Routes>
@@ -30,12 +32,13 @@ const App: React.FC = () => {
         <Route path="/mypage" element={<Maypage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/record" element={<Records />} />
-        <Route path="/share" element={<Share />} />
-        <Route path="/editor" element={<Editor />} />
+        <Route path="/share" element={<Share/>} />
+        <Route path="/editor" element={<Editor/>} />
         <Route path="/alarm" element={<Alarm />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/test" element={<ReducerTest />} />
         <Route path="/testEdit" element={<EditorTest />} />
+        <Route path="/testImg" element={<ImgTest />} />
         <Route path="/callbackKakao" element={<CallbackKakao />} />
         <Route path="/callbackGoogle" element={<CallbackGoogle />} />
         <Route path="/" element={<Landing />} />

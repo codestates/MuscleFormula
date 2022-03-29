@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 import { LOG_OUT } from "../reducer/userInfoReducer";
+import { RESET } from "../reducer/shareReducer";
 //style
 import { Mobile, PC } from "../mediaQuery";
 import styled from "styled-components";
@@ -256,6 +257,7 @@ export default function Nav() {
         setChat("outline");
         break;
       case "nav-menu share":
+        dispatch(RESET());
         navigate("/share");
         setMain("outline");
         setRecord("outline");
@@ -304,7 +306,7 @@ export default function Nav() {
             <Link to="/record" className="nav-menu">
               <li>운동기록</li>
             </Link>
-            <Link to="/share" className="nav-menu">
+            <Link to="/share" className="nav-menu" onClick={()=>dispatch(RESET())}>
               <li>공유하기</li>
             </Link>
             <Link to="/alarm" className="nav-menu">
