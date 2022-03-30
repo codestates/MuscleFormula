@@ -8,18 +8,30 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 import { SHARE } from "../reducer/shareReducer";
+import axios from "axios";
 
 export default function Share () {
   const [date, setDate] = useState('');
   let shareRecords = useSelector((state: RootState) => state.shareRecord.shareRecord);
   let dispatch: AppDispatch = useDispatch();
-  //로컬스토리지에서 가져옴
-  const getRecords = localStorage.getItem(`${date}`);
-  if (getRecords !== null) {
-    shareRecords = JSON.parse(getRecords);
-  }
+  //로컬스토리지에서 토큰 가져옴
+  let user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const localUser = localStorage.getItem('userInfo');
+  if (localUser !== null ) {
+    user = JSON.parse(localUser);
+  };
+  console.log('데이트다',date);
   //TODO 로컬 대신 서버에서 가져와야함
-  console.log(shareRecords, 'shareRecords입니다');
+  let serverUrl = 'http://localhost:4000'
+  useEffect(()=> {
+    axios.get(`${serverUrl}/users/record?date=${date}`,
+    { headers: 
+      {authorization: `Bearer ${user.accessToken}`
+    }})
+    .then((res) => {
+      console.log(res);
+    })
+  });
 
   const handleShare = () => {
     if(shareRecords.length === 0) {
