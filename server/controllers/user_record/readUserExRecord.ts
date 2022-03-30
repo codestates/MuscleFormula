@@ -32,7 +32,6 @@ module.exports = async (req: Request, res: Response) => {
     } else {
       const createed = exerciseInfo.ex_record.map((item) => {
         const data = {
-          ex_recordId: item.id,
           genre: item.genre,
           weight: item.weight,
           count: item.count,

@@ -76,6 +76,7 @@ module.exports = async (req: Request, res: Response) => {
           where: { record: a },
         });
         res.status(200).json({
+          RecordId: a,
           Records: returndata,
         });
       }, 1000);
