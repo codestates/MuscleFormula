@@ -9,7 +9,7 @@ import {
 import { Posts } from "./Post";
 import { Post_Comments } from "./Post_Comment";
 import { Post_Likes } from "./Post_Like";
-import { Ex_Records } from "./Ex_Record";
+import { Record } from "./Record";
 
 @Entity()
 export class Users extends BaseEntity {
@@ -33,8 +33,8 @@ export class Users extends BaseEntity {
 
   @OneToMany((type) => Posts, (e) => e.users)
   posts: Posts[];
-  @OneToMany((type) => Ex_Records, (e) => e.users)
-  ex_records: Ex_Records[];
+  @OneToMany((type) => Record, (e) => e.users)
+  ex_records: Record[];
 
   @OneToMany((type) => Post_Comments, (e) => e.users)
   post_comments: Post_Comments[];

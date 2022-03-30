@@ -3,13 +3,17 @@ import { getRepository } from "typeorm";
 import dotenv from "dotenv";
 //import { Profile } from "../../models/entity/Profile";
 import { Users } from "../../models/entity/User";
-import { Records } from "../../models/entity/Record";
-import { Ex_Records } from "../../models/entity/Ex_Record";
+import { Record } from "../../models/entity/Record";
+import { Ex_Records } from "../../models/entity/Ex_Records";
 import { verifyToken } from "../../jwt/authChecker";
 dotenv.config();
 let today = new Date(Date.now());
 let todaySring =
-  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  today.getFullYear() +
+  "-" +
+  (today.getMonth() + 1) +
+  "-" +
+  (today.getDate() + 1);
 
 module.exports = async (req: Request, res: Response) => {
   const { userId, record } = req.body;
@@ -37,12 +41,12 @@ module.exports = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ message: "계정이 존재하지 않습니다" });
     } else if (user.email === verify.email) {
-      const findExRecord = await getRepository(Ex_Records).findOne({
-        relations: ["users", "records_"],
+      const findExRecord = await getRepository(Record).findOne({
+        relations: ["users", "ex_record"],
         where: { users: userId, created_at: todaySring },
       });
       if (!findExRecord) {
-        const makeExRecord = Ex_Records.create({
+        const makeExRecord = Record.create({
           users: userId,
           created_at: todaySring,
         });
@@ -54,16 +58,16 @@ module.exports = async (req: Request, res: Response) => {
         }
       }
     }
-    const findrecord = await getRepository(Ex_Records).findOne({
-      relations: ["users", "records_"],
+    const findrecord = await getRepository(Record).findOne({
+      relations: ["users", "ex_record"],
       where: { users: userId, created_at: todaySring },
     });
     let a: any = findrecord?.id;
     console.log(findrecord?.users.email);
     if (findrecord?.users.email === verify.email) {
       record.forEach(async (item) => {
-        const createed = Records.create({
-          records_: a,
+        const createed = Ex_Records.create({
+          record: a,
           genre: item.genre,
           count: item.count,
           weight: item.weight,
@@ -72,11 +76,11 @@ module.exports = async (req: Request, res: Response) => {
         await createed.save();
       });
       setTimeout(async () => {
-        const returndata = await getRepository(Records).find({
-          where: { records_: a },
+        const returndata = await getRepository(Ex_Records).find({
+          where: { record: a },
         });
         res.status(200).json({
-          ex_record_id: a,
+          RecordId: a,
           Records: returndata,
         });
       }, 1000);

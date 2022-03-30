@@ -24,6 +24,7 @@ function CallbackKakao() {
         ).then((res) => {
           const { id, image, nickname } = res.data.user;
           const accessToken = res.data.accessToken;
+          console.log("user info :", id, image, nickname);
           dispatch(
             LOG_IN({
               id,

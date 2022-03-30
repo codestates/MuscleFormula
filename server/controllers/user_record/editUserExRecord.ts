@@ -3,8 +3,8 @@ import { getRepository } from "typeorm";
 import dotenv from "dotenv";
 //import { Profile } from "../../models/entity/Profile";
 import { Users } from "../../models/entity/User";
-import { Records } from "../../models/entity/Record";
-import { Ex_Records } from "../../models/entity/Ex_Record";
+import { Ex_Records } from "../../models/entity/Ex_Records";
+import { Record } from "../../models/entity/Record";
 import { verifyToken } from "../../jwt/authChecker";
 dotenv.config();
 let today = new Date(Date.now());
@@ -12,7 +12,7 @@ let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
-  const { user_id, record } = req.body;
+  const { userId, record } = req.body;
   const auth = req.headers["authorization"];
 
   if (!auth) {
@@ -22,7 +22,7 @@ module.exports = async (req: Request, res: Response) => {
     const verify = await verifyToken(token);
     const user = await getRepository(Users).findOne({
       relations: ["ex_records"],
-      where: { id: user_id },
+      where: { id: userId },
     });
 
     //console.log("유저입니다", user);
@@ -30,14 +30,14 @@ module.exports = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "계정이 존재하지 않습니다" });
     }
     // } else if (user) {
-    //   const findExRecord = await getRepository(Ex_Records).findOne({
+    //   const findExRecord = await getRepository(Record).findOne({
     //     relations: ["records_", "users"],
-    //     where: { users: user_id, created_at: todaySring },
+    //     where: { users: userId, created_at: todaySring },
     //   });
     //   //console.log("유저2", findExRecord);
     //   if (!findExRecord) {
-    //     const makeExRecord = Ex_Records.create({
-    //       users: user_id,
+    //     const makeExRecord = Record.create({
+    //       users: userId,
     //       created_at: todaySring,
     //     });
     //     try {
@@ -48,22 +48,22 @@ module.exports = async (req: Request, res: Response) => {
     //     }
     //   }
     // }
-    const findrecord = await getRepository(Ex_Records).findOne({
-      relations: ["users", "records_"],
-      where: { users: user_id, created_at: req.query.date },
+    const findrecord = await getRepository(Record).findOne({
+      relations: ["users", "ex_record"],
+      where: { users: userId, created_at: req.query.date },
     });
     let findrecordId: any = findrecord?.id;
     console.log("핵심", findrecord?.users.email);
     console.log(verify.email);
     if (findrecord?.users.email === verify.email) {
       record.forEach(async (item) => {
-        const recode = await getRepository(Records).findOne({
+        const recode = await getRepository(Ex_Records).findOne({
           // relations: ["records_", "users"],
-          where: { genre: item.genre, records_: findrecordId },
+          where: { genre: item.genre, record: findrecordId },
         });
         if (!recode) {
-          const createed = Records.create({
-            records_: findrecordId,
+          const createed = Ex_Records.create({
+            record: findrecordId,
             genre: item.genre,
             count: item.count,
             weight: item.weight,
@@ -79,11 +79,11 @@ module.exports = async (req: Request, res: Response) => {
         }
       });
       setTimeout(async () => {
-        const returndata = await getRepository(Records).find({
-          where: { records_: findrecordId },
+        const returndata = await getRepository(Ex_Records).find({
+          where: { record: findrecordId },
         });
         res.status(200).json({
-          ex_record_id: findrecordId,
+          recodId: findrecordId,
           Records: returndata,
         });
       }, 1000);

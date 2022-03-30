@@ -5,11 +5,10 @@ import { Posts } from "../../models/entity/Post";
 import { verifyToken } from "../../jwt/authChecker";
 
 dotenv.config();
-module.exports = async (req: Request, res: Response) => {
+module.exports = async (req: Request | any, res: Response) => {
   const {
     postId,
     postTitle,
-    postImage,
     info,
     exerciseInfo,
     totalTime,
@@ -18,6 +17,8 @@ module.exports = async (req: Request, res: Response) => {
     created_At,
   } = req.body;
   const auth = req.headers["authorization"];
+  const postImage = req.file;
+  const getImageUrl = "http://localhost:4000";
   console.log("editPost body : ", req.body);
   if (!auth) {
     res.status(400).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
@@ -29,6 +30,7 @@ module.exports = async (req: Request, res: Response) => {
       where: { id: postId },
       relations: ["users"],
     });
+
     console.log("find post:", post);
     if (post.users.email === verify.email) {
       (post.title = postTitle),
@@ -36,8 +38,9 @@ module.exports = async (req: Request, res: Response) => {
         (post.total_time = totalTime),
         (post.body_Part = bodyPart),
         (post.difficult = difficult),
-        (post.image = postImage),
+        (post.image = `${getImageUrl}/post/${postImage.filename}`),
         (post.created_At = created_At),
+        (post.exerciseInfo = exerciseInfo),
         (post.post_comments = []),
         (post.post_likes = []);
 

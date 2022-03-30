@@ -13,7 +13,10 @@ module.exports = async (req: Request, res: Response) => {
   const findNick = await getRepository(Users).find({
     where: { nickname },
   });
-
   console.log("findNick:", findNick);
-  res.status(200).json(findNick);
+  if (!findNick) {
+    res.status(200).json({ message: "사용가능한 닉네임 입니다." });
+  } else {
+    res.status(408).json({ message: "이미 존재하는 닉네임 입니다." });
+  }
 };

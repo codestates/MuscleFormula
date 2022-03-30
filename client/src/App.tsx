@@ -16,8 +16,10 @@ import Editor from "./pages/Editor";
 import ReducerTest from "./test/ReducerTest";
 import EditorTest from "./test/EditorTest";
 import Landing from "./pages/Landing";
+
 import CallbackKakao from "./callback/callbackKakao";
 import CallbackGoogle from "./callback/callbackGoogle";
+import ImgTest from "./test/ImgTest";
 
 const App: React.FC = () => {
 
@@ -37,12 +39,16 @@ const App: React.FC = () => {
         <Route path="/chat" element={<Chat />} />
         <Route path="/test" element={<ReducerTest />} />
         <Route path="/testEdit" element={<EditorTest />} />
+        <Route path="/testImg" element={<ImgTest />} />
         <Route path="/callbackKakao" element={<CallbackKakao />} />
         <Route path="/callbackGoogle" element={<CallbackGoogle />} />
         <Route path="/" element={<Landing />} />
       </Routes>
+
       <Nav />
+      
     </div>
+    
   );
 };
 

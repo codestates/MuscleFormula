@@ -19,7 +19,7 @@ userRouter.put("/", userUpload.single("userImage"), editUserInfo);
 userRouter.delete("/", deleteUserInfo);
 // user Records
 userRouter.post("/record", createUserExRecord);
-// userRouter.get("/record", readUserExRecord);
+userRouter.get("/record", readUserExRecord);
 userRouter.put("/record", editUserExRecord);
 // userRouter.delete("/record", deleteUserExRecord);
 

@@ -12,11 +12,11 @@ module.exports = async (req: Request, res: Response) => {
 
   const createed = allInfo.map((item) => {
     const data = {
-      id: item.id,
+      postId: item.id,
       postTitle: item.title,
       postImage: item.image,
       user: {
-        id: item.users.id,
+        userId: item.users.id,
         nickname: item.users.nickname,
         image: item.users.image,
       },
