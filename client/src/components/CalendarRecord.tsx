@@ -54,7 +54,7 @@ const CalendarRecord:React.FC<CalendarRecordProps> = ({record}) => {
             {record.count} 회
           </div>
           <div>
-           {secToTime(record.time_record)}
+           {typeof record.time_record === 'number' ? secToTime(record.time_record) : null}
           </div>
       </RecordContainer>
     </CalendarRecordContainer>
