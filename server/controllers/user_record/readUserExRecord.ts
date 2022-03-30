@@ -40,15 +40,13 @@ module.exports = async (req: Request, res: Response) => {
         };
         return data;
       });
-      const returnData = {
+      const data = {
         recordId: exerciseInfo.id,
         exerciseInfo: createed,
       };
 
       try {
-        res.status(200).json({
-          data: returnData,
-        });
+        res.status(200).json({ data });
       } catch {
         res.status(400).json({ message: "err" });
       }

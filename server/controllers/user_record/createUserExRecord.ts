@@ -9,15 +9,11 @@ import { verifyToken } from "../../jwt/authChecker";
 dotenv.config();
 let today = new Date(Date.now());
 let todaySring =
-  today.getFullYear() +
-  "-" +
-  (today.getMonth() + 1) +
-  "-" +
-  (today.getDate() + 1);
+  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
   const { userId, record } = req.body;
-  console.log('레큐바디',req.body);
+  console.log("레큐바디", req.body);
 
   //console.log(todaySring);
   //   const user = await getRepository(Users).findOne({
