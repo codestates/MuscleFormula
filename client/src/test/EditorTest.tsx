@@ -134,7 +134,6 @@ function EditorTest() {
       <p>공유된내용</p>
       <p>
         난이도
-        <StarPoint />
       </p>
       <p>운동부위</p>
       <p>

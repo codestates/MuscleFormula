@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components"
 
 export const Stars = styled.div`
@@ -24,16 +23,15 @@ export const Stars = styled.div`
     color:#f90;
   }
 `
+interface StarPointProps{
+  setValue: React.Dispatch<React.SetStateAction<number>>
+}
 
-export default function StarPoint() {
-  const [value, setValue] = useState(0);
+const StarPoint:React.FC<StarPointProps> = ({setValue}) => {
 
   const handleValue = (e : React.ChangeEvent<HTMLInputElement>) => {
     setValue(Number(e.target.value));
   }
-
-  console.log('난이도',value);
-
   return (
     <Stars>
       <input type="radio" id="5-stars" name="rating" value='5' onChange={handleValue} />
@@ -49,3 +47,5 @@ export default function StarPoint() {
     </Stars>
   )
 }
+
+export default StarPoint
