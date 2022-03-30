@@ -3,6 +3,8 @@ import '../css/Record.css'
 import Record from '../components/Record'
 import React, { useState} from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../store";
 export default function Records() {
 
   let today = new Date();
@@ -40,6 +42,15 @@ export default function Records() {
     return hours + "시간 " + minutes + "분 " + seconds + "초"; 
   }
 
+  //userinfo
+  let user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const localUser = localStorage.getItem('userInfo');
+  if (localUser !== null ) {
+    user = JSON.parse(localUser);
+  };
+  console.log('이건 아이디다', user.id);
+  console.log('이건액세스토큰이다',user.accessToken);
+  //
   interface RecordType {
     genre: string,
     weight: number,
@@ -68,7 +79,20 @@ export default function Records() {
   const submitRecord = () => {
     //test: 로컬스토리지로 해당 날짜에 값 넣기
     localStorage.setItem(`${getDate()}`, JSON.stringify(records));
-    //TODO서버로 해당 날짜에 값 넣기
+    //TODO
+    let serverUrl = "http://localhost:4000/users/record"
+    axios.post(`${serverUrl}`,
+      {
+        userId: user.id,
+        record: records
+      }, 
+      {  
+        headers: {
+          authorization: `Bearer ${user.accessToken}`
+        },
+        withCredentials: true
+      },
+    )
   }
 
   const deleteRecord = (sec:number, deleteIndex:number) => {

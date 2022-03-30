@@ -79,6 +79,7 @@ const Record:React.FC<RecordProps> = (
   const handleDelete = () => {
     deleteRecord(exercise.time_record, idx);
     setStart(false);
+    setSec((cur)=> cur);
   }
 
   const recordStart = () => {

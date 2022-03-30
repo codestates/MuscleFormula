@@ -13,6 +13,7 @@ let todaySring =
 
 module.exports = async (req: Request, res: Response) => {
   const { userId, record } = req.body;
+  console.log('레큐바디',req.body);
 
   //console.log(todaySring);
   //   const user = await getRepository(Users).findOne({
@@ -47,7 +48,7 @@ module.exports = async (req: Request, res: Response) => {
         });
         try {
           await makeExRecord.save();
-          // console.log("??", makeExRecord);
+          console.log("메이크엑스레코드", makeExRecord);
         } catch (err) {
           console.log("err발생", err);
         }
