@@ -1,50 +1,54 @@
 import axios from "axios";
-
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { PLUS, MINUS, CHOICE } from "../reducer/counterReducer";
-import { ADD, QUAN, OUT } from "../reducer/testReducer";
-import { LOG_IN, LOG_OUT } from "../reducer/userInfoReducer";
 import { useState } from "react";
-import type { RootState, AppDispatch } from "../store";
 import styled from "styled-components";
-import StarPoint from "../components/StarPoint";
+import StarPoint from "./StarPoint";
 import { useForm } from "react-hook-form";
-const FormData = require("form-data");
-// const fs = require("fs");
-const form = new FormData();
+// const FormData = require("form-data");
+// // const fs = require("fs");
+// const form = new FormData();
 
 const Test = styled.div`
-  margin: 6rem;
-  > p > div {
-    border: 1px solid red;
+  border: 1px solid gray;
+
+  > div {
+    display: flex;
+    > div {
+      border: 1px solid gray;
+    }
   }
 `;
-function ImgTest() {
-  const [postfiles, setPostfiles] = useState<any>({
-    file: [],
-    previewURL: "",
-  });
+
+interface ImgTestProps {
+  postfiles: any;
+  setPostfiles: React.Dispatch<any>;
+}
+
+const ImgTest: React.FC<ImgTestProps> = ({ postfiles, setPostfiles }) => {
+  // const [postfiles, setPostfiles] = useState<any>({
+  //   file: [],
+  //   previewURL: "",
+  // });
   console.log("postfiles :", postfiles);
 
   const handleSubmit = () => {
     console.log("전송 파일 : ", postfiles.file[0]);
-    const formData = new FormData();
-    formData.append("postImage", postfiles.file[0]);
-    formData.append("postTitle", "제목입니다");
-    formData.append("info", "내용입니다");
-    formData.append("totalTime", 100);
-    formData.append("bodyPart", "상체");
-    formData.append("difficult", 4);
-    formData.append("userId", 1);
+    // const formData = new FormData();
+    // formData.append("postImage", postfiles.file[0]);
+    // formData.append("postTitle", "제목입니다");
+    // formData.append("info", "내용입니다");
+    // formData.append("totalTime", 100);
+    // formData.append("bodyPart", "상체");
+    // formData.append("difficult", 4);
+    // formData.append("userId", 1);
 
-    axios.post("http://localhost:4000/posts", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        // authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    });
+    // axios.post("http://localhost:4000/posts", formData, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //     // authorization: `Bearer ${token}`,
+    //   },
+    //   // withCredentials: true,
+    // });
   };
 
   const uploadFile = (e: any) => {
@@ -97,15 +101,11 @@ function ImgTest() {
       <div>
         <div>{profile_preview}</div>
       </div>
-      <br />
-      <br />
-      <br />
-      <div></div>
-      <button type="button" onClick={handleSubmit}>
+      {/* <button type="button" onClick={handleSubmit}>
         전송버튼
-      </button>
+      </button> */}
     </Test>
   );
-}
+};
 
 export default ImgTest;
