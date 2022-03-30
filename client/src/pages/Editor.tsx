@@ -42,9 +42,9 @@ export const Main = styled.div`
 `;
 
 const Editor = () => {
-  
   const [titleContent, setTitleContent] = useState<string | null>("");
   const [textContent, setTextContent] = useState<string | null>("");
+  const [bodyPart, setBodyPart] = useState<string | null>("");
   console.log("titleContent:", titleContent);
   const [postfiles, setPostfiles] = useState<any>({
     file: [],
@@ -59,14 +59,16 @@ const Editor = () => {
   }
   //유저
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
-  const localUser = localStorage.getItem('userInfo');
-  if (localUser !== null ) {
+  const localUser = localStorage.getItem("userInfo");
+  if (localUser !== null) {
     user = JSON.parse(localUser);
-  };
+  }
 
   //기록아이디
-  let recordId = useSelector((state: RootState) => state.shareRecord.shareRecordId);
-  const localRecordsId = localStorage.getItem('shareRecordsId');
+  let recordId = useSelector(
+    (state: RootState) => state.shareRecord.shareRecordId
+  );
+  const localRecordsId = localStorage.getItem("shareRecordsId");
   if (localRecordsId !== null) {
     recordId = JSON.parse(localRecordsId);
   }
@@ -75,20 +77,21 @@ const Editor = () => {
   let shareRecords = useSelector(
     (state: RootState) => state.shareRecord.shareRecord
   );
-  const localRecords = localStorage.getItem('shareRecords')
+  const localRecords = localStorage.getItem("shareRecords");
   if (localRecords !== null) {
-    shareRecords = JSON.parse(localRecords)
+    shareRecords = JSON.parse(localRecords);
   }
-
 
   //difficult
   const [difficult, setDifficult] = useState(0);
 
   //total타임 shareRecords에서 계산
-  console.log('shareRecords에서 time_record', shareRecords);
+  console.log("shareRecords에서 time_record", shareRecords);
+  let shareRecordsTotalTime = shareRecords.reduce((a, b) => {
+    return a + b.time_record;
+  }, 0);
+  console.log("shareRecordsTotalTime", shareRecordsTotalTime);
 
-  
-  
   let dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -99,7 +102,7 @@ const Editor = () => {
     formData.append("postImage", postfiles.file[0]);
     formData.append("postTitle", titleContent);
     formData.append("info", textContent);
-    formData.append("totalTime", 100);
+    formData.append("totalTime", shareRecordsTotalTime);
     formData.append("bodyPart", "상체");
     formData.append("difficult", difficult);
     formData.append("userId", user.id);
@@ -134,7 +137,10 @@ const Editor = () => {
     //   // withCredentials: true,
     // });
   };
-
+  const handleGetbodyPart = (e: any) => {
+    console.log("e.target.value:", e.target.value);
+    setBodyPart(e.target.value);
+  };
   console.log("postfiles:", postfiles);
   return (
     <div id="EditorPage">
@@ -160,9 +166,16 @@ const Editor = () => {
             onInput={(e) => setTextContent(e.currentTarget.textContent)}
           ></div>
           <div>드롭다운 (상체, 하체, 전신)</div>
-          <div>난이도
+          <select id="dropdown" onChange={handleGetbodyPart}>
+            <option value="미선택">선택해주세요</option>
+            <option value="전신">전신</option>
+            <option value="상체">상체</option>
+            <option value="하체">하체</option>
+          </select>
+          <div>
+            난이도
             <div>
-              <StarPoint setValue= {setDifficult}/>
+              <StarPoint setDifficult={setDifficult} />
             </div>
           </div>
           <div>
