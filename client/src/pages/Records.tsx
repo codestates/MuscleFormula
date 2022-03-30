@@ -95,19 +95,23 @@ export default function Records() {
     localStorage.setItem(`${getDate()}`, JSON.stringify(records));
     //TODO
     let serverUrl = "http://localhost:4000/users/record";
-    axios.post(
-      `${serverUrl}`,
-      {
-        userId: user.id,
-        record: records,
-      },
-      {
-        headers: {
-          authorization: `Bearer ${user.accessToken}`,
+    axios
+      .post(
+        `${serverUrl}`,
+        {
+          userId: user.id,
+          record: records,
         },
-        // withCredentials: true
-      }
-    );
+        {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`,
+          },
+          // withCredentials: true
+        }
+      )
+      .then(() => {
+        alert("기록되었습니다");
+      });
   };
 
   const deleteRecord = (sec: number, deleteIndex: number) => {
