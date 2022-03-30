@@ -5,7 +5,7 @@ export const userInfoReducer = createSlice({
   name: 'userInfo',
   initialState: initialState,
   reducers: {
-    LOG_IN : (state, action: PayloadAction<{id: number, nickname: string, image: string}>) => {
+    LOG_IN : (state, action: PayloadAction<{id: number, nickname: string, image: string, accessToken :string}>) => {
       state.userInfo = action.payload;
       state.isLogin = true;
       //localStorage에도 저장
@@ -13,7 +13,7 @@ export const userInfoReducer = createSlice({
       localStorage.setItem('isLogin', JSON.stringify(true));
     },
     LOG_OUT : state => {
-      state.userInfo = {id: '', nickname: '', image: ''};
+      state.userInfo = {id: '', nickname: '', image: '', accessToken: ''};
       state.isLogin = false;
       //localStorage에서도 삭제
       localStorage.removeItem('userInfo');

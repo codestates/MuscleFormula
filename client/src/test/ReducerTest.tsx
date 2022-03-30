@@ -47,17 +47,7 @@ function ReducerTest() {
         <button onClick={() => dispatch(OUT())}>항목빼기</button>
       </p>
       <p>
-        <button
-          onClick={() =>
-            dispatch(
-              LOG_IN({
-                id: 1,
-                nickname: "koko",
-                image: "../images/photo_testuser.jpg",
-              })
-            )
-          }
-        >
+        <button>
           로그인
         </button>
         <button onClick={() => dispatch(LOG_OUT())}>로그아웃</button>

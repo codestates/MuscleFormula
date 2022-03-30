@@ -3,6 +3,8 @@ import '../css/Record.css'
 import Record from '../components/Record'
 import React, { useState} from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../store";
 export default function Records() {
 
   let today = new Date();
@@ -27,7 +29,7 @@ export default function Records() {
     return day;
   }
 
-  //총 시간 기록
+  //렌더링할 때 임의의 값
   const [totalSec, setTotalSec] = useState(0);
 
   function showTime(duration:number) {
@@ -40,6 +42,15 @@ export default function Records() {
     return hours + "시간 " + minutes + "분 " + seconds + "초"; 
   }
 
+  //userinfo
+  let user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const localUser = localStorage.getItem('userInfo');
+  if (localUser !== null ) {
+    user = JSON.parse(localUser);
+  };
+  console.log('이건 아이디다', user.id);
+  console.log('이건액세스토큰이다',user.accessToken);
+  //
   interface RecordType {
     genre: string,
     weight: number,
@@ -68,11 +79,23 @@ export default function Records() {
   const submitRecord = () => {
     //test: 로컬스토리지로 해당 날짜에 값 넣기
     localStorage.setItem(`${getDate()}`, JSON.stringify(records));
-    //TODO서버로 해당 날짜에 값 넣기
+    //TODO
+    let serverUrl = "http://localhost:4000/users/record"
+    axios.post(`${serverUrl}`,
+      {
+        userId: user.id,
+        record: records
+      }, 
+      {  
+        headers: {
+          authorization: `Bearer ${user.accessToken}`
+        },
+        withCredentials: true
+      },
+    )
   }
 
   const deleteRecord = (sec:number, deleteIndex:number) => {
-    setTotalSec((cur)=> cur - sec);
     const restRecords = records.filter((record, idx)=> idx !== deleteIndex);
     setRecords(restRecords);
   }
@@ -82,12 +105,19 @@ export default function Records() {
   }
 
   const getRecordValue = (sec :number, idx:number) => {
-    const newRecords = records.forEach((record, i) => {
+    records.forEach((record, i) => {
       if (idx === i) {
         record.time_record = sec + 1;
       }
     })
   };
+
+  //무조건 배열 값의 합이랑 일치
+  const totalTime = () => {
+    return records.reduce((acc, cur) => {
+      return acc + cur.time_record 
+    }, 0)
+  }
 
   const addExercise = () => {
     if (exercise.genre==='') {
@@ -112,7 +142,7 @@ export default function Records() {
       </div>
       <div className='record-total'>
         <div className='record-time'>
-        {showTime(totalSec)} 
+        {showTime(totalTime())} 
         </div>
         <div className='record-time-detail'>
         운동했습니다
