@@ -23,7 +23,7 @@ module.exports = async (req: Request, res: Response) => {
 
   console.log("user :", user);
   if (!user) {
-    return res.status(404).json({ message: "계정이 존재하지 않습니다." });
+    return res.status(404).json({ message: "계정이 존재하지 않습니다" });
   } else {
     const makeExRecord = Record.create({
       users: user_id,
