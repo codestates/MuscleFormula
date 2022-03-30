@@ -1,10 +1,7 @@
 const multer = require("multer");
 const userStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(
-      null,
-      "/Users/user/Documents/codestates/final_Project/Final_Project_04/server/images/userImages"
-    );
+    cb(null, "/Users/taegwonson/Desktop/GG/server/images/userImages");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -13,10 +10,7 @@ const userStorage = multer.diskStorage({
 });
 const postStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(
-      null,
-      "/Users/user/Documents/codestates/final_Project/Final_Project_04/server/images/postImages"
-    );
+    cb(null, "/Users/taegwonson/Desktop/GG/server/images/postImages");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
