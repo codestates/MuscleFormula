@@ -16,6 +16,7 @@ import Editor from "./pages/Editor";
 import ReducerTest from "./test/ReducerTest";
 import EditorTest from "./test/EditorTest";
 import Landing from "./pages/Landing";
+
 import CallbackKakao from "./callback/callbackKakao";
 import CallbackGoogle from "./callback/callbackGoogle";
 import ImgTest from "./test/ImgTest";
@@ -43,8 +44,11 @@ const App: React.FC = () => {
         <Route path="/callbackGoogle" element={<CallbackGoogle />} />
         <Route path="/" element={<Landing />} />
       </Routes>
+
       <Nav />
+      
     </div>
+    
   );
 };
 
