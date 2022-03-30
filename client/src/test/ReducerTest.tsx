@@ -63,7 +63,6 @@ function ReducerTest() {
         {number}
         <button onClick={() => dispatch(CHOICE(Number(number)))}>CHOICE</button>
       </p>
-      <StarPoint />
       <BoxTest />
     </Test>
   );
