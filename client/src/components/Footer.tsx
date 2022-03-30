@@ -106,7 +106,6 @@ transition: all .3s;
 
 > .footer-container .contact-input{
   /* border: solid 1px red; */
-  
   display: flex;
   flex-direction:column;
   background: #686868;
