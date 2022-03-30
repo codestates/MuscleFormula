@@ -7,6 +7,7 @@ import { RESET } from "../reducer/shareReducer";
 import type { RootState, AppDispatch } from "../store";
 import ImgTest from "../components/ImgTest";
 import axios from "axios";
+import StarPoint from "../components/StarPoint";
 const FormData = require("form-data");
 const form = new FormData();
 
@@ -41,6 +42,7 @@ export const Main = styled.div`
 `;
 
 const Editor = () => {
+  
   const [titleContent, setTitleContent] = useState<string | null>("");
   const [textContent, setTextContent] = useState<string | null>("");
   console.log("titleContent:", titleContent);
@@ -55,11 +57,38 @@ const Editor = () => {
     count: number;
     time_record: number;
   }
+  //유저
+  let user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const localUser = localStorage.getItem('userInfo');
+  if (localUser !== null ) {
+    user = JSON.parse(localUser);
+  };
+
+  //기록아이디
+  let recordId = useSelector((state: RootState) => state.shareRecord.shareRecordId);
+  const localRecordsId = localStorage.getItem('shareRecordsId');
+  if (localRecordsId !== null) {
+    recordId = JSON.parse(localRecordsId);
+  }
+
+  //공유한기록
   let shareRecords = useSelector(
     (state: RootState) => state.shareRecord.shareRecord
   );
-  let JSONRecords = JSON.stringify(shareRecords);
-  let copyRecords = JSON.parse(JSONRecords);
+  const localRecords = localStorage.getItem('shareRecords')
+  if (localRecords !== null) {
+    shareRecords = JSON.parse(localRecords)
+  }
+
+
+  //difficult
+  const [difficult, setDifficult] = useState(0);
+
+  //total타임 shareRecords에서 계산
+  console.log('shareRecords에서 time_record', shareRecords);
+
+  
+  
   let dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -72,9 +101,9 @@ const Editor = () => {
     formData.append("info", textContent);
     formData.append("totalTime", 100);
     formData.append("bodyPart", "상체");
-    formData.append("difficult", 4);
-    formData.append("userId", 1);
-    formData.append("exceriseInfo", 1);
+    formData.append("difficult", difficult);
+    formData.append("userId", user.id);
+    formData.append("exceriseInfo", recordId);
 
     axios.post("http://localhost:4000/posts", formData, {
       headers: {
@@ -120,7 +149,7 @@ const Editor = () => {
           <ImgTest postfiles={postfiles} setPostfiles={setPostfiles}></ImgTest>
           <div id="record-container">
             공유한 기록
-            {copyRecords.map((record: RecordType, idx: number) => (
+            {shareRecords.map((record: RecordType, idx: number) => (
               <CalendarRecord key={idx} record={record} />
             ))}
           </div>
@@ -131,7 +160,11 @@ const Editor = () => {
             onInput={(e) => setTextContent(e.currentTarget.textContent)}
           ></div>
           <div>드롭다운 (상체, 하체, 전신)</div>
-          <div>난이도</div>
+          <div>난이도
+            <div>
+              <StarPoint setValue= {setDifficult}/>
+            </div>
+          </div>
           <div>
             <button onClick={handleSubmit}>공유하기</button>
           </div>

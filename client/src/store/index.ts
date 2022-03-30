@@ -9,7 +9,7 @@ export const store = configureStore({
     test: testReducer,
     counter: counterReducer,
     userInfo: userInfoReducer,
-    shareRecord:shareReducer
+    shareRecord: shareReducer
   }
 })
 

@@ -17,6 +17,6 @@ module.exports = async (req: Request, res: Response) => {
   if (findNick.length === 0) {
     res.status(200).json({ message: "사용가능한 닉네임 입니다." });
   } else {
-    res.status(408).json({ message: "이미 존재하는 닉네임 입니다." });
+    res.status(409).json({ message: "이미 존재하는 닉네임 입니다." });
   }
 };
