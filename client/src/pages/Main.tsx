@@ -35,7 +35,7 @@ export default function Main() {
         ))}
       </div>
       <PC>
-        <Footer/>
+        <Footer />
       </PC>
     </div>
   );

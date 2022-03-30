@@ -36,7 +36,6 @@ export const Main = styled.div`
 `;
 
 const Editor = () => {
-  
   const [titleContent, setTitleContent] = useState<string | null>("");
   const [textContent, setTextContent] = useState<string | null>("");
   console.log("titleContent:", titleContent);
@@ -53,14 +52,16 @@ const Editor = () => {
   }
   //유저
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
-  const localUser = localStorage.getItem('userInfo');
-  if (localUser !== null ) {
+  const localUser = localStorage.getItem("userInfo");
+  if (localUser !== null) {
     user = JSON.parse(localUser);
-  };
+  }
 
   //기록아이디
-  let recordId = useSelector((state: RootState) => state.shareRecord.shareRecordId);
-  const localRecordsId = localStorage.getItem('shareRecordsId');
+  let recordId = useSelector(
+    (state: RootState) => state.shareRecord.shareRecordId
+  );
+  const localRecordsId = localStorage.getItem("shareRecordsId");
   if (localRecordsId !== null) {
     recordId = JSON.parse(localRecordsId);
   }
@@ -69,20 +70,17 @@ const Editor = () => {
   let shareRecords = useSelector(
     (state: RootState) => state.shareRecord.shareRecord
   );
-  const localRecords = localStorage.getItem('shareRecords')
+  const localRecords = localStorage.getItem("shareRecords");
   if (localRecords !== null) {
-    shareRecords = JSON.parse(localRecords)
+    shareRecords = JSON.parse(localRecords);
   }
-
 
   //difficult
   const [difficult, setDifficult] = useState(0);
 
   //total타임 shareRecords에서 계산
-  console.log('shareRecords에서 time_record', shareRecords);
+  console.log("shareRecords에서 time_record", shareRecords);
 
-  
-  
   let dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -158,9 +156,10 @@ const Editor = () => {
             내용적기
           </div>
           <div>드롭다운 (상체, 하체, 전신)</div>
-          <div>난이도
+          <div>
+            난이도
             <div>
-              <StarPoint setValue= {setDifficult}/>
+              <StarPoint setValue={setDifficult} />
             </div>
           </div>
           <div>
