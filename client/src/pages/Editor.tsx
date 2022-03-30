@@ -31,6 +31,12 @@ export const Main = styled.div`
     > #record-container {
       border: 3px solid green;
     }
+    > #editor-titleContent {
+      border: 3px solid gray;
+    }
+    > #editor-textContent {
+      border: 3px solid gray;
+    }
   }
 `;
 
@@ -107,12 +113,10 @@ const Editor = () => {
         <div id="editor-container">
           <div>제목</div>
           <div
-            id="editor"
+            id="editor-titleContent"
             contentEditable="true"
             onInput={(e) => setTitleContent(e.currentTarget.textContent)}
-          >
-            제목적기
-          </div>
+          ></div>
           <ImgTest postfiles={postfiles} setPostfiles={setPostfiles}></ImgTest>
           <div id="record-container">
             공유한 기록
@@ -122,12 +126,10 @@ const Editor = () => {
           </div>
           <div>내용</div>
           <div
-            id="editor"
+            id="editor-textContent"
             contentEditable="true"
             onInput={(e) => setTextContent(e.currentTarget.textContent)}
-          >
-            내용적기
-          </div>
+          ></div>
           <div>드롭다운 (상체, 하체, 전신)</div>
           <div>난이도</div>
           <div>
