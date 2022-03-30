@@ -23,10 +23,10 @@ export const axios_Signup = (
       email: userEmail,
       nickname: userNickname,
       password: userPassword,
-    },
-    {
-      withCredentials: true,
     }
+    // {
+    //   withCredentials: true,
+    // }
   );
 };
 
@@ -59,10 +59,10 @@ export const axios_GetUser_toKakaoToken = (
 ) => {
   return axios.post(
     `http://localhost:4000/sign/kakaooauth`,
-    { kakao_access_token, kakao_refresh_token },
-    {
-      withCredentials: true,
-    }
+    { kakao_access_token, kakao_refresh_token }
+    // {
+    //   withCredentials: true,
+    // }
   );
 };
 

@@ -14,6 +14,7 @@ let todaySring =
 module.exports = async (req: Request, res: Response) => {
   const { userId, record } = req.body;
   console.log("레큐바디", req.body);
+  console.log("req.cookies:", req.cookies);
 
   //console.log(todaySring);
   //   const user = await getRepository(Users).findOne({
