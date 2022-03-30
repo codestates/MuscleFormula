@@ -93,11 +93,11 @@ export const Postthumb = styled.div`
       border-collapse: collapse;
       margin-left: 0.5rem;
       font-size: small;
-      > tr:not(:last-of-type) {
+      > tbody > tr:not(:last-of-type) {
         text-align: left;
         border-bottom: 1px solid lightgrey;
       }
-      > th,
+      > tbody> th,
       td {
         padding-left: 0.5rem;
       }
@@ -170,6 +170,7 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
           <strong className="user-nickname">{postThumb.nickname}</strong>
         </div>
         <table id="exercise-container">
+          <tbody>
           <tr>
             <th>난이도</th>
             <td>{numToStar(postThumb.difficulty)}</td>
@@ -182,6 +183,7 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
             <th>운동부위</th>
             <td>{postThumb.bodypart}</td>
           </tr>
+          </tbody>
         </table>
       </div>
     </Postthumb>
