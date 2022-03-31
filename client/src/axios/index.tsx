@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
-
 // const navigate = useNavigate();
 const qs = require("qs");
 
@@ -27,6 +26,19 @@ export const axios_Signup = (
     // {
     //   withCredentials: true,
     // }
+  );
+};
+
+export const axios_Login = (userEmail: string, userPassword: string) => {
+  return axios.post(
+    `${serverURI}/sign/in`,
+    {
+      email: userEmail,
+      password: userPassword,
+    },
+    {
+      withCredentials: true,
+    }
   );
 };
 
@@ -58,7 +70,7 @@ export const axios_GetUser_toKakaoToken = (
   kakao_refresh_token: string
 ) => {
   return axios.post(
-    `http://localhost:4000/sign/kakaooauth`,
+    `${serverURI}/sign/kakaooauth`,
     { kakao_access_token, kakao_refresh_token }
     // {
     //   withCredentials: true,
@@ -80,7 +92,7 @@ export const axios_GetGoogleToken = (code: string) => {
   });
 };
 export const axios_GetUser_toGoogleTOken = (accessToken: string) => {
-  return axios.post("http://localhost:4000/sign/googleoauth", {
+  return axios.post(`${serverURI}/sign/googleoauth`, {
     accessToken,
   });
 };

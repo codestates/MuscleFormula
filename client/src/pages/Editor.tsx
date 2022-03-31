@@ -88,7 +88,7 @@ const Editor = () => {
   //total타임 shareRecords에서 계산
   console.log("shareRecords에서 time_record", shareRecords);
   let shareRecordsTotalTime = 0;
-  if (shareRecords !== null ) {
+  if (shareRecords !== null) {
     shareRecordsTotalTime = shareRecords.reduce((a, b) => {
       return a + b.time_record;
     }, 0);
@@ -121,25 +121,7 @@ const Editor = () => {
     dispatch(RESET());
     navigate("/main");
   };
-  const handleSubmitInner = () => {
-    // console.log("전송 파일 : ", postfiles.file[0]);
-    // const formData = new FormData();
-    // formData.append("postImage", postfiles.file[0]);
-    // formData.append("postTitle", titleContent);
-    // formData.append("info", textContent);
-    // formData.append("totalTime", 100);
-    // formData.append("bodyPart", "상체");
-    // formData.append("difficult", 4);
-    // formData.append("userId", 1);
-    // formData.append("exceriseInfo", 1);
-    // axios.post("http://localhost:4000/posts", formData, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //     // authorization: `Bearer ${token}`,
-    //   },
-    //   // withCredentials: true,
-    // });
-  };
+
   const handleGetbodyPart = (e: any) => {
     console.log("e.target.value:", e.target.value);
     setBodyPart(e.target.value);
@@ -158,9 +140,11 @@ const Editor = () => {
           <ImgTest postfiles={postfiles} setPostfiles={setPostfiles}></ImgTest>
           <div id="record-container">
             공유한 기록
-            {shareRecords !== null ? shareRecords.map((record: RecordType, idx: number) => (
-              <CalendarRecord key={idx} record={record} />
-            )) : null}
+            {shareRecords !== null
+              ? shareRecords.map((record: RecordType, idx: number) => (
+                  <CalendarRecord key={idx} record={record} />
+                ))
+              : null}
           </div>
           <div>내용</div>
           <div
