@@ -1,11 +1,14 @@
 /**날짜별 운동 기록 페이지**/
 import "../css/Record.css";
 import Record from "../components/Record";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
+import CalendarRecord from "../components/CalendarRecord";
 export default function Records() {
+  
+  
   let today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth() + 1;
@@ -43,6 +46,41 @@ export default function Records() {
     return day;
   };
 
+  interface RecordType {
+    genre: string;
+    weight: number;
+    count: number;
+    time_record: number;
+  }
+  const [savedRecords, setSavedRecords] =  useState<RecordType[]>([]);
+  const getDate = () => {
+    let today = new Date();
+    let year: number | string = today.getFullYear();
+    let month: number | string = today.getMonth() + 1;
+    let date: number | string = today.getDate();
+    month = month < 10 ? "0" + month : month;
+    date = date < 10 ? "0" + date : date;
+    return `${year}-${month}-${date}`;
+  };
+  const [submitDay, setSubmitDay] = useState(getDate());
+  
+  let serverUrl = 'http://localhost:4000'
+    
+  useEffect(()=> {
+    if (submitDay) {
+      axios
+      .get(`${serverUrl}/users/record?date=${submitDay}`,
+        { 
+          headers: {
+            authorization: `Bearer ${user.accessToken}`
+          }
+        })
+      .then((res) => {
+        setSavedRecords(res.data.data.exerciseInfo);
+      })
+    }
+  },[]);
+
   //렌더링할 때 임의의 값
   const [totalSec, setTotalSec] = useState(0);
 
@@ -62,15 +100,7 @@ export default function Records() {
   if (localUser !== null) {
     user = JSON.parse(localUser);
   }
-  console.log("이건 아이디다", user.id);
-  console.log("이건액세스토큰이다", user.accessToken);
-  //
-  interface RecordType {
-    genre: string;
-    weight: number;
-    count: number;
-    time_record: number;
-  }
+
 
   const [records, setRecords] = useState<RecordType[]>([]);
   const [exercise, setExercise] = useState({
@@ -80,24 +110,12 @@ export default function Records() {
     time_record: 0,
   });
 
-  const getDate = () => {
-    let today = new Date();
-    let year: number | string = today.getFullYear();
-    let month: number | string = today.getMonth() + 1;
-    let date: number | string = today.getDate();
-    month = month < 10 ? "0" + month : month;
-    date = date < 10 ? "0" + date : date;
-    return `${year}-${month}-${date}`;
-  };
 
   const submitRecord = () => {
-    //test: 로컬스토리지로 해당 날짜에 값 넣기
-    localStorage.setItem(`${getDate()}`, JSON.stringify(records));
-    //TODO
-    let serverUrl = "http://localhost:4000/users/record";
+    let serverUrl = "http://localhost:4000";
     axios
       .post(
-        `${serverUrl}`,
+        `${serverUrl}/users/record`,
         {
           userId: user.id,
           record: records,
@@ -110,7 +128,17 @@ export default function Records() {
         }
       )
       .then(() => {
-        alert("기록되었습니다");
+        axios
+        .get(`${serverUrl}/users/record?date=${submitDay}`,
+          { 
+            headers: {
+            authorization: `Bearer ${user.accessToken}`
+            }
+          })
+        .then((res) => {
+          setSavedRecords(res.data.data.exerciseInfo);
+          setRecords([]);
+      })
       });
   };
 
@@ -134,7 +162,7 @@ export default function Records() {
 
   //무조건 배열 값의 합이랑 일치
   const totalTime = () => {
-    return records.reduce((acc, cur) => {
+    return savedRecords.reduce((acc, cur) => {
       return acc + cur.time_record;
     }, 0);
   };
@@ -153,13 +181,17 @@ export default function Records() {
     }
   };
 
-  console.log("레코드기록", records);
+
+  //
 
   return (
     <div id="record-container">
       <div className="record-today">
         <i className="fa-solid fa-calendar-days"></i> {month}월 {date}일{" "}
         {checkDay(daynum)}요일
+      </div>
+      <div className="record-uploaded">
+       {savedRecords.map((record, idx) => <CalendarRecord key={idx} record={record}/>)}
       </div>
       <div className="record-total">
         <div className="record-time">{showTime(totalTime())}</div>

@@ -37,7 +37,7 @@ export const LoginPC = styled.div`
       }
     }
     > #oauth-container {
-      > tr {
+      > tbody > tr {
         > th {
           cursor: pointer;
         }
@@ -185,7 +185,7 @@ export const LoginMobile = styled.div`
     }
     > #oauth-container {
       padding: 1rem 2rem;
-      > tr {
+      > tbody > tr {
         > th {
           cursor: pointer;
         }
@@ -269,6 +269,7 @@ export default function LoginTest() {
               <img src="../images/icon_exerciseman.png" alt="exercising_man" />
             </div>
             <table id="oauth-container">
+              <tbody>
               <tr>
                 <th>
                   <a href={googleCodeGetRUI}>
@@ -291,6 +292,7 @@ export default function LoginTest() {
                 <td>구글로 로그인</td>
                 <td>카카오로 로그인</td>
               </tr>
+              </tbody>
             </table>
           </div>
           <div id="login-container-right">
@@ -359,6 +361,7 @@ export default function LoginTest() {
               </div>
             </div>
             <table id="oauth-container">
+              <tbody>
               <tr>
                 <th>
                   <a href={googleCodeGetRUI}>
@@ -381,6 +384,7 @@ export default function LoginTest() {
                 <td>구글로 로그인</td>
                 <td>카카오로 로그인</td>
               </tr>
+              </tbody>
             </table>
           </div>
         </LoginMobile>
