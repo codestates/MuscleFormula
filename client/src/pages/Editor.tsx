@@ -106,12 +106,12 @@ const Editor = () => {
     formData.append("bodyPart", "상체");
     formData.append("difficult", difficult);
     formData.append("userId", user.id);
-    formData.append("exceriseInfo", recordId);
+    formData.append("exerciseInfo", recordId);
 
     axios.post("http://localhost:4000/posts", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-        // authorization: `Bearer ${token}`,
+        authorization: `Bearer ${user.accessToken}`,
       },
       // withCredentials: true,
     });
