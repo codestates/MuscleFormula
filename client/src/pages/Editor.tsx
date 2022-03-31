@@ -87,9 +87,12 @@ const Editor = () => {
 
   //total타임 shareRecords에서 계산
   console.log("shareRecords에서 time_record", shareRecords);
-  let shareRecordsTotalTime = shareRecords.reduce((a, b) => {
-    return a + b.time_record;
-  }, 0);
+  let shareRecordsTotalTime = 0;
+  if (shareRecords !== null ) {
+    shareRecordsTotalTime = shareRecords.reduce((a, b) => {
+      return a + b.time_record;
+    }, 0);
+  }
   console.log("shareRecordsTotalTime", shareRecordsTotalTime);
 
   let dispatch: AppDispatch = useDispatch();
@@ -155,9 +158,9 @@ const Editor = () => {
           <ImgTest postfiles={postfiles} setPostfiles={setPostfiles}></ImgTest>
           <div id="record-container">
             공유한 기록
-            {shareRecords.map((record: RecordType, idx: number) => (
+            {shareRecords !== null ? shareRecords.map((record: RecordType, idx: number) => (
               <CalendarRecord key={idx} record={record} />
-            ))}
+            )) : null}
           </div>
           <div>내용</div>
           <div
