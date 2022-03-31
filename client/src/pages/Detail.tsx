@@ -59,7 +59,10 @@ export default function Detail() {
               <div>사진</div>
               <div>닉네임(김코딩)</div>
             </div>
-            <div id="detail-butten">수정, 삭제</div>
+            <div id="detail-butten">
+              <button>수정</button>
+              <button>삭제</button>
+            </div>
           </div>
 
           <div id="detail-image">
