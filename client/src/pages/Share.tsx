@@ -39,14 +39,13 @@ export default function Share () {
         setRecordsId(res.data.data.recordId);
       })
       .catch(() => {
-        setRecords([{genre: '', weight: 0, count: 0, time_record :0}])
+        setRecords(null);
       })
     }
   },[date]);
 
   const handleShare = () => {
-    if(records.length === 0) {
-      // setRecords([{ genre: '', weight: 0, count: 0, time_record: 0}]);
+    if(records === null) {
       return alert('공유할 기록이 없습니다');
     } else {
       dispatch(SHARE(records));
@@ -63,7 +62,7 @@ export default function Share () {
         <Calendar date={date} setDate={setDate}/>
       </div>
       <div id ="calendar-record-container">
-        {records.map((record, idx)=><CalendarRecord key={idx} record={record}/>)}
+        {records !== null ? records.map((record, idx)=><CalendarRecord key={idx} record={record}/>) : <div>공유할 기록이 없습니다</div>}
       </div>
       <div>
         <button onClick={handleShare}>선택하기</button>
