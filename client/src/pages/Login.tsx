@@ -200,7 +200,7 @@ export const LoginMobile = styled.div`
   }
 `;
 
-export default function LoginTest() {
+export default function Login() {
   const kakao = {
     clientID: "7d8937ab746c6e3604651e33e259fc1d",
     clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
