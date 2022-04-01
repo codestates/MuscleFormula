@@ -85,8 +85,19 @@ transition: all .3s;
 
 }  */
 
-  > .footer-container .contact-input {
-    /* border: solid 1px red; */
+ 
+> .footer-container .contact-input{
+  /* border: solid 1px red; */
+  display: flex;
+  flex-direction:column;
+  background: #686868;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  line-height: 1rem;
+  padding: .2rem 1.1rem;
+  /* border: none; */
+}
+ 
 
     display: flex;
     flex-direction: column;

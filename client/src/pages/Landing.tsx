@@ -1,7 +1,9 @@
-import * as React from "react";
-import { PureComponent } from "react";
-import styled from "styled-components";
+import axios from "axios";
+import React from "react";
 import { Mobile, PC } from "../mediaQuery";
+import styled from "styled-components";
+import type { RootState, AppDispatch } from "../store";
+const qs = require("qs");
 /* background-image: url(${(props) => props.img}); */
 // import "../../styles/styles.scss";
 // import " ../../styles/mixins.scss";
@@ -17,6 +19,7 @@ export const RenderingContainer = styled.div`
 
   > .exWrapper {
     border: 1px blue solid;
+    @include flex-column-settting;
   }
   /* @include landing-section-wrapper(10vh auto 5vh auto);
     display: flex;
@@ -80,10 +83,20 @@ export const RenderingContainer = styled.div`
 //   }
 // }
 
-// > .ExWrapper {
-//   include flex-column-settting;
+ 
+ 
 
-// }
+ 
+export const loading = styled.div`
+  height: 100vh;
+  > #app.loading:after {
+    content: "...로딩중...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+`;
 
 export const LoginPC = styled.div`
   margin-top: 1.5rem;
@@ -102,6 +115,7 @@ export const LoginMobile = styled.div`
   align-items: center;
   min-height: 90vh;
 `;
+ 
 
 export default function Landing() {
   return (
@@ -180,6 +194,7 @@ export default function Landing() {
           </div>
         </RenderingContainer>
       </PC>
+ 
     </div>
   );
 }
