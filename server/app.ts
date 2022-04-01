@@ -31,6 +31,7 @@ app.use(
     extended: true,
   })
 );
+
 app.use("/sign", loginrouter);
 app.use("/users", userRouter);
 app.use("/posts", postrouter);

@@ -61,20 +61,8 @@ export function Scroll() {
 }
 
 > .footer-container .about a {
-
-border: 1px solid gray;
-width:  25px; 
-/* width:768px  모바일*/
-height:30px;
 color: #686868;
-
-padding-top: 5.5px;
-margin-right: 10px;
-text-align: center;
-display:inline-block;
-
-border-radius: 5px;
-
+text-decoration: none;
 }
 
 /* 
@@ -145,7 +133,8 @@ export default function Footer() {
             <p>
             &nbsp;설립일 :2022년 03월 17일 <br/>
             &nbsp;Project : GG , 근의 공식  <br/>
-            &copy; Team 가보자고
+            &copy; Team 가보자고<br/>
+            <a href="https://icons8.com">아이콘Icons8</a>에서 아이콘 제공
             </p>
             <div className='contact'>
               {/* <span><i className='fas fa-phone'></i>&nbsp; 123-123-123</span>  */}

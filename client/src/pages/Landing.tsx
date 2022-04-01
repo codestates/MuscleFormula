@@ -38,10 +38,9 @@ export const LoginMobile = styled.div`
   min-height: 90vh;
 `;
 export default function Landing() {
-  console.log("랜딩페이지");
-  /**
-   * data.data.exerciseInfo
-   */
+
+
+
   return (
     <div className="Loading">
       <div className="Container">

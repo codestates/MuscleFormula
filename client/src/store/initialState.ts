@@ -1,10 +1,11 @@
 type InitialState = {
   'test': {id: number, name: string, quan: number}[],
   'count': number,
-  'userInfo': {id: number|string, nickname: string, image: string}
+  'userInfo': {id: number|string, nickname: string, image: string, accessToken: string}
   'isLogin': boolean,
   'notification': [],
-  'shareRecord': {genre: string, weight: number, count: number, time_record :number}[]
+  'shareRecord': {genre: string, weight: number, count: number, time_record :number}[] | null,
+  'shareRecordId': string | number
 }
 
 export const initialState :InitialState = {
@@ -13,12 +14,11 @@ export const initialState :InitialState = {
     {id: 1, name: '예쁜신발', quan: 3}
   ],
   'count' : 0,
-  'userInfo' : {id: '', nickname: '', image: ''},
+  'userInfo' : {id: '', nickname: '', image: '', accessToken: ''},
   'isLogin' : false,
   'notification': [
 
   ],
-  'shareRecord' : [
-
-  ]
+  'shareRecord' : null,
+  'shareRecordId' : ''
 }

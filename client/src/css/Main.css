@@ -14,11 +14,12 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  padding-top: 1rem;
   padding-bottom: 0.2rem;
   position: sticky;
   top: 4.4rem;
   background-color: white;
-  z-index: 100;
+  z-index: 1;
 }
 
 #postthumb-container {

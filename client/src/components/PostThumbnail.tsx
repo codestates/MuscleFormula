@@ -93,11 +93,11 @@ export const Postthumb = styled.div`
       border-collapse: collapse;
       margin-left: 0.5rem;
       font-size: small;
-      > tr:not(:last-of-type) {
+      > tbody > tr:not(:last-of-type) {
         text-align: left;
         border-bottom: 1px solid lightgrey;
       }
-      > th,
+      > tbody> th,
       td {
         padding-left: 0.5rem;
       }
@@ -108,15 +108,14 @@ export const Postthumb = styled.div`
 interface PostThumbnailProps {
   postThumb: {
     postImage: string;
-    title: string;
+    postTitle: string;
     content: string;
-    likes: number;
-    comments: number;
-    image: string;
-    nickname: string;
-    difficulty: number;
-    record: string;
-    bodypart: string;
+    total_Likes: any[];
+    total_comments: any[];
+    user: {userId: number, nickname:string, image:string};
+    difficult: number;
+    totalTime: number;
+    bodyPart: string;
     createdAt: string;
   };
 }
@@ -132,6 +131,16 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
     else return "☆";
   };
 
+  const secToTime = (duration: number) => {
+    let seconds: number | string = Math.floor(duration % 60);
+    let minutes: number | string = Math.floor((duration / 60) % 60);
+    let hours: number | string = Math.floor((duration / (60 * 60)) % 24);
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    return hours + "시간 " + minutes + "분 " + seconds + "초";
+  }
+
   return (
     <Postthumb
       onClick={() => {
@@ -142,17 +151,17 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
         <img src={postThumb.postImage} alt="post_image" />
       </div>
       <div id="up-container">
-        <div className="post-title">{postThumb.title}</div>
+        <div className="post-title">{postThumb.postTitle}</div>
         <div className="post-content">{postThumb.content}</div>
         <div className="post-social">
           <span className="post-date">{postThumb.createdAt}</span>
           <span className="post-likes">
             <i className="fa-regular fa-heart"></i>
-            {postThumb.likes}
+            {postThumb.total_Likes.length}
           </span>
           <span className="post-comments">
             <i className="fa-regular fa-comment-dots"></i>
-            {postThumb.comments}
+            {postThumb.total_comments.length}
           </span>
         </div>
       </div>
@@ -162,26 +171,28 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
             <div id="photo-container">
               <img
                 className="user-photo"
-                src={postThumb.image}
+                src={postThumb.user.image}
                 alt="profile_image"
               />
             </div>
           </div>
-          <strong className="user-nickname">{postThumb.nickname}</strong>
+          <strong className="user-nickname">{postThumb.user.nickname}</strong>
         </div>
         <table id="exercise-container">
+          <tbody>
           <tr>
             <th>난이도</th>
-            <td>{numToStar(postThumb.difficulty)}</td>
+            <td>{numToStar(postThumb.difficult)}</td>
           </tr>
           <tr>
             <th>소요시간</th>
-            <td>{postThumb.record}</td>
+            <td>{secToTime(postThumb.totalTime)}</td>
           </tr>
           <tr>
             <th>운동부위</th>
-            <td>{postThumb.bodypart}</td>
+            <td>{postThumb.bodyPart}</td>
           </tr>
+          </tbody>
         </table>
       </div>
     </Postthumb>

@@ -24,11 +24,13 @@ function CallbackGoogle() {
           .then((res) => {
             console.log("res.data", res.data);
             const { id, image, nickname } = res.data.user;
+            const accessToken = res.data.accessToken;
             dispatch(
               LOG_IN({
                 id,
                 nickname,
                 image,
+                accessToken
               })
             );
             navigate("/main");

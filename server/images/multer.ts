@@ -1,10 +1,9 @@
+import dotenv from "dotenv";
+dotenv.config();
 const multer = require("multer");
 const userStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(
-      null,
-      "/Users/user/Documents/codestates/final_Project/Final_Project_04/server/images/userImages"
-    );
+    cb(null, process.env.MULTER_URL);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -13,10 +12,7 @@ const userStorage = multer.diskStorage({
 });
 const postStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(
-      null,
-      "/Users/user/Documents/codestates/final_Project/Final_Project_04/server/images/postImages"
-    );
+    cb(null, process.env.MULTER_URL);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
