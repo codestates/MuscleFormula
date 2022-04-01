@@ -3,9 +3,12 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import loginrouter from "./routers/login";
 import userRouter from "./routers/users";
+import recordRouter from "./routers/records";
 import { createConnection } from "typeorm";
 import * as dotenv from "dotenv";
-import postrouter from "./routers/posts";
+import postRouter from "./routers/posts";
+import commentRouter from "./routers/posts";
+import likeRouter from "./routers/posts";
 
 createConnection()
   .then(async () => {
@@ -34,7 +37,10 @@ app.use(
 
 app.use("/sign", loginrouter);
 app.use("/user", userRouter);
-app.use("/posts", postrouter);
+app.use("/record", recordRouter);
+app.use("/comment", commentRouter);
+app.use("/like", likeRouter);
+app.use("/posts", postRouter);
 app.get("/", (req, res) => {
   res.status(200).send("server is work!!");
 });

@@ -10,7 +10,7 @@ module.exports = async (req: Request | any, res: Response) => {
   //console.log("signup Info : ", email, password, nickname);
   const auth = req.headers["authorization"];
   const files = req.file;
-  const params = req.params;
+
   //console.log("body", req.file);
   const userImage = files;
   const getImageUrl = "http://localhost:4000";
@@ -28,7 +28,7 @@ module.exports = async (req: Request | any, res: Response) => {
           });
         } else if (data) {
           const user: any = await getRepository(Users).findOne({
-            where: { id: params.id },
+            where: { id: data.id },
           });
           if (user.email === data.email) {
             user.email = email;

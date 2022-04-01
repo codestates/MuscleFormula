@@ -27,8 +27,8 @@ let findtoday =
 
 module.exports = async (req: Request, res: Response) => {
   const auth = req.headers["authorization"];
-  const params = req.params;
-  console.log(params);
+  //const params = req.params;
+  // console.log(params);
 
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
@@ -46,7 +46,7 @@ module.exports = async (req: Request, res: Response) => {
         //console.log(data);
         const allInfo: any = await getRepository(Users).findOne({
           relations: ["posts"],
-          where: { id: params.id },
+          where: { id: data.id },
         });
         console.log("mypage", allInfo);
         const findLastTime = await getRepository(Record).findOne({
