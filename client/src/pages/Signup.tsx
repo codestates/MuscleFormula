@@ -227,7 +227,7 @@ export default function Signup() {
             매일의 운동<br></br>
             시작해볼까요?
           </div>
-          <img src="../images/icon_runningman.png" alt="running_man" />
+          <img src="../images/icon_running.png" alt="running_man" />
         </div>
         <div className="user-email">
           <div className="input-container">
