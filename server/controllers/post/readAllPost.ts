@@ -14,6 +14,7 @@ module.exports = async (req: Request, res: Response) => {
     const data = {
       postId: item.id,
       postTitle: item.title,
+      info: item.info,
       postImage: item.image,
       user: {
         userId: item.users.id,
@@ -25,6 +26,7 @@ module.exports = async (req: Request, res: Response) => {
       totalTime: item.total_time,
       total_comments: item.post_comments,
       total_Likes: item.post_likes,
+      created_At: item.created_At,
     };
     return data;
   });
