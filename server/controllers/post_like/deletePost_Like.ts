@@ -7,31 +7,30 @@ import { Post_Likes } from "../../models/entity/Post_Like";
 const jwt = require("jsonwebtoken");
 dotenv.config();
 module.exports = async (req: Request, res: Response) => {
-  const { userId, postId } = req.body;
   console.log("makePost_Likes: ", req.body);
+  const likeId = req.params.id;
   const auth = req.headers["authorization"];
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
   } else {
     const token: any = auth?.split(" ")[1];
-    jwt.verify(token, process.env.ACCCESS_SECRET, async (err, data) => {
+
+    jwt.verify(token, process.env.ACCESS_SECRET, async (err, data) => {
       if (err) {
+        console.log(err);
         res.status(401).send({
           message: "엑세스토큰이 만료 되엇습니다.",
         });
       } else if (data) {
         const user = await getRepository(Users).findOne({
-          where: { id: userId },
-        });
-        const post = await getRepository(Posts).findOne({
-          where: { id: postId },
+          where: { id: data.id },
         });
 
         const postLike: any = await getRepository(Post_Likes).findOne({
-          where: { post: post, users: user },
+          where: { id: likeId },
           relations: ["users"],
         });
-
+        console.log(postLike);
         console.log("postLike:", postLike);
         //console.log("user:", user);
         //console.log("post:", post);

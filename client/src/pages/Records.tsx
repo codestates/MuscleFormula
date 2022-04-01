@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../store";
 import CalendarRecord from "../components/CalendarRecord";
 export default function Records() {
-
   const showToday = () => {
     let today = new Date();
     let month = today.getMonth() + 1;
@@ -17,12 +16,12 @@ export default function Records() {
     const checkDay = (daynum: number): string => {
       let day = "";
       let week = ["일", "월", "화", "수", "목", "금", "토"];
-      return day = week[daynum];
+      return (day = week[daynum]);
     };
 
-    return `${month}월 ${date}일 ${checkDay(daynum)}요일`
-  }
-  
+    return `${month}월 ${date}일 ${checkDay(daynum)}요일`;
+  };
+
   const getDate = () => {
     let today = new Date();
     let year: number | string = today.getFullYear();
@@ -32,7 +31,7 @@ export default function Records() {
     date = date < 10 ? "0" + date : date;
     return `${year}-${month}-${date}`;
   };
-  
+
   interface RecordType {
     genre: string;
     weight: number;
@@ -40,24 +39,24 @@ export default function Records() {
     time_record: number;
   }
 
-  const [savedRecords, setSavedRecords] =  useState<RecordType[]>([]);
+  const [savedRecords, setSavedRecords] = useState<RecordType[]>([]);
   const [submitDay, setSubmitDay] = useState(getDate());
-  let serverUrl = 'http://localhost:4000'
-  
-  useEffect(()=> {
+  let serverUrl = "http://localhost:4000";
+
+  useEffect(() => {
     if (submitDay) {
       axios
-      .get(`${serverUrl}/user/record?date=${submitDay}`,
-        { 
+        .get(`${serverUrl}/record?date=${submitDay}`, {
+
           headers: {
-            authorization: `Bearer ${user.accessToken}`
-          }
+            authorization: `Bearer ${user.accessToken}`,
+          },
         })
-      .then((res) => {
-        setSavedRecords(res.data.data.exerciseInfo);
-      })
+        .then((res) => {
+          setSavedRecords(res.data.data.exerciseInfo);
+        });
     }
-  },[]);
+  }, []);
 
   function showTime(duration: number) {
     let seconds: number | string = Math.floor(duration % 60);
@@ -88,9 +87,9 @@ export default function Records() {
     let serverUrl = "http://localhost:4000";
     axios
       .post(
-        `${serverUrl}/user/record`,
+        `${serverUrl}/record`,
+
         {
-          userId: user.id,
           record: records,
         },
         {
@@ -102,16 +101,15 @@ export default function Records() {
       )
       .then(() => {
         axios
-        .get(`${serverUrl}/users/record?date=${submitDay}`,
-          { 
+          .get(`${serverUrl}/record?date=${submitDay}`, {
             headers: {
-            authorization: `Bearer ${user.accessToken}`
-            }
+              authorization: `Bearer ${user.accessToken}`,
+            },
           })
-        .then((res) => {
-          setSavedRecords(res.data.data.exerciseInfo);
-          setRecords([]);
-      })
+          .then((res) => {
+            setSavedRecords(res.data.data.exerciseInfo);
+            setRecords([]);
+          });
       });
   };
 
@@ -159,7 +157,9 @@ export default function Records() {
       <i className="fa-solid fa-stopwatch"></i> {showToday()}
       </div>
       <div className="record-uploaded">
-       {savedRecords.map((record, idx) => <CalendarRecord key={idx} record={record}/>)}
+        {savedRecords.map((record, idx) => (
+          <CalendarRecord key={idx} record={record} />
+        ))}
       </div>
       <div className="record-total">
         <div className="record-time">{showTime(totalTime())}</div>

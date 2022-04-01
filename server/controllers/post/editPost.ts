@@ -6,8 +6,8 @@ const jwt = require("jsonwebtoken");
 
 dotenv.config();
 module.exports = async (req: Request | any, res: Response) => {
+  const postId = req.params.id;
   const {
-    postId,
     postTitle,
     info,
     exerciseInfo,

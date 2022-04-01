@@ -6,13 +6,13 @@ import { Posts } from "../../models/entity/Post";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
-  const params = req.params;
-  console.log("params", params);
+  const postId = req.params.id;
+  console.log("params", postId);
   //console.log("makePost body : ", req.body);
 
   const detailPost = await getRepository(Posts).findOne({
     relations: ["post_comments", "post_likes", "users"],
-    where: { id: params.id },
+    where: { id: postId },
   });
 
   if (detailPost) {
