@@ -2,6 +2,11 @@
 import "../css/Mypage.css";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
+import TodayRecord from "../components/TodayRecord";
+import Share from "./Share";
+import PostThumbnail from "../components/PostThumbnail";
+import { useState, useEffect } from "react";
+import { axios_GetMyPosts } from "../axios";
 
 export default function Maypage() {
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
@@ -9,13 +14,35 @@ export default function Maypage() {
   if (localUser !== null) {
     user = JSON.parse(localUser);
   }
+
+  const [myPosts, setMyPosts] = useState([]);
+
+  useEffect(() => {
+    axios_GetMyPosts(user.accessToken)
+    .then((res) => {
+      console.log('mypage데이터',res.data.mypageData.myPost);
+      setMyPosts(res.data.mypageData.myPost);
+    });
+  }, []);
+
   return (
     <div id="mypage-container">
-      <header className="mypage-greeting">
-        안녕하세요 <strong>{user.nickname}</strong> 님
-      </header>
+      <div className="mypage-greeting">
+        <div className="welcome">
+          안녕하세요 <strong>{user.nickname}</strong> 님
+        </div>
+        <div className="photo_wrapper">
+          <img src={user.image} alt="user_image"/>
+        </div>
+        <TodayRecord/>
+      </div>
+      <div className="mypost-container">
+        {myPosts.map((el, idx) => (
+          <PostThumbnail postThumb={el} key={idx} />
+        ))}
+      </div>
       <div className="share-container">
-        아직 공유한 운동이 없으시네요. 어서 공유해보세요!
+        <Share/>
       </div>
     </div>
   );

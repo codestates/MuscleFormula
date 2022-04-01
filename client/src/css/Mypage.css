@@ -1,9 +1,18 @@
 #mypage-container {
   margin-top: 5rem;
   margin-bottom: 4rem;
-  padding: 1rem;
   display: flex;
   flex-direction:column;
+}
+.mypage-greeting .welcome {
+
+}
+
+.mypage-greeting .photo_wrapper {
+
+}
+
+.share-container {
 }
 
 #mypage-container strong {

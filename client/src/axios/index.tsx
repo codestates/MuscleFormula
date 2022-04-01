@@ -3,7 +3,7 @@ import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 // const navigate = useNavigate();
 const qs = require("qs");
-
+const clientURI = `http://localhost:3000`;
 const serverURI = `http://localhost:4000`;
 const kakao = {
   clientID: "7d8937ab746c6e3604651e33e259fc1d",
@@ -88,7 +88,7 @@ export const axios_GetGoogleToken = (code: string) => {
     client_secret: "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",
     code: code,
     grant_type: "authorization_code",
-    redirect_uri: "http://localhost:3000/callbackGoogle",
+    redirect_uri: `${clientURI}/callbackGoogle`,
   });
 };
 export const axios_GetUser_toGoogleTOken = (accessToken: string) => {
@@ -98,7 +98,7 @@ export const axios_GetUser_toGoogleTOken = (accessToken: string) => {
 };
 
 export const axios_CreatePost = (formData: any, accessToken: string) => {
-  return axios.post("http://localhost:4000/posts", formData, {
+  return axios.post(`${serverURI}/posts`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
       authorization: `Bearer ${accessToken}`,
@@ -107,5 +107,13 @@ export const axios_CreatePost = (formData: any, accessToken: string) => {
   });
 };
 export const axios_GetPosts = () => {
-  return axios.get(`http://localhost:4000/posts`);
+  return axios.get(`${serverURI}/posts`);
+};
+
+export const axios_GetMyPosts = (accessToken:string) => {
+  return axios.get(`${serverURI}/user`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`
+    }
+  });
 };

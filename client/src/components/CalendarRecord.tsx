@@ -13,9 +13,20 @@ export const RecordContainer = styled.div`
   font-size: large;
   > div {
     padding-right: 0.5rem;
+    font-size: medium;
+    border-bottom: solid 1px lightgrey;
+  }
+  > .exercise-name {
+    width: 6.5rem;
+  }
+  > .exercise-weight {
+    width: 3rem;
+  }
+  > .exercise-count {
+    width: 3rem;
   }
   > div:last-child {
-    font-size: x-large;
+    width: 4.5rem;
   }
 `
 interface RecordType {

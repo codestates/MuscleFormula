@@ -6,10 +6,10 @@ export const NoContentContainer=styled.div`
   justify-content: center;
   align-items: center;
   > img {
-    width: 80px;
+    width: 70px;
   }
   > div {
-    font-family: "IBM Plex Sans KR", sans-serif;
+    color: grey;
   }
 `
 

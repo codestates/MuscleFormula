@@ -105,6 +105,7 @@ module.exports = async (req: Request, res: Response) => {
             const data = {
               postId: item.id,
               postTitle: item.title,
+              info: item.info,
               postImage: item.image,
               user: {
                 userId: allInfo.id,
@@ -114,7 +115,10 @@ module.exports = async (req: Request, res: Response) => {
               bodyPart: item.body_Part,
               difficult: item.difficult,
               totalTime: item.total_time,
-              totalLikes: item.total_Likes,
+              //totalcomments찾아주세요 임시로 아무 값 넣었어여
+              total_comments: item.total_comments,
+              total_Likes: item.total_Likes,
+              created_At: item.created_At,
             };
             return data;
           });
