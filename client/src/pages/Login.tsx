@@ -213,7 +213,7 @@ export default function Login() {
   const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
 
   const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+  const [userPassword, setUserPassword] = useStat;
   const [getcode, setGetcode] = useState("");
 
   const googleCodeGetRUI = `https://accounts.google.com/o/oauth2/auth?client_id=1062811618314-04ajm3grgt3c9hf51lq1911qt3el9ro9.apps.googleusercontent.com&access_type=offline&redirect_uri=http://localhost:3000/callbackGoogle&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
