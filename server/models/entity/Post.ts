@@ -33,7 +33,9 @@ export class Posts extends BaseEntity {
   body_Part: string;
   @Column()
   difficult: number;
-  @Column()
+  @Column({
+    default: "http://localhost:4000/postimg/img_post_default.png",
+  })
   image: string;
 
   @ManyToOne((type) => Users, (e) => e.posts, {
