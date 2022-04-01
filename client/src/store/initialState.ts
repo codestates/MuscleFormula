@@ -4,7 +4,7 @@ type InitialState = {
   'userInfo': {id: number|string, nickname: string, image: string, accessToken: string}
   'isLogin': boolean,
   'notification': [],
-  'shareRecord': {genre: string, weight: number, count: number, time_record :number}[],
+  'shareRecord': {genre: string, weight: number, count: number, time_record :number}[] | null,
   'shareRecordId': string | number
 }
 
@@ -19,8 +19,6 @@ export const initialState :InitialState = {
   'notification': [
 
   ],
-  'shareRecord' : [
-
-  ],
+  'shareRecord' : null,
   'shareRecordId' : ''
 }

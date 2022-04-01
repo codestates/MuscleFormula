@@ -13,7 +13,7 @@ let todaySring =
 module.exports = async (req: Request | any, res: Response) => {
   //console.log(req.cookies);
   const auth = req.headers["authorization"];
-  //console.log(auth);
+  console.log('auth',auth);
   const {
     userId,
     postTitle,
@@ -45,7 +45,9 @@ module.exports = async (req: Request | any, res: Response) => {
           where: { id: exerciseInfo },
           relations: ["ex_record"],
         });
-        //console.log("exInfo", exInfo);
+        console.log("exInfo", exInfo);
+        console.log("userEmail", user?.email);
+        console.log("dataEmail", data.email);
 
         if (user?.email === data.email) {
           const created = Posts.create({
