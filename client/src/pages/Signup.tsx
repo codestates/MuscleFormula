@@ -4,7 +4,8 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
-import { axios_Signup, axios_GetNickname } from "../axios";
+import { axios_Signup, axios_GetNickname, axios_Login } from "../axios";
+
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 import { LOG_IN } from "../reducer/userInfoReducer";
@@ -170,14 +171,7 @@ export default function Signup() {
   const signupHandle = () => {
     if (isAlltrue) {
       axios_Signup(userEmail, userNickname, userPassword).then(() => {
-        const loginUserinfo = {
-          email: userEmail,
-          password: userPassword,
-        };
-        axios
-          .post(`http://localhost:4000/sign/in`, loginUserinfo, {
-            withCredentials: true,
-          })
+        axios_Login(userEmail, userPassword)
           .then((res) => {
             const { id, image, nickname } = res.data.user;
             const accessToken = res.data.accessToken;

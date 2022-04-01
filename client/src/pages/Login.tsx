@@ -1,4 +1,6 @@
 import axios from "axios";
+import { axios_Login } from "../axios";
+
 import React from "react";
 import { Mobile, PC } from "../mediaQuery";
 import { useDispatch, useSelector } from "react-redux";
@@ -222,34 +224,19 @@ export default function Login() {
   const dispatch: AppDispatch = useDispatch();
 
   const loginHangle = async () => {
-    const loginUserinfo = {
-      email: userEmail,
-      password: userPassword,
-    };
-
-    axios
-      .post(`http://localhost:4000/sign/in`, loginUserinfo, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        const { id, image, nickname } = res.data.user;
-        const accessToken = res.data.accessToken;
-        dispatch(
-          LOG_IN({
-            id,
-            nickname,
-            image,
-            accessToken,
-          })
-        );
-        navigate("/main");
-      });
-  };
-  const loginKakaoHangle = async () => {
-    // console.log("kakao");
-    // axios.get(kakaoCodeGetURI).then((res) => {
-    //   console.log("res", res);
-    // });
+    axios_Login(userEmail, userPassword).then((res) => {
+      const { id, image, nickname } = res.data.user;
+      const accessToken = res.data.accessToken;
+      dispatch(
+        LOG_IN({
+          id,
+          nickname,
+          image,
+          accessToken,
+        })
+      );
+      navigate("/main");
+    });
   };
 
   const changeEmail = (e: string | any) => {
@@ -270,28 +257,28 @@ export default function Login() {
             </div>
             <table id="oauth-container">
               <tbody>
-              <tr>
-                <th>
-                  <a href={googleCodeGetRUI}>
-                    <img src="../images/icon_google.png" alt="logoGoogle" />
-                  </a>
-                </th>
-                <th>
-                  <a href={kakaoCodeGetURI}>
-                    <img
-                      src="../images/icon_kakao.png"
-                      alt="logoKakao"
-                      onClick={() => {
-                        console.log("kakao");
-                      }}
-                    />
-                  </a>
-                </th>
-              </tr>
-              <tr>
-                <td>구글로 로그인</td>
-                <td>카카오로 로그인</td>
-              </tr>
+                <tr>
+                  <th>
+                    <a href={googleCodeGetRUI}>
+                      <img src="../images/icon_google.png" alt="logoGoogle" />
+                    </a>
+                  </th>
+                  <th>
+                    <a href={kakaoCodeGetURI}>
+                      <img
+                        src="../images/icon_kakao.png"
+                        alt="logoKakao"
+                        onClick={() => {
+                          console.log("kakao");
+                        }}
+                      />
+                    </a>
+                  </th>
+                </tr>
+                <tr>
+                  <td>구글로 로그인</td>
+                  <td>카카오로 로그인</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -362,28 +349,28 @@ export default function Login() {
             </div>
             <table id="oauth-container">
               <tbody>
-              <tr>
-                <th>
-                  <a href={googleCodeGetRUI}>
-                    <img src="../images/icon_google.png" alt="logoGoogle" />
-                  </a>
-                </th>
-                <th>
-                  <a href={kakaoCodeGetURI}>
-                    <img
-                      src="../images/icon_kakao.png"
-                      alt="logoKakao"
-                      onClick={() => {
-                        console.log("kakao");
-                      }}
-                    />
-                  </a>
-                </th>
-              </tr>
-              <tr>
-                <td>구글로 로그인</td>
-                <td>카카오로 로그인</td>
-              </tr>
+                <tr>
+                  <th>
+                    <a href={googleCodeGetRUI}>
+                      <img src="../images/icon_google.png" alt="logoGoogle" />
+                    </a>
+                  </th>
+                  <th>
+                    <a href={kakaoCodeGetURI}>
+                      <img
+                        src="../images/icon_kakao.png"
+                        alt="logoKakao"
+                        onClick={() => {
+                          console.log("kakao");
+                        }}
+                      />
+                    </a>
+                  </th>
+                </tr>
+                <tr>
+                  <td>구글로 로그인</td>
+                  <td>카카오로 로그인</td>
+                </tr>
               </tbody>
             </table>
           </div>
