@@ -23,9 +23,7 @@ module.exports = async (req: Request, res: Response) => {
 
   const { kakao_access_token, kakao_refresh_token } = req.body;
 
-  const userResponse = await axios({
-    method: "GET",
-    url: "https://kapi.kakao.com/v2/user/me",
+  const userResponse = await axios.get("https://kapi.kakao.com/v2/user/me", {
     headers: {
       Authorization: `Bearer ${kakao_access_token}`,
     },
@@ -77,8 +75,12 @@ module.exports = async (req: Request, res: Response) => {
       image: findUser.image,
     };
 
-    const accessToken = await generateAccessToken(email, password);
-    const refreshToken = await generateRefreshToken(email, password);
+    const accessToken = await generateAccessToken(userData.id, email, password);
+    const refreshToken = await generateRefreshToken(
+      userData.id,
+      email,
+      password
+    );
     res.cookie("refreshToken", refreshToken, {
       maxAge: 60 * 60 * 24 * 7, // 1주일
       //domain: "gg-one-delta.vercel.app",

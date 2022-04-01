@@ -7,8 +7,8 @@ import recordRouter from "./routers/records";
 import { createConnection } from "typeorm";
 import * as dotenv from "dotenv";
 import postRouter from "./routers/posts";
-import commentRouter from "./routers/posts";
-import likeRouter from "./routers/posts";
+import commentRouter from "./routers/comments";
+import likeRouter from "./routers/likes";
 
 createConnection()
   .then(async () => {

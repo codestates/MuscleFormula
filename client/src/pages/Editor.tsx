@@ -8,6 +8,8 @@ import type { RootState, AppDispatch } from "../store";
 import ImgTest from "../components/ImgTest";
 import axios from "axios";
 import StarPoint from "../components/StarPoint";
+import { axios_CreatePost } from "../axios";
+
 const FormData = require("form-data");
 const form = new FormData();
 
@@ -111,15 +113,11 @@ const Editor = () => {
     formData.append("userId", user.id);
     formData.append("exerciseInfo", recordId);
 
-    axios.post("http://localhost:4000/posts", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        authorization: `Bearer ${user.accessToken}`,
-      },
-      // withCredentials: true,
-    });
+    axios_CreatePost(formData, user.accessToken);
     dispatch(RESET());
-    navigate("/main");
+    // navigate("/main");
+    // location.reload(); // 새로고침 내장함수 추가
+    window.location.replace("/main"); // 새로고침후 이동
   };
 
   const handleGetbodyPart = (e: any) => {

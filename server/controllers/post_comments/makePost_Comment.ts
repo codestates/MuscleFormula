@@ -10,8 +10,9 @@ let today = new Date(Date.now());
 let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 module.exports = async (req: Request, res: Response) => {
-  const { userId, postId, comment } = req.body;
+  const { comment } = req.body;
   console.log("makePost_Commets : ", req.body);
+  const postId = req.params.id;
   const auth = req.headers["authorization"];
 
   if (!auth) {
@@ -25,7 +26,7 @@ module.exports = async (req: Request, res: Response) => {
         });
       } else if (data) {
         const user: any = await getRepository(Users).findOne({
-          where: { id: userId },
+          where: { id: data.id },
         });
         //console.log(user);
         const post = await getRepository(Posts).findOne({

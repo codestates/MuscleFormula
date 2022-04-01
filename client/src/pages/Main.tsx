@@ -8,15 +8,22 @@ import dummyThumbs from "./dummy/dummyThumbs";
 import Search from "../components/Search";
 import PostThumbnail from "../components/PostThumbnail";
 import TodayKing from "../components/TodayKing";
+import { axios_GetPosts } from "../axios";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../store";
+
 export default function Main() {
+  let shareRecordsId = useSelector(
+    (state: RootState) => state.shareRecord.shareRecordId
+  );
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/posts`).then((res) => {
+    axios_GetPosts().then((res) => {
       setPosts(res.data.posts);
       console.log(res.data.posts);
     });
-  }, []);
+  }, [shareRecordsId]);
 
   const navigate = useNavigate();
   const code = new URLSearchParams(window.location.search).get("code");

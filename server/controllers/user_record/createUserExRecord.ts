@@ -12,17 +12,15 @@ let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
-  const { userId, record } = req.body;
-  console.log("req:", req);
-  console.log("req.query:", req.query);
-
+  const { record } = req.body;
+  const date = req.query.date;
   console.log("레큐바디", req.body);
   console.log("req.cookies:", req.cookies);
 
   //console.log(todaySring);
   //   const user = await getRepository(Users).findOne({
   //     relations: ["profile"],
-  //     where: { id: userId },
+  //     where: { id: data.id },
   //   });
   const auth = req.headers["authorization"];
 
@@ -38,7 +36,7 @@ module.exports = async (req: Request, res: Response) => {
       } else if (data) {
         const user = await getRepository(Users).findOne({
           relations: ["ex_records"],
-          where: { id: userId },
+          where: { id: data.id },
         });
         console.log("data:", data);
 
@@ -49,11 +47,11 @@ module.exports = async (req: Request, res: Response) => {
         } else if (user.email === data.email) {
           const findExRecord = await getRepository(Record).findOne({
             relations: ["users", "ex_record"],
-            where: { users: userId, created_at: todaySring },
+            where: { users: data.id, created_at: todaySring },
           });
           if (!findExRecord) {
             const makeExRecord = Record.create({
-              users: userId,
+              users: data.id,
               created_at: todaySring,
             });
             try {
@@ -66,7 +64,7 @@ module.exports = async (req: Request, res: Response) => {
         }
         const findrecord = await getRepository(Record).findOne({
           relations: ["users", "ex_record"],
-          where: { users: userId, created_at: todaySring },
+          where: { users: data.id, created_at: todaySring },
         });
         let a: any = findrecord?.id;
         console.log(findrecord?.users.email);

@@ -10,7 +10,7 @@ dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
   const auth = req.headers["authorization"];
-
+  const date = req.query.date;
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
   } else {
@@ -26,7 +26,7 @@ module.exports = async (req: Request, res: Response) => {
         });
         const exerciseInfo = await getRepository(Record).findOne({
           relations: ["ex_record"],
-          where: { created_at: req.query.date, users: userInfo?.id },
+          where: { created_at: date, users: userInfo?.id },
         });
         //console.log(exerciseInfo);
         if (!exerciseInfo) {

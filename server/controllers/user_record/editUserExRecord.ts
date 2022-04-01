@@ -12,7 +12,7 @@ let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
-  const { userId, record } = req.body;
+  const { record } = req.body;
   const auth = req.headers["authorization"];
   //console.log(req.query.date);
   //console.log(todaySring);
@@ -29,7 +29,7 @@ module.exports = async (req: Request, res: Response) => {
       } else if (data) {
         const user = await getRepository(Users).findOne({
           relations: ["ex_records"],
-          where: { id: userId },
+          where: { id: data.id },
         });
 
         //console.log("유저입니다", user);
@@ -38,7 +38,7 @@ module.exports = async (req: Request, res: Response) => {
         }
         const findrecord = await getRepository(Record).findOne({
           relations: ["users", "ex_record"],
-          where: { users: userId, created_at: req.query.date },
+          where: { users: data.id, created_at: req.query.date },
         });
 
         console.log(findrecord?.created_at);
