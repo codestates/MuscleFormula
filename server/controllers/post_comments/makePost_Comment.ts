@@ -10,6 +10,8 @@ let today = new Date(Date.now());
 let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 module.exports = async (req: Request, res: Response) => {
+  console.log("server makePost_Comment in !!");
+
   const { comment } = req.body;
   console.log("makePost_Commets : ", req.body);
   const postId = req.params.id;

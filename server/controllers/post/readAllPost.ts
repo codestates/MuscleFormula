@@ -6,6 +6,8 @@ import { Posts } from "../../models/entity/Post";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server readAllPost in !!");
+
   const allInfo = await getRepository(Posts).find({
     relations: ["users", "post_comments", "post_likes"],
   });

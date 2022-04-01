@@ -5,6 +5,8 @@ import { Users } from "../../models/entity/User";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server readNicks in !!");
+
   console.log("req.query: ", req.query);
   console.log("req.prams: ", req.params);
   console.log("req.body: ", req.body);

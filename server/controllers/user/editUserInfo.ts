@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 module.exports = async (req: Request | any, res: Response) => {
+  console.log("server editUserInfo in !!");
+
   const { email, password, nickname } = req.body;
   //console.log("signup Info : ", email, password, nickname);
   const auth = req.headers["authorization"];

@@ -26,6 +26,8 @@ let findtoday =
 //console.log(findtoday);
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server readMypage in !!");
+
   const auth = req.headers["authorization"];
   //const params = req.params;
   // console.log(params);

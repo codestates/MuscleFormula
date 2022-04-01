@@ -8,6 +8,8 @@ import { Users } from "../../models/entity/User";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server emailLogin in !!");
+
   const { email, password } = req.body;
   console.log("login req : ", req.body);
 

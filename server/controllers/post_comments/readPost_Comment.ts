@@ -14,6 +14,8 @@ let todaySring =
   "-" +
   (today.getDate() + 1);
 module.exports = async (req: Request, res: Response) => {
+  console.log("server readPost_Comment in !!");
+
   // const { userId,
   //   postId,
   //   comment,

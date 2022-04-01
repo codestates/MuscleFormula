@@ -6,6 +6,7 @@ import { Posts } from "../../models/entity/Post";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server detailePost in !!");
   const postId = req.params.id;
   console.log("params", postId);
   //console.log("makePost body : ", req.body);

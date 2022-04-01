@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server deletePost in !!");
+
   const postId = req.params.id;
   const auth = req.headers["authorization"];
   console.log("delete body", req.body);

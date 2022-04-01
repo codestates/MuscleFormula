@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server deletePost_Comment in !!");
+
   const postCommentId = req.params.id;
   console.log(postCommentId);
   const auth = req.headers["authorization"];

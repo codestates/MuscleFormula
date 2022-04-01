@@ -2,6 +2,9 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../store";
+import { POST_ID } from "../reducer/postReducer";
 
 export const Postthumb = styled.div`
   flex: none;
@@ -97,7 +100,7 @@ export const Postthumb = styled.div`
         text-align: left;
         border-bottom: 1px solid lightgrey;
       }
-      > tbody> th,
+      > tbody > th,
       td {
         padding-left: 0.5rem;
       }
@@ -107,12 +110,13 @@ export const Postthumb = styled.div`
 
 interface PostThumbnailProps {
   postThumb: {
+    postId: number;
     postImage: string;
     postTitle: string;
     info: string;
     total_Likes: any[];
     total_comments: any[];
-    user: {userId: number, nickname:string, image:string};
+    user: { userId: number; nickname: string; image: string };
     difficult: number;
     totalTime: number;
     bodyPart: string;
@@ -121,6 +125,10 @@ interface PostThumbnailProps {
 }
 
 const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
+  const dispatch: AppDispatch = useDispatch();
+
+  console.log("postThumb :", postThumb);
+  console.log("postThumb.postId :", postThumb.postId);
   const navigate = useNavigate();
   const numToStar = (num: number) => {
     if (num === 1) return "★";
@@ -139,11 +147,12 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
     return hours + "시간 " + minutes + "분 " + seconds + "초";
-  }
-
+  };
+  // let postId = postThumb.postId
   return (
     <Postthumb
       onClick={() => {
+        dispatch(POST_ID(postThumb.postId));
         navigate("/detail");
       }}
     >
@@ -154,7 +163,7 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
         <div className="post-title">{postThumb.postTitle}</div>
         <div className="post-content">{postThumb.info}</div>
         <div className="post-social">
-          <span className="post-date">{postThumb.created_At.slice(0,10)}</span>
+          <span className="post-date">{postThumb.created_At.slice(0, 10)}</span>
           <span className="post-likes">
             <i className="fa-regular fa-heart"></i>
             {postThumb.total_Likes.length}
@@ -180,18 +189,18 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
         </div>
         <table id="exercise-container">
           <tbody>
-          <tr>
-            <th>난이도</th>
-            <td>{numToStar(postThumb.difficult)}</td>
-          </tr>
-          <tr>
-            <th>소요시간</th>
-            <td>{secToTime(postThumb.totalTime)}</td>
-          </tr>
-          <tr>
-            <th>운동부위</th>
-            <td>{postThumb.bodyPart}</td>
-          </tr>
+            <tr>
+              <th>난이도</th>
+              <td>{numToStar(postThumb.difficult)}</td>
+            </tr>
+            <tr>
+              <th>소요시간</th>
+              <td>{secToTime(postThumb.totalTime)}</td>
+            </tr>
+            <tr>
+              <th>운동부위</th>
+              <td>{postThumb.bodyPart}</td>
+            </tr>
           </tbody>
         </table>
       </div>

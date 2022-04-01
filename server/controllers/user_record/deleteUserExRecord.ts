@@ -15,6 +15,8 @@ let todaySring =
   "-" +
   (today.getDate() + 2);
 module.exports = async (req: Request, res: Response) => {
+  console.log("server deleteUserExRecord in !!");
+
   const { user_id, record } = req.body;
 
   const user = await getRepository(Users).findOne({
