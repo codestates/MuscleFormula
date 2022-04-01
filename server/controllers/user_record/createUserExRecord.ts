@@ -38,6 +38,7 @@ module.exports = async (req: Request, res: Response) => {
           relations: ["ex_records"],
           where: { id: data.id },
         });
+        console.log("data:", data);
 
         console.log("유저입니다", user?.email);
         console.log("토큰입니다", data.email);

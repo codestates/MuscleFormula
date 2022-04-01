@@ -47,7 +47,6 @@ export default function Records() {
     if (submitDay) {
       axios
         .get(`${serverUrl}/record?date=${submitDay}`, {
-
           headers: {
             authorization: `Bearer ${user.accessToken}`,
           },
@@ -82,7 +81,7 @@ export default function Records() {
     time_record: 0,
   });
 
-  console.log('user.id',user.id);
+  console.log("user.id", user.id);
   const submitRecord = () => {
     let serverUrl = "http://localhost:4000";
     axios
@@ -154,7 +153,7 @@ export default function Records() {
   return (
     <div id="record-container">
       <div className="record-today">
-      <i className="fa-solid fa-stopwatch"></i> {showToday()}
+        <i className="fa-solid fa-stopwatch"></i> {showToday()}
       </div>
       <div className="record-uploaded">
         {savedRecords.map((record, idx) => (

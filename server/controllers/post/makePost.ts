@@ -11,7 +11,7 @@ let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 // date 속성으로 넣으면날짜가 하루 -1 됨 ㅋㅋㅋ
 module.exports = async (req: Request | any, res: Response) => {
-  //console.log(req.cookies);
+  console.log("req:", req);
   const auth = req.headers["authorization"];
   console.log("auth", auth);
   const { postTitle, info, totalTime, difficult, bodyPart, exerciseInfo } =

@@ -23,9 +23,7 @@ module.exports = async (req: Request, res: Response) => {
 
   const { kakao_access_token, kakao_refresh_token } = req.body;
 
-  const userResponse = await axios({
-    method: "GET",
-    url: "https://kapi.kakao.com/v2/user/me",
+  const userResponse = await axios.get("https://kapi.kakao.com/v2/user/me", {
     headers: {
       Authorization: `Bearer ${kakao_access_token}`,
     },
