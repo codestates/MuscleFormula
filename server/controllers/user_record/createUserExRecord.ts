@@ -12,6 +12,8 @@ let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server createUserExRecord in !!");
+
   const { record } = req.body;
   const date = req.query.date;
   console.log("레큐바디", req.body);

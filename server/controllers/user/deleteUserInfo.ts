@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server deleteuserInfo in !!");
+
   const auth = req.headers["authorization"];
 
   if (!auth) {

@@ -19,6 +19,8 @@ const kakao = {
 // const kakaoInfoUrl = `https://www.kakaoapis.com/oauth2/v3/userinfo`;
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server kakaoOauth in !!");
+
   console.log("Client 코드 : ", req.body);
 
   const { kakao_access_token, kakao_refresh_token } = req.body;

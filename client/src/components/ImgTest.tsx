@@ -67,7 +67,6 @@ const ImgTest: React.FC<ImgTestProps> = ({ postfiles, setPostfiles }) => {
 
   return (
     <Test>
-      <p>내용</p>
       <input
         id="upload-file"
         type="file"

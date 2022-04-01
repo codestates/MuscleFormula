@@ -14,6 +14,8 @@ dotenv.config();
 //   "-" +
 //   (today.getDate() + 1);
 module.exports = async (req: Request, res: Response) => {
+  console.log("server editPost_Comment in !!");
+
   const { comment } = req.body;
   console.log("makePost_Commets : ", req.body);
   const postCommentId = req.params.id;

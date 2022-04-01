@@ -14,7 +14,7 @@ let userData: any;
 let email: string;
 let password: string;
 module.exports = async (req: Request, res: Response) => {
-  console.log(req.body);
+  console.log("server googleOauth in !!");
 
   let google_access_token = req.body.accessToken;
   const result = await axios.get(googleInfo, {

@@ -9,6 +9,8 @@ import { Ex_Records } from "../../models/entity/Ex_Records";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server readUserExRecord in !!");
+
   const auth = req.headers["authorization"];
   const date = req.query.date;
   if (!auth) {

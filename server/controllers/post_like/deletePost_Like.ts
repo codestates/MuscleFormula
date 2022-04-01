@@ -7,6 +7,8 @@ import { Post_Likes } from "../../models/entity/Post_Like";
 const jwt = require("jsonwebtoken");
 dotenv.config();
 module.exports = async (req: Request, res: Response) => {
+  console.log("server deletePost_Like in !!");
+
   console.log("makePost_Likes: ", req.body);
   const likeId = req.params.id;
   const auth = req.headers["authorization"];

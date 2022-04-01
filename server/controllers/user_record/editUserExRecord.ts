@@ -12,6 +12,8 @@ let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server editUserExRecord in !!");
+
   const { record } = req.body;
   const auth = req.headers["authorization"];
   //console.log(req.query.date);

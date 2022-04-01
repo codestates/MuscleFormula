@@ -11,9 +11,9 @@ let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 // date 속성으로 넣으면날짜가 하루 -1 됨 ㅋㅋㅋ
 module.exports = async (req: Request | any, res: Response) => {
-  console.log("req:", req);
+  console.log("server makePost in !!");
+
   const auth = req.headers["authorization"];
-  console.log("auth", auth);
   const { postTitle, info, totalTime, difficult, bodyPart, exerciseInfo } =
     req.body;
   let postImage = req.file;
@@ -23,8 +23,6 @@ module.exports = async (req: Request | any, res: Response) => {
     };
   }
   const getImageUrl = "http://localhost:4000";
-  console.log("makePost body : ", req.body);
-  //console.log("todaySring body : ", todaySring);
 
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
