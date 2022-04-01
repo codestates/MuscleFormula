@@ -12,7 +12,17 @@ import axios from "axios";
 import NoContent from "../components/NoContent";
 
 export default function Share() {
-  const [date, setDate] = useState("");
+  const getDate = () => {
+    let today = new Date();
+    let year: number | string = today.getFullYear();
+    let month: number | string = today.getMonth() + 1;
+    let date: number | string = today.getDate();
+    month = month < 10 ? "0" + month : month;
+    date = date < 10 ? "0" + date : date;
+    return `${year}-${month}-${date}`;
+  };
+  const [date, setDate] = useState(getDate());
+
   let shareRecords = useSelector(
     (state: RootState) => state.shareRecord.shareRecord
   );
@@ -64,9 +74,7 @@ export default function Share() {
   return (
     <div id="share-container">
       <div id ="calendar-container">
-        <i className="fa-solid fa-angle-left"></i>
-          <Calendar date={date} setDate={setDate}/>
-        <i className="fa-solid fa-angle-right"></i>
+        <Calendar date={date} setDate={setDate}/>
       </div>
       <div id ="calendar-record-container">
         {records !== null ? records.map((record, idx)=>
