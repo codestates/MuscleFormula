@@ -157,11 +157,11 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
           <span className="post-date">{postThumb.created_At.slice(0,10)}</span>
           <span className="post-likes">
             <i className="fa-regular fa-heart"></i>
-            {postThumb.total_Likes.length}
+            {postThumb.total_Likes}
           </span>
           <span className="post-comments">
             <i className="fa-regular fa-comment-dots"></i>
-            {postThumb.total_comments.length}
+            {postThumb.total_comments}
           </span>
         </div>
       </div>
