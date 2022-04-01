@@ -1,6 +1,6 @@
 #record-container {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin-top: 3.5rem;
+  margin-bottom: 3.5rem;
   display: flex;
   flex-direction:column;
   align-items: center;
@@ -19,6 +19,11 @@
 .record-today i {
   font-size: medium;
 }
+
+.record-uploaded {
+  padding: 1.2rem;
+}
+
 .record-total {
   min-width: 250px;
   font-size: x-large;

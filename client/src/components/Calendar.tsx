@@ -7,13 +7,14 @@ export const CalendarContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   > .before {
-
+    padding-right: 1.5rem;
+    cursor: pointer;
   }
   > .date-container{
     display: flex;
     flex-direction: row;
     > .specified {
-      cursor: pointer;
+      
     }
     /* > input {
     border: none;
@@ -42,10 +43,12 @@ export const CalendarContainer = styled.div`
     } */
   }
   > .after {
-    display: block;
+    padding-left: 1.5rem;
+    cursor: pointer;
   }
   > .noshow {
-    display: none;
+    padding-left: 1.5rem;
+    visibility: hidden;
   }
 `
 
