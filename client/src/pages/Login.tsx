@@ -253,7 +253,7 @@ export default function Login() {
           <div id="login-container-left">
             <div id="greeting-container">
               <div className="greeting">오늘도 힘차게 운동해볼까요?</div>
-              <img src="../images/icon_exerciseman.png" alt="exercising_man" />
+              <img src="../images/icon_weightlifting.png" alt="exercising_man" />
             </div>
             <table id="oauth-container">
               <tbody>
@@ -318,7 +318,7 @@ export default function Login() {
           <div id="login-container">
             <div id="greeting-container">
               <div className="greeting">오늘도 힘차게 운동해볼까요?</div>
-              <img src="../images/icon_exerciseman.png" alt="exercising_man" />
+              <img src="../images/icon_weightlifting.png" alt="exercising_man" />
             </div>
             <div id="user-container">
               <div className="user-input-container">

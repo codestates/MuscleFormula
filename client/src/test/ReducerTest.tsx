@@ -8,6 +8,7 @@ import type { RootState, AppDispatch } from "../store";
 import styled from "styled-components";
 import StarPoint from "../components/StarPoint";
 import BoxTest from "./BoxTest";
+import Loading from "../components/Loading";
 
 const Test = styled.div`
   margin: 6rem;
@@ -37,6 +38,7 @@ function ReducerTest() {
 
   return (
     <Test>
+      <Loading/>
       <p>
         <button
           onClick={() => dispatch(ADD({ id: 2, name: "새상품", quan: 3 }))}
