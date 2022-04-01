@@ -1,32 +1,39 @@
 import styled from "styled-components"
+import { useState } from "react";
 
 export const CalendarContainer = styled.div`
   display: flex;
   flex-direction: row;
-  > input {
+  align-items: center;
+  justify-content: space-between;
+  > .date-container{
+    display: flex;
+    flex-direction: row;
+    > input {
     border: none;
     width: 20px;
     font-size: large;
     background-color: transparent;
-  }
-  > input:focus {
-    outline: none;
-  }
-  > input[type=date]::-webkit-datetime-edit-text { 
-    -webkit-appearance: none; 
-    display: none; 
-  } 
-  > input[type=date]::-webkit-datetime-edit-month-field { 
-    -webkit-appearance: none; 
-    display: none; 
-  } 
-  > input[type=date]::-webkit-datetime-edit-day-field { 
-    -webkit-appearance: none; 
-    display: none; 
-  } 
-  > input[type=date]::-webkit-datetime-edit-year-field { 
-    -webkit-appearance: none; 
-    display: none; 
+    }
+    > input:focus {
+      outline: none;
+    }
+    > input[type=date]::-webkit-datetime-edit-text { 
+      -webkit-appearance: none; 
+      display: none; 
+    } 
+    > input[type=date]::-webkit-datetime-edit-month-field { 
+      -webkit-appearance: none; 
+      display: none; 
+    } 
+    > input[type=date]::-webkit-datetime-edit-day-field { 
+      -webkit-appearance: none; 
+      display: none; 
+    } 
+    > input[type=date]::-webkit-datetime-edit-year-field { 
+      -webkit-appearance: none; 
+      display: none; 
+    }
   }
 `
 
@@ -35,6 +42,7 @@ interface CalendarProps{
   setDate: React.Dispatch<React.SetStateAction<string>>;
 }
 const Calendar:React.FC<CalendarProps> = ({date, setDate}) => {
+
   const getDate = () => {
     let today = new Date();
     let year: number | string = today.getFullYear();
@@ -44,11 +52,16 @@ const Calendar:React.FC<CalendarProps> = ({date, setDate}) => {
     date = date < 10 ? "0" + date : date;
     return `${year}-${month}-${date}`;
   };
-  const showToday = () => {
-    let today = new Date();
-    let month = today.getMonth() + 1;
-    let date = today.getDate();
-    let daynum = today.getDay();
+
+  const [number, setNumber] = useState(0);
+
+  const showDay = (number: number) => {
+    let now = new Date();
+    let specified = new Date((now.setDate(now.getDate() + number)))
+    
+    let month = specified.getMonth() + 1;
+    let date = specified.getDate();
+    let daynum = specified.getDay();
 
     const checkDay = (daynum: number): string => {
       let day = "";
@@ -67,14 +80,18 @@ const Calendar:React.FC<CalendarProps> = ({date, setDate}) => {
 
   return (
     <CalendarContainer>
-      <input type="date"
-        required pattern="\d{4}-\d{2}-\d{2}"
-        max={getDate()} 
-        value={date} 
-        onChange={(e)=>setDate(e.target.value)}/>
-      <div className="today">
-        {showToday()}
-      </div>
+      <i className="fa-solid fa-angle-left"></i>
+        <div className="date-container">
+          <input type="date"
+            required pattern="\d{4}-\d{2}-\d{2}"
+            max={getDate()} 
+            value={date} 
+            onChange={(e)=>setDate(e.target.value)}/>
+          <div className="specified">
+            {showDay(number)}
+          </div>
+        </div>
+      <i className="fa-solid fa-angle-right"></i>
     </CalendarContainer>
   )
 }
