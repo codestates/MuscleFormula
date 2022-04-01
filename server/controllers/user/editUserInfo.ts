@@ -10,6 +10,7 @@ module.exports = async (req: Request | any, res: Response) => {
   //console.log("signup Info : ", email, password, nickname);
   const auth = req.headers["authorization"];
   const files = req.file;
+  const params = req.params;
   //console.log("body", req.file);
   const userImage = files;
   const getImageUrl = "http://localhost:4000";
@@ -27,19 +28,26 @@ module.exports = async (req: Request | any, res: Response) => {
           });
         } else if (data) {
           const user: any = await getRepository(Users).findOne({
-            where: { email },
+            where: { id: params.id },
           });
           if (user.email === data.email) {
             user.email = email;
             user.password = password;
             user.nickname = nickname;
-            user.image = `${getImageUrl}/user/${userImage.filename}`;
+            user.image = `${getImageUrl}/userimg/${userImage.filename}`;
 
             try {
               await user.save();
               const allUsers = await getRepository(Users).find();
               console.log("allUsers:", allUsers);
-              res.status(200).json({ message: `수정 성공` });
+              res.status(200).json({
+                message: `수정 성공`,
+                Data: {
+                  userId: user.id,
+                  nickname: user.nickname,
+                  image: user.image,
+                },
+              });
             } catch (e) {
               res.status(400).json({ message: `회원정보 수정 실패` });
             }

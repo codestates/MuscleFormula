@@ -41,7 +41,7 @@ module.exports = async (req: Request | any, res: Response) => {
             (post.total_time = totalTime),
             (post.body_Part = bodyPart),
             (post.difficult = difficult),
-            (post.image = `${getImageUrl}/post/${postImage.filename}`),
+            (post.image = `${getImageUrl}/postimg/${postImage.filename}`),
             (post.created_At = created_At),
             (post.exerciseInfo = exerciseInfo),
             (post.post_comments = []),

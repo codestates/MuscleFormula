@@ -24,8 +24,8 @@ module.exports = async (req: Request, res: Response) => {
       bodyPart: item.body_Part,
       difficult: item.difficult,
       totalTime: item.total_time,
-      total_comments: item.post_comments,
-      total_Likes: item.post_likes,
+      total_comments: item.post_comments.length,
+      total_Likes: item.post_likes.length,
       created_At: item.created_At,
     };
     return data;

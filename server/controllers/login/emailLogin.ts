@@ -24,9 +24,13 @@ module.exports = async (req: Request, res: Response) => {
       nickname: findUser.nickname,
       image: findUser.image,
     };
-
-    const accessToken = await generateAccessToken(email, password);
-    const refreshToken = await generateRefreshToken(email, password);
+    console.log(findUser);
+    const accessToken = await generateAccessToken(findUser.id, email, password);
+    const refreshToken = await generateRefreshToken(
+      findUser.id,
+      email,
+      password
+    );
     res.cookie("refreshToken", refreshToken, {
       maxAge: 60 * 60 * 24 * 180, // 6개월
       //domain: "/",

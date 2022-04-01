@@ -3,11 +3,13 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 export async function generateRefreshToken(
+  id: number,
   email: string,
   password: string
 ): Promise<string> {
   let token: string = jwt.sign(
     {
+      id: id,
       email: email,
       password: password,
       iat: Math.floor(Date.now() / 1000),
