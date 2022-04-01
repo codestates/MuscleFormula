@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import axios from "axios";
 import dotenv from "dotenv";
 import { Users } from "../../models/entity/User";
+import { getRepository } from "typeorm";
+import { generateAccessToken } from "../../jwt/generateAccessToken";
+import { generateRefreshToken } from "../../jwt/generateRefreshToken";
 const qs = require("qs");
 
 dotenv.config();
@@ -18,37 +21,78 @@ const kakao = {
 module.exports = async (req: Request, res: Response) => {
   console.log("Client 코드 : ", req.body);
 
-  // const tokenResponse = await axios({
-  //   method: "POST",
-  //   url: "https://kauth.kakao.com/oauth/token",
-  //   headers: {
-  //     "content-type": "application/x-www-form-urlencoded",
-  //   },
-  //   data: qs.stringify({
-  //     grant_type: "authorization_code",
-  //     client_id: kakao.clientID,
-  //     client_secret: kakao.clientSecret,
-  //     redirect_uri: kakao.redirectUri,
-  //     code: req.query.code,
-  //   }),
-  // });
+  const { kakao_access_token, kakao_refresh_token } = req.body;
 
-  // console.log("tokenData: ", tokenResponse.data);
-  // const kakao_access_token = tokenResponse.data.access_token;
-  // const kakao_refresh_token = tokenResponse.data.refresh_token;
+  const userResponse = await axios({
+    method: "GET",
+    url: "https://kapi.kakao.com/v2/user/me",
+    headers: {
+      Authorization: `Bearer ${kakao_access_token}`,
+    },
+  });
 
-  // const userResponse = await axios({
-  //   method: "GET",
-  //   url: "https://kapi.kakao.com/v2/user/me",
-  //   headers: {
-  //     Authorization: `Bearer ${kakao_access_token}`,
-  //   },
-  // });
+  console.log("userResponse :", userResponse.data);
+  console.log("userEmail :", userResponse.data.kakao_account.email);
+  console.log(
+    "usernickname :",
+    userResponse.data.kakao_account.profile.nickname
+  );
+  console.log(
+    "userimg :",
+    userResponse.data.kakao_account.profile.profile_image_url
+  );
+  console.log("userpassword :", userResponse.data.id);
+  const email = userResponse.data.kakao_account.email;
+  const password = userResponse.data.id;
+  const user: any = await getRepository(Users).findOne({
+    where: { email },
+  });
 
-  // console.log("userResponse :", userResponse.data);
+  if (!user) {
+    // 회원가입
+    const signup = new Users();
+    signup.email = email;
+    signup.password = userResponse.data.id;
+    signup.nickname = userResponse.data.kakao_account.profile.nickname;
+    console.log("signup", signup);
+    try {
+      await signup.save();
+      const allUsers = await getRepository(Users).find();
+      console.log("allUsers:", allUsers);
+    } catch (e) {
+      console.log("kakao 회원가입실패", e);
+    }
+  } else {
+    // 있으면 유저 정보를 리턴해줌 (로그인시킴)
+  }
+  const findUser = await getRepository(Users).findOne({
+    where: { email },
+  });
 
-  // // res.status(200).json(userResponse.data);
-  res.status(200).json({ message: "kakaoOauth" });
+  if (findUser) {
+    const userData = {
+      id: findUser.id,
+      email: findUser.email,
+      nickname: findUser.nickname,
+      image: findUser.image,
+    };
 
-  // res.status(200).send("hello");
+    const accessToken = await generateAccessToken(email, password);
+    const refreshToken = await generateRefreshToken(email, password);
+    res.cookie("refreshToken", refreshToken, {
+      maxAge: 60 * 60 * 24 * 7, // 1주일
+      //domain: "gg-one-delta.vercel.app",
+      //path: "/",
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
+
+    console.log(req.cookies.refreshToken);
+    res.json({
+      message: "login Success",
+      accessToken: accessToken,
+      user: userData,
+    });
+  }
 };

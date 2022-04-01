@@ -58,7 +58,6 @@ interface RecordType {
 }
 
 interface RecordProps{
-  setTotalSec: React.Dispatch<React.SetStateAction<number>>;
   exercise: RecordType;
   deleteRecord: (sec: number, deleteIndex: number) => void;
   idx: number;
@@ -66,17 +65,17 @@ interface RecordProps{
 }
 
 const Record:React.FC<RecordProps> = (
-  { exercise,
-    setTotalSec, 
+  { exercise, 
     deleteRecord, 
-    idx, 
-    getRecordValue,}) => {
+    idx,
+    getRecordValue
+  }) => {
   
   const [sec, setSec] = useState(0);
   const [start, setStart] = useState(false);
 
   const handleDelete = () => {
-    deleteRecord(sec, idx);
+    deleteRecord(exercise.time_record, idx);
     setStart(false);
   }
 
@@ -88,14 +87,14 @@ const Record:React.FC<RecordProps> = (
     let interval :any = null;
     if(start) {
       interval = setInterval(()=> {
+        getRecordValue(sec, idx);
         setSec((cur) => cur + 1);
-        setTotalSec((cur) => cur + 1);
       }, 1000);
     } else if (!start && sec !== 0) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  },[start, sec, setTotalSec]);
+  },[start, sec, getRecordValue, idx]);
 
   function secToTime(duration:number) {
     let seconds :(number|string) = Math.floor(duration % 60); 
@@ -128,9 +127,9 @@ const Record:React.FC<RecordProps> = (
             {start? '멈춤':'시작'}
           </button>
           <div className={`time ${start}`}>
-            {secToTime(exercise.time_record=sec)}
+            {secToTime(exercise.time_record)}
           </div>
-          <div className='delete-button' onClick={()=> handleDelete()}>
+          <div className='delete-button' onClick={handleDelete}>
             <i className="fa-solid fa-trash-can"></i>
           </div>
       </TimerContainer>

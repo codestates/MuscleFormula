@@ -1,10 +1,15 @@
 * {
   box-sizing: border-box;
-  /* border: 1px solid red; */
+  /* border: 1px solid gray; */
 }
 
 body {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+
+.app-nav-container {
+  position: relative;
+  z-index: 100;
 }

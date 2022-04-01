@@ -8,6 +8,7 @@ import type { RootState, AppDispatch } from "../store";
 import styled from "styled-components";
 import StarPoint from "../components/StarPoint";
 import BoxTest from "./BoxTest";
+import Loading from "../components/Loading";
 
 const Test = styled.div`
   margin: 6rem;
@@ -37,6 +38,7 @@ function ReducerTest() {
 
   return (
     <Test>
+      <Loading/>
       <p>
         <button
           onClick={() => dispatch(ADD({ id: 2, name: "새상품", quan: 3 }))}
@@ -47,17 +49,7 @@ function ReducerTest() {
         <button onClick={() => dispatch(OUT())}>항목빼기</button>
       </p>
       <p>
-        <button
-          onClick={() =>
-            dispatch(
-              LOG_IN({
-                id: 1,
-                nickname: "koko",
-                image: "../images/photo_testuser.jpg",
-              })
-            )
-          }
-        >
+        <button>
           로그인
         </button>
         <button onClick={() => dispatch(LOG_OUT())}>로그아웃</button>
@@ -73,9 +65,7 @@ function ReducerTest() {
         {number}
         <button onClick={() => dispatch(CHOICE(Number(number)))}>CHOICE</button>
       </p>
-      <StarPoint />
       <BoxTest />
-
     </Test>
   );
 }

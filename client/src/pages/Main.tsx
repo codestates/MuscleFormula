@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Mobile, PC } from "../mediaQuery";
 import axios from "axios";
@@ -9,10 +9,13 @@ import Search from "../components/Search";
 import PostThumbnail from "../components/PostThumbnail";
 import TodayKing from "../components/TodayKing";
 export default function Main() {
-  console.log("메인페이지");
+
+  const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     axios.get(`http://localhost:4000/posts`).then((res) => {
-      console.log("모든 포스트 정보:", res);
+      setPosts(res.data.posts);
+      console.log(res.data.posts);
     });
   }, []);
 
@@ -26,16 +29,9 @@ export default function Main() {
       </div>
       <div id="search-container">
         <Search />
-        <button
-          onClick={() => {
-            navigate("/editor");
-          }}
-        >
-          글쓰기
-        </button>
       </div>
       <div id="postthumb-container">
-        {dummyThumbs.map((el, idx) => (
+        {posts.map((el, idx) => (
           <div className="post-thumbs" key={idx}>
             <PostThumbnail postThumb={el} key={idx} />
           </div>

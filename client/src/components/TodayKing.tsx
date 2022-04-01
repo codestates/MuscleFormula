@@ -13,23 +13,25 @@ export const TodayKingContainer = styled.ol`
   border-radius: 40px;
   background-color: #f2f2f2;
   > table {
-    > tr {
-      > th {
-        > img {
-          width: 40px;
+    > tbody
+      > tr {
+        > th {
+          > img {
+            width: 40px;
+          }
+        }
+        > td {
+          text-align: center;
+          padding: 0rem 1rem;
         }
       }
-      > td {
-        text-align: center;
-        padding: 0rem 1rem;
-      }
-    }
   }
 `
 export default function TodayKing() {
   return (
     <TodayKingContainer>
       <table>
+        <tbody>
         <tr>
           <th>
           <img src="../images/icon_goldmedal.png" alt= "goldmedal"/>
@@ -63,6 +65,7 @@ export default function TodayKing() {
             00:00:00
           </td>
         </tr>
+        </tbody>
       </table>
     </TodayKingContainer>
   )

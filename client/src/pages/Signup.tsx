@@ -1,105 +1,155 @@
 // 시작하자마자 보이는 뻘건색 삭제
-
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
+import { axios_Signup, axios_GetNickname, axios_Login } from "../axios";
 
-import { axios_Signup, axios_GetNickname } from "../axios";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../store";
+import { LOG_IN } from "../reducer/userInfoReducer";
 
-export const Main = styled.div`
-  border: 3px solid green;
-  padding: 10px;
-  /* 화면 중앙으로 만들기 */
+export const SignupContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1.5rem;
   min-height: 90vh;
   > #signup-container {
-    border: 3px solid green;
-    padding: 10px;
-    height: 60vh;
-    width: 40vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    justify-content: space-evenly;
-    > .user-signup-container {
-      /* border: 3px solid green; */
-      padding: 10px;
-      height: 30vh;
+    width: 300px;
+    > .greeting {
+      padding: 2rem 1.2rem;
       display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      > p {
-        color: red;
-      }
-      > div > input {
-        padding: 10px;
-        margin-left: 10px;
-      }
-      > .userEmail {
-        padding: 10px;
-        display: flex;
-        > div {
-          padding: 10px;
-          width: 90px;
-          text-align: center;
-        }
-      }
-      > .userNick {
-        padding: 10px;
-        display: flex;
-        > div {
-          padding: 10px;
-          width: 90px;
-          text-align: center;
-        }
-      }
-      > .userPassword {
-        display: flex;
-        padding: 10px;
-        > div {
-          padding: 10px;
-          width: 90px;
-          text-align: center;
-        }
-      }
-      > .userPasswordCheck {
-        display: flex;
-        padding: 10px;
-        > div {
-          padding: 10px;
-          width: 90px;
-          text-align: center;
-        }
-      }
-      > .signUpButten {
-        padding: 10px;
-        margin-top: 0px;
-        display: flex;
-        justify-content: center;
-        > button {
-          padding: 10px;
-          width: 110px;
-        }
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      > .headline {
+        width: 10rem;
+        font-size: x-large;
+        font-family: "IBM Plex Sans KR", sans-serif;
       }
     }
-    > #oAuth {
-      display: flex;
-      justify-content: space-evenly;
+    > .user-email {
+      padding: 0.5rem 1rem;
+      > .input-container {
+        display: flex;
+        flex-direction: row;
+        > div {
+          width: 6rem;
+          font-weight: bold;
+        }
+        > input {
+          font-size: medium;
+          border: none;
+          border-bottom: solid 2px black;
+        }
+        > input:focus {
+          outline: none;
+        }
+      }
+      > p {
+        font-size: small;
+        color: red;
+      }
+    }
+    > .user-nickname {
+      padding: 0.5rem 1rem;
+      > .input-container {
+        display: flex;
+        flex-direction: row;
+        > div {
+          width: 6rem;
+          font-weight: bold;
+        }
+        > input {
+          font-size: medium;
+          border: none;
+          border-bottom: solid 2px black;
+        }
+        > input:focus {
+          outline: none;
+        }
+      }
+      > p {
+        font-size: small;
+        color: red;
+      }
+    }
+    > .user-password {
+      padding: 0.5rem 1rem;
+      > .input-container {
+        display: flex;
+        flex-direction: row;
+        > div {
+          width: 6rem;
+          font-weight: bold;
+        }
+        > input {
+          font-size: medium;
+          border: none;
+          border-bottom: solid 2px black;
+        }
+        > input:focus {
+          outline: none;
+        }
+      }
+      > p {
+        font-size: small;
+        color: red;
+      }
+    }
+    > .user-password-check {
+      padding: 0.5rem 1rem;
+      > .input-container {
+        display: flex;
+        flex-direction: row;
+        > div {
+          width: 6rem;
+          font-weight: bold;
+        }
+        > input {
+          font-size: medium;
+          border: none;
+          border-bottom: solid 2px black;
+        }
+        > input:focus {
+          outline: none;
+        }
+      }
+      > p {
+        font-size: small;
+        color: red;
+      }
+    }
+    > .signup-button {
+      padding: 1rem;
+      > button {
+        cursor: pointer;
+        width: 100%;
+        height: 2rem;
+        border-radius: 10px;
+        border: none;
+        font-size: medium;
+        font-weight: bold;
+        background-color: #00cc99;
+      }
     }
   }
 `;
 
-export default function LoginTest() {
+export default function Signup() {
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [userEmail, setUserEmail] = useState("");
   const [userNickname, setUserNickname] = useState("");
   const [userPassword, serUserPassword] = useState("");
   const [userPasswordCheck, serUserPasswordCheck] = useState("");
-  const [userNicknameCheck, serUserNicknameCheck] = useState(false);
-
+  const [userNicknameCheck, serUserNicknameCheck] = useState(true);
+  console.log("userNicknameCheck:", userNicknameCheck);
   const matchEmail =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   const matchPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
@@ -107,7 +157,6 @@ export default function LoginTest() {
   // console.log("카운터", count);
   // console.log("유저정보", user);
   // console.log("로그인", isLogin);
-  const navigate = useNavigate();
 
   const isValidEmail = matchEmail.test(userEmail);
   const isValidPassword = matchPassword.test(userPassword);
@@ -121,13 +170,25 @@ export default function LoginTest() {
 
   const signupHandle = () => {
     if (isAlltrue) {
-      axios_Signup(userEmail, userNickname, userPassword)
-        .then(() => {
-          navigate("/login");
-        })
-        .catch(() => {
-          alert("중복된 이메일이 있습니다");
-        });
+      axios_Signup(userEmail, userNickname, userPassword).then(() => {
+        axios_Login(userEmail, userPassword)
+          .then((res) => {
+            const { id, image, nickname } = res.data.user;
+            const accessToken = res.data.accessToken;
+            dispatch(
+              LOG_IN({
+                id,
+                nickname,
+                image,
+                accessToken,
+              })
+            );
+            navigate("/main");
+          })
+          .catch(() => {
+            alert("중복된 이메일이 있습니다");
+          });
+      });
     } else {
       alert("회원가입 조건을 모두 맞추어 주십시오");
     }
@@ -141,10 +202,14 @@ export default function LoginTest() {
   };
 
   useEffect(() => {
-    axios_GetNickname(userNickname).then((res) => {
-      // console.log("nickname res :", res);
-      serUserNicknameCheck(!(res.data.length > 0));
-    });
+    axios_GetNickname(userNickname)
+      .then((res) => {
+        console.log("nickname res :", res);
+        serUserNicknameCheck(true);
+      })
+      .catch((err) => {
+        serUserNicknameCheck(false);
+      });
   }, [userNickname]);
 
   const changePassword = (e: string | any) => {
@@ -154,56 +219,79 @@ export default function LoginTest() {
     serUserPasswordCheck(e.target.value);
   };
   return (
-    <div id="LoginPage">
-      <Main>
-        <div id="signup-container">
-          {/* <img id="logo" src="../logo.png" alt="logo" /> */}
-
-          <div className="user-signup-container">
-            <div className="userEmail">
-              <div>이메일</div>
-              <input type="text" onChange={changeEmail}></input>
-            </div>
-            {isValidEmail || userEmail.length === 0 ? (
-              <p></p>
-            ) : (
-              <p>이메일의 형식에 맞게 적어주세요</p>
-            )}
-            <div className="userNick">
-              <div>닉네임</div>
-              <input type="text" onChange={changeNickname}></input>
-            </div>
-            {userNicknameCheck ? <p> </p> : <p>동일한 닉네임이 존재합니다</p>}
-
-            <div className="userPassword">
-              <div>비밀번호</div>
-              <input type="password" onChange={changePassword}></input>
-            </div>
-            {isValidPassword || userPassword.length === 0 ? (
-              <p> </p>
-            ) : (
-              <p>
-                비밀번호는 8자 이상, 숫자, 영어, 특수문자를 하나이상 포함 하여야
-                합니다
-              </p>
-            )}
-
-            <div className="userPasswordCheck">
-              <div>비밀번호 확인</div>
-              <input type="password" onChange={changePasswordCheck}></input>
-            </div>
-            {isValidPasswordCheck || userPasswordCheck.length === 0 ? (
-              <p> </p>
-            ) : (
-              <p>비밀번호가 일치하지 않습니다</p>
-            )}
-
-            <div className="signUpButten">
-              <button onClick={signupHandle}>회원가입</button>
-            </div>
+    <SignupContainer>
+      <div id="signup-container">
+        {/* <img id="logo" src="../logo.png" alt="logo" /> */}
+        <div className="greeting">
+          <div className="headline">
+            매일의 운동<br></br>
+            시작해볼까요?
           </div>
+          <img src="../images/icon_running.png" alt="running_man" />
         </div>
-      </Main>
-    </div>
+        <div className="user-email">
+          <div className="input-container">
+            <div>이메일</div>
+            <input
+              type="text"
+              placeholder="이메일을 입력해주세요"
+              onChange={changeEmail}
+            ></input>
+          </div>
+          {isValidEmail || userEmail.length === 0 ? (
+            <p></p>
+          ) : (
+            <p>이메일의 형식에 맞게 적어주세요</p>
+          )}
+        </div>
+        <div className="user-nickname">
+          <div className="input-container">
+            <div>닉네임</div>
+            <input
+              type="text"
+              placeholder="닉네임을 입력해주세요"
+              onChange={changeNickname}
+            ></input>
+          </div>
+          {userNicknameCheck ? <p> </p> : <p>동일한 닉네임이 존재합니다</p>}
+        </div>
+        <div className="user-password">
+          <div className="input-container">
+            <div>비밀번호</div>
+            <input
+              type="password"
+              placeholder="비밀번호를 입력해주세요"
+              onChange={changePassword}
+            ></input>
+          </div>
+          {isValidPassword || userPassword.length === 0 ? (
+            <p> </p>
+          ) : (
+            <p>
+              비밀번호는 8자 이상, 숫자, 영어, 특수문자를 하나이상 포함 하여야
+              합니다
+            </p>
+          )}
+        </div>
+        <div className="user-password-check">
+          <div className="input-container">
+            <div>비밀번호 확인</div>
+            <input
+              type="password"
+              placeholder="비밀번호를 확인해주세요"
+              onChange={changePasswordCheck}
+            ></input>
+          </div>
+          {isValidPasswordCheck || userPasswordCheck.length === 0 ? (
+            <p> </p>
+          ) : (
+            <p>비밀번호가 일치하지 않습니다</p>
+          )}
+        </div>
+        <div className="signup-button">
+          <button onClick={signupHandle}>회원가입</button>
+        </div>
+      </div>
+    </SignupContainer>
   );
 }

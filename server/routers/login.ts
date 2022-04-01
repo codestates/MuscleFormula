@@ -1,4 +1,5 @@
 import express from "express";
+const generateNewAccessToken = require("../jwt/generateNewAccessToken");
 const emaillogin = require("../controllers/login/emailLogin");
 const logout = require("../controllers/login/logout");
 const google = require("../controllers/login/googleOauth");
@@ -13,10 +14,9 @@ const loginrouter = express.Router();
 loginrouter.post("/up", signup);
 loginrouter.post("/in", emaillogin);
 loginrouter.post("/out", logout);
-loginrouter.get("/googleoauth", google);
-loginrouter.get("/kakaooauth", kakao);
-
+loginrouter.post("/googleoauth", google);
+loginrouter.post("/kakaooauth", kakao);
 loginrouter.get("/test", test);
-
 loginrouter.post("/nickname", readNickname);
+loginrouter.get("/newtoken", generateNewAccessToken);
 export default loginrouter;

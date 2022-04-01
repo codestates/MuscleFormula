@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 import { LOG_OUT } from "../reducer/userInfoReducer";
+import { RESET } from "../reducer/shareReducer";
 //style
 import { Mobile, PC } from "../mediaQuery";
 import styled from "styled-components";
@@ -65,6 +66,7 @@ export const NavPC = styled.nav`
       }
     }
     > li:hover {
+      transition:all .3s ease;
       color: #00cc99;
     }
   }
@@ -211,9 +213,17 @@ export const DownNavMobile = styled.nav`
 `;
 
 export default function Nav() {
-  //redux store에서 꺼내온 값
-  const user = useSelector((state: RootState) => state.userInfo.userInfo);
-  const isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+  let user = useSelector((state: RootState) => state.userInfo.userInfo);
+  let isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+  const localUser = localStorage.getItem('userInfo');
+  const localLogin = localStorage.getItem('isLogin');
+  if (localUser !== null ) {
+    user = JSON.parse(localUser);
+  };
+  if (localLogin !== null) {
+    isLogin = JSON.parse(localLogin);
+  }
+
   //dispatch 정의
   let dispatch: AppDispatch = useDispatch();
 
@@ -247,6 +257,7 @@ export default function Nav() {
         setChat("outline");
         break;
       case "nav-menu share":
+        dispatch(RESET());
         navigate("/share");
         setMain("outline");
         setRecord("outline");
@@ -274,6 +285,11 @@ export default function Nav() {
         break;
     }
   };
+  
+  const handleLogOut = () => {
+    navigate("/main");
+    dispatch(LOG_OUT());
+  }
 
   return (
     <div>
@@ -290,7 +306,7 @@ export default function Nav() {
             <Link to="/record" className="nav-menu">
               <li>운동기록</li>
             </Link>
-            <Link to="/share" className="nav-menu">
+            <Link to="/share" className="nav-menu" onClick={()=>dispatch(RESET())}>
               <li>공유하기</li>
             </Link>
             <Link to="/alarm" className="nav-menu">
@@ -307,7 +323,7 @@ export default function Nav() {
                 <div className="nav-user-content">
                   <li onClick={() => navigate("/mypage")}>마이페이지</li>
                   <li onClick={() => navigate("/profile")}>프로필설정</li>
-                  <li onClick={() => dispatch(LOG_OUT())}>로그아웃</li>
+                  <li onClick={handleLogOut}>로그아웃</li>
                 </div>
               </span>
             ) : (
@@ -333,7 +349,7 @@ export default function Nav() {
                 <div className="nav-user-content">
                   <li onClick={() => navigate("/mypage")}>마이페이지</li>
                   <li onClick={() => navigate("/profile")}>프로필설정</li>
-                  <li onClick={() => dispatch(LOG_OUT())}>로그아웃</li>
+                  <li onClick={handleLogOut}>로그아웃</li>
                 </div>
               </span>
             ) : (

@@ -6,9 +6,10 @@ import {
   OneToMany,
   ManyToOne,
 } from "typeorm";
+import { Record } from "./Record";
 import { Post_Comments } from "./Post_Comment";
 import { Post_Likes } from "./Post_Like";
-import { Records } from "./Record";
+
 import { Users } from "./User";
 
 @Entity()
@@ -17,12 +18,16 @@ export class Ex_Records extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  created_at: Date;
-  @ManyToOne((type) => Users, (e) => e.ex_records, {
+  genre: string;
+  @Column()
+  count: number;
+  @Column()
+  time_record: number;
+  @Column()
+  weight: number;
+  @ManyToOne((type) => Record, (e) => e.ex_record, {
     nullable: false,
     onDelete: "CASCADE",
   })
-  users: Users;
-  @OneToMany((type) => Records, (e) => e.records_)
-  records_: Records[];
+  record: Record;
 }
