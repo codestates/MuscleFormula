@@ -12,9 +12,6 @@ const deleteUserExRecord = require("../controllers/user_record/deleteUserExRecor
 const userRouter = express.Router();
 
 // user nickname is
-
-userRouter.get("/:id", readMypage);
-userRouter.put("/:id", userUpload.single("userImage"), editUserInfo);
 //userRouter.put("/userImage", upload.single("userImage"), editUserImage);
 userRouter.delete("/", deleteUserInfo);
 // user Records
@@ -22,5 +19,7 @@ userRouter.post("/record", createUserExRecord);
 userRouter.get("/record", readUserExRecord);
 userRouter.put("/record", editUserExRecord);
 // userRouter.delete("/record", deleteUserExRecord);
+userRouter.get("/:id", readMypage);
+userRouter.put("/:id", userUpload.single("userImage"), editUserInfo);
 
 export default userRouter;

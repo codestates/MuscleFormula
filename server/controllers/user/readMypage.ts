@@ -61,12 +61,12 @@ module.exports = async (req: Request, res: Response) => {
 
         //console.log("123", findTodayTime);
         const crawlLastTime = findLastTime?.ex_record.map((el) => {
-          const data = el.time_record;
-          return Number(data);
+          const dateData = el.time_record;
+          return Number(dateData);
         });
         const crawltodayTime = findTodayTime?.ex_record.map((el) => {
-          const data = el.time_record;
-          return Number(data);
+          const dateData = el.time_record;
+          return Number(dateData);
         });
         //console.log(crawltodayTime);
         const translateLastTime: any = crawlLastTime?.reduce(
@@ -96,6 +96,8 @@ module.exports = async (req: Request, res: Response) => {
             return output;
           }
         }
+        console.log("a", allInfo);
+        console.log("b", data);
         if (allInfo.id === data.id) {
           const createed = allInfo.posts.map((item) => {
             const data = {
