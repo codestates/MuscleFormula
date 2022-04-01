@@ -1,16 +1,48 @@
 #share-container {
-  margin-top: 5rem;
+  margin-top: 4rem;
   margin-bottom: 4rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
-.show {
+
+#calendar-container {
+  min-width: 300px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: large;
+  padding: 2rem 2rem 1rem;
+  text-align: center;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #00cc99;
+}
+
+#calendar-container i {
+  color: white;
+}
+
+
+#calendar-record-container{
+  min-width: 250px;
+  padding: 1.2rem;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  background-color: white;
+  margin-bottom: 1rem;
+}
+
+#share-button button{
+  background-color: #00cc99;
+} 
+
+#share-button .show {
   display: block;
 }
 
-.no-show {
+#share-button .no-show {
   display: none;
 }
 

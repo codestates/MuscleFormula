@@ -1,5 +1,5 @@
 /**날짜별 운동 기록 페이지**/
-import "../css/Record.css";
+import "../css/Records.css";
 import Record from "../components/Record";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -47,6 +47,7 @@ export default function Records() {
     if (submitDay) {
       axios
         .get(`${serverUrl}/record?date=${submitDay}`, {
+
           headers: {
             authorization: `Bearer ${user.accessToken}`,
           },
@@ -81,11 +82,13 @@ export default function Records() {
     time_record: 0,
   });
 
+  console.log('user.id',user.id);
   const submitRecord = () => {
     let serverUrl = "http://localhost:4000";
     axios
       .post(
         `${serverUrl}/record`,
+
         {
           record: records,
         },
@@ -151,7 +154,7 @@ export default function Records() {
   return (
     <div id="record-container">
       <div className="record-today">
-        <i className="fa-solid fa-calendar-days"></i> {showToday()}
+      <i className="fa-solid fa-stopwatch"></i> {showToday()}
       </div>
       <div className="record-uploaded">
         {savedRecords.map((record, idx) => (

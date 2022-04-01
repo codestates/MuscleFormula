@@ -109,14 +109,14 @@ interface PostThumbnailProps {
   postThumb: {
     postImage: string;
     postTitle: string;
-    content: string;
+    info: string;
     total_Likes: any[];
     total_comments: any[];
     user: {userId: number, nickname:string, image:string};
     difficult: number;
     totalTime: number;
     bodyPart: string;
-    createdAt: string;
+    created_At: string;
   };
 }
 
@@ -152,9 +152,9 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
       </div>
       <div id="up-container">
         <div className="post-title">{postThumb.postTitle}</div>
-        <div className="post-content">{postThumb.content}</div>
+        <div className="post-content">{postThumb.info}</div>
         <div className="post-social">
-          <span className="post-date">{postThumb.createdAt}</span>
+          <span className="post-date">{postThumb.created_At.slice(0,10)}</span>
           <span className="post-likes">
             <i className="fa-regular fa-heart"></i>
             {postThumb.total_Likes.length}

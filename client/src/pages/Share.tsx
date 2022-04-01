@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 import { SHARE, SHARE_ID } from "../reducer/shareReducer";
 import axios from "axios";
+import NoContent from "../components/NoContent";
 
 export default function Share() {
   const [date, setDate] = useState("");
@@ -33,6 +34,7 @@ export default function Share() {
     if (date) {
       axios
         .get(`${serverUrl}/record?date=${date}`, {
+
           headers: {
             authorization: `Bearer ${user.accessToken}`,
           },
@@ -61,20 +63,18 @@ export default function Share() {
 
   return (
     <div id="share-container">
-      <div id="calendar-container">
-        <Calendar date={date} setDate={setDate} />
+      <div id ="calendar-container">
+        <i className="fa-solid fa-angle-left"></i>
+          <Calendar date={date} setDate={setDate}/>
+        <i className="fa-solid fa-angle-right"></i>
       </div>
-      <div id="calendar-record-container">
-        {records !== null ? (
-          records.map((record, idx) => (
-            <CalendarRecord key={idx} record={record} />
-          ))
-        ) : (
-          <div>공유할 기록이 없습니다</div>
-        )}
+      <div id ="calendar-record-container">
+        {records !== null ? records.map((record, idx)=>
+        <CalendarRecord key={idx} record={record}/>) : 
+        <NoContent/>}
       </div>
-      <div>
-        <button onClick={handleShare}>선택하기</button>
+      <div id="share-button">
+        <button className={records ? "show" : "no-show"} onClick={handleShare}>선택하기</button>
       </div>
     </div>
   );
