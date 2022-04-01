@@ -16,7 +16,12 @@ module.exports = async (req: Request | any, res: Response) => {
   console.log("auth", auth);
   const { postTitle, info, totalTime, difficult, bodyPart, exerciseInfo } =
     req.body;
-  const postImage = req.file;
+  let postImage = req.file;
+  if (typeof req.file === "undefined") {
+    postImage = {
+      filename: "img_post_default.png",
+    };
+  }
   const getImageUrl = "http://localhost:4000";
   console.log("makePost body : ", req.body);
   //console.log("todaySring body : ", todaySring);
