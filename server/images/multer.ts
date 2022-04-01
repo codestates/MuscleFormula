@@ -3,7 +3,7 @@ dotenv.config();
 const multer = require("multer");
 const userStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, process.env.MULTER_URL);
+    cb(null, process.env.MULTER_UserImg_URL);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -12,7 +12,7 @@ const userStorage = multer.diskStorage({
 });
 const postStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, process.env.MULTER_URL);
+    cb(null, process.env.MULTER_PosterImg_URL);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
