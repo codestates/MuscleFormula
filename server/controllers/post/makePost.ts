@@ -13,7 +13,7 @@ let todaySring =
 module.exports = async (req: Request | any, res: Response) => {
   //console.log(req.cookies);
   const auth = req.headers["authorization"];
-  console.log('auth',auth);
+  console.log("auth", auth);
   const {
     userId,
     postTitle,
@@ -56,7 +56,7 @@ module.exports = async (req: Request | any, res: Response) => {
             total_time: totalTime,
             body_Part: bodyPart,
             difficult: difficult,
-            image: `${getImageUrl}/post/${postImage.filename}`,
+            image: `${getImageUrl}/postimg/${postImage.filename}`,
             created_At: todaySring,
             users: user,
             exerciseInfo: exInfo,

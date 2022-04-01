@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import dotenv from "dotenv";
-import { Users } from "../../models/entity/User";
 import { Posts } from "../../models/entity/Post";
 
 dotenv.config();

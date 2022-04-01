@@ -3,11 +3,13 @@ import dotenv from "dotenv";
 dotenv.config(); //dotenv를 사용하기 위함
 
 export async function generateAccessToken(
+  id: number,
   email: string,
   password: string
 ): Promise<string> {
   let token: string = jwt.sign(
     {
+      id: id,
       email: email,
       password: password,
       iat: Math.floor(Date.now() / 1000),

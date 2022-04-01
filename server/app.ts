@@ -21,8 +21,8 @@ const corsOption = {
   credentials: true,
   methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
 };
-app.use("/user", express.static("images/userImages"));
-app.use("/post", express.static("images/postImages"));
+app.use("/userimg", express.static("images/userImage"));
+app.use("/postimg", express.static("images/postImage"));
 app.use(cors(corsOption));
 app.use(cookieParser());
 app.use(express.json());
@@ -33,7 +33,7 @@ app.use(
 );
 
 app.use("/sign", loginrouter);
-app.use("/users", userRouter);
+app.use("/user", userRouter);
 app.use("/posts", postrouter);
 app.get("/", (req, res) => {
   res.status(200).send("server is work!!");

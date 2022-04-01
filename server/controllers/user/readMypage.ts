@@ -6,18 +6,29 @@ import { Users } from "../../models/entity/User";
 import { Record } from "../../models/entity/Record";
 
 dotenv.config();
+let yesterdays = new Date(Date.now());
 let today = new Date(Date.now());
+let test = today.getDate() - 1;
+if (test === 0) {
+  yesterdays.setDate(yesterdays.getDate() - 1);
+} else {
+  yesterdays.setDate(yesterdays.getDate());
+}
 let yesterday =
-  today.getFullYear() +
+  yesterdays.getFullYear() +
   "-" +
-  (today.getMonth() + 1) +
+  (yesterdays.getMonth() + 1) +
   "-" +
-  (today.getDate() - 1);
+  yesterdays.getDate();
+//console.log(yesterday);
 let findtoday =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+//console.log(findtoday);
 
 module.exports = async (req: Request, res: Response) => {
   const auth = req.headers["authorization"];
+  const params = req.params;
+  console.log(params);
 
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
@@ -33,11 +44,11 @@ module.exports = async (req: Request, res: Response) => {
       } else if (data) {
         //console.log("data임", data);
         //console.log(data);
-        const allInfo = await getRepository(Users).findOne({
+        const allInfo: any = await getRepository(Users).findOne({
           relations: ["posts"],
-          where: { email: data.email },
+          where: { id: params.id },
         });
-        //console.log("mypage", allInfo);
+        console.log("mypage", allInfo);
         const findLastTime = await getRepository(Record).findOne({
           relations: ["ex_record"],
           where: { users: allInfo?.id, created_at: yesterday },
@@ -73,15 +84,19 @@ module.exports = async (req: Request, res: Response) => {
           let hour = Math.floor(item / 3600);
           let min = Math.floor(item / 60) - hour * 60;
           let sec = Math.floor(item % 60);
-          let output =
+          let output: string =
             hour.toString().padStart(2, "0") +
             ":" +
             min.toString().padStart(2, "0") +
             ":" +
             sec.toString().padStart(2, "0");
-          return output;
+          if (output === "NaN:NaN:NaN") {
+            return "운동기록이 존재 하지않습니다.";
+          } else {
+            return output;
+          }
         }
-        if (allInfo) {
+        if (allInfo.id === data.id) {
           const createed = allInfo.posts.map((item) => {
             const data = {
               postId: item.id,
@@ -114,7 +129,9 @@ module.exports = async (req: Request, res: Response) => {
             mypageData: mypageData,
           });
         } else {
-          res.status(404).send({ message: "유저정보가 일치하지않습니다" });
+          res.status(404).send({
+            message: "유저가 존재하지 않거나 유저정보가 일치하지 않습니다.",
+          });
         }
       } else {
         res.status(400).json({ message: "잘못된정보입니다" });
