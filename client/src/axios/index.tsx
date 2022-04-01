@@ -96,3 +96,16 @@ export const axios_GetUser_toGoogleTOken = (accessToken: string) => {
     accessToken,
   });
 };
+
+export const axios_CreatePost = (formData: any, accessToken: string) => {
+  return axios.post("http://localhost:4000/posts", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      authorization: `Bearer ${accessToken}`,
+    },
+    // withCredentials: true,
+  });
+};
+export const axios_GetPosts = () => {
+  return axios.get(`http://localhost:4000/posts`);
+};

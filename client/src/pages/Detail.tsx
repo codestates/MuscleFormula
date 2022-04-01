@@ -1,13 +1,7 @@
 /**포스트 상세 페이지**/
-// export default function Detail() {
-//   console.log("알림 페이지");
 
-//   return (
-//     <div id="main-container">
-//       <div></div>
-//     </div>
-//   );
-// }
+import Comment from "../components/Comment";
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -23,6 +17,7 @@ export const Main = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 90vh;
+  width: 70%;
   flex-direction: column;
   > div {
     display: flex;
@@ -47,13 +42,23 @@ export const Main = styled.div`
   }
   > #detial-container-comment {
     border: 1px solid gray;
-
+    display: flex;
+    flex-direction: column;
+    /* width: auto; */
     flex: 2 0 auto;
+    > #detail-Comment-input {
+      display: flex;
+      > #div-input {
+        border: 3px solid lightgreen;
+        width: 50%;
+      }
+    }
   }
 `;
 
 export default function Detail() {
   const navigate = useNavigate();
+  const [commentContent, setCommentContent] = useState<string | null>("");
 
   return (
     <div id="DetailPage">
@@ -88,9 +93,22 @@ export default function Detail() {
           </div>
         </div>
         <div id="detial-container-comment">
-          <div>ㅈㅗㅎ아염</div>
+          <div>❤️</div>
+
+          <div id="detail-Comment-input">
+            글쓰기
+            <div
+              id="div-input"
+              contentEditable="true"
+              onInput={(e) => setCommentContent(e.currentTarget.textContent)}
+            ></div>
+            <button id="comment-submit-btn">전송</button>
+          </div>
+
           <ul>
-            <li>댓글 1</li>
+            <li>
+              <Comment></Comment>
+            </li>
             <li>댓글 2</li>
             <li>댓글 3</li>
           </ul>

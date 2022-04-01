@@ -31,26 +31,6 @@ const ImgTest: React.FC<ImgTestProps> = ({ postfiles, setPostfiles }) => {
   // });
   console.log("postfiles :", postfiles);
 
-  const handleSubmit = () => {
-    console.log("전송 파일 : ", postfiles.file[0]);
-    // const formData = new FormData();
-    // formData.append("postImage", postfiles.file[0]);
-    // formData.append("postTitle", "제목입니다");
-    // formData.append("info", "내용입니다");
-    // formData.append("totalTime", 100);
-    // formData.append("bodyPart", "상체");
-    // formData.append("difficult", 4);
-    // formData.append("userId", 1);
-
-    // axios.post("http://localhost:4000/posts", formData, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //     // authorization: `Bearer ${token}`,
-    //   },
-    //   // withCredentials: true,
-    // });
-  };
-
   const uploadFile = (e: any) => {
     console.log("input img", e);
     console.log("e.stopPropagation: ", e.stopPropagation);
