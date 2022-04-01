@@ -9,7 +9,6 @@ import Search from "../components/Search";
 import PostThumbnail from "../components/PostThumbnail";
 import TodayKing from "../components/TodayKing";
 export default function Main() {
-
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -38,7 +37,7 @@ export default function Main() {
         ))}
       </div>
       <PC>
-        <Footer/>
+        <Footer />
       </PC>
     </div>
   );

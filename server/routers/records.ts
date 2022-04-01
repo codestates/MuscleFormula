@@ -6,8 +6,8 @@ const editUserExRecord = require("../controllers/user_record/editUserExRecord");
 const deleteUserExRecord = require("../controllers/user_record/deleteUserExRecord");
 const recordRouter = express.Router();
 
-recordRouter.post("/?date", createUserExRecord);
-recordRouter.get("/?date", readUserExRecord);
-recordRouter.put("/?date", editUserExRecord);
+recordRouter.post("/", createUserExRecord);
+recordRouter.get("/", readUserExRecord);
+recordRouter.put("/", editUserExRecord);
 
 export default recordRouter;
