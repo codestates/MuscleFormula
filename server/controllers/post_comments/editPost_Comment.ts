@@ -14,8 +14,9 @@ dotenv.config();
 //   "-" +
 //   (today.getDate() + 1);
 module.exports = async (req: Request, res: Response) => {
-  const { userId, postId, postCommentId, comment } = req.body;
+  const { comment } = req.body;
   console.log("makePost_Commets : ", req.body);
+  const postCommentId = req.params.id;
   const auth = req.headers["authorization"];
   // const user = await getRepository(Users).findOne({
   //   where: { id:userId },

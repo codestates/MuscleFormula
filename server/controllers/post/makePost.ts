@@ -14,15 +14,8 @@ module.exports = async (req: Request | any, res: Response) => {
   //console.log(req.cookies);
   const auth = req.headers["authorization"];
   console.log("auth", auth);
-  const {
-    userId,
-    postTitle,
-    info,
-    totalTime,
-    difficult,
-    bodyPart,
-    exerciseInfo,
-  } = req.body;
+  const { postTitle, info, totalTime, difficult, bodyPart, exerciseInfo } =
+    req.body;
   const postImage = req.file;
   const getImageUrl = "http://localhost:4000";
   console.log("makePost body : ", req.body);
@@ -39,7 +32,7 @@ module.exports = async (req: Request | any, res: Response) => {
         });
       } else if (data) {
         const user = await getRepository(Users).findOne({
-          where: { id: userId },
+          where: { id: data.id },
         });
         const exInfo = await getRepository(Record).findOne({
           where: { id: exerciseInfo },

@@ -10,63 +10,72 @@ import type { RootState, AppDispatch } from "../store";
 import { SHARE, SHARE_ID } from "../reducer/shareReducer";
 import axios from "axios";
 
-export default function Share () {
-  const [date, setDate] = useState('');
-  let shareRecords = useSelector((state: RootState) => state.shareRecord.shareRecord);
-  let shareRecordsId = useSelector((state: RootState) => state.shareRecord.shareRecordId);
+export default function Share() {
+  const [date, setDate] = useState("");
+  let shareRecords = useSelector(
+    (state: RootState) => state.shareRecord.shareRecord
+  );
+  let shareRecordsId = useSelector(
+    (state: RootState) => state.shareRecord.shareRecordId
+  );
   const [records, setRecords] = useState(shareRecords);
   const [recordsId, setRecordsId] = useState(shareRecordsId);
   let dispatch: AppDispatch = useDispatch();
   //로컬스토리지에서 토큰 가져옴
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
-  const localUser = localStorage.getItem('userInfo');
-  if (localUser !== null ) {
+  const localUser = localStorage.getItem("userInfo");
+  if (localUser !== null) {
     user = JSON.parse(localUser);
-  };
+  }
   //TODO 로컬 대신 서버에서 가져와야함
-  let serverUrl = 'http://localhost:4000'
-  useEffect(()=> {
+  let serverUrl = "http://localhost:4000";
+  useEffect(() => {
     if (date) {
       axios
-      .get(`${serverUrl}/users/record?date=${date}`,
-        { 
+        .get(`${serverUrl}/record?date=${date}`, {
           headers: {
-            authorization: `Bearer ${user.accessToken}`
-          }
+            authorization: `Bearer ${user.accessToken}`,
+          },
         })
-      .then((res) => {
-        setRecords(res.data.data.exerciseInfo);
-        setRecordsId(res.data.data.recordId);
-      })
-      .catch(() => {
-        setRecords(null);
-      })
+        .then((res) => {
+          setRecords(res.data.data.exerciseInfo);
+          setRecordsId(res.data.data.recordId);
+        })
+        .catch(() => {
+          setRecords(null);
+        });
     }
-  },[date]);
+  }, [date]);
 
   const handleShare = () => {
-    if(records === null) {
-      return alert('공유할 기록이 없습니다');
+    if (records === null) {
+      return alert("공유할 기록이 없습니다");
     } else {
       dispatch(SHARE(records));
       dispatch(SHARE_ID(recordsId));
       navigate("/editor");
     }
-  }
+  };
 
   const navigate = useNavigate();
 
   return (
     <div id="share-container">
-      <div id ="calendar-container">
-        <Calendar date={date} setDate={setDate}/>
+      <div id="calendar-container">
+        <Calendar date={date} setDate={setDate} />
       </div>
-      <div id ="calendar-record-container">
-        {records !== null ? records.map((record, idx)=><CalendarRecord key={idx} record={record}/>) : <div>공유할 기록이 없습니다</div>}
+      <div id="calendar-record-container">
+        {records !== null ? (
+          records.map((record, idx) => (
+            <CalendarRecord key={idx} record={record} />
+          ))
+        ) : (
+          <div>공유할 기록이 없습니다</div>
+        )}
       </div>
       <div>
         <button onClick={handleShare}>선택하기</button>
       </div>
     </div>
-  )
+  );
 }

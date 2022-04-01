@@ -7,8 +7,7 @@ import { Post_Likes } from "../../models/entity/Post_Like";
 const jwt = require("jsonwebtoken");
 dotenv.config();
 module.exports = async (req: Request, res: Response) => {
-  const { userId, postId } = req.body;
-  console.log("makePost_Likes: ", req.body);
+  const postId = req.params.id;
   const auth = req.headers["authorization"];
 
   if (!auth) {
@@ -22,16 +21,23 @@ module.exports = async (req: Request, res: Response) => {
         });
       } else if (data) {
         const user: any = await getRepository(Users).findOne({
-          where: { id: userId },
+          where: { id: data.id },
         });
-        const post = await getRepository(Posts).findOne({
+        const post: any = await getRepository(Posts).findOne({
+          relations: ["post_likes"],
           where: { id: postId },
         });
-
-        if (user.email === data.email && post) {
-          const postLike = new Post_Likes();
-          (postLike.users = user), (postLike.post = post);
-
+        const postlike: any = await getRepository(Post_Likes).findOne({
+          where: { users: data.id, post: postId },
+        });
+        console.log(postlike);
+        if (postlike) {
+          res.status(409).json({ message: "이미 좋아요를 하셧습니다." });
+        } else if (user.email === data.email && post) {
+          const postLike = Post_Likes.create({
+            users: user.id,
+            post: post.id,
+          });
           // const postLike = Post_Likes.create({
           //   users : user,
           //   post : post,
@@ -43,8 +49,8 @@ module.exports = async (req: Request, res: Response) => {
             const allPost_like = await getRepository(Post_Likes).find({
               relations: ["users", "post"],
             });
-            console.log("allPost_Comment:", allPost_like);
-            res.status(200).json({ message: `like 생성 성공` });
+            // console.log("allPost_Comment:", allPost_like);
+            res.status(200).json({ message: `like 생성 성공`, data: postLike });
           } catch (e) {
             res.status(400).json({
               message: `like 생성이 실패하엿습니다`,

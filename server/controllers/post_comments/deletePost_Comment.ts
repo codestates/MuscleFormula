@@ -6,7 +6,8 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
-  const { postCommentId } = req.body;
+  const postCommentId = req.params.id;
+  console.log(postCommentId);
   const auth = req.headers["authorization"];
   //console.log("delete body", req.body);
   if (!auth) {
@@ -23,7 +24,7 @@ module.exports = async (req: Request, res: Response) => {
           where: { id: postCommentId },
           relations: ["users"],
         });
-        // console.log(postCommnet);
+        console.log(postCommnet);
         // console.log(verify);
 
         if (postCommnet.users.email === data.email) {
