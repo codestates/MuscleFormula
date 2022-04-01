@@ -1,7 +1,7 @@
-import * as React from "react";
-import { PureComponent } from "react";
-import styled from "styled-components";
+import axios from "axios";
+import React from "react";
 import { Mobile, PC } from "../mediaQuery";
+
 import {
   AllLandingContainer,
   FirstImageContainer,
@@ -9,6 +9,8 @@ import {
   BodyOutContainer,
   FirstTextContainer,
 } from "../components/Landing/Landing.style";
+
+
 
 export default function Landing() {
   return (
@@ -36,6 +38,7 @@ export default function Landing() {
                 </div>
               </FirstTextContainer>
             </div>
+
             <div className="page2">2?</div>
             <div className="page3">3?</div>
             <div className="page4">4?</div>
@@ -43,5 +46,6 @@ export default function Landing() {
         </BodyOutContainer>
       </AllLandingContainer>
     </PC>
+
   );
 }
