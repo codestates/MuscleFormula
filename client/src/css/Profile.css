@@ -1,0 +1,6 @@
+#profile-setting-container {
+  margin-top: 6rem;
+  display: flex;
+  flex-direction:column;
+  width: 100%;
+}
