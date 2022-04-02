@@ -11,7 +11,7 @@ export const TodayRecordContainer = styled.ol`
   max-width: 310px;
   list-style-type: none;
   border-radius: 20px;
-  background-color: #f2f2f2;
+  background-color: #00cc99;
   > table {
     > tbody
       > tr {

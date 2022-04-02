@@ -13,7 +13,7 @@ import Chat from "./pages/Chat";
 import Maypage from "./pages/Mypage";
 import Profile from "./pages/Profile";
 import Editor from "./pages/Editor";
-import ReducerTest from "./test/ReducerTest";
+import Test from "./test/Test";
 import EditorTest from "./test/EditorTest";
 import Landing from "./pages/Landing";
 import CallbackKakao from "./callback/callbackKakao";
@@ -37,7 +37,7 @@ const App: React.FC = () => {
         <Route path="/editor" element={<Editor />} />
         <Route path="/alarm" element={<Alarm />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/test" element={<ReducerTest />} />
+        <Route path="/test" element={<Test />} />
         <Route path="/testEdit" element={<EditorTest />} />
         <Route path="/callbackKakao" element={<CallbackKakao />} />
         <Route path="/callbackGoogle" element={<CallbackGoogle />} />
