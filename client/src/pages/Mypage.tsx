@@ -27,19 +27,18 @@ export default function Maypage() {
 
   return (
     <div id="mypage-container">
-      <div className="mypage-greeting">
-        <div className="welcome">
+      <div className="welcome">
           안녕하세요 <strong>{user.nickname}</strong> 님
-        </div>
-        <div className="photo_wrapper">
-          <img src={user.image} alt="user_image"/>
-        </div>
+      </div>
+      <div className="my-record-container">
         <TodayRecord/>
       </div>
       <div className="mypost-container">
+        <div className="mypost">
         {myPosts.map((el, idx) => (
           <PostThumbnail postThumb={el} key={idx} />
         ))}
+        </div>
       </div>
       <div className="share-container">
         <Share/>

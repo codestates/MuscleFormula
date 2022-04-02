@@ -8,16 +8,16 @@ export const TodayRecordContainer = styled.ol`
   flex-direction: row;
   padding: 1rem;
   width: 80vw;
-  max-width: 350px;
+  max-width: 310px;
   list-style-type: none;
-  border-radius: 40px;
+  border-radius: 20px;
   background-color: #f2f2f2;
   > table {
     > tbody
       > tr {
         > th, td {
           text-align: center;
-          padding: 0rem 1rem;
+          padding: 0rem 0.5rem;
         }
       }
   }
