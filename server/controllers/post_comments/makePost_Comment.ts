@@ -13,9 +13,11 @@ module.exports = async (req: Request, res: Response) => {
   console.log("server makePost_Comment in !!");
 
   const { comment } = req.body;
-  console.log("makePost_Commets : ", req.body);
   const postId = req.params.id;
   const auth = req.headers["authorization"];
+  console.log("makePost_Commets : ", req.body);
+  console.log("postId : ", postId);
+  console.log("auth : ", auth);
 
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });

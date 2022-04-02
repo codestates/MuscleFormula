@@ -110,10 +110,32 @@ export const axios_GetPosts = () => {
   return axios.get(`${serverURI}/posts`);
 };
 
-export const axios_GetMyPosts = (accessToken:string) => {
+export const axios_GetMyPosts = (accessToken: string) => {
   return axios.get(`${serverURI}/user`, {
     headers: {
-      authorization: `Bearer ${accessToken}`
-    }
+      authorization: `Bearer ${accessToken}`,
+    },
   });
+};
+
+export const axios_Get_DetailPosts = (postId: number | string) => {
+  return axios.get(`${serverURI}/posts/${postId}`);
+};
+
+export const axios_Create_Comment = (
+  postId: string | undefined,
+  comment: string | null,
+  accessToken: string
+) => {
+  return axios.post(
+    `${serverURI}/comment/${postId}`,
+    { comment: comment, accessToken: accessToken, body: comment },
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${accessToken}`,
+      },
+      // withCredentials: true,
+    }
+  );
 };
