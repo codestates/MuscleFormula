@@ -7,6 +7,10 @@ import Share from "./Share";
 import PostThumbnail from "../components/PostThumbnail";
 import { useState, useEffect } from "react";
 import { axios_GetMyPosts } from "../axios";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { settings } from "../slideSetting";
 
 export default function Maypage() {
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
@@ -27,17 +31,21 @@ export default function Maypage() {
 
   return (
     <div id="mypage-container">
-      <div className="welcome">
+      <div className="myinfo-container">
+        <div className="welcome">
           안녕하세요 <strong>{user.nickname}</strong> 님
-      </div>
-      <div className="my-record-container">
-        <TodayRecord/>
+        </div>
+        <div className="my-record">
+          <TodayRecord/>
+        </div>
       </div>
       <div className="mypost-container">
         <div className="mypost">
+        <Slider {...settings}>
         {myPosts.map((el, idx) => (
           <PostThumbnail postThumb={el} key={idx} />
         ))}
+        </Slider>
         </div>
       </div>
       <div className="share-container">
