@@ -1,3 +1,7 @@
+#no-share-container {
+  margin-top: 15rem;
+}
+
 #share-container {
   border-top: solid 2px #f2f2f2;
   margin-top: 3.5rem;

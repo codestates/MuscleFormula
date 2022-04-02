@@ -6,6 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
 import CalendarRecord from "../components/CalendarRecord";
+import NeedLogin from "../components/NeedLogin";
 export default function Records() {
   const showToday = () => {
     let today = new Date();
@@ -71,6 +72,11 @@ export default function Records() {
   const localUser = localStorage.getItem("userInfo");
   if (localUser !== null) {
     user = JSON.parse(localUser);
+  }
+  let isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+  const localLogin = localStorage.getItem('isLogin');
+  if (localLogin !== null) {
+    isLogin = JSON.parse(localLogin);
   }
 
   const [records, setRecords] = useState<RecordType[]>([]);
@@ -151,6 +157,13 @@ export default function Records() {
   };
 
   return (
+    <div>
+    {isLogin === false
+    ? 
+    <div id="no-record-container">
+      <NeedLogin/>
+    </div>
+    : 
     <div id="record-container">
       <div className="record-today">
         <i className="fa-solid fa-stopwatch"></i> {showToday()}
@@ -211,6 +224,8 @@ export default function Records() {
           </button>
         </div>
       ) : null}
+    </div>
+    }
     </div>
   );
 }
