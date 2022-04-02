@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { settings } from "../slideSetting";
+import NoPost from "../components/NoPost";
 
 export default function Maypage() {
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
@@ -41,11 +42,10 @@ export default function Maypage() {
       </div>
       <div className="mypost-container">
         <div className="mypost">
+      {myPosts.length > 0 ? 
         <Slider {...settings}>
-        {myPosts.map((el, idx) => (
-          <PostThumbnail postThumb={el} key={idx} />
-        ))}
-        </Slider>
+          {myPosts.map((el, idx) => <PostThumbnail postThumb={el} key={idx} />)}</Slider>
+          : <NoPost/>}
         </div>
       </div>
       <div className="share-container">

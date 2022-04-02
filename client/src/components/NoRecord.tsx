@@ -9,11 +9,10 @@ export const NoContentContainer=styled.div`
     width: 70px;
   }
   > div {
-    color: grey;
   }
 `
 
-export default function NoContent() {
+export default function NoRecord() {
   return (
     <NoContentContainer>
       <img src="../images/icon_nocontent.png" alt="no_content"/>

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 import { SHARE, SHARE_ID } from "../reducer/shareReducer";
 import axios from "axios";
-import NoContent from "../components/NoContent";
+import NoRecord from "../components/NoRecord";
 
 export default function Share() {
   const getDate = () => {
@@ -79,7 +79,7 @@ export default function Share() {
       <div id ="calendar-record-container">
         {records !== null ? records.map((record, idx)=>
         <CalendarRecord key={idx} record={record}/>) : 
-        <NoContent/>}
+        <NoRecord/>}
       </div>
       <div id="share-button">
         <button className={records ? "show" : "no-show"} onClick={handleShare}>선택하기</button>

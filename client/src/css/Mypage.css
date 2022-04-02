@@ -30,12 +30,14 @@
 }
 
 .mypost-container {
+  display: block;
   padding-top : 2.5rem;
 }
 
 .mypost-container .mypost {
   display: block;
   padding: 2rem;
+  margin-left: 3.5rem;
 }
 
 .share-container {
