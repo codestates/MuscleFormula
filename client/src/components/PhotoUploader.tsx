@@ -11,8 +11,10 @@ const PhotoUploaderContainer = styled.div`
     position: relative;
     z-index: 1;
     color: grey;
+    background-color: lightgrey;
+    height: 300px;
     > i {
-      font-size: 30px;
+      font-size: 5rem;
     }
     > input {
       text-decoration: none;
@@ -35,6 +37,13 @@ const PhotoUploaderContainer = styled.div`
     align-items: center;
     position: relative;
     z-index: 1;
+    border-radius: 20px;
+    > img {
+      height: 300px;
+    }
+    > video {
+      height: 300px;
+    }
     > input {
       text-decoration: none;
       width: 100%;
@@ -89,7 +98,7 @@ const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto }) => {
   let profile_preview = null;
   if (photo.file !== null) {
     profile_preview = photo.file[0]?.type.includes("image/") ? (
-      <img src={photo.previewURL} style={{ height: "200px" }} alt="selected_image"/>
+      <img src={photo.previewURL} alt="selected_image"/>
     ) : (
       <video src={photo.previewURL} />
     );
