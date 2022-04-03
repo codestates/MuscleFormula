@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 import { SHARE, SHARE_ID } from "../reducer/shareReducer";
 import axios from "axios";
-import NoContent from "../components/NoContent";
+import NoRecord from "../components/NoRecord";
+import NeedLogin from "../components/NeedLogin";
 
 export default function Share() {
   const getDate = () => {
@@ -37,6 +38,11 @@ export default function Share() {
   const localUser = localStorage.getItem("userInfo");
   if (localUser !== null) {
     user = JSON.parse(localUser);
+  }
+  let isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+  const localLogin = localStorage.getItem('isLogin');
+  if (localLogin !== null) {
+    isLogin = JSON.parse(localLogin);
   }
   //TODO 로컬 대신 서버에서 가져와야함
   let serverUrl = "http://localhost:4000";
@@ -72,6 +78,13 @@ export default function Share() {
   const navigate = useNavigate();
 
   return (
+    <div>
+      {isLogin === false 
+      ?
+      <div id="no-share-container">
+        <NeedLogin/>
+      </div>
+      :
     <div id="share-container">
       <div id ="calendar-container">
         <Calendar date={date} setDate={setDate}/>
@@ -79,11 +92,13 @@ export default function Share() {
       <div id ="calendar-record-container">
         {records !== null ? records.map((record, idx)=>
         <CalendarRecord key={idx} record={record}/>) : 
-        <NoContent/>}
+        <NoRecord/>}
       </div>
       <div id="share-button">
         <button className={records ? "show" : "no-show"} onClick={handleShare}>선택하기</button>
       </div>
+    </div>
+}
     </div>
   );
 }

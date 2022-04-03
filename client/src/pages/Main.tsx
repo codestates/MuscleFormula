@@ -11,6 +11,7 @@ import TodayKing from "../components/TodayKing";
 import { axios_GetPosts } from "../axios";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
+import NoPost from "../components/NoPost";
 
 export default function Main() {
   let shareRecordsId = useSelector(
@@ -37,11 +38,13 @@ export default function Main() {
         <Search />
       </div>
       <div id="postthumb-container">
-        {posts.map((el, idx) => (
+        {posts.length > 0 
+        ? posts.map((el, idx) => (
           <div className="post-thumbs" key={idx}>
             <PostThumbnail postThumb={el} key={idx} />
           </div>
-        ))}
+          ))
+        : <NoPost/>}
       </div>
       <PC>
         <Footer />

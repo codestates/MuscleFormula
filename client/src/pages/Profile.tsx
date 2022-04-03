@@ -1,5 +1,33 @@
-/**마이페이지 수정**/
+import "../css/Profile.css";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
+import { useState } from "react";
+
 export default function Profile() {
-  console.log("프로필을 확인하고 수정할 수 있습니다");
-  return <div></div>;
+  let user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const localUser = localStorage.getItem("userInfo");
+  if (localUser !== null) {
+    user = JSON.parse(localUser);
+  }
+
+  return (
+  <div id="profile-setting-container">
+    <div className="profile-photo-setting">
+      <img src={user.image} alt="user_image"/>
+    </div>
+    <div className="photo-uploader">
+    </div>
+    <div className="profile-nickname-setting">
+    {user.nickname}
+    </div>
+    <div className="profile-password-setting">
+    </div>
+    <div className="edit-button">
+      <button>수정하기</button>
+    </div>
+    <div className="quit-button">
+      <button>탈퇴하기</button>
+    </div>
+  </div>
+  )
 }

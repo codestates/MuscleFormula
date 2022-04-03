@@ -17,7 +17,7 @@ export const RecordContainer = styled.div`
     border-bottom: solid 1px lightgrey;
   }
   > .exercise-name {
-    width: 6.5rem;
+    width: 6rem;
   }
   > .exercise-weight {
     width: 3rem;
