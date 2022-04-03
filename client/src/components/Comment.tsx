@@ -1,5 +1,20 @@
 /**포스트 댓글**/
 import styled from "styled-components";
+interface PostCommentProps {
+  commentInfo: {
+    comment: string;
+    // postImage: string;
+    // postTitle: string;
+    // info: string;
+    // total_Likes: any[];
+    // total_comments: any[];
+    // user: { userId: number; nickname: string; image: string };
+    // difficult: number;
+    // totalTime: number;
+    // bodyPart: string;
+    // created_At: string;
+  };
+}
 
 export const Body = styled.div`
   border: 1px solid gray;
@@ -31,7 +46,8 @@ export const Body = styled.div`
   }
 `;
 
-function Comment() {
+const Comment: React.FC<PostCommentProps> = ({ commentInfo }) => {
+  console.log("commentInfo :", commentInfo);
   return (
     <Body>
       <div id="comment-info">
@@ -44,7 +60,7 @@ function Comment() {
           </div>
           <div>유저 닉네임</div>
         </div>
-        <div id="comment-content">뭐라는거임</div>
+        <div id="comment-content"></div>
       </div>
 
       <div id="buttent-box">
@@ -53,6 +69,6 @@ function Comment() {
       </div>
     </Body>
   );
-}
+};
 
 export default Comment;

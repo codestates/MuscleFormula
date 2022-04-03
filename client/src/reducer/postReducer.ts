@@ -7,7 +7,7 @@ export const shareReducer = createSlice({
   reducers: {
     POST_ID: (state, action: PayloadAction<number | null>) => {
       state.postId = action.payload;
-      // localStorage.setItem("PostId", JSON.stringify(action.payload));
+      localStorage.setItem("PostId", JSON.stringify(action.payload));
     },
   },
 });

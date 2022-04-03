@@ -153,7 +153,8 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
     <Postthumb
       onClick={() => {
         dispatch(POST_ID(postThumb.postId));
-        navigate("/detail");
+        navigate(`/detail/${postThumb.postId}`);
+        // window.location.replace(`/detail/${postThumb.postId}`); // 새로고침후 이동
       }}
     >
       <div id="image-container">
