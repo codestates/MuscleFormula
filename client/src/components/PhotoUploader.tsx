@@ -1,13 +1,53 @@
 import React from "react";
 import styled from "styled-components";
+import {useState} from 'react';
 
 const PhotoUploaderContainer = styled.div`
-  border: 1px solid gray;
-  > div {
+  > .upload-show {
     display: flex;
-    > div {
-      border: 1px solid gray;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    color: grey;
+    > i {
+      font-size: 30px;
     }
+    > input {
+      text-decoration: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      font-size: 0;
+      opacity: 0;
+    }
+  }
+  > .no-upload-show {
+    display: none;
+  }
+  > .image-show {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    > input {
+      text-decoration: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      font-size: 0;
+      opacity: 0;
+    }
+  }
+  > .no-image-show {
+      display: none;
   }
 `;
 
@@ -21,6 +61,7 @@ const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto }) => {
   //   file: [],
   //   previewURL: "",
   // });
+  const [isShow, setIsShow] = useState(true);
   const uploadFile = (e: any) => {
     console.log("input img", e);
     console.log("e.stopPropagation: ", e.stopPropagation);
@@ -48,7 +89,7 @@ const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto }) => {
   let profile_preview = null;
   if (photo.file !== null) {
     profile_preview = photo.file[0]?.type.includes("image/") ? (
-      <img src={photo.previewURL} style={{ height: "200px" }} />
+      <img src={photo.previewURL} style={{ height: "200px" }} alt="selected_image"/>
     ) : (
       <video src={photo.previewURL} />
     );
@@ -56,19 +97,27 @@ const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto }) => {
 
   return (
     <PhotoUploaderContainer>
+      <label className={isShow ? "upload-show" :  "no-upload-show"} htmlFor="upload-file" onClick={()=> setIsShow(false)}>
+      <i className="fas fa-camera"></i>
+        이미지 업로드
       <input
         id="upload-file"
         type="file"
         accept="image/*, video/*"
         multiple
         onChange={uploadFile}
-      ></input>
-      <label htmlFor="upload-file">파일선택</label>
-      <br />
-      미리보기
-      <div>
-        <div>{profile_preview}</div>
-      </div>
+      />
+      </label>
+      <label className={isShow ? "no-image-show" : "image-show"}>
+      {profile_preview}
+      <input
+        id="upload-file"
+        type="file"
+        accept="image/*, video/*"
+        multiple
+        onChange={uploadFile}
+      />
+      </label>
     </PhotoUploaderContainer>
   );
 };

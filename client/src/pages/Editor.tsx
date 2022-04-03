@@ -5,13 +5,11 @@ import CalendarRecord from "../components/CalendarRecord";
 import { useSelector, useDispatch } from "react-redux";
 import { RESET } from "../reducer/shareReducer";
 import type { RootState, AppDispatch } from "../store";
-import ImgTest from "../components/ImgTest";
-import axios from "axios";
 import StarPoint from "../components/StarPoint";
 import { axios_CreatePost } from "../axios";
+import PhotoUploader from "../components/PhotoUploader";
 
 const FormData = require("form-data");
-const form = new FormData();
 
 export const Main = styled.div`
   margin: 10rem 0rem;
@@ -48,10 +46,12 @@ const Editor = () => {
   const [textContent, setTextContent] = useState<string | null>("");
   const [bodyPart, setBodyPart] = useState<string | null>("");
   console.log("titleContent:", titleContent);
-  const [postfiles, setPostfiles] = useState<any>({
+
+  const [photo, setPhoto] = useState<any>({
     file: [],
     previewURL: "",
   });
+
   //공유한 기록 redux에서 불러오기
   interface RecordType {
     genre: string;
@@ -101,10 +101,8 @@ const Editor = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    console.log("전송 파일 : ", postfiles.file[0]);
     const formData = new FormData();
-
-    formData.append("postImage", postfiles.file[0]);
+    formData.append("postImage", photo.file[0]);
     formData.append("postTitle", titleContent);
     formData.append("info", textContent);
     formData.append("totalTime", shareRecordsTotalTime);
@@ -124,7 +122,6 @@ const Editor = () => {
     console.log("e.target.value:", e.target.value);
     setBodyPart(e.target.value);
   };
-  console.log("postfiles:", postfiles);
   return (
     <div id="EditorPage">
       <Main>
@@ -135,7 +132,7 @@ const Editor = () => {
             contentEditable="true"
             onInput={(e) => setTitleContent(e.currentTarget.textContent)}
           ></div>
-          <ImgTest postfiles={postfiles} setPostfiles={setPostfiles}></ImgTest>
+          <PhotoUploader photo={photo} setPhoto={setPhoto}/>
           <div id="record-container">
             공유한 기록
             {shareRecords !== null
