@@ -2,8 +2,9 @@ import axios from 'axios';
 import { useState } from 'react';
 import styled from 'styled-components';
 import PhotoUploader from '../PhotoUploader';
-import { useSelector } from "react-redux";
-import type { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../../store";
+import { EDIT_IMAGE } from "../../reducer/userInfoReducer";
 
 export const ModalBackdrop = styled.div`
   position: fixed;
@@ -71,6 +72,7 @@ const PhotoModal:React.FC<PhotoModalProps> = (
     setPhotoModal
   }) => {
 
+  let dispatch: AppDispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
   const openModalHandler = () => {
     setIsOpen(!isOpen);
@@ -82,7 +84,7 @@ const PhotoModal:React.FC<PhotoModalProps> = (
   if (localUser !== null) {
     user = JSON.parse(localUser);
   }
-
+  
   const handleProfilePhoto = () => {
   //서버로 바뀐 사진 정보 보내면 됨  
     const formData = new FormData();
@@ -100,8 +102,8 @@ const PhotoModal:React.FC<PhotoModalProps> = (
       }
     )
     .then((res)=> {
-      console.log('수정된 이미지 데이터', res.data.Data.image);
       setPhotoModal((cur)=> !cur);
+      dispatch(EDIT_IMAGE(res.data.Data.image));
     });
   };
 
