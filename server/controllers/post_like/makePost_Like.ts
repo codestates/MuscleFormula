@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 module.exports = async (req: Request, res: Response) => {
   console.log("server makePost_Like in !!");
+  console.log("req", req.body);
 
   const postId = req.params.id;
   const auth = req.headers["authorization"];

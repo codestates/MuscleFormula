@@ -9,7 +9,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import type { RootState } from "../store";
 
-import { axios_Get_DetailPosts, axios_Create_Comment } from "../axios";
+import {
+  axios_Get_DetailPosts,
+  axios_Create_Comment,
+  axios_Create_Like,
+  axios_Delete_Like,
+} from "../axios";
 
 export const Main = styled.div`
   border: 3px solid green;
@@ -85,6 +90,16 @@ export default function Detail() {
     console.log(" commentContent:", commentContent);
     axios_Create_Comment(postId, commentContent, user.accessToken);
   };
+  const handleLikeSubmit = () => {
+    console.log("하트 누름");
+    axios_Create_Like(postId, user.accessToken)
+      .then((res) => {})
+      .catch((err) => {
+        console.log("err  :", err);
+        // delete 안됨
+        axios_Delete_Like(postId, user.accessToken);
+      });
+  };
   console.log("postInfo:", postInfo);
   console.log("commentContent:", commentContent);
   return (
@@ -121,7 +136,10 @@ export default function Detail() {
             </div>
           </div>
           <div id="detial-container-comment">
-            <div>❤️</div>
+            {/* <div ></div> */}
+            <button onClick={handleLikeSubmit} style={{ width: "50px" }}>
+              ❤️
+            </button>
 
             <div id="detail-Comment-input">
               글쓰기
@@ -136,9 +154,15 @@ export default function Detail() {
             </div>
 
             <ul>
-              <li>
-                <Comment></Comment>
-              </li>
+              {postInfo.post_comments.length > 0 ? (
+                postInfo.post_comments.map((el: any, idx: any) => (
+                  <li>
+                    <Comment commentInfo={el}></Comment>
+                  </li>
+                ))
+              ) : (
+                <div>없음</div>
+              )}
               <li>댓글 2</li>
               <li>댓글 3</li>
             </ul>

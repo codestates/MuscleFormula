@@ -9,9 +9,10 @@ dotenv.config();
 module.exports = async (req: Request, res: Response) => {
   console.log("server deletePost_Like in !!");
 
-  console.log("makePost_Likes: ", req.body);
   const likeId = req.params.id;
   const auth = req.headers["authorization"];
+  console.log("likeId :", likeId);
+  console.log("auth :", auth);
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
   } else {
@@ -32,7 +33,6 @@ module.exports = async (req: Request, res: Response) => {
           where: { id: likeId },
           relations: ["users"],
         });
-        console.log(postLike);
         console.log("postLike:", postLike);
         //console.log("user:", user);
         //console.log("post:", post);

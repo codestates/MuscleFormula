@@ -129,13 +129,36 @@ export const axios_Create_Comment = (
 ) => {
   return axios.post(
     `${serverURI}/comment/${postId}`,
-    { comment: comment, accessToken: accessToken, body: comment },
+    { comment },
     {
       headers: {
-        "Content-Type": "multipart/form-data",
         authorization: `Bearer ${accessToken}`,
       },
       // withCredentials: true,
     }
   );
+};
+export const axios_Create_Like = (
+  postId: string | undefined,
+  accessToken: string
+) => {
+  return axios.post(
+    `${serverURI}/like/${postId}`,
+    {},
+    {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};
+export const axios_Delete_Like = (
+  postId: string | undefined,
+  accessToken: string
+) => {
+  return axios.delete(`${serverURI}/like/${postId}`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
 };

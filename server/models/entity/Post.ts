@@ -51,6 +51,7 @@ export class Posts extends BaseEntity {
   exerciseInfo: Record;
 
   @OneToMany((type) => Post_Comments, (e) => e.post)
+  // @JoinColumn({})
   post_comments: Post_Comments[];
 
   @OneToMany((type) => Post_Likes, (e) => e.post)
