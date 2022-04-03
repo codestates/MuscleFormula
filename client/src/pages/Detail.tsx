@@ -73,6 +73,7 @@ export default function Detail() {
 
   const [commentContent, setCommentContent] = useState<string | null>("");
   const [postInfo, setPostInfo] = useState<any>("");
+  const [like, setLike] = useState<any>("");
   useEffect(() => {
     console.log("detail useEffect");
     console.log("innerPostId : ", postId);
@@ -93,11 +94,15 @@ export default function Detail() {
   const handleLikeSubmit = () => {
     console.log("하트 누름");
     axios_Create_Like(postId, user.accessToken)
-      .then((res) => {})
+      .then((res) => {
+        setLike("생성");
+      })
       .catch((err) => {
         console.log("err  :", err);
         // delete 안됨
         axios_Delete_Like(postId, user.accessToken);
+        console.log("하트 삭제됨");
+        setLike("삭제");
       });
   };
   console.log("postInfo:", postInfo);
