@@ -18,11 +18,12 @@ export default function Main() {
     (state: RootState) => state.shareRecord.shareRecordId
   );
   const [posts, setPosts] = useState([]);
+  const [rankData, setRankData] = useState<{total_time: string, nickname: string}[]>([]);
 
   useEffect(() => {
     axios_GetPosts().then((res) => {
       setPosts(res.data.posts);
-      console.log(res.data.posts);
+      setRankData(res.data.rankData);
     });
   }, [shareRecordsId]);
 
@@ -32,7 +33,7 @@ export default function Main() {
   return (
     <div id="main-container">
       <div id="todayking-container">
-        <TodayKing />
+        <TodayKing rankData={rankData}/>
       </div>
       <div id="search-container">
         <Search />

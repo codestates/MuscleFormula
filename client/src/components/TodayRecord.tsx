@@ -17,12 +17,18 @@ export const TodayRecordContainer = styled.ol`
       > tr {
         > th, td {
           text-align: center;
-          padding: 0rem 0.5rem;
+          padding: 0rem 0.7rem;
         }
       }
   }
 `
-export default function TodayRecord() {
+interface TodayRecordProps {
+  lastTime: string; 
+  todayTime: string; 
+  bestTime: string;
+}
+
+const TodayRecord:React.FC<TodayRecordProps> = ({lastTime, todayTime, bestTime}) => {
   return (
     <TodayRecordContainer>
       <table>
@@ -40,13 +46,13 @@ export default function TodayRecord() {
           </tr>
           <tr>
             <td>
-              00:00:00
+              {lastTime}
             </td>
             <td>
-              00:00:00
+              {todayTime}
             </td>
             <td>
-              00:00:00
+              {bestTime}
             </td>
           </tr>
         </tbody>
@@ -54,3 +60,5 @@ export default function TodayRecord() {
     </TodayRecordContainer>
   )
 }
+
+export default TodayRecord;
