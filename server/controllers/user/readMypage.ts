@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 const jwt = require("jsonwebtoken");
 import { Users } from "../../models/entity/User";
 import { Record } from "../../models/entity/Record";
+import { Posts } from "../../models/entity/Post";
 
 dotenv.config();
 let yesterdays = new Date(Date.now());
@@ -46,11 +47,14 @@ module.exports = async (req: Request, res: Response) => {
       } else if (data) {
         //console.log("data임", data);
         //console.log(data);
-        const allInfo: any = await getRepository(Users).findOne({
-          relations: ["posts"],
-          where: { id: data.id },
+        const allInfo: any = await getRepository(Posts).find({
+          relations: ["users", "post_comments", "post_likes"],
+          where: { users: data.id },
+          order: {
+            id: "DESC",
+          },
         });
-        console.log("mypage", allInfo);
+        //console.log("mypage", allInfo);
         const findLastTime = await getRepository(Record).findOne({
           relations: ["ex_record"],
           where: { users: allInfo?.id, created_at: yesterday },
@@ -99,25 +103,25 @@ module.exports = async (req: Request, res: Response) => {
           }
         }
         console.log("a", allInfo);
-        console.log("b", data);
-        if (allInfo.id === data.id) {
-          const createed = allInfo.posts.map((item) => {
+        //console.log("b", data);
+        if (allInfo) {
+          const createed = allInfo.map((item) => {
             const data = {
               postId: item.id,
               postTitle: item.title,
               info: item.info,
               postImage: item.image,
               user: {
-                userId: allInfo.id,
-                nickname: allInfo.nickname,
-                image: allInfo.image,
+                userId: item.users.id,
+                nickname: item.users.nickname,
+                image: item.users.image,
               },
               bodyPart: item.body_Part,
               difficult: item.difficult,
               totalTime: item.total_time,
               //totalcomments찾아주세요 임시로 아무 값 넣었어여
-              total_comments: item.total_comments,
-              total_Likes: item.total_Likes,
+              total_comments: item.post_comments.length,
+              total_Likes: item.post_likes.length,
               created_At: item.created_At,
             };
             return data;
