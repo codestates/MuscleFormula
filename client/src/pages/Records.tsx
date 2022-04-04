@@ -93,7 +93,6 @@ export default function Records() {
     axios
       .post(
         `${serverUrl}/record`,
-
         {
           record: records,
         },
@@ -101,10 +100,10 @@ export default function Records() {
           headers: {
             authorization: `Bearer ${user.accessToken}`,
           },
-          // withCredentials: true
         }
       )
       .then(() => {
+        alert('기록되었습니다');
         axios
           .get(`${serverUrl}/record?date=${submitDay}`, {
             headers: {
