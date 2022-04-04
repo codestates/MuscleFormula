@@ -67,7 +67,10 @@ export const Main = styled.div`
 export default function Detail() {
   let { postId } = useParams();
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
-
+  const localUser = localStorage.getItem("userInfo");
+  if (localUser !== null) {
+    user = JSON.parse(localUser);
+  }
   console.log("detail Page");
   console.log("params postId:", postId);
 
@@ -81,7 +84,7 @@ export default function Detail() {
       axios_Get_DetailPosts(postId).then((req) => {
         console.log("req:", req.data);
         setPostInfo(req.data);
-        return <div>여기 리턴</div>;
+        // return <div>여기 리턴</div>;
       });
     }
   }, []);
@@ -89,7 +92,15 @@ export default function Detail() {
     console.log("버튼 작동?");
     console.log(" user.accessToen:", user.accessToken);
     console.log(" commentContent:", commentContent);
-    axios_Create_Comment(postId, commentContent, user.accessToken);
+    axios_Create_Comment(postId, commentContent, user.accessToken).then(
+      (res) => {
+        console.log("코멘트 만들어짐");
+        axios_Get_DetailPosts(postId).then((req) => {
+          console.log("req:", req.data);
+          setPostInfo(req.data);
+        });
+      }
+    );
   };
   const handleLikeSubmit = () => {
     console.log("하트 누름");
@@ -159,17 +170,15 @@ export default function Detail() {
             </div>
 
             <ul>
-              {postInfo.post_comments.length > 0 ? (
-                postInfo.post_comments.map((el: any, idx: any) => (
-                  <li>
-                    <Comment commentInfo={el}></Comment>
+              {postInfo.total_comment.length > 0 ? (
+                postInfo.total_comment.map((el: any, idx: any) => (
+                  <li key={idx}>
+                    <Comment commentInfo={el} postId={postId}></Comment>
                   </li>
                 ))
               ) : (
                 <div>없음</div>
               )}
-              <li>댓글 2</li>
-              <li>댓글 3</li>
             </ul>
           </div>
         </Main>
@@ -179,56 +188,3 @@ export default function Detail() {
     </div>
   );
 }
-
-// <Main>
-// <div id="detial-container-up">
-// <div id="detail-title">{postInfo.title}</div>
-//   <div id="detial-container-up-up">
-//     <div id="detail-userinfo">
-//       {/* <img src={postInfo.users.image} style={{ width: "70px" }}></img> */}
-//       {/* <div>{postInfo.users.nickname}</div> */}
-//     </div>
-//     <div id="detail-butten">
-//       <button>수정</button>
-//       <button>삭제</button>
-//     </div>
-//   </div>
-
-//   <div id="detail-image">
-//     <div>{postInfo.created_At.split("T")[0]}</div>
-//     <img src={postInfo.image} style={{ width: "200px" }}></img>
-//   </div>
-// </div>
-// <div id="detial-container-down">
-//   <div id="detail-exInfo">
-//     팔굽 윈몸 난이도
-//     <br />
-//     <br />
-//     <div>총 소요시간: {postInfo.total_time}</div>
-//     <div>난이도 : {postInfo.difficult}</div>
-//     <div>운동부위 : {postInfo.body_Part}</div>
-//     <div> 소감 :{postInfo.info}</div>
-//   </div>
-// </div>
-// <div id="detial-container-comment">
-//   <div>❤️</div>
-
-//   <div id="detail-Comment-input">
-//     글쓰기
-//     <div
-//       id="div-input"
-//       contentEditable="true"
-//       onInput={(e) => setCommentContent(e.currentTarget.textContent)}
-//     ></div>
-//     <button id="comment-submit-btn">전송</button>
-//   </div>
-
-//   <ul>
-//     <li>
-//       <Comment></Comment>
-//     </li>
-//     <li>댓글 2</li>
-//     <li>댓글 3</li>
-//   </ul>
-// </div>
-// </Main>

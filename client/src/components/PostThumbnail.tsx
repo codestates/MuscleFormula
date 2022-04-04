@@ -74,6 +74,7 @@ export const Postthumb = styled.div`
           height: 2.5rem;
           border-radius: 50%;
           overflow: hidden;
+          background-color: white;
           > img {
             position: absolute;
             top: 0;

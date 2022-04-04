@@ -2,6 +2,9 @@ import app from "./app";
 import dotenv from "dotenv";
 dotenv.config();
 
+// const io = require("socket.io");
+// const socket = io();
+
 const http = require("http");
 const PORT = process.env.PORT;
 
