@@ -3,12 +3,13 @@ import { getRepository } from "typeorm";
 import dotenv from "dotenv";
 import { Posts } from "../../models/entity/Post";
 import { Post_Comments } from "../../models/entity/Post_Comment";
+import { Post_Likes } from "../../models/entity/Post_Like";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
   console.log("server detailePost in !!");
   const postId = req.params.id;
-  console.log("params", postId);
+  // console.log("params", postId);
   //console.log("makePost body : ", req.body);
 
   const detailPost = await getRepository(Posts).findOne({
@@ -20,6 +21,23 @@ module.exports = async (req: Request, res: Response) => {
     where: { post: postId },
   });
   //console.log("detai;", findComment);
+  const findLIKE: any = await getRepository(Post_Likes).find({
+    relations: ["users"],
+    where: { post: postId },
+  });
+  console.log("like", findLIKE);
+  const detailLike = findLIKE.map((item) => {
+    const commentdata = {
+      id: item.id,
+      users: {
+        id: item.users.id,
+        email: item.users.email,
+        nickname: item.users.nickname,
+        image: item.users.image,
+      },
+    };
+    return commentdata;
+  });
 
   const detailComment = findComment.map((item) => {
     const commentdata = {
@@ -38,8 +56,14 @@ module.exports = async (req: Request, res: Response) => {
 
   //console.log("detai;", findComment);
   if (detailPost) {
-    console.log("postdetail", detailPost);
+    // console.log("postdetail", detailPost);
     res.status(200).json({
+      users: {
+        id: detailPost.users?.id,
+        email: detailPost.users?.email,
+        nickname: detailPost.users?.nickname,
+        image: detailPost.users?.image,
+      },
       id: detailPost.id,
       title: detailPost.title,
       image: detailPost.image,
@@ -49,13 +73,7 @@ module.exports = async (req: Request, res: Response) => {
       created_At: detailPost.created_At,
       body_part: detailPost.body_Part,
       total_comment: detailComment,
-      total_Likes: detailPost.post_likes,
-      users: {
-        id: detailPost.users?.id,
-        email: detailPost.users?.email,
-        nickname: detailPost.users?.nickname,
-        image: detailPost.users?.image,
-      },
+      total_Likes: detailLike,
     });
   } else {
     res.status(404);

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../store";
-import { LOG_OUT } from "../../reducer/userInfoReducer";
 
 export const ModalBackdrop = styled.div`
   position: fixed;
@@ -62,16 +61,16 @@ export const ModalView = styled.div`
     }
 `;
 
-interface QuitModalProps {
-  setQuitModal: React.Dispatch<React.SetStateAction<boolean>>;
+interface DeleteModalProps {
+  setDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const QuitModal:React.FC<QuitModalProps> = ({setQuitModal}) => {
+const DeleteModal:React.FC<DeleteModalProps> = ({setDeleteModal}) => {
   let dispatch: AppDispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
   const openModalHandler = () => {
     setIsOpen(!isOpen);
-    setQuitModal((cur)=> !cur);
+    setDeleteModal((cur)=> !cur);
   };
 
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
@@ -80,15 +79,7 @@ const QuitModal:React.FC<QuitModalProps> = ({setQuitModal}) => {
     user = JSON.parse(localUser);
   }
 
-  const handleUserDelete = () => {
-    let serverUrl = 'http://localhost:4000'
-    axios.delete(`${serverUrl}/user`,{
-      headers: {
-        authorization: `Bearer ${user.accessToken}`,
-      },
-    });
-    dispatch(LOG_OUT());
-    window.location.replace("/main"); // 새로고침후 이동
+  const handlDelete = () => {
   }
 
   return (
@@ -100,10 +91,10 @@ const QuitModal:React.FC<QuitModalProps> = ({setQuitModal}) => {
           <i className="fa-regular fa-circle-xmark"></i>
           </span>
           <div className="quit-info">
-          정말 탈퇴하시겠습니까?
+          삭제하시겠습니까?
           </div>
           <div className='choice'>
-            <button onClick={handleUserDelete}>예</button>
+            <button onClick={handlDelete}>예</button>
             <button onClick={openModalHandler}>아니오</button>
           </div>
         </div>
@@ -112,4 +103,4 @@ const QuitModal:React.FC<QuitModalProps> = ({setQuitModal}) => {
     </ModalContainer>
   )
 }
-export default QuitModal;
+export default DeleteModal;

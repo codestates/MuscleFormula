@@ -27,7 +27,14 @@ export const TodayKingContainer = styled.ol`
       }
   }
 `
-export default function TodayKing() {
+
+interface TodayKingProps{
+  rankData: {
+    total_time: string;
+    nickname: string;
+}[]
+}
+const TodayKing:React.FC<TodayKingProps> = ({rankData}) => {
   return (
     <TodayKingContainer>
       <table>
@@ -45,24 +52,24 @@ export default function TodayKing() {
         </tr>
         <tr>
           <th>
-           금메달유저
+            {rankData[0] ? rankData[0].nickname : '없음'}
           </th>
           <th>
-            은메달유저
+            {rankData[1] ? rankData[1].nickname : '없음'}
           </th>
           <th>
-            동메달유저
+            {rankData[2] ? rankData[2].nickname : '없음'}
           </th>
         </tr>
         <tr>
           <td>
-            00:00:00
+            {rankData[0] ? rankData[0].total_time : '기록없음'}
           </td>
           <td>
-            00:00:00
+            {rankData[1] ? rankData[1].total_time : '기록없음'}
           </td>
           <td>
-            00:00:00
+            {rankData[2] ? rankData[2].total_time : '기록없음'}
           </td>
         </tr>
         </tbody>
@@ -70,3 +77,5 @@ export default function TodayKing() {
     </TodayKingContainer>
   )
 }
+
+export default TodayKing;

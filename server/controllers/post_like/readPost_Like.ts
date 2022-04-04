@@ -23,63 +23,62 @@ module.exports = async (req: Request, res: Response) => {
         // const allpost: any = await getRepository(Posts).find({
         //   relations: ["users", "post_comments", "post_likes"],
         // });
+
         const likePost: any = await getRepository(Post_Likes).find({
           relations: ["users", "post"],
+          order: {
+            id: "DESC",
+          },
           where: { users: data.id },
         });
+        console.log(likePost);
+        const likePostId = likePost.map((item) => {
+          const data = {
+            postId: item.post.id,
+          };
+          return data;
+        });
+        //console.log(likePostId);
 
-        //console.log(allpost);
-        //   const dataset = await allpost.map((item) => {
-        //     const returnData = {
-        //       users: {
-        //         userId: item.users.id,
-        //         nickname: item.users.nickname,
-        //         image: item.users.image,
-        //       },
-        //       postId: item.id,
-        //       info: item.info,
-        //       postImage: item.image,
-        //       bodyPart: item.body_Part,
-        //       difficult: item.difficult,
-        //       totalTime: item.total_time,
-        //       total_Likes: item.post_likes.length,
-        //       total_comments: item.post_comments.length,
-        //     };
-        //     //console.log("returnData", returnData);
-        //     return returnData;
-        //   });
-        //   console.log(dataset);
-        //   return dataset;
-
-        //console.log(finddata);
-
-        //    res.status(200).json({
-        //        data:{
-        //            users:finddata.users.id
-        //        }
-        //    })
-        // console.log(likePost);
-        // const createed = likePost.map((item) => {
-        //   const data = {
-        //     user: {
-        //       userId: item.users.id,
-        //       email: item.users.email,
-        //       nickname: item.users.nickname,
-        //       image: item.users.image,
-        //     },
-        //     postId: item.post.id,
-        //     postTitle: item.post.title,
-        //     info: item.post.info,
-        //     postImage: item.post.image,
-        //     bodyPart: item.post.body_Part,
-        //     difficult: item.post.difficult,
-        //     totalTime: item.post.total_time,
-        //     //totalcomments찾아주세요 임시로 아무 값 넣었어여
-        //     created_At: item.post.created_At,
-        //   };
-        //   return data;
-        // });
-        // res.status(200).json(createed);
+        try {
+          const bigData = await Promise.all(
+            likePostId.map(async (item) => {
+              const postData = await getRepository(Posts).find({
+                relations: ["post_comments", "post_likes", "users"],
+                where: { id: item.postId },
+              });
+              return postData;
+            })
+          );
+          const likeData = bigData.flat();
+          console.log(likeData);
+          const createed = likeData.map((item) => {
+            const data = {
+              postId: item.id,
+              postTitle: item.title,
+              info: item.info,
+              postImage: item.image,
+              user: {
+                userId: item.users.id,
+                nickname: item.users.nickname,
+                image: item.users.image,
+              },
+              bodyPart: item.body_Part,
+              difficult: item.difficult,
+              totalTime: item.total_time,
+              total_comments: item.post_comments.length,
+              total_Likes: item.post_likes.length,
+              created_At: item.created_At,
+            };
+            return data;
+          });
+          res.status(200).json(createed);
+        } catch (e) {
+          console.log(e);
+          res.status(500);
+        }
+      } else {
+        res.status(401).json({ message: "유저정보를 확인할수 없습니다." });
       }
     });
   }
