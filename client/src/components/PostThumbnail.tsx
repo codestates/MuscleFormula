@@ -127,17 +127,14 @@ interface PostThumbnailProps {
 
 const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
   const dispatch: AppDispatch = useDispatch();
-
-  console.log("postThumb :", postThumb);
-  console.log("postThumb.postId :", postThumb.postId);
   const navigate = useNavigate();
   const numToStar = (num: number) => {
-    if (num === 1) return "★";
-    if (num === 2) return "★★";
-    if (num === 3) return "★★★";
-    if (num === 4) return "★★★★";
-    if (num === 5) return "★★★★★";
-    else return "☆";
+    if (num === 0) return "☆";
+    let star = ""
+    for (let i = 0; i < num ; i++) {
+      star += "★";
+    }
+    return star;
   };
 
   const secToTime = (duration: number) => {

@@ -87,7 +87,6 @@ export default function Records() {
     time_record: 0,
   });
 
-  console.log("user.id", user.id);
   const submitRecord = () => {
     let serverUrl = "http://localhost:4000";
     axios
