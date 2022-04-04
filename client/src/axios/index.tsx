@@ -118,7 +118,7 @@ export const axios_GetMyPosts = (accessToken: string) => {
   });
 };
 
-export const axios_Get_DetailPosts = (postId: number | string) => {
+export const axios_Get_DetailPosts = (postId: number | string | undefined) => {
   return axios.get(`${serverURI}/posts/${postId}`);
 };
 
@@ -157,6 +157,17 @@ export const axios_Delete_Like = (
   accessToken: string
 ) => {
   return axios.delete(`${serverURI}/like/${postId}`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const axios_Delete_comment = (
+  commentId: number,
+  accessToken: string
+) => {
+  return axios.delete(`${serverURI}/comment/${commentId}`, {
     headers: {
       authorization: `Bearer ${accessToken}`,
     },
