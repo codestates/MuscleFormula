@@ -32,8 +32,28 @@ module.exports = async (req: Request | any, res: Response) => {
           const user: any = await getRepository(Users).findOne({
             where: { id: data.id },
           });
-          if (user.email === data.email) {
-            user.email = email;
+          console.log(files);
+          if (!userImage) {
+            user.password = password;
+            user.nickname = nickname;
+
+            try {
+              await user.save();
+              const allUsers = await getRepository(Users).find();
+              console.log("allUsers:", allUsers);
+              res.status(200).json({
+                message: `수정 성공`,
+                Data: {
+                  userId: user.id,
+                  email: user.email,
+                  nickname: user.nickname,
+                  image: user.image,
+                },
+              });
+            } catch (e) {
+              res.status(400).json({ message: `회원정보 수정 실패` });
+            }
+          } else if (userImage) {
             user.password = password;
             user.nickname = nickname;
             user.image = `${getImageUrl}/userimg/${userImage.filename}`;
@@ -46,6 +66,7 @@ module.exports = async (req: Request | any, res: Response) => {
                 message: `수정 성공`,
                 Data: {
                   userId: user.id,
+                  email: user.email,
                   nickname: user.nickname,
                   image: user.image,
                 },
@@ -53,9 +74,9 @@ module.exports = async (req: Request | any, res: Response) => {
             } catch (e) {
               res.status(400).json({ message: `회원정보 수정 실패` });
             }
-          } else {
-            res.status(404).json({ message: `유저정보가 일치하지 않습니다` });
           }
+        } else {
+          res.status(404).json({ message: `유저정보가 일치하지 않습니다` });
         }
       }
     );

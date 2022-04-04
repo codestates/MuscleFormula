@@ -60,13 +60,26 @@ module.exports = async (req: Request, res: Response) => {
           try {
             await created.save();
             // await post.save();
-            const allPost_Comment = await getRepository(Post_Comments).find({
-              relations: ["users", "post"],
+            //const allPost_Comment = await getRepository(Post_Comments).find({
+            //relations: ["users", "post"],
+            // });
+            // console.log("allPost_Comment:", allPost_Comment);
+            console.log(created);
+            res.status(200).json({
+              message: `코멘트 생성 성공`,
+              data: {
+                id: created.id,
+                commnet: created.comment,
+                created_At: created.created_At,
+                users: {
+                  id: created.users.id,
+                  email: created.users.email,
+                  nickname: created.users.nickname,
+                  image: created.users.image,
+                },
+                post: created.post,
+              },
             });
-            console.log("allPost_Comment:", allPost_Comment);
-            res
-              .status(200)
-              .json({ message: `코멘트 생성 성공`, data: created });
           } catch (e) {
             res.status(400).json({ message: `코멘트를 생성 할수 없습니다.` });
           }

@@ -59,13 +59,24 @@ module.exports = async (req: Request, res: Response) => {
           try {
             await postCommnet.save();
             // await post.save();
-            const allPost_Comment = await getRepository(Post_Comments).find({
-              relations: ["users", "post"],
+            // const allPost_Comment = await getRepository(Post_Comments).find({
+            //   relations: ["users", "post"],
+            // });
+            // console.log("allPost_Comment:", allPost_Comment);
+            res.status(200).json({
+              message: `코멘트 수정 성공`,
+              data: {
+                id: postCommnet.id,
+                commnet: postCommnet.comment,
+                created_At: postCommnet.created_At,
+                users: {
+                  id: postCommnet.users.id,
+                  email: postCommnet.users.email,
+                  nickname: postCommnet.users.nickname,
+                  image: postCommnet.users.image,
+                },
+              },
             });
-            console.log("allPost_Comment:", allPost_Comment);
-            res
-              .status(200)
-              .json({ message: `코멘트 수정 성공`, data: postCommnet });
           } catch (e) {
             res.status(400).json({ message: `코멘트를 수정 할수없습니다` });
           }
