@@ -22,9 +22,7 @@ import CallbackGoogle from "./callback/callbackGoogle";
 const App: React.FC = () => {
   return (
     <div>
-      <div className="app-nav-container">
-        <Nav />
-      </div>
+      <div className="app-nav-container">{/* <Nav /> */}</div>
       <Routes>
         <Route path="/main" element={<Main />} />
         <Route path="/detail" element={<Detail />} />
