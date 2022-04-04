@@ -56,10 +56,10 @@ export const Main = styled.div`
     flex: 2 0 auto;
     > #detail-Comment-input {
       display: flex;
-      > #div-input {
+      /* > #div-input {
         border: 3px solid lightgreen;
         width: 50%;
-      }
+      } */
     }
   }
 `;
@@ -74,9 +74,18 @@ export default function Detail() {
   console.log("detail Page");
   console.log("params postId:", postId);
 
-  const [commentContent, setCommentContent] = useState<string | null>("");
-  const [postInfo, setPostInfo] = useState<any>("");
+  const [commentContent, setCommentContent] = useState<string | null | any>("");
+  const [postInfo, setPostInfo] = useState<any>(null);
   const [like, setLike] = useState<any>("");
+  let [isModify, setIsModify] = useState(false);
+  const [titleContent, setTitleContent] = useState<string | null>("");
+  const [textContent, setTextContent] = useState<string | null>("");
+  const [bodyPart, setBodyPart] = useState<string | null>("");
+  const [photo, setPhoto] = useState<any>({
+    file: [],
+    previewURL: "",
+  });
+  const [difficult, setDifficult] = useState(0);
   useEffect(() => {
     console.log("detail useEffect");
     console.log("innerPostId : ", postId);
@@ -95,6 +104,7 @@ export default function Detail() {
     axios_Create_Comment(postId, commentContent, user.accessToken).then(
       (res) => {
         console.log("코멘트 만들어짐");
+        setCommentContent("");
         axios_Get_DetailPosts(postId).then((req) => {
           console.log("req:", req.data);
           setPostInfo(req.data);
@@ -116,72 +126,138 @@ export default function Detail() {
         setLike("삭제");
       });
   };
-  console.log("postInfo:", postInfo);
-  console.log("commentContent:", commentContent);
+
+  const handlePostDelete = () => {
+    console.log("포스트삭제");
+  };
+
+  // console.log("postInfo:", postInfo);
+  // console.log("commentContent:", commentContent);
+  console.log("isModify: ", isModify);
   return (
     <div id="DetailPage">
       {postInfo ? (
-        <Main>
-          <div id="detial-container-up">
-            <div id="detail-title">{postInfo.title}</div>
-            <div id="detial-container-up-up">
-              <div id="detail-userinfo">
-                <img src={postInfo.users.image} style={{ width: "70px" }}></img>
-                <div>{postInfo.users.nickname}</div>
+        isModify ? (
+          <Main>
+            <div id="detial-container-up">
+              <div>수정</div>
+              <div id="detail-title">
+                <input></input>
               </div>
-              <div id="detail-butten">
-                <button>수정</button>
-                <button>삭제</button>
+              <div id="detial-container-up-up">
+                <div id="detail-userinfo">
+                  <img
+                    src={postInfo.users.image}
+                    style={{ width: "70px" }}
+                  ></img>
+                  <div>{postInfo.users.nickname}</div>
+                </div>
+                <div id="detail-butten">
+                  <button
+                    onClick={() => {
+                      setIsModify(!isModify);
+                    }}
+                  >
+                    수정완료
+                  </button>
+                </div>
+              </div>
+
+              <div id="detail-image">
+                <div>{postInfo.created_At.split("T")[0]}</div>
+                <img src={postInfo.image} style={{ width: "200px" }}></img>
               </div>
             </div>
-
-            <div id="detail-image">
-              <div>{postInfo.created_At.split("T")[0]}</div>
-              <img src={postInfo.image} style={{ width: "200px" }}></img>
+            <div id="detial-container-down">
+              <div id="detail-exInfo">
+                팔굽 윈몸 난이도
+                <br />
+                <br />
+                <div>총 소요시간: {postInfo.total_time}</div>
+                <div>난이도 : {postInfo.difficult}</div>
+                <div>운동부위 : {postInfo.body_Part}</div>
+                <div> 소감 :{postInfo.info}</div>
+              </div>
             </div>
-          </div>
-          <div id="detial-container-down">
-            <div id="detail-exInfo">
-              팔굽 윈몸 난이도
-              <br />
-              <br />
-              <div>총 소요시간: {postInfo.total_time}</div>
-              <div>난이도 : {postInfo.difficult}</div>
-              <div>운동부위 : {postInfo.body_Part}</div>
-              <div> 소감 :{postInfo.info}</div>
-            </div>
-          </div>
-          <div id="detial-container-comment">
-            {/* <div ></div> */}
-            <button onClick={handleLikeSubmit} style={{ width: "50px" }}>
-              ❤️
-            </button>
+            <div id="detial-container-comment"></div>
+          </Main>
+        ) : (
+          <Main>
+            <div id="detial-container-up">
+              <div>완료</div>
+              <div id="detail-title">{postInfo.title}</div>
+              <div id="detial-container-up-up">
+                <div id="detail-userinfo">
+                  <img
+                    src={postInfo.users.image}
+                    style={{ width: "70px" }}
+                  ></img>
+                  <div>{postInfo.users.nickname}</div>
+                </div>
+                <div id="detail-butten">
+                  <button
+                    onClick={() => {
+                      setIsModify(!isModify);
+                    }}
+                  >
+                    수정
+                  </button>
+                  <button onClick={handlePostDelete}>삭제</button>
+                </div>
+              </div>
 
-            <div id="detail-Comment-input">
-              글쓰기
-              <div
-                id="div-input"
-                contentEditable="true"
-                onInput={(e) => setCommentContent(e.currentTarget.textContent)}
-              ></div>
-              <button id="comment-submit-btn" onClick={handleCommentSubmit}>
-                전송
+              <div id="detail-image">
+                <div>{postInfo.created_At.split("T")[0]}</div>
+                <img src={postInfo.image} style={{ width: "200px" }}></img>
+              </div>
+            </div>
+            <div id="detial-container-down">
+              <div id="detail-exInfo">
+                팔굽 윈몸 난이도
+                <br />
+                <br />
+                <div>총 소요시간: {postInfo.total_time}</div>
+                <div>난이도 : {postInfo.difficult}</div>
+                <div>운동부위 : {postInfo.body_Part}</div>
+                <div> 소감 :{postInfo.info}</div>
+              </div>
+            </div>
+            <div id="detial-container-comment">
+              <button onClick={handleLikeSubmit} style={{ width: "50px" }}>
+                ❤️
               </button>
-            </div>
 
-            <ul>
-              {postInfo.total_comment.length > 0 ? (
-                postInfo.total_comment.map((el: any, idx: any) => (
-                  <li key={idx}>
-                    <Comment commentInfo={el} postId={postId}></Comment>
-                  </li>
-                ))
-              ) : (
-                <div>없음</div>
-              )}
-            </ul>
-          </div>
-        </Main>
+              <div id="detail-Comment-input">
+                글쓰기
+                <input
+                  id="input-test"
+                  type="textarea"
+                  value={commentContent}
+                  onChange={(e) => setCommentContent(e.target.value)}
+                ></input>
+                <button id="comment-submit-btn" onClick={handleCommentSubmit}>
+                  전송
+                </button>
+              </div>
+
+              <ul>
+                {postInfo.total_comment.length > 0 ? (
+                  postInfo.total_comment.map((el: any, idx: any) => (
+                    <li key={idx}>
+                      <Comment
+                        commentInfo={el}
+                        postId={postId}
+                        setPostInfo={setPostInfo}
+                      ></Comment>
+                    </li>
+                  ))
+                ) : (
+                  <div>없음</div>
+                )}
+              </ul>
+            </div>
+          </Main>
+        )
       ) : (
         <div>없</div>
       )}
