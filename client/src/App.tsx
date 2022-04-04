@@ -18,8 +18,21 @@ import EditorTest from "./test/EditorTest";
 import Landing from "./pages/Landing";
 import CallbackKakao from "./callback/callbackKakao";
 import CallbackGoogle from "./callback/callbackGoogle";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "./store";
+import { LOG_OUT } from "./reducer/userInfoReducer";
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
+  let dispatch: AppDispatch = useDispatch();
+  let oneDay = 1000 * 60 * 60 * 24;
+  // setTimeout(() => {
+  //   console.log("10초 후에 로그아웃됨");
+  //   navigate("/main");
+  //   dispatch(LOG_OUT());
+  // }, oneDay);
+
   return (
     <div>
       <div className="app-nav-container">
