@@ -27,11 +27,11 @@ const App: React.FC = () => {
   const navigate = useNavigate();
   let dispatch: AppDispatch = useDispatch();
   let oneDay = 1000 * 60 * 60 * 24;
-  // setTimeout(() => {
-  //   console.log("10초 후에 로그아웃됨");
-  //   navigate("/main");
-  //   dispatch(LOG_OUT());
-  // }, oneDay);
+  setTimeout(() => {
+    console.log("10초 후에 로그아웃됨");
+    navigate("/main");
+    dispatch(LOG_OUT());
+  }, oneDay);
 
   return (
     <div>
