@@ -41,19 +41,29 @@ module.exports = async (req: Request, res: Response) => {
             users: user.id,
             post: post.id,
           });
-          // const postLike = Post_Likes.create({
-          //   users : user,
-          //   post : post,
-          // });
 
           try {
             await postLike.save();
             // await post.save();
-            const allPost_like = await getRepository(Post_Likes).find({
+
+            const allPost_like = await getRepository(Post_Likes).findOne({
               relations: ["users", "post"],
+              where: { post: postId },
             });
-            // console.log("allPost_Comment:", allPost_like);
-            res.status(200).json({ message: `like 생성 성공`, data: postLike });
+            console.log("allPost_Comment:", allPost_like);
+            res.status(200).json({
+              message: `like 생성 성공`,
+              data: {
+                id: allPost_like?.id,
+                users: {
+                  id: allPost_like?.users.id,
+                  email: allPost_like?.users.email,
+                  nickname: allPost_like?.users.nickname,
+                  image: allPost_like?.users.image,
+                },
+                post: allPost_like?.post,
+              },
+            });
           } catch (e) {
             res.status(400).json({
               message: `like 생성이 실패하엿습니다`,

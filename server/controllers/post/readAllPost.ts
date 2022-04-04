@@ -10,6 +10,9 @@ module.exports = async (req: Request, res: Response) => {
 
   const allInfo = await getRepository(Posts).find({
     relations: ["users", "post_comments", "post_likes"],
+    order: {
+      id: "DESC",
+    },
   });
 
   const createed = allInfo.map((item) => {

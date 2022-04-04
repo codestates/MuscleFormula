@@ -54,7 +54,12 @@ module.exports = async (req: Request | any, res: Response) => {
             difficult: difficult,
             image: `${getImageUrl}/postimg/${postImage.filename}`,
             created_At: todaySring,
-            users: user,
+            users: {
+              id: user?.id,
+              email: user?.email,
+              nickname: user?.nickname,
+              image: user?.image,
+            },
             exerciseInfo: exInfo,
             post_comments: [],
             post_likes: [],
