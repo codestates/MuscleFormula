@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import dotenv from "dotenv";
 import { Posts } from "../../models/entity/Post";
+import { Record } from "../../models/entity/Record";
 
 dotenv.config();
 
@@ -15,17 +16,56 @@ module.exports = async (req: Request, res: Response) => {
     },
   });
 
+  const findRank = await getRepository(Record).find({
+    relations: ["ex_record", "users"],
+  });
+
+  //console.log(findRank);
+  const maxValue = findRank.map((el) => {
+    let total_time: any = 0;
+    let nickname = "";
+    el.ex_record.forEach((item) => {
+      total_time += item.time_record;
+    });
+    nickname = el.users.nickname;
+    return { total_time: total_time, nickname: nickname };
+  });
+  let rankData = maxValue.sort((a, b) => {
+    return b.total_time - a.total_time;
+  });
+
+  for (let i = 0; i < 3; i++) {
+    rankData[i].total_time = showtime(rankData[i].total_time);
+  }
+  console.log(rankData);
+  function showtime(item) {
+    let hour = Math.floor(item / 3600);
+    let min = Math.floor(item / 60) - hour * 60;
+    let sec = Math.floor(item % 60);
+    let output: string =
+      hour.toString().padStart(2, "0") +
+      ":" +
+      min.toString().padStart(2, "0") +
+      ":" +
+      sec.toString().padStart(2, "0");
+    //console.log(output);
+    if (output === "NaN:NaN:NaN") {
+      return "운동기록이 존재 하지않습니다.";
+    } else {
+      return output;
+    }
+  }
   const createed = allInfo.map((item) => {
     const data = {
-      postId: item.id,
-      postTitle: item.title,
-      info: item.info,
-      postImage: item.image,
       user: {
         userId: item.users.id,
         nickname: item.users.nickname,
         image: item.users.image,
       },
+      postId: item.id,
+      postTitle: item.title,
+      info: item.info,
+      postImage: item.image,
       bodyPart: item.body_Part,
       difficult: item.difficult,
       totalTime: item.total_time,
@@ -36,6 +76,11 @@ module.exports = async (req: Request, res: Response) => {
     return data;
   });
   res.status(200).json({
+    rankData: {
+      gold: rankData[0],
+      silver: rankData[1],
+      bronze: rankData[2],
+    },
     posts: createed,
   });
 };

@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 import { Users } from "../../models/entity/User";
 import { Record } from "../../models/entity/Record";
 import { Posts } from "../../models/entity/Post";
+import { Ex_Records } from "../../models/entity/Ex_Records";
 
 dotenv.config();
 let yesterdays = new Date(Date.now());
@@ -20,7 +21,7 @@ let yesterday =
   "-" +
   (yesterdays.getMonth() + 1) +
   "-" +
-  yesterdays.getDate();
+  (yesterdays.getDate() - 1);
 //console.log(yesterday);
 let findtoday =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
@@ -57,14 +58,27 @@ module.exports = async (req: Request, res: Response) => {
         //console.log("mypage", allInfo);
         const findLastTime = await getRepository(Record).findOne({
           relations: ["ex_record"],
-          where: { users: allInfo?.id, created_at: yesterday },
+          where: { users: data.id, created_at: yesterday },
         });
-        // console.log("???", findLastTime);
+        //console.log("???", findLastTime);
         const findTodayTime = await getRepository(Record).findOne({
           relations: ["ex_record"],
-          where: { users: allInfo?.id, created_at: findtoday },
+          where: { users: data.id, created_at: findtoday },
+        });
+        const findBestTime = await getRepository(Record).find({
+          relations: ["ex_record"],
+          where: { users: data.id },
         });
 
+        const maxValue = findBestTime.map((el) => {
+          let sum = 0;
+          el.ex_record.forEach((item) => {
+            sum += item.time_record;
+          });
+
+          return sum;
+        });
+        let sum = Math.max(...maxValue);
         //console.log("123", findTodayTime);
         const crawlLastTime = findLastTime?.ex_record.map((el) => {
           const dateData = el.time_record;
@@ -74,7 +88,9 @@ module.exports = async (req: Request, res: Response) => {
           const dateData = el.time_record;
           return Number(dateData);
         });
-        //console.log(crawltodayTime);
+
+        // console.log(crawlBestTime.);
+        //console.log("123", findBestTime);
         const translateLastTime: any = crawlLastTime?.reduce(
           (item1, item2) => item1 + item2,
           0
@@ -85,7 +101,9 @@ module.exports = async (req: Request, res: Response) => {
         );
         const lastTime = showtime(translateLastTime);
         const todayTime = showtime(translatetodayTime);
-        //console.log(lastTime);
+        const bestTime = showtime(sum);
+        console.log(bestTime);
+
         function showtime(item) {
           let hour = Math.floor(item / 3600);
           let min = Math.floor(item / 60) - hour * 60;
@@ -96,13 +114,14 @@ module.exports = async (req: Request, res: Response) => {
             min.toString().padStart(2, "0") +
             ":" +
             sec.toString().padStart(2, "0");
+          //console.log(output);
           if (output === "NaN:NaN:NaN") {
             return "운동기록이 존재 하지않습니다.";
           } else {
             return output;
           }
         }
-        console.log("a", allInfo);
+        //console.log("a", allInfo);
         //console.log("b", data);
         if (allInfo) {
           const createed = allInfo.map((item) => {
@@ -132,7 +151,7 @@ module.exports = async (req: Request, res: Response) => {
               exerciseInfo: {
                 LastTime: lastTime,
                 todayTime: todayTime,
-                bestTime: "test",
+                bestTime: bestTime,
               },
             },
             myPost: createed,
