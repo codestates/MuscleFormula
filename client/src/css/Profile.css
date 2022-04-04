@@ -1,16 +1,31 @@
+#profile-setting-container-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 #profile-setting-container {
-  margin-top: 6rem;
+  margin-top: 10rem;
+  padding: 3rem;
   display: flex;
   flex-direction:column;
-  width: 100%;
+  border-radius: 20px;
+  background-color: #00cc99;
+  box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  justify-content: center;
+  align-items: center;
 }
 
 .photo-wrapper {
+  background-color: white;
   position: relative;
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
   overflow: hidden;
+  margin: 0.5rem;
 }
 .photo-wrapper img {
     position: absolute;
@@ -19,4 +34,33 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.profile-nickname-setting {
+  margin-top: 0.5rem;
+  font-size: large;
+}
+
+.profile-nickname-setting input {
+  font-size: large;
+  color: black;
+  border: none;
+  border-bottom: 2px black solid;
+  background-color: transparent;
+  width: 10rem;
+}
+.profile-nickname-setting input:focus {
+  outline: none;
+}
+
+.profile-nickname-setting input::-webkit-input-placeholder {
+  color: black;
+}
+
+.profile-nickname-setting p{
+  font-size: small;
+}
+
+.quit {
+  padding: 0rem 4.5rem;
+  font-size: small;
 }

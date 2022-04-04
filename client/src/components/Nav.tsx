@@ -89,6 +89,7 @@ export const NavPC = styled.nav`
       height: 3rem;
       border-radius: 50%;
       overflow: hidden;
+      background-color: white;
       > img {
         position: absolute;
         top: 0;
@@ -161,6 +162,7 @@ export const UpNavMobile = styled.nav`
       height: 2.5rem;
       border-radius: 50%;
       overflow: hidden;
+      background-color: white;
       > img {
         position: absolute;
         top: 0;
