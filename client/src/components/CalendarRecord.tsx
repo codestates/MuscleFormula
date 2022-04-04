@@ -11,19 +11,21 @@ export const RecordContainer = styled.div`
   align-items: center;
   font-family: "IBM Plex Sans KR", sans-serif;
   font-size: large;
+  border-bottom: solid 1px lightgrey;
   > div {
     padding-right: 0.5rem;
     font-size: medium;
-    border-bottom: solid 1px lightgrey;
   }
   > .exercise-name {
     width: 6rem;
   }
   > .exercise-weight {
-    width: 3rem;
+    width: 4rem;
+    text-align: right;
   }
   > .exercise-count {
-    width: 3rem;
+    width: 4rem;
+    text-align: right;
   }
   > div:last-child {
     width: 4.5rem;
