@@ -36,7 +36,7 @@ module.exports = async (req: Request, res: Response) => {
         console.log(postlike);
         if (postlike) {
           res.status(409).json({ message: "이미 좋아요를 하셧습니다." });
-        } else if (user.email === data.email && post) {
+        } else if (user) {
           const postLike = Post_Likes.create({
             users: user.id,
             post: post.id,
