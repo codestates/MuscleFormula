@@ -13,7 +13,7 @@
   border-radius: 20px;
   background-color: #00cc99;
   box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
+  max-width: 300px;
   justify-content: center;
   align-items: center;
 }
@@ -36,7 +36,7 @@
     object-fit: cover;
 }
 .profile-nickname-setting {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   font-size: large;
 }
 
@@ -55,12 +55,34 @@
 .profile-nickname-setting input::-webkit-input-placeholder {
   color: black;
 }
+.profile-nickname-setting input:focus::-webkit-input-placeholder {
+  color:transparent; 
+}
+
+.nickname-edit-button button{
+  margin: 0.5rem 0rem 2rem 0rem;
+  border: none;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+  padding: 0.3rem;
+  width: 10rem;
+}
 
 .profile-nickname-setting p{
   font-size: small;
 }
+.profile-nickname-setting .same-nickname{
+  color: red;
+}
 
 .quit {
-  padding: 0rem 4.5rem;
+  margin-top: 0.5rem;
+  padding: 0rem 1.2rem;
   font-size: small;
+  height: 2rem;
+}
+
+.quit strong {
+  cursor: pointer;
 }

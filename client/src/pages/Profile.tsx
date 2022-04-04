@@ -6,6 +6,7 @@ import PhotoModal from "../components/Modals/PhotoModal";
 import { axios_GetNickname } from "../axios";
 import axios from "axios";
 import { EDIT_NICK } from "../reducer/userInfoReducer";
+import QuitModal from "../components/Modals/QuitModal";
 
 export default function Profile() {
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
@@ -21,9 +22,13 @@ export default function Profile() {
   });
 
   const [photoModal, setPhotoModal] = useState(false)
-
   const openPhotoModal = () => {
     setPhotoModal(!photoModal);
+  }
+
+  const [quitModal, setQuitModal] = useState(false);
+  const openQuitModal = () => {
+    setQuitModal(!quitModal)
   }
 
   const [userNickname, setUserNickname] = useState(user.nickname);
@@ -44,25 +49,32 @@ export default function Profile() {
     });
   },[userNickname])
 
-  console.log('토큰',user.accessToken);
-  console.log('유저닉넴', userNickname);
   const handleProfileNick = () => {
-    const formData = new FormData();
-    formData.append("nickname", userNickname);
-    // formData.append("email", photo.file[0]);
-    // formData.append("password", photo.file[0]);
-    let serverUrl='http://localhost:4000';
-    axios.put(
-      `${serverUrl}/user`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          authorization: `Bearer ${user.accessToken}`,
-        },
+    if (user.nickname === userNickname) {
+      return alert('동일한 닉네임입니다');
+    }
+    if(userNicknameCheck) {
+      if (userNickname.length === 0){
+        return alert('닉네임을 입력해주세요');
+      } else {
+        const formData = new FormData();
+        formData.append("nickname", userNickname);
+        let serverUrl='http://localhost:4000';
+        axios.put(
+        `${serverUrl}/user`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            authorization: `Bearer ${user.accessToken}`,
+          },
+        })
+        .then((res)=> {
+          dispatch(EDIT_NICK(res.data.Data.nickname));
+          return alert('닉네임이 변경되었습니다');
+        });
       }
-    )
-    .then((res)=> {
-      dispatch(EDIT_NICK(res.data.Data.nickname));
-    });
+    } else {
+      return alert('다른 닉네임을 입력해주세요');
+    }
   };
 
   return (
@@ -84,16 +96,15 @@ export default function Profile() {
           placeholder={user.nickname}
           onChange={changeNickname}/>
           <div>
-            {userNicknameCheck? <p> 사용 가능한 닉네임입니다 </p> : <p> 동일한 닉네임이 존재합니다 </p>}
+            {userNicknameCheck? <p> </p> : <p className="same-nickname"> 동일한 닉네임이 존재합니다 </p>}
           </div>
         </div>
-        <div className="profile-password-setting">
-        </div>
-        <div className="edit-button">
-          <button onClick={handleProfileNick}>수정하기</button>
-        </div>
+        <div className="nickname-edit-button">
+            <button onClick={handleProfileNick}>닉네임 수정</button>
+          </div>
         <div className="quit">
-          더 이상 서비스를 이용하지 않으신다고요? <strong>탈퇴하기</strong>
+          더 이상 서비스를 이용하지 않으신다고요? <strong onClick={()=> setQuitModal((cur)=> !cur)}>탈퇴하기</strong>
+          {quitModal? <QuitModal setQuitModal={setQuitModal}/> : null}
         </div>
       </div>
     </div>

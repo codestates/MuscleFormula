@@ -41,6 +41,7 @@ export const ModalView = styled.div.attrs(props => ({
         cursor: pointer;
         text-align: right;
         margin: 0rem 1rem;
+        font-size: large;
       }
       > .photoUploader-wrapper {
         height: 300px;

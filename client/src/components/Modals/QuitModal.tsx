@@ -1,5 +1,9 @@
+import axios from 'axios';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../../store";
+import { LOG_OUT } from "../../reducer/userInfoReducer";
 
 export const ModalBackdrop = styled.div`
   position: fixed;
@@ -14,59 +18,98 @@ export const ModalBackdrop = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  height: 15rem;
   text-align: center;
   margin: 120px auto;
 `;
 
-export const ModalBtn = styled.button`
-  background-color: #4000c7;
-  text-decoration: none;
-  border: none;
-  padding: 20px;
-  color: white;
-  border-radius: 30px;
-  cursor: grab;
-`;
-
-export const ModalView = styled.div.attrs(props => ({
-  // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있습니다.
-  role: 'dialog'
-}))`
+export const ModalView = styled.div`
     border-radius: 10px;
     background-color: #ffffff;
-    width: 300px;
-    height: 100px;
-
-    > span.close-btn {
-      margin-top: 5px;
-      cursor: pointer;
-    }
-
-    > div.desc {
-      margin-top: 25px;
-      color: #4000c7;
+    width: 310px;
+    height: 10rem;
+    > .desc {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem 0rem;
+      > .close-btn {
+        color: black;
+        cursor: pointer;
+        text-align: right;
+        margin: 0rem 1rem;
+        font-size: large;
+      }
+      > .quit-info {
+        font-size: medium;
+        margin: 0.5rem 0rem;
+      }
+      > .choice {
+        > button {
+          font-size: small;
+          cursor: pointer;
+          background-color: white;
+          border: none;
+          border: solid 2px black;
+          padding: 0.3rem 1rem;
+          border-radius: 20px;
+          margin: 0.5rem;
+          width: 4.5rem;
+        }
+        > button:hover {
+          background-color: black;
+          color: white;
+        }
+      }
     }
 `;
 
-export const QuitModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface QuitModalProps {
+  setQuitModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const QuitModal:React.FC<QuitModalProps> = ({setQuitModal}) => {
+  let dispatch: AppDispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(true);
   const openModalHandler = () => {
     setIsOpen(!isOpen);
+    setQuitModal((cur)=> !cur);
   };
+
+  let user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const localUser = localStorage.getItem("userInfo");
+  if (localUser !== null) {
+    user = JSON.parse(localUser);
+  }
+
+  const handleUserDelete = () => {
+    let serverUrl = 'http://localhost:4000'
+    axios.delete(`${serverUrl}/user`,{
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    });
+    dispatch(LOG_OUT());
+    window.location.replace("/main"); // 새로고침후 이동
+  }
+
   return (
-    <>
-      <ModalContainer>
-        <ModalBtn onClick={openModalHandler}>
-          {isOpen === false ? 'Open Modal' : 'Opened!'}
-        </ModalBtn>
-        {isOpen === true ? <ModalBackdrop onClick={openModalHandler}>
-          <ModalView onClick={(e) => e.stopPropagation()}>
-            <span onClick={openModalHandler} className='close-btn'>&times;</span>
-            <div className='desc'>HELLO CODESTATES!</div>
-          </ModalView>
-        </ModalBackdrop> : null}
-      </ModalContainer>
-    </>
-  );
-};
+    <ModalContainer>
+    {isOpen === true ? <ModalBackdrop onClick={openModalHandler}>
+      <ModalView onClick={(e) => e.stopPropagation()}>
+        <div className='desc'>
+          <span onClick={openModalHandler} className='close-btn'>
+          <i className="fa-regular fa-circle-xmark"></i>
+          </span>
+          <div className="quit-info">
+          정말 탈퇴하시겠습니까?
+          </div>
+          <div className='choice'>
+            <button onClick={handleUserDelete}>예</button>
+            <button onClick={openModalHandler}>아니오</button>
+          </div>
+        </div>
+      </ModalView>
+      </ModalBackdrop> : null}
+    </ModalContainer>
+  )
+}
+export default QuitModal;
