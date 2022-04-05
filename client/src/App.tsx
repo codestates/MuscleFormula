@@ -1,5 +1,5 @@
 import "./css/App.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Main from "./pages/Main";
@@ -26,12 +26,24 @@ import { LOG_OUT } from "./reducer/userInfoReducer";
 const App: React.FC = () => {
   const navigate = useNavigate();
   let dispatch: AppDispatch = useDispatch();
-  let oneDay = 1000 * 60 * 60 * 24;
-  setTimeout(() => {
-    console.log("10초 후에 로그아웃됨");
-    navigate("/main");
-    dispatch(LOG_OUT());
-  }, oneDay);
+
+  let isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
+  const localLogin = localStorage.getItem("isLogin");
+  if (localLogin !== null) {
+    isLogin = JSON.parse(localLogin);
+  }
+  useEffect(() => {
+    console.log(" useEffect 시간타이머 작동");
+    if (isLogin) {
+      console.log(" if 시간타이머 작동");
+      let oneDay = 1000 * 60 * 60 * 24;
+      setTimeout(() => {
+        console.log("10초 후에 로그아웃됨");
+        navigate("/main");
+        dispatch(LOG_OUT());
+      }, oneDay);
+    }
+  }, [isLogin]);
 
   return (
     <div>

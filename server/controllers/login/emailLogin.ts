@@ -25,6 +25,7 @@ module.exports = async (req: Request, res: Response) => {
       email: findUser.email,
       nickname: findUser.nickname,
       image: findUser.image,
+      loginType: "email",
     };
     console.log(findUser);
     const accessToken = await generateAccessToken(findUser.id, email, password);

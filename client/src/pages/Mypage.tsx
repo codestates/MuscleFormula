@@ -21,14 +21,12 @@ export default function Maypage() {
   }
 
   const [myPosts, setMyPosts] = useState([]);
-  const [lastTime, setLastTime] = useState('');
-  const [todayTime, setTodayTime] = useState('');
-  const [bestTime, setBestTime] = useState('');
-
+  const [lastTime, setLastTime] = useState("");
+  const [todayTime, setTodayTime] = useState("");
+  const [bestTime, setBestTime] = useState("");
 
   useEffect(() => {
-    axios_GetMyPosts(user.accessToken)
-    .then((res) => {
+    axios_GetMyPosts(user.accessToken).then((res) => {
       setMyPosts(res.data.mypageData.myPost);
       setLastTime(res.data.mypageData.users.exerciseInfo.LastTime);
       setTodayTime(res.data.mypageData.users.exerciseInfo.todayTime);
@@ -43,19 +41,28 @@ export default function Maypage() {
           안녕하세요 <strong>{user.nickname}</strong> 님
         </div>
         <div className="my-record">
-          <TodayRecord lastTime={lastTime} todayTime={todayTime} bestTime={bestTime}/>
+          <TodayRecord
+            lastTime={lastTime}
+            todayTime={todayTime}
+            bestTime={bestTime}
+          />
         </div>
       </div>
       <div className="mypost-container">
         <div className="mypost">
-      {myPosts.length > 0 ? 
-        <Slider {...settings}>
-          {myPosts.map((el, idx) => <PostThumbnail postThumb={el} key={idx} />)}</Slider>
-          : <NoPost/>}
+          {myPosts.length > 0 ? (
+            <Slider {...settings}>
+              {myPosts.map((el, idx) => (
+                <PostThumbnail postThumb={el} key={idx} />
+              ))}
+            </Slider>
+          ) : (
+            <NoPost />
+          )}
         </div>
       </div>
       <div className="share-container">
-        <Share/>
+        <Share />
       </div>
     </div>
   );

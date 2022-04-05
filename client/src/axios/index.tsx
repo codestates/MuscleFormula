@@ -173,3 +173,30 @@ export const axios_Delete_comment = (
     },
   });
 };
+export const axios_Delete_Post = (
+  postId: number | string,
+  accessToken: string
+) => {
+  return axios.delete(`${serverURI}/posts/${postId}`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+export const axios_Put_comment = (
+  commentId: number,
+  comment: string,
+  accessToken: string
+) => {
+  return axios.put(
+    `${serverURI}/comment/${commentId}`,
+    {
+      comment: comment,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};

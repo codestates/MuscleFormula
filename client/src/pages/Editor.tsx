@@ -45,12 +45,11 @@ const Editor = () => {
   const [titleContent, setTitleContent] = useState<string | null>("");
   const [textContent, setTextContent] = useState<string | null>("");
   const [bodyPart, setBodyPart] = useState<string | null>("");
-  console.log("titleContent:", titleContent);
-
   const [photo, setPhoto] = useState<any>({
     file: [],
     previewURL: "",
   });
+  const [difficult, setDifficult] = useState(0);
 
   //공유한 기록 redux에서 불러오기
   interface RecordType {
@@ -85,7 +84,6 @@ const Editor = () => {
   }
 
   //difficult
-  const [difficult, setDifficult] = useState(0);
 
   //total타임 shareRecords에서 계산
   console.log("shareRecords에서 time_record", shareRecords);
@@ -132,7 +130,7 @@ const Editor = () => {
             contentEditable="true"
             onInput={(e) => setTitleContent(e.currentTarget.textContent)}
           ></div>
-          <PhotoUploader photo={photo} setPhoto={setPhoto}/>
+          <PhotoUploader photo={photo} setPhoto={setPhoto} />
           <div id="record-container">
             공유한 기록
             {shareRecords !== null
