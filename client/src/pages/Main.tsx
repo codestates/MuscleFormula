@@ -29,9 +29,9 @@ export default function Main() {
 
   useEffect(() => {
     axios_GetPosts().then((res) => {
+      console.log('res', res);
       setPosts(res.data.posts);
       setshowPosts(res.data.posts);
-      console.log("포스트들", res.data.posts);
       setRankData(res.data.rankData);
     });
   }, [shareRecordsId]);
@@ -65,9 +65,6 @@ export default function Main() {
           <NoPost />
         )}
       </div>
-      <PC>
-        <Footer />
-      </PC>
     </div>
   );
 }

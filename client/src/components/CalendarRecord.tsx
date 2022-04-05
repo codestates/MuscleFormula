@@ -28,21 +28,7 @@ export const RecordContainer = styled.div`
     text-align: right;
   }
   > div:last-child {
-    width: 1rem;
-  }
-  > .delete-button {
-    font-size: large;
-    cursor: pointer;
-  }
-  > .delete-button:hover {
-    color: red;
-  }
-  > .edit-button {
-    font-size: large;
-    cursor: pointer;
-  }
-  > .edit-button:hover {
-    color: red;
+    width: 4.2rem;
   }
 `;
 
@@ -55,12 +41,10 @@ interface RecordType {
 
 interface CalendarRecordProps {
   record: RecordType;
-  submitDelete: any;
 }
 
 const CalendarRecord: React.FC<CalendarRecordProps> = ({
   record,
-  submitDelete,
 }) => {
   console.log(record);
   function secToTime(duration: number) {
@@ -83,17 +67,6 @@ const CalendarRecord: React.FC<CalendarRecordProps> = ({
           {typeof record.time_record === "number"
             ? secToTime(record.time_record)
             : null}
-        </div>
-        <div className="edit-button">
-          <i className="fa-solid fa-pen"></i>
-        </div>
-        <div className="delete-button">
-          <i
-            className="fa-solid fa-trash-can"
-            onClick={() => {
-              submitDelete(record.genre);
-            }}
-          ></i>
         </div>
       </RecordContainer>
     </CalendarRecordContainer>

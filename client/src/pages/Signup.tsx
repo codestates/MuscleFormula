@@ -1,4 +1,6 @@
 // 시작하자마자 보이는 뻘건색 삭제
+import { PC, Mobile } from "../mediaQuery";
+import Footer from "../components/Footer";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
