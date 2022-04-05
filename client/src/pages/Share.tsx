@@ -11,7 +11,10 @@ import { SHARE, SHARE_ID } from "../reducer/shareReducer";
 import axios from "axios";
 import NoRecord from "../components/NoRecord";
 import NeedLogin from "../components/NeedLogin";
-import { axios_Delete_UserRecord } from "../axios/index";
+import {
+  axios_Delete_UserRecord,
+  axios_Get_UserRecord_Date,
+} from "../axios/index";
 
 export default function Share() {
   const getDate = () => {
@@ -56,15 +59,16 @@ export default function Share() {
     isLogin = JSON.parse(localLogin);
   }
   //TODO 로컬 대신 서버에서 가져와야함
-  let serverUrl = "http://localhost:4000";
+  // let serverUrl = "http://localhost:4000";
   useEffect(() => {
     if (date) {
-      axios
-        .get(`${serverUrl}/record?date=${date}`, {
-          headers: {
-            authorization: `Bearer ${user.accessToken}`,
-          },
-        })
+      // axios
+      //   .get(`${serverUrl}/record?date=${date}`, {
+      //     headers: {
+      //       authorization: `Bearer ${user.accessToken}`,
+      //     },
+      //   })
+      axios_Get_UserRecord_Date(date, user.accessToken)
         .then((res) => {
           setRecords(res.data.data.exerciseInfo);
           setRecordsId(res.data.data.recordId);
