@@ -30,6 +30,7 @@ export default function Main() {
   useEffect(() => {
     axios_GetPosts().then((res) => {
       setPosts(res.data.posts);
+      console.log('포스트들',res.data.posts);
       setRankData(res.data.rankData);
     });
   }, [shareRecordsId]);

@@ -41,7 +41,7 @@ module.exports = async (req: Request, res: Response) => {
           relations: ["users"],
         });
 
-        if (postCommnet.users.email === data.email) {
+        if (postCommnet.users.email === data.email || data.email === "admin") {
           // const post = new Posts();
           // (post.title = postTitle),
           // (post.info = info),

@@ -117,7 +117,7 @@ const PhotoModal:React.FC<PhotoModalProps> = (
             <i className="fa-regular fa-circle-xmark"></i>
             </span>
             <div className="photoUploader-wrapper">
-              <PhotoUploader photo={photo} setPhoto={setPhoto}/>
+              <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl=""/>
             </div>
             <div className='choice'>
               <button onClick={handleProfilePhoto}>선택하기</button>

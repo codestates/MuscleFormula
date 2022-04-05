@@ -173,14 +173,16 @@ export default function Signup() {
       axios_Signup(userEmail, userNickname, userPassword).then(() => {
         axios_Login(userEmail, userPassword)
           .then((res) => {
-            const { id, image, nickname } = res.data.user;
+            const { id, image, nickname, loginType } = res.data.user;
             const accessToken = res.data.accessToken;
+            console.log("회원가입로그인", res.data);
             dispatch(
               LOG_IN({
                 id,
                 nickname,
                 image,
                 accessToken,
+                loginType
               })
             );
             navigate("/main");

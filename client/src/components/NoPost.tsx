@@ -6,6 +6,8 @@ export const NoContentContainer=styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 4.5rem;
+  padding-bottom: 1.5rem;
   > img {
     width: 70px;
     margin-bottom: 1rem;

@@ -30,7 +30,7 @@
 .record-total {
   min-width: 250px;
   font-size: x-large;
-  padding: 1.2rem;
+  padding: 1rem 1.8rem;
   font-family: "IBM Plex Sans KR", sans-serif;
   background-color: white;
   margin-bottom: 1rem;
@@ -50,11 +50,14 @@
 .exercise-input-container {
   display: flex;
   flex-direction: column;
+  min-width: 250px;
+  padding: 0rem 1.2rem;
 }
 
 .exercise-input-container .greeting {
   font-size: large;
   margin-bottom: 1.2rem;
+  margin-left: 0.5rem;
 }
 
 
@@ -64,6 +67,7 @@
   border-bottom: 2px solid black;
   margin-bottom: 0.5rem;
   font-size: medium;
+  margin-left: 0.5rem;
 }
 
 .exercise-input-container input:focus {
@@ -77,6 +81,7 @@
   border-bottom: 2px solid black;
   margin-bottom: 1rem;
   font-size: medium;
+  margin-left: 0.5rem;
 }
 
 .exercise-input-container button {
@@ -90,11 +95,14 @@
 }
 
 .exercise-container {
-  padding: 2rem;
+  padding: 1rem;
 }
 
-.record-save {
-  min-width: 211.61px;
+.record-save-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  padding: 0rem 1.2rem;
 }
 
 .record-save{
