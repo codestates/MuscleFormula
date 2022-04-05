@@ -18,7 +18,14 @@ export default function Main() {
     (state: RootState) => state.shareRecord.shareRecordId
   );
   const [posts, setPosts] = useState([]);
-  const [rankData, setRankData] = useState<{total_time: string, nickname: string}[]>([]);
+  const [showPosts, setshowPosts] = useState(posts);
+  console.log("showPosts:", showPosts);
+  useEffect(() => {
+    setshowPosts(posts);
+  }, [posts]);
+  const [rankData, setRankData] = useState<
+    { total_time: string; nickname: string }[]
+  >([]);
 
   useEffect(() => {
     axios_GetPosts().then((res) => {
@@ -30,22 +37,25 @@ export default function Main() {
   const navigate = useNavigate();
   const code = new URLSearchParams(window.location.search).get("code");
   console.log("code", code);
+  console.log("posts :", posts);
   return (
     <div id="main-container">
       <div id="todayking-container">
-        <TodayKing rankData={rankData}/>
+        <TodayKing rankData={rankData} />
       </div>
       <div id="search-container">
-        <Search />
+        <Search posts={posts} setshowPosts={setshowPosts} />
       </div>
       <div id="postthumb-container">
-        {posts.length > 0 
-        ? posts.map((el, idx) => (
-          <div className="post-thumbs" key={idx}>
-            <PostThumbnail postThumb={el} key={idx} />
-          </div>
+        {showPosts.length > 0 ? (
+          showPosts.map((el, idx) => (
+            <div className="post-thumbs" key={idx}>
+              <PostThumbnail postThumb={el} key={idx} />
+            </div>
           ))
-        : <NoPost/>}
+        ) : (
+          <NoPost />
+        )}
       </div>
       <PC>
         <Footer />
