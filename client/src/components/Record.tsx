@@ -17,7 +17,7 @@ export const TimerContainer = styled.div`
   align-items: center;
   flex-flow: row wrap;
   > .start, .stop {
-    margin: 0.5rem;
+    margin: 0.3rem;
     width: 70px;
     font-size: large;
     font-size: large;
@@ -58,7 +58,6 @@ interface RecordType {
 }
 
 interface RecordProps{
-  setTotalSec: React.Dispatch<React.SetStateAction<number>>;
   exercise: RecordType;
   deleteRecord: (sec: number, deleteIndex: number) => void;
   idx: number;
@@ -66,8 +65,7 @@ interface RecordProps{
 }
 
 const Record:React.FC<RecordProps> = (
-  { exercise,
-    setTotalSec, 
+  { exercise, 
     deleteRecord, 
     idx,
     getRecordValue
@@ -91,13 +89,12 @@ const Record:React.FC<RecordProps> = (
       interval = setInterval(()=> {
         getRecordValue(sec, idx);
         setSec((cur) => cur + 1);
-        setTotalSec((cur) => cur + 1);
       }, 1000);
     } else if (!start && sec !== 0) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  },[start, sec, setTotalSec, getRecordValue, idx]);
+  },[start, sec, getRecordValue, idx]);
 
   function secToTime(duration:number) {
     let seconds :(number|string) = Math.floor(duration % 60); 

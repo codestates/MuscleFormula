@@ -8,8 +8,9 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
-  const { postId } = req.query;
-  console.log(req.query);
+  console.log("server deletePost in !!");
+
+  const postId = req.params.id;
   const auth = req.headers["authorization"];
   console.log("delete body", req.body);
   if (!auth) {
@@ -26,9 +27,10 @@ module.exports = async (req: Request, res: Response) => {
           where: { id: postId },
           relations: ["users"],
         });
+        //console.log(post.users.email);
         //console.log(data);
         //console.log(post?.users.email);
-        if (post?.users.email === data?.email) {
+        if (post.users.email === data.email || data.email === "admin") {
           try {
             await post.remove();
             res.status(200).json({ message: `포스트 삭제 성공` });

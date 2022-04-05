@@ -19,13 +19,13 @@ const kakao = {
 // const kakaoInfoUrl = `https://www.kakaoapis.com/oauth2/v3/userinfo`;
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server kakaoOauth in !!");
+
   console.log("Client 코드 : ", req.body);
 
   const { kakao_access_token, kakao_refresh_token } = req.body;
 
-  const userResponse = await axios({
-    method: "GET",
-    url: "https://kapi.kakao.com/v2/user/me",
+  const userResponse = await axios.get("https://kapi.kakao.com/v2/user/me", {
     headers: {
       Authorization: `Bearer ${kakao_access_token}`,
     },
@@ -75,10 +75,15 @@ module.exports = async (req: Request, res: Response) => {
       email: findUser.email,
       nickname: findUser.nickname,
       image: findUser.image,
+      loginType: "kakao",
     };
 
-    const accessToken = await generateAccessToken(email, password);
-    const refreshToken = await generateRefreshToken(email, password);
+    const accessToken = await generateAccessToken(userData.id, email, password);
+    const refreshToken = await generateRefreshToken(
+      userData.id,
+      email,
+      password
+    );
     res.cookie("refreshToken", refreshToken, {
       maxAge: 60 * 60 * 24 * 7, // 1주일
       //domain: "gg-one-delta.vercel.app",

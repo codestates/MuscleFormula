@@ -14,7 +14,7 @@ let userData: any;
 let email: string;
 let password: string;
 module.exports = async (req: Request, res: Response) => {
-  console.log(req.body);
+  console.log("server googleOauth in !!");
 
   let google_access_token = req.body.accessToken;
   const result = await axios.get(googleInfo, {
@@ -58,11 +58,12 @@ module.exports = async (req: Request, res: Response) => {
       email: findUser.email,
       nickname: findUser.nickname,
       image: findUser.image,
+      loginType: "google",
     };
   }
 
-  const accessToken = await generateAccessToken(email, password);
-  const refreshToken = await generateRefreshToken(email, password);
+  const accessToken = await generateAccessToken(userData.id, email, password);
+  const refreshToken = await generateRefreshToken(userData.id, email, password);
   res.cookie("refreshToken", refreshToken, {
     maxAge: 60 * 60 * 24 * 7, // 1주일
     //domain: "gg-one-delta.vercel.app",

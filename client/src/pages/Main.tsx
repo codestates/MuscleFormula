@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Mobile, PC } from "../mediaQuery";
 import axios from "axios";
@@ -8,13 +8,25 @@ import dummyThumbs from "./dummy/dummyThumbs";
 import Search from "../components/Search";
 import PostThumbnail from "../components/PostThumbnail";
 import TodayKing from "../components/TodayKing";
+import { axios_GetPosts } from "../axios";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../store";
+import NoPost from "../components/NoPost";
+
 export default function Main() {
-  console.log("메인페이지");
+  let shareRecordsId = useSelector(
+    (state: RootState) => state.shareRecord.shareRecordId
+  );
+  const [posts, setPosts] = useState([]);
+  const [rankData, setRankData] = useState<{total_time: string, nickname: string}[]>([]);
+
   useEffect(() => {
-    axios.get(`http://localhost:4000/posts`).then((res) => {
-      console.log("모든 포스트 정보:", res);
+    axios_GetPosts().then((res) => {
+      setPosts(res.data.posts);
+      console.log('포스트들',res.data.posts);
+      setRankData(res.data.rankData);
     });
-  }, []);
+  }, [shareRecordsId]);
 
   const navigate = useNavigate();
   const code = new URLSearchParams(window.location.search).get("code");
@@ -22,17 +34,19 @@ export default function Main() {
   return (
     <div id="main-container">
       <div id="todayking-container">
-        <TodayKing />
+        <TodayKing rankData={rankData}/>
       </div>
       <div id="search-container">
         <Search />
       </div>
       <div id="postthumb-container">
-        {dummyThumbs.map((el, idx) => (
+        {posts.length > 0 
+        ? posts.map((el, idx) => (
           <div className="post-thumbs" key={idx}>
             <PostThumbnail postThumb={el} key={idx} />
           </div>
-        ))}
+          ))
+        : <NoPost/>}
       </div>
       <PC>
         <Footer />

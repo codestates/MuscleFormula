@@ -1,4 +1,6 @@
 import axios from "axios";
+import { axios_Login } from "../axios";
+
 import React from "react";
 import { Mobile, PC } from "../mediaQuery";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,7 +39,7 @@ export const LoginPC = styled.div`
       }
     }
     > #oauth-container {
-      > tr {
+      > tbody > tr {
         > th {
           cursor: pointer;
         }
@@ -185,7 +187,7 @@ export const LoginMobile = styled.div`
     }
     > #oauth-container {
       padding: 1rem 2rem;
-      > tr {
+      > tbody > tr {
         > th {
           cursor: pointer;
         }
@@ -200,7 +202,7 @@ export const LoginMobile = styled.div`
   }
 `;
 
-export default function LoginTest() {
+export default function Login() {
   const kakao = {
     clientID: "7d8937ab746c6e3604651e33e259fc1d",
     clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
@@ -222,34 +224,24 @@ export default function LoginTest() {
   const dispatch: AppDispatch = useDispatch();
 
   const loginHangle = async () => {
-    const loginUserinfo = {
-      email: userEmail,
-      password: userPassword,
-    };
-
-    axios
-      .post(`http://localhost:4000/sign/in`, loginUserinfo, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        const { id, image, nickname } = res.data.user;
-        const accessToken = res.data.accessToken;
-        dispatch(
-          LOG_IN({
-            id,
-            nickname,
-            image,
-            accessToken,
-          })
-        );
-        navigate("/main");
-      });
-  };
-  const loginKakaoHangle = async () => {
-    // console.log("kakao");
-    // axios.get(kakaoCodeGetURI).then((res) => {
-    //   console.log("res", res);
-    // });
+    axios_Login(userEmail, userPassword).then((res) => {
+      const { id, image, nickname, loginType } = res.data.user;
+      const accessToken = res.data.accessToken;
+      console.log("이메일로그인", res.data);
+      dispatch(
+        LOG_IN({
+          id,
+          nickname,
+          image,
+          accessToken,
+          loginType
+        })
+      );
+      navigate("/main");
+    })
+    .catch(()=>{
+      alert('이메일 혹은 비밀번호가 일치하지 않습니다')
+    })
   };
 
   const changeEmail = (e: string | any) => {
@@ -266,31 +258,33 @@ export default function LoginTest() {
           <div id="login-container-left">
             <div id="greeting-container">
               <div className="greeting">오늘도 힘차게 운동해볼까요?</div>
-              <img src="../images/icon_exerciseman.png" alt="exercising_man" />
+              <img src="../images/icon_weightlifting.png" alt="exercising_man" />
             </div>
             <table id="oauth-container">
-              <tr>
-                <th>
-                  <a href={googleCodeGetRUI}>
-                    <img src="../images/icon_google.png" alt="logoGoogle" />
-                  </a>
-                </th>
-                <th>
-                  <a href={kakaoCodeGetURI}>
-                    <img
-                      src="../images/icon_kakao.png"
-                      alt="logoKakao"
-                      onClick={() => {
-                        console.log("kakao");
-                      }}
-                    />
-                  </a>
-                </th>
-              </tr>
-              <tr>
-                <td>구글로 로그인</td>
-                <td>카카오로 로그인</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th>
+                    <a href={googleCodeGetRUI}>
+                      <img src="../images/icon_google.png" alt="logoGoogle" />
+                    </a>
+                  </th>
+                  <th>
+                    <a href={kakaoCodeGetURI}>
+                      <img
+                        src="../images/icon_kakao.png"
+                        alt="logoKakao"
+                        onClick={() => {
+                          console.log("kakao");
+                        }}
+                      />
+                    </a>
+                  </th>
+                </tr>
+                <tr>
+                  <td>구글로 로그인</td>
+                  <td>카카오로 로그인</td>
+                </tr>
+              </tbody>
             </table>
           </div>
           <div id="login-container-right">
@@ -329,7 +323,7 @@ export default function LoginTest() {
           <div id="login-container">
             <div id="greeting-container">
               <div className="greeting">오늘도 힘차게 운동해볼까요?</div>
-              <img src="../images/icon_exerciseman.png" alt="exercising_man" />
+              <img src="../images/icon_weightlifting.png" alt="exercising_man" />
             </div>
             <div id="user-container">
               <div className="user-input-container">
@@ -359,28 +353,30 @@ export default function LoginTest() {
               </div>
             </div>
             <table id="oauth-container">
-              <tr>
-                <th>
-                  <a href={googleCodeGetRUI}>
-                    <img src="../images/icon_google.png" alt="logoGoogle" />
-                  </a>
-                </th>
-                <th>
-                  <a href={kakaoCodeGetURI}>
-                    <img
-                      src="../images/icon_kakao.png"
-                      alt="logoKakao"
-                      onClick={() => {
-                        console.log("kakao");
-                      }}
-                    />
-                  </a>
-                </th>
-              </tr>
-              <tr>
-                <td>구글로 로그인</td>
-                <td>카카오로 로그인</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th>
+                    <a href={googleCodeGetRUI}>
+                      <img src="../images/icon_google.png" alt="logoGoogle" />
+                    </a>
+                  </th>
+                  <th>
+                    <a href={kakaoCodeGetURI}>
+                      <img
+                        src="../images/icon_kakao.png"
+                        alt="logoKakao"
+                        onClick={() => {
+                          console.log("kakao");
+                        }}
+                      />
+                    </a>
+                  </th>
+                </tr>
+                <tr>
+                  <td>구글로 로그인</td>
+                  <td>카카오로 로그인</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </LoginMobile>

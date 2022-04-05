@@ -1,11 +1,47 @@
 #mypage-container {
-  margin-top: 5rem;
   margin-bottom: 4rem;
-  padding: 1rem;
   display: flex;
   flex-direction:column;
+  width: 100%;
 }
 
-#mypage-container strong {
+.myinfo-container {
+  padding-top: 6rem;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 5rem;
+}
+
+.myinfo-container .welcome {
+  padding: 1rem;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-size: large;
+  margin: auto;
+}
+
+.myinfo-container .welcome strong {
   color: #00cc99
+}
+
+.myinfo-container .my-record {
+  margin: auto;
+}
+
+.mypost-container {
+  display: block;
+}
+
+.mypost-container .mypost {
+  display: block;
+}
+
+.share-container {
+
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black !important;
 }

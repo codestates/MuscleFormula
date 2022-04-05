@@ -42,6 +42,7 @@ export const NavPC = styled.nav`
     font-size: 2rem;
     font-family: "IBM Plex Sans KR", sans-serif;
     > #logo {
+      margin-left: 1rem;
       width: 50px;
       vertical-align: middle;
     }
@@ -88,6 +89,7 @@ export const NavPC = styled.nav`
       height: 3rem;
       border-radius: 50%;
       overflow: hidden;
+      background-color: white;
       > img {
         position: absolute;
         top: 0;
@@ -136,7 +138,8 @@ export const UpNavMobile = styled.nav`
     font-size: 1.5rem;
     font-family: "IBM Plex Sans KR", sans-serif;
     > #logo {
-      width: 50px;
+      margin-left: 1rem;
+      width: 40px;
       vertical-align: middle;
     }
   }
@@ -159,6 +162,7 @@ export const UpNavMobile = styled.nav`
       height: 2.5rem;
       border-radius: 50%;
       overflow: hidden;
+      background-color: white;
       > img {
         position: absolute;
         top: 0;

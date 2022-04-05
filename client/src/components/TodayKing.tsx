@@ -4,32 +4,41 @@ import styled from "styled-components"
 export const TodayKingContainer = styled.ol`
   position : relative;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-direction: row;
   padding: 1rem;
   width: 80vw;
-  max-width: 350px;
+  max-width: 310px;
   list-style-type: none;
-  border-radius: 40px;
+  border-radius: 30px;
   background-color: #f2f2f2;
   > table {
-    > tr {
-      > th {
-        > img {
-          width: 40px;
+    > tbody
+      > tr {
+        > th {
+          > img {
+            width: 40px;
+          }
+        }
+        > td {
+          text-align: center;
+          padding: 0rem 0.5rem;
         }
       }
-      > td {
-        text-align: center;
-        padding: 0rem 1rem;
-      }
-    }
   }
 `
-export default function TodayKing() {
+
+interface TodayKingProps{
+  rankData: {
+    total_time: string;
+    nickname: string;
+}[]
+}
+const TodayKing:React.FC<TodayKingProps> = ({rankData}) => {
   return (
     <TodayKingContainer>
       <table>
+        <tbody>
         <tr>
           <th>
           <img src="../images/icon_goldmedal.png" alt= "goldmedal"/>
@@ -43,27 +52,30 @@ export default function TodayKing() {
         </tr>
         <tr>
           <th>
-           금메달유저
+            {rankData[0] ? rankData[0].nickname : '없음'}
           </th>
           <th>
-            은메달유저
+            {rankData[1] ? rankData[1].nickname : '없음'}
           </th>
           <th>
-            동메달유저
+            {rankData[2] ? rankData[2].nickname : '없음'}
           </th>
         </tr>
         <tr>
           <td>
-            00:00:00
+            {rankData[0] ? rankData[0].total_time : '기록없음'}
           </td>
           <td>
-            00:00:00
+            {rankData[1] ? rankData[1].total_time : '기록없음'}
           </td>
           <td>
-            00:00:00
+            {rankData[2] ? rankData[2].total_time : '기록없음'}
           </td>
         </tr>
+        </tbody>
       </table>
     </TodayKingContainer>
   )
 }
+
+export default TodayKing;

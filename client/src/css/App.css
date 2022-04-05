@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box;
-  /* border: 1px solid gray;s */
 }
 
 body {
@@ -8,3 +7,10 @@ body {
   padding: 0;
   height: 100%;
 }
+
+.app-nav-container {
+  position: relative;
+  z-index: 100;
+}
+
+

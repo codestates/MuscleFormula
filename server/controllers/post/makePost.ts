@@ -11,22 +11,18 @@ let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 // date 속성으로 넣으면날짜가 하루 -1 됨 ㅋㅋㅋ
 module.exports = async (req: Request | any, res: Response) => {
-  //console.log(req.cookies);
+  console.log("server makePost in !!");
+
   const auth = req.headers["authorization"];
-  //console.log(auth);
-  const {
-    userId,
-    postTitle,
-    info,
-    totalTime,
-    difficult,
-    bodyPart,
-    exerciseInfo,
-  } = req.body;
-  const postImage = req.file;
+  const { postTitle, info, totalTime, difficult, bodyPart, exerciseInfo } =
+    req.body;
+  let postImage = req.file;
+  if (typeof req.file === "undefined") {
+    postImage = {
+      filename: "img_post_default.png",
+    };
+  }
   const getImageUrl = "http://localhost:4000";
-  console.log("makePost body : ", req.body);
-  //console.log("todaySring body : ", todaySring);
 
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
@@ -39,13 +35,15 @@ module.exports = async (req: Request | any, res: Response) => {
         });
       } else if (data) {
         const user = await getRepository(Users).findOne({
-          where: { id: userId },
+          where: { id: data.id },
         });
         const exInfo = await getRepository(Record).findOne({
           where: { id: exerciseInfo },
           relations: ["ex_record"],
         });
-        //console.log("exInfo", exInfo);
+        console.log("exInfo", exInfo);
+        console.log("userEmail", user?.email);
+        console.log("dataEmail", data.email);
 
         if (user?.email === data.email) {
           const created = Posts.create({
@@ -54,9 +52,14 @@ module.exports = async (req: Request | any, res: Response) => {
             total_time: totalTime,
             body_Part: bodyPart,
             difficult: difficult,
-            image: `${getImageUrl}/post/${postImage.filename}`,
+            image: `${getImageUrl}/postimg/${postImage.filename}`,
             created_At: todaySring,
-            users: user,
+            users: {
+              id: user?.id,
+              email: user?.email,
+              nickname: user?.nickname,
+              image: user?.image,
+            },
             exerciseInfo: exInfo,
             post_comments: [],
             post_likes: [],

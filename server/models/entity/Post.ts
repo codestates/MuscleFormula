@@ -21,10 +21,6 @@ export class Posts extends BaseEntity {
   title: string;
   @Column()
   info: string;
-  @Column({
-    default: 0,
-  })
-  total_Likes: number;
   @Column()
   total_time: number;
   @Column()
@@ -33,7 +29,9 @@ export class Posts extends BaseEntity {
   body_Part: string;
   @Column()
   difficult: number;
-  @Column()
+  @Column({
+    default: "http://localhost:4000/postimg/img_post_default.png",
+  })
   image: string;
 
   @ManyToOne((type) => Users, (e) => e.posts, {
@@ -49,6 +47,7 @@ export class Posts extends BaseEntity {
   exerciseInfo: Record;
 
   @OneToMany((type) => Post_Comments, (e) => e.post)
+  // @JoinColumn({})
   post_comments: Post_Comments[];
 
   @OneToMany((type) => Post_Likes, (e) => e.post)

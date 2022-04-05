@@ -1,6 +1,6 @@
 import express from "express";
-
-const postrouter = express.Router();
+import { postUpload } from "../images/multer";
+const postRouter = express.Router();
 
 const deletePost = require("../controllers/post/deletePost");
 const makePost = require("../controllers/post/makePost");
@@ -8,32 +8,11 @@ const editPost = require("../controllers/post/editPost");
 const readAllPost = require("../controllers/post/readAllPost");
 const detailPost = require("../controllers/post/detailPost");
 
-const makePost_Comment = require("../controllers/post_comments/makePost_Comment");
-const readAllPost_Comment = require("../controllers/post_comments/readPost_Comment");
-const editPost_Comment = require("../controllers/post_comments/editPost_Comment");
-const deletePost_Comment = require("../controllers/post_comments/deletePost_Comment");
-const postUpload = require("../images/multer");
-const makePost_Like = require("../controllers/post_like/makePost_Like");
-const readAllPost_Like = require("../controllers/post_like/readPost_Like");
-const deletePost_Like = require("../controllers/post_like/deletePost_Like");
-
 //post
-postrouter.post("/", postUpload.single("postImage"), makePost);
+postRouter.post("/", postUpload.single("postImage"), makePost);
+postRouter.get("/", readAllPost);
+postRouter.get("/:id", detailPost);
+postRouter.put("/:id", postUpload.single("postImage"), editPost);
+postRouter.delete("/:id", deletePost);
 
-postrouter.get("/", readAllPost);
-postrouter.get("/detail", detailPost);
-postrouter.put("/", postUpload.single("postImage"), editPost);
-postrouter.delete("/", deletePost);
-
-//Post_Comments
-postrouter.post("/comment", makePost_Comment);
-postrouter.get("/comment", readAllPost_Comment);
-postrouter.put("/comment", editPost_Comment);
-postrouter.delete("/comment", deletePost_Comment);
-
-// Post_Likes
-postrouter.post("/like", makePost_Like);
-// postrouter.get("/like", readAllPost_Like);
-postrouter.delete("/like", deletePost_Like);
-
-export default postrouter;
+export default postRouter;

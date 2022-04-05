@@ -5,11 +5,11 @@ import CalendarRecord from "../components/CalendarRecord";
 import { useSelector, useDispatch } from "react-redux";
 import { RESET } from "../reducer/shareReducer";
 import type { RootState, AppDispatch } from "../store";
-import ImgTest from "../components/ImgTest";
-import axios from "axios";
 import StarPoint from "../components/StarPoint";
+import { axios_CreatePost } from "../axios";
+import PhotoUploader from "../components/PhotoUploader";
+
 const FormData = require("form-data");
-const form = new FormData();
 
 export const Main = styled.div`
   margin: 10rem 0rem;
@@ -32,17 +32,25 @@ export const Main = styled.div`
     > #record-container {
       border: 3px solid green;
     }
+    > #editor-titleContent {
+      border: 3px solid gray;
+    }
+    > #editor-textContent {
+      border: 3px solid gray;
+    }
   }
 `;
 
 const Editor = () => {
   const [titleContent, setTitleContent] = useState<string | null>("");
   const [textContent, setTextContent] = useState<string | null>("");
-  console.log("titleContent:", titleContent);
-  const [postfiles, setPostfiles] = useState<any>({
+  const [bodyPart, setBodyPart] = useState<string | null>("");
+  const [photo, setPhoto] = useState<any>({
     file: [],
     previewURL: "",
   });
+  const [difficult, setDifficult] = useState(0);
+
   //공유한 기록 redux에서 불러오기
   interface RecordType {
     genre: string;
@@ -76,90 +84,88 @@ const Editor = () => {
   }
 
   //difficult
-  const [difficult, setDifficult] = useState(0);
 
   //total타임 shareRecords에서 계산
   console.log("shareRecords에서 time_record", shareRecords);
+<<<<<<< HEAD
+=======
+  let shareRecordsTotalTime = 0;
+  if (shareRecords !== null) {
+    shareRecordsTotalTime = shareRecords.reduce((a, b) => {
+      return a + b.time_record;
+    }, 0);
+  }
+  console.log("shareRecordsTotalTime", shareRecordsTotalTime);
+>>>>>>> feature
 
   let dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    console.log("전송 파일 : ", postfiles.file[0]);
     const formData = new FormData();
-
-    formData.append("postImage", postfiles.file[0]);
+    formData.append("postImage", photo.file[0]);
     formData.append("postTitle", titleContent);
     formData.append("info", textContent);
-    formData.append("totalTime", 100);
-    formData.append("bodyPart", "상체");
+    formData.append("totalTime", shareRecordsTotalTime);
+    formData.append("bodyPart", bodyPart);
     formData.append("difficult", difficult);
     formData.append("userId", user.id);
-    formData.append("exceriseInfo", recordId);
+    formData.append("exerciseInfo", recordId);
 
-    axios.post("http://localhost:4000/posts", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        // authorization: `Bearer ${token}`,
-      },
-      // withCredentials: true,
-    });
+    axios_CreatePost(formData, user.accessToken);
     dispatch(RESET());
-    navigate("/main");
-  };
-  const handleSubmitInner = () => {
-    // console.log("전송 파일 : ", postfiles.file[0]);
-    // const formData = new FormData();
-    // formData.append("postImage", postfiles.file[0]);
-    // formData.append("postTitle", titleContent);
-    // formData.append("info", textContent);
-    // formData.append("totalTime", 100);
-    // formData.append("bodyPart", "상체");
-    // formData.append("difficult", 4);
-    // formData.append("userId", 1);
-    // formData.append("exceriseInfo", 1);
-    // axios.post("http://localhost:4000/posts", formData, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //     // authorization: `Bearer ${token}`,
-    //   },
-    //   // withCredentials: true,
-    // });
+    // navigate("/main");
+    // location.reload(); // 새로고침 내장함수 추가
+    window.location.replace("/main"); // 새로고침후 이동
   };
 
-  console.log("postfiles:", postfiles);
+  const handleGetbodyPart = (e: any) => {
+    console.log("e.target.value:", e.target.value);
+    setBodyPart(e.target.value);
+  };
   return (
     <div id="EditorPage">
       <Main>
         <div id="editor-container">
           <div>제목</div>
           <div
-            id="editor"
+            id="editor-titleContent"
             contentEditable="true"
             onInput={(e) => setTitleContent(e.currentTarget.textContent)}
-          >
-            제목적기
-          </div>
-          <ImgTest postfiles={postfiles} setPostfiles={setPostfiles}></ImgTest>
+          ></div>
+          <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl=""/>
           <div id="record-container">
             공유한 기록
-            {shareRecords.map((record: RecordType, idx: number) => (
-              <CalendarRecord key={idx} record={record} />
-            ))}
+            {shareRecords !== null
+              ? shareRecords.map((record: RecordType, idx: number) => (
+                  <CalendarRecord key={idx} record={record} submitDelete />
+                ))
+              : null}
           </div>
           <div>내용</div>
           <div
-            id="editor"
+            id="editor-textContent"
             contentEditable="true"
             onInput={(e) => setTextContent(e.currentTarget.textContent)}
-          >
-            내용적기
-          </div>
+          ></div>
           <div>드롭다운 (상체, 하체, 전신)</div>
+<<<<<<< HEAD
           <div>
             난이도
             <div>
               <StarPoint setValue={setDifficult} />
+=======
+          <select id="dropdown" onChange={handleGetbodyPart}>
+            <option value="미선택">선택해주세요</option>
+            <option value="전신">전신</option>
+            <option value="상체">상체</option>
+            <option value="하체">하체</option>
+          </select>
+          <div>
+            난이도
+            <div>
+              <StarPoint setDifficult={setDifficult} />
+>>>>>>> feature
             </div>
           </div>
           <div>

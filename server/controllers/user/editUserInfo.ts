@@ -6,10 +6,13 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 module.exports = async (req: Request | any, res: Response) => {
+  console.log("server editUserInfo in !!");
+
   const { email, password, nickname } = req.body;
   //console.log("signup Info : ", email, password, nickname);
   const auth = req.headers["authorization"];
   const files = req.file;
+
   //console.log("body", req.file);
   const userImage = files;
   const getImageUrl = "http://localhost:4000";
@@ -27,25 +30,53 @@ module.exports = async (req: Request | any, res: Response) => {
           });
         } else if (data) {
           const user: any = await getRepository(Users).findOne({
-            where: { email },
+            where: { id: data.id },
           });
-          if (user.email === data.email) {
-            user.email = email;
+          console.log(files);
+          if (!userImage) {
             user.password = password;
             user.nickname = nickname;
-            user.image = `${getImageUrl}/user/${userImage.filename}`;
 
             try {
               await user.save();
               const allUsers = await getRepository(Users).find();
               console.log("allUsers:", allUsers);
-              res.status(200).json({ message: `수정 성공` });
+              res.status(200).json({
+                message: `수정 성공`,
+                Data: {
+                  userId: user.id,
+                  email: user.email,
+                  nickname: user.nickname,
+                  image: user.image,
+                },
+              });
             } catch (e) {
               res.status(400).json({ message: `회원정보 수정 실패` });
             }
-          } else {
-            res.status(404).json({ message: `유저정보가 일치하지 않습니다` });
+          } else if (userImage) {
+            user.password = password;
+            user.nickname = nickname;
+            user.image = `${getImageUrl}/userimg/${userImage.filename}`;
+
+            try {
+              await user.save();
+              const allUsers = await getRepository(Users).find();
+              console.log("allUsers:", allUsers);
+              res.status(200).json({
+                message: `수정 성공`,
+                Data: {
+                  userId: user.id,
+                  email: user.email,
+                  nickname: user.nickname,
+                  image: user.image,
+                },
+              });
+            } catch (e) {
+              res.status(400).json({ message: `회원정보 수정 실패` });
+            }
           }
+        } else {
+          res.status(404).json({ message: `유저정보가 일치하지 않습니다` });
         }
       }
     );

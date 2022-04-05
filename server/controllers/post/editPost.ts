@@ -6,8 +6,10 @@ const jwt = require("jsonwebtoken");
 
 dotenv.config();
 module.exports = async (req: Request | any, res: Response) => {
+  console.log("server editPost in !!");
+
+  const postId = req.params.id;
   const {
-    postId,
     postTitle,
     info,
     exerciseInfo,
@@ -32,31 +34,54 @@ module.exports = async (req: Request | any, res: Response) => {
       } else if (data) {
         const post: any = await getRepository(Posts).findOne({
           where: { id: postId },
-          relations: ["users"],
+          relations: ["users", "exerciseInfo"],
         });
-        console.log("find post:", post);
-        if (post.users.email === data.email) {
-          (post.title = postTitle),
-            (post.info = info),
-            (post.total_time = totalTime),
-            (post.body_Part = bodyPart),
-            (post.difficult = difficult),
-            (post.image = `${getImageUrl}/post/${postImage.filename}`),
-            (post.created_At = created_At),
-            (post.exerciseInfo = exerciseInfo),
-            (post.post_comments = []),
-            (post.post_likes = []);
+        console.log(data);
+        if (post.users.email === data.email || data.email === "admin") {
+          if (!postImage) {
+            (post.title = postTitle),
+              (post.info = info),
+              (post.total_time = totalTime),
+              (post.body_Part = bodyPart),
+              (post.difficult = difficult),
+              (post.created_At = created_At),
+              (post.exerciseInfo = exerciseInfo);
 
-          try {
-            await post.save();
-            // const allUsers = await getRepository(Posts).find();
-            // console.log("allUsers:", allUsers);
-            console.log("postSave:", post);
-            res.status(200).json({ message: `post 수정 성공` });
-          } catch (e) {
-            res.status(404).json({ message: `글을 수정 할수 없습니다.` });
+            try {
+              await post.save();
+              // const allUsers = await getRepository(Posts).find();
+              // console.log("allUsers:", allUsers);
+              //onsole.log("postSave:", post);
+              res.status(200).json({ message: `post 수정 성공` });
+            } catch (e) {
+              console.log(e);
+              res.status(404).json({ message: `글을 수정 할수 없습니다.` });
+            }
+          } else {
+            (post.title = postTitle),
+              (post.info = info),
+              (post.total_time = totalTime),
+              (post.body_Part = bodyPart),
+              (post.difficult = difficult),
+              (post.image = `${getImageUrl}/postimg/${postImage.filename}`),
+              (post.created_At = created_At),
+              (post.exerciseInfo = exerciseInfo);
+
+            try {
+              await post.save();
+              // const allUsers = await getRepository(Posts).find();
+              // console.log("allUsers:", allUsers);
+              console.log("postSave:", post);
+              res.status(200).json({ message: `post 수정 성공` });
+            } catch (e) {
+              res.status(404).json({ message: `글을 수정 할수 없습니다.` });
+            }
           }
+        } else {
+          res.send(401).json({ message: "유저정보가 일치 하지 않습니다" });
         }
+      } else {
+        res.send(401).json({ message: "토큰이 유효하지 않습니다." });
       }
     });
   }

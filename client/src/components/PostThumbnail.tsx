@@ -2,6 +2,9 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../store";
+import { POST_ID } from "../reducer/postReducer";
 
 export const Postthumb = styled.div`
   flex: none;
@@ -71,6 +74,7 @@ export const Postthumb = styled.div`
           height: 2.5rem;
           border-radius: 50%;
           overflow: hidden;
+          background-color: white;
           > img {
             position: absolute;
             top: 0;
@@ -93,11 +97,11 @@ export const Postthumb = styled.div`
       border-collapse: collapse;
       margin-left: 0.5rem;
       font-size: small;
-      > tr:not(:last-of-type) {
+      > tbody > tr:not(:last-of-type) {
         text-align: left;
         border-bottom: 1px solid lightgrey;
       }
-      > th,
+      > tbody > th,
       td {
         padding-left: 0.5rem;
       }
@@ -107,52 +111,65 @@ export const Postthumb = styled.div`
 
 interface PostThumbnailProps {
   postThumb: {
+    postId: number;
     postImage: string;
-    title: string;
-    content: string;
-    likes: number;
-    comments: number;
-    image: string;
-    nickname: string;
-    difficulty: number;
-    record: string;
-    bodypart: string;
-    createdAt: string;
+    postTitle: string;
+    info: string;
+    total_Likes: any[];
+    total_comments: any[];
+    user: { userId: number; nickname: string; image: string };
+    difficult: number;
+    totalTime: number;
+    bodyPart: string;
+    created_At: string;
   };
 }
 
 const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const numToStar = (num: number) => {
-    if (num === 1) return "★";
-    if (num === 2) return "★★";
-    if (num === 3) return "★★★";
-    if (num === 4) return "★★★★";
-    if (num === 5) return "★★★★★";
-    else return "☆";
+    if (num === 0) return "☆";
+    let star = ""
+    for (let i = 0; i < num ; i++) {
+      star += "★";
+    }
+    return star;
   };
 
+  const secToTime = (duration: number) => {
+    let seconds: number | string = Math.floor(duration % 60);
+    let minutes: number | string = Math.floor((duration / 60) % 60);
+    let hours: number | string = Math.floor((duration / (60 * 60)) % 24);
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    return hours + "시간 " + minutes + "분 " + seconds + "초";
+  };
+  // let postId = postThumb.postId
   return (
     <Postthumb
       onClick={() => {
-        navigate("/detail");
+        dispatch(POST_ID(postThumb.postId));
+        navigate(`/detail/${postThumb.postId}`);
+        // window.location.replace(`/detail/${postThumb.postId}`); // 새로고침후 이동
       }}
     >
       <div id="image-container">
         <img src={postThumb.postImage} alt="post_image" />
       </div>
       <div id="up-container">
-        <div className="post-title">{postThumb.title}</div>
-        <div className="post-content">{postThumb.content}</div>
+        <div className="post-title">{postThumb.postTitle}</div>
+        <div className="post-content">{postThumb.info}</div>
         <div className="post-social">
-          <span className="post-date">{postThumb.createdAt}</span>
+          <span className="post-date">{postThumb.created_At.slice(0, 10)}</span>
           <span className="post-likes">
             <i className="fa-regular fa-heart"></i>
-            {postThumb.likes}
+            {postThumb.total_Likes}
           </span>
           <span className="post-comments">
             <i className="fa-regular fa-comment-dots"></i>
-            {postThumb.comments}
+            {postThumb.total_comments}
           </span>
         </div>
       </div>
@@ -162,26 +179,28 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
             <div id="photo-container">
               <img
                 className="user-photo"
-                src={postThumb.image}
+                src={postThumb.user.image}
                 alt="profile_image"
               />
             </div>
           </div>
-          <strong className="user-nickname">{postThumb.nickname}</strong>
+          <strong className="user-nickname">{postThumb.user.nickname}</strong>
         </div>
         <table id="exercise-container">
-          <tr>
-            <th>난이도</th>
-            <td>{numToStar(postThumb.difficulty)}</td>
-          </tr>
-          <tr>
-            <th>소요시간</th>
-            <td>{postThumb.record}</td>
-          </tr>
-          <tr>
-            <th>운동부위</th>
-            <td>{postThumb.bodypart}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th>난이도</th>
+              <td>{numToStar(postThumb.difficult)}</td>
+            </tr>
+            <tr>
+              <th>소요시간</th>
+              <td>{secToTime(postThumb.totalTime)}</td>
+            </tr>
+            <tr>
+              <th>운동부위</th>
+              <td>{postThumb.bodyPart}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </Postthumb>

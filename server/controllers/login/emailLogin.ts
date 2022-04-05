@@ -8,6 +8,8 @@ import { Users } from "../../models/entity/User";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server emailLogin in !!");
+
   const { email, password } = req.body;
   console.log("login req : ", req.body);
 
@@ -23,12 +25,17 @@ module.exports = async (req: Request, res: Response) => {
       email: findUser.email,
       nickname: findUser.nickname,
       image: findUser.image,
+      loginType: "email",
     };
-
-    const accessToken = await generateAccessToken(email, password);
-    const refreshToken = await generateRefreshToken(email, password);
+    console.log(findUser);
+    const accessToken = await generateAccessToken(findUser.id, email, password);
+    const refreshToken = await generateRefreshToken(
+      findUser.id,
+      email,
+      password
+    );
     res.cookie("refreshToken", refreshToken, {
-      maxAge: 60 * 60 * 24 * 7, // 1주일
+      maxAge: 60 * 60 * 24 * 180, // 6개월
       //domain: "/",
       //path: "/",
       httpOnly: true,

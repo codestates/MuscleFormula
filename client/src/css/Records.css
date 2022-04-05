@@ -1,0 +1,116 @@
+#no-record-container {
+  margin-top: 15rem;
+}
+#record-container {
+  margin-top: 3.5rem;
+  margin-bottom: 3.5rem;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+}
+.record-today {
+  min-width: 300px;
+  font-size: large;
+  padding: 2rem 2rem 1rem;
+  text-align: center;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #00cc99;
+}
+
+.record-today i {
+  font-size: medium;
+}
+
+.record-uploaded {
+  padding: 1.2rem;
+}
+
+.record-total {
+  min-width: 250px;
+  font-size: x-large;
+  padding: 1rem 1.8rem;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  background-color: white;
+  margin-bottom: 1rem;
+}
+
+.record-total .record-time-detail {
+  font-size: large;
+}
+
+.today-exercise-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  padding: 0rem 1.2rem;
+}
+
+.exercise-input-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  padding: 0rem 1.2rem;
+}
+
+.exercise-input-container .greeting {
+  font-size: large;
+  margin-bottom: 1.2rem;
+  margin-left: 0.5rem;
+}
+
+
+.exercise-input-container .exercise {
+  width: 10rem;
+  border: none;
+  border-bottom: 2px solid black;
+  margin-bottom: 0.5rem;
+  font-size: medium;
+  margin-left: 0.5rem;
+}
+
+.exercise-input-container input:focus {
+  outline: none;
+}
+
+.exercise-input-container .number {
+  width: 3rem;
+  text-align: right;
+  border: none;
+  border-bottom: 2px solid black;
+  margin-bottom: 1rem;
+  font-size: medium;
+  margin-left: 0.5rem;
+}
+
+.exercise-input-container button {
+  font-size: medium;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 10px;
+}
+
+.exercise-container {
+  padding: 1rem;
+}
+
+.record-save-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  padding: 0rem 1.2rem;
+}
+
+.record-save{
+  font-size: medium;
+  cursor: pointer;
+  background-color: #00cc99;
+  color: black;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 10px;
+}

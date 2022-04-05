@@ -6,9 +6,10 @@ const jwt = require("jsonwebtoken");
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
-  const { userId } = req.body;
+  console.log("server deleteuserInfo in !!");
+
   const auth = req.headers["authorization"];
-  console.log("user Info : ", userId);
+
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
   } else {
@@ -20,7 +21,7 @@ module.exports = async (req: Request, res: Response) => {
         });
       } else if (data) {
         const user: any = await getRepository(Users).findOne({
-          where: { userId },
+          where: { id: data.id },
         });
         console.log(user);
         if (user.email === data.email) {

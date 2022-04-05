@@ -5,6 +5,8 @@ import { Users } from "../../models/entity/User";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
+  console.log("server signup in !!");
+
   const { email, password, nickname, image } = req.body;
   console.log("signup Info : ", email, password, nickname, image);
 

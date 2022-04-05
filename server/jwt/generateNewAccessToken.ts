@@ -20,12 +20,15 @@ module.exports = async (req: Request, res: Response) => {
       const userData: any = await Users.findOne({
         where: { email: data.email },
       });
+      console.log("userData in generate", userData);
       if (data.email === userData?.email) {
         const accessToken = await generateAccessToken(
+          userData.id,
           userData.email,
           userData.password
         );
         const refreshToken = await generateRefreshToken(
+          userData.id,
           userData.email,
           userData.password
         );

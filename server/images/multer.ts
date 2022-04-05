@@ -1,16 +1,20 @@
+import dotenv from "dotenv";
+dotenv.config();
 const multer = require("multer");
+
 const userStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/Users/taegwonson/Desktop/GG/server/images/userImages");
+    cb(null, process.env.MULTER_USERIMAGE_URL);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
   limits: { fileSize: 5 * 1024 * 1024 },
 });
+
 const postStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/Users/taegwonson/Desktop/GG/server/images/postImages");
+    cb(null, process.env.MULTER_POSTERIMG_URL);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -20,5 +24,5 @@ const postStorage = multer.diskStorage({
 
 const userUpload = multer({ storage: userStorage });
 const postUpload = multer({ storage: postStorage });
-module.exports = userUpload;
-module.exports = postUpload;
+
+export { userUpload, postUpload };

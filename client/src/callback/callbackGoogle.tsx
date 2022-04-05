@@ -22,15 +22,16 @@ function CallbackGoogle() {
         // let refreshToken = result.data.refresh_token;
         axios_GetUser_toGoogleTOken(result.data.access_token)
           .then((res) => {
-            console.log("res.data", res.data);
-            const { id, image, nickname } = res.data.user;
+            console.log("구글콜백응답", res.data);
+            const { id, image, nickname, loginType } = res.data.user;
             const accessToken = res.data.accessToken;
             dispatch(
               LOG_IN({
                 id,
                 nickname,
                 image,
-                accessToken
+                accessToken,
+                loginType
               })
             );
             navigate("/main");
