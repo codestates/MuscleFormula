@@ -8,6 +8,7 @@ type InitialState = {
     nickname: string;
     image: string;
     accessToken: AxiosRequestConfig<any> | string | undefined | any;
+    loginType: string;
   };
   isLogin: boolean;
   notification: [];
@@ -24,7 +25,7 @@ export const initialState: InitialState = {
     { id: 1, name: "예쁜신발", quan: 3 },
   ],
   count: 0,
-  userInfo: { id: "", nickname: "", image: "", accessToken: "" },
+  userInfo: { id: "", nickname: "", image: "", accessToken: "", loginType: "" },
   isLogin: false,
   notification: [],
   shareRecord: null,

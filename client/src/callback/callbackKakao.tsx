@@ -22,7 +22,8 @@ function CallbackKakao() {
           res.data.access_token,
           res.data.refresh_token
         ).then((res) => {
-          const { id, image, nickname } = res.data.user;
+          console.log("카카오콜백응담", res.data);
+          const { id, image, nickname, loginType } = res.data.user;
           const accessToken = res.data.accessToken;
           console.log("user info :", id, image, nickname);
           dispatch(
@@ -31,6 +32,7 @@ function CallbackKakao() {
               nickname,
               image,
               accessToken,
+              loginType
             })
           );
           navigate("/main");

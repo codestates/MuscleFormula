@@ -7,6 +7,7 @@ import { axios_GetNickname } from "../axios";
 import axios from "axios";
 import { EDIT_NICK } from "../reducer/userInfoReducer";
 import QuitModal from "../components/Modals/QuitModal";
+import PasswordModal from "../components/Modals/PasswordModal";
 
 export default function Profile() {
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
@@ -29,6 +30,11 @@ export default function Profile() {
   const [quitModal, setQuitModal] = useState(false);
   const openQuitModal = () => {
     setQuitModal(!quitModal)
+  }
+
+  const [passwordModal, setPasswordModal] = useState(false);
+  const openPasswordModal = () => {
+    setPasswordModal(!passwordModal);
   }
 
   const [userNickname, setUserNickname] = useState(user.nickname);
@@ -99,11 +105,18 @@ export default function Profile() {
           </div>
         </div>
         <div className="nickname-edit-button">
-            <button onClick={handleProfileNick}>닉네임 수정</button>
-          </div>
+          <button onClick={handleProfileNick}>닉네임 수정</button>
+        </div>
+        <div className="password-edit-button">
+          {user.loginType === 'email'
+          ? 
+          <button onClick={openPasswordModal}>패스워드 수정</button>
+          : null}
+        </div>
         <div className="quit">
-          더 이상 서비스를 이용하지 않으신다고요? <strong onClick={()=> setQuitModal((cur)=> !cur)}>탈퇴하기</strong>
+          더 이상 서비스를 이용하지 않으신다고요? <strong onClick={openQuitModal}>탈퇴하기</strong>
           {quitModal? <QuitModal setQuitModal={setQuitModal}/> : null}
+          {passwordModal ? <PasswordModal setPasswordModal={setPasswordModal}/> : null}
         </div>
       </div>
     </div>

@@ -225,18 +225,23 @@ export default function Login() {
 
   const loginHangle = async () => {
     axios_Login(userEmail, userPassword).then((res) => {
-      const { id, image, nickname } = res.data.user;
+      const { id, image, nickname, loginType } = res.data.user;
       const accessToken = res.data.accessToken;
+      console.log("이메일로그인", res.data);
       dispatch(
         LOG_IN({
           id,
           nickname,
           image,
           accessToken,
+          loginType
         })
       );
       navigate("/main");
-    });
+    })
+    .catch(()=>{
+      alert('이메일 혹은 비밀번호가 일치하지 않습니다')
+    })
   };
 
   const changeEmail = (e: string | any) => {
