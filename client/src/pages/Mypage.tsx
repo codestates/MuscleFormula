@@ -21,11 +21,16 @@ export default function Maypage() {
   }
 
   const [myPosts, setMyPosts] = useState([]);
+  const [lastTime, setLastTime] = useState("");
+  const [todayTime, setTodayTime] = useState("");
+  const [bestTime, setBestTime] = useState("");
 
   useEffect(() => {
     axios_GetMyPosts(user.accessToken).then((res) => {
-      console.log("mypage데이터!", res.data.mypageData.myPost);
       setMyPosts(res.data.mypageData.myPost);
+      setLastTime(res.data.mypageData.users.exerciseInfo.LastTime);
+      setTodayTime(res.data.mypageData.users.exerciseInfo.todayTime);
+      setBestTime(res.data.mypageData.users.exerciseInfo.bestTime);
     });
   }, []);
 
@@ -36,7 +41,11 @@ export default function Maypage() {
           안녕하세요 <strong>{user.nickname}</strong> 님
         </div>
         <div className="my-record">
-          <TodayRecord />
+          <TodayRecord
+            lastTime={lastTime}
+            todayTime={todayTime}
+            bestTime={bestTime}
+          />
         </div>
       </div>
       <div className="mypost-container">

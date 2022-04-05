@@ -65,10 +65,10 @@ module.exports = async (req: Request, res: Response) => {
             // });
             // console.log("allPost_Comment:", allPost_Comment);
             console.log(created);
-            // const allComment: any = await getRepository(Post_Comments).find(
-            //   {relations: ["users"]}
-            // );
-            // console.log("allComment :", allComment);
+            const allComment: any = await getRepository(Post_Comments).find({
+              relations: ["users"],
+            });
+            console.log("allComment :", allComment);
             res.status(200).json({
               message: `코멘트 생성 성공`,
               data: {

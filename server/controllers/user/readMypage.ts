@@ -116,7 +116,7 @@ module.exports = async (req: Request, res: Response) => {
             sec.toString().padStart(2, "0");
           //console.log(output);
           if (output === "NaN:NaN:NaN") {
-            return "운동기록이 존재 하지않습니다.";
+            return "없음";
           } else {
             return output;
           }
@@ -138,7 +138,6 @@ module.exports = async (req: Request, res: Response) => {
               bodyPart: item.body_Part,
               difficult: item.difficult,
               totalTime: item.total_time,
-              //totalcomments찾아주세요 임시로 아무 값 넣었어여
               total_comments: item.post_comments.length,
               total_Likes: item.post_likes.length,
               created_At: item.created_At,

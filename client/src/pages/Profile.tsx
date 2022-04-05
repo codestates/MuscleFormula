@@ -38,7 +38,6 @@ export default function Profile() {
   }
   let dispatch = useDispatch();
 
-  console.log('유저닉네임', userNickname);
   useEffect(()=> {
     axios_GetNickname(userNickname)
     .then((res)=> {
