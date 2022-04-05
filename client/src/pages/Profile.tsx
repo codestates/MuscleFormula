@@ -1,4 +1,6 @@
 import "../css/Profile.css";
+import { PC, Mobile } from "../mediaQuery";
+import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 import React, { useState, useEffect } from "react";

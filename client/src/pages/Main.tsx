@@ -21,8 +21,11 @@ export default function Main() {
   const [rankData, setRankData] = useState<{total_time: string, nickname: string}[]>([]);
 
   useEffect(() => {
+    console.log('useEffect는 되니?');
     axios_GetPosts().then((res) => {
+      console.log('res', res);
       setPosts(res.data.posts);
+      console.log('야', posts);
       console.log('포스트들',res.data.posts);
       setRankData(res.data.rankData);
     });
@@ -48,9 +51,6 @@ export default function Main() {
           ))
         : <NoPost/>}
       </div>
-      <PC>
-        <Footer />
-      </PC>
     </div>
   );
 }

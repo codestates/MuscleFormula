@@ -1,3 +1,7 @@
+#record-container-wrapper {
+  margin-bottom: 3rem;
+}
+
 #no-record-container {
   margin-top: 15rem;
 }
@@ -7,6 +11,7 @@
   display: flex;
   flex-direction:column;
   align-items: center;
+
 }
 .record-today {
   min-width: 300px;
@@ -114,3 +119,4 @@
   padding: 0.3rem;
   border-radius: 10px;
 }
+

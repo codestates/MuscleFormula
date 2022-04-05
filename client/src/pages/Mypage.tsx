@@ -1,4 +1,6 @@
 /**마이 페이지**/
+import { PC, Mobile } from "../mediaQuery";
+import Footer from "../components/Footer";
 import "../css/Mypage.css";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";

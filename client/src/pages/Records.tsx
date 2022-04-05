@@ -1,4 +1,6 @@
 /**날짜별 운동 기록 페이지**/
+import { PC, Mobile } from "../mediaQuery";
+import Footer from "../components/Footer";
 import "../css/Records.css";
 import Record from "../components/Record";
 import React, { useState, useEffect } from "react";
@@ -186,7 +188,6 @@ export default function Records() {
               <CalendarRecord
                 key={idx}
                 record={record}
-                submitDelete={submitDelete}
               />
             ))}
           </div>

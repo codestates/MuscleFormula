@@ -52,7 +52,7 @@ module.exports = async (req: Request, res: Response) => {
   });
   //console.log(rankData);
   if (rankData.length === 0) {
-    res.status(200).json({ message: "작성된 글이 존재하지 않습니다." });
+    res.status(200);
   } else if (rankData.length > 3) {
     for (let i = 0; i < 3; i++) {
       rankData[i].total_time = showtime(rankData[i].total_time);
