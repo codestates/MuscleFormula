@@ -14,6 +14,7 @@ import { settings } from "../slideSetting";
 import NoPost from "../components/NoPost";
 import axios from "axios";
 import MyPostTab from "../components/MyPostTab";
+import { axios_Get_Like } from "../axios";
 
 export default function Maypage() {
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
@@ -36,19 +37,19 @@ export default function Maypage() {
       setBestTime(res.data.mypageData.users.exerciseInfo.bestTime);
     });
   }, []);
-  
-  useEffect(()=> {
-    let serverUrl=`http://localhost:4000`
-    axios.get(`${serverUrl}/like`, {
-      headers: {
-        authorization: `Bearer ${user.accessToken}`
-      }
-    })
-    .then((res)=> {
-      console.log('라이크응답',res.data);
+
+  useEffect(() => {
+    // let serverUrl = `http://localhost:4000`;
+    // axios.get(`${serverUrl}/like`, {
+    //   headers: {
+    //     authorization: `Bearer ${user.accessToken}`
+    //   }
+    // })
+    axios_Get_Like(user.accessToken).then((res: any) => {
+      console.log("라이크응답", res.data);
       setLikedPosts(res.data);
     });
-  },[]);
+  }, []);
 
   return (
     <div id="mypage-container">
@@ -67,7 +68,7 @@ export default function Maypage() {
       <div className="mypost-container">
         <div className="mypost">
           {myPosts.length > 0 ? (
-            <MyPostTab myPosts={myPosts} likedPosts={likedPosts}/>
+            <MyPostTab myPosts={myPosts} likedPosts={likedPosts} />
           ) : (
             <NoPost />
           )}

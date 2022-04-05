@@ -1,10 +1,11 @@
-import axios from 'axios';
-import { useState } from 'react';
-import styled from 'styled-components';
-import PhotoUploader from '../PhotoUploader';
+import axios from "axios";
+import { useState } from "react";
+import styled from "styled-components";
+import PhotoUploader from "../PhotoUploader";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../store";
 import { EDIT_IMAGE } from "../../reducer/userInfoReducer";
+import { axios_Put_User } from "../../axios";
 
 export const ModalBackdrop = styled.div`
   position: fixed;
@@ -13,7 +14,7 @@ export const ModalBackdrop = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   display: grid;
   place-items: center;
 `;
@@ -24,41 +25,41 @@ export const ModalContainer = styled.div`
   margin: 120px auto;
 `;
 
-export const ModalView = styled.div.attrs(props => ({
+export const ModalView = styled.div.attrs((props) => ({
   // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있습니다.
-  role: 'dialog'
+  role: "dialog",
 }))`
-    border-radius: 10px;
-    background-color: #ffffff;
-    width: 310px;
-    height: 420px;
-    > .desc {
-      display: flex;
-      flex-direction: column;
-      margin: 1rem 0rem;
-      > .close-btn {
-        color: black;
+  border-radius: 10px;
+  background-color: #ffffff;
+  width: 310px;
+  height: 420px;
+  > .desc {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0rem;
+    > .close-btn {
+      color: black;
+      cursor: pointer;
+      text-align: right;
+      margin: 0rem 1rem;
+      font-size: large;
+    }
+    > .photoUploader-wrapper {
+      height: 300px;
+      margin: 1rem 1rem;
+    }
+    > .choice {
+      > button {
+        font-size: medium;
         cursor: pointer;
-        text-align: right;
-        margin: 0rem 1rem;
-        font-size: large;
-      }
-      > .photoUploader-wrapper {
-        height: 300px;
-        margin: 1rem 1rem;
-      }
-      > .choice {
-        > button {
-          font-size: medium;
-          cursor: pointer;
-          background-color: black;
-          color: white;
-          border: none;
-          padding: 0.3rem 1rem;
-          border-radius: 10px;
-        }
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 0.3rem 1rem;
+        border-radius: 10px;
       }
     }
+  }
 `;
 
 interface PhotoModalProps {
@@ -67,17 +68,16 @@ interface PhotoModalProps {
   setPhotoModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PhotoModal:React.FC<PhotoModalProps> = (
-  { photo, 
-    setPhoto, 
-    setPhotoModal
-  }) => {
-
+const PhotoModal: React.FC<PhotoModalProps> = ({
+  photo,
+  setPhoto,
+  setPhotoModal,
+}) => {
   let dispatch: AppDispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
   const openModalHandler = () => {
     setIsOpen(!isOpen);
-    setPhotoModal((cur)=> !cur);
+    setPhotoModal((cur) => !cur);
   };
 
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
@@ -85,46 +85,41 @@ const PhotoModal:React.FC<PhotoModalProps> = (
   if (localUser !== null) {
     user = JSON.parse(localUser);
   }
-  
+
   const handleProfilePhoto = () => {
-  //서버로 바뀐 사진 정보 보내면 됨  
+    //서버로 바뀐 사진 정보 보내면 됨
     const formData = new FormData();
     formData.append("userImage", photo.file[0]);
     // formData.append("email", photo.file[0]);
     // formData.append("password", photo.file[0]);
     // formData.append("nickname", photo.file[0]);
-    let serverUrl='http://localhost:4000'
-    axios.put(
-      `${serverUrl}/user`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          authorization: `Bearer ${user.accessToken}`,
-        },
-      }
-    )
-    .then((res)=> {
-      setPhotoModal((cur)=> !cur);
+    // let serverUrl = "http://localhost:4000";
+
+    axios_Put_User(formData, user.accessToken).then((res) => {
+      setPhotoModal((cur) => !cur);
       dispatch(EDIT_IMAGE(res.data.Data.image));
     });
   };
 
   return (
     <ModalContainer>
-      {isOpen === true ? <ModalBackdrop onClick={openModalHandler}>
-        <ModalView onClick={(e) => e.stopPropagation()}>
-          <div className='desc'>
-            <span onClick={openModalHandler} className='close-btn'>
-            <i className="fa-regular fa-circle-xmark"></i>
-            </span>
-            <div className="photoUploader-wrapper">
-              <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl=""/>
+      {isOpen === true ? (
+        <ModalBackdrop onClick={openModalHandler}>
+          <ModalView onClick={(e) => e.stopPropagation()}>
+            <div className="desc">
+              <span onClick={openModalHandler} className="close-btn">
+                <i className="fa-regular fa-circle-xmark"></i>
+              </span>
+              <div className="photoUploader-wrapper">
+                <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl="" />
+              </div>
+              <div className="choice">
+                <button onClick={handleProfilePhoto}>선택하기</button>
+              </div>
             </div>
-            <div className='choice'>
-              <button onClick={handleProfilePhoto}>선택하기</button>
-            </div>
-          </div>
-        </ModalView>
-      </ModalBackdrop> : null}
+          </ModalView>
+        </ModalBackdrop>
+      ) : null}
     </ModalContainer>
   );
 };
