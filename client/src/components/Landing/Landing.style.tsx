@@ -42,8 +42,7 @@ export const BodyContainer = styled.main`
     width: 100%;
     height: 300%;
     background-size: 100%;
-    width: 100%;
-    height: 51.313rem;
+
     align-items: center;
     background: linear-gradient(0deg, #fbfafc, #fbfafc);
     border: 1px red solid;
@@ -54,21 +53,10 @@ export const BodyContainer = styled.main`
   }
 
   > .page2 {
-    /* flex: 1 0 auto;
-    width: 100%;
-    height: 51.313rem;
-    display: flex;
-    align-items: center;
-    border: 1px solid red;
-    background: linear-gradient(0deg, #fbfafc, #fbfafc);
-    transition: 0.5s all;
-    position: relative;
-     */
     flex: 1 0 auto;
     position: absolute;
     top: 0;
-    width: 100%;
-    height: 300%;
+
     background-size: 100%;
     width: 100%;
     height: 51.313rem;
@@ -79,17 +67,6 @@ export const BodyContainer = styled.main`
     flex-direction: column;
     transition: 0.5s all;
     position: relative;
-
-    @media screen and (max-width: 1000px) {
-      margin: 70px 0 70px 0;
-      height: auto;
-      position: static;
-      display: flex;
-      flex-direction: column-reverse;
-      width: 100%;
-      justify-content: center;
-      transition: 0.5s all;
-    }
   }
   > .page3 {
     flex: 1 0 auto;
@@ -98,25 +75,13 @@ export const BodyContainer = styled.main`
     width: 100%;
     height: 300%;
     background-size: 100%;
-    width: 100%;
-    height: 51.313rem;
+
     align-items: center;
     background: linear-gradient(0deg, #fbfafc, #fbfafc);
     border: 1px red solid;
     display: flex;
     flex-direction: column;
     transition: 0.5s all;
-
-    @media screen and (max-width: 1000px) {
-      margin: 70px 0 70px 0;
-      height: auto;
-      position: static;
-      display: flex;
-      flex-direction: column-reverse;
-      width: 100%;
-      justify-content: center;
-      transition: 0.5s all;
-    }
   }
   > .page4 {
     position: relative;
@@ -128,17 +93,6 @@ export const BodyContainer = styled.main`
     border: 1px solid red;
     background: linear-gradient(0deg, #fbfafc, #fbfafc);
     transition: 0.5s all;
-
-    @media screen and (max-width: 1000px) {
-      margin: 70px 0 70px 0;
-      height: auto;
-      position: static;
-      display: flex;
-      flex-direction: column-reverse;
-      width: 100%;
-      justify-content: center;
-      transition: 0.5s all;
-    }
   }
 `;
 
@@ -153,26 +107,13 @@ export const FirstTextContainer = styled.div`
   border: solid 3px green;
   display: flex;
   height: 100%;
+  margin-left: 700px;
   flex-direction: column;
   justify-content: center;
   transition: 0.5s all;
   z-index: 2;
   position: absolute;
   border: solid red;
-  @media screen and (max-width: 1000px) {
-    position: static;
-    margin-top: 20px;
-    transition: 0.5s all;
-    justify-content: flex-end;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    height: 313px;
-  }
-  @media screen and (max-width: 420px) {
-    margin-top: 0;
-    height: 250px;
-  }
 
   > .text {
     flex: 1 0 auto;
@@ -188,18 +129,6 @@ export const FirstTextContainer = styled.div`
     > .line &:nth-child(1) {
       margin-top: 1vw;
     }
-    @media screen and (max-width: 1000px) {
-      div {
-        margin-bottom: 4px;
-      }
-    }
-    @media screen and (max-width: 37.5rem) {
-      font-size: 18px;
-      transition: 0.5s all;
-    }
-    @media screen and (max-width: 420px) {
-      font-size: 14px;
-    }
   }
   > .text2 {
     flex: 1 1 auto;
@@ -208,37 +137,24 @@ export const FirstTextContainer = styled.div`
     height: 15vh;
     margin-top: 23vh;
     transition: 0.5s all;
-    @media screen and (max-width: 1000px) {
-      div {
-        margin-bottom: 4px;
-      }
-    }
-    @media screen and (max-width: 37.5rem) {
-      font-size: 18px;
-      transition: 0.5s all;
-    }
-    @media screen and (max-width: 420px) {
-      font-size: 14px;
-    }
-  }
-
-  @media screen and (max-width: 1000px) {
-    div {
-      margin-bottom: 4px;
-    }
-  }
-  @media screen and (max-width: 37.5rem) {
-    font-size: 18px;
-    transition: 0.5s all;
-  }
-  @media screen and (max-width: 420px) {
-    font-size: 14px;
   }
 `;
 
 export const FirstImageContainer = styled.div`
-  position: absolute;
-  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 3000px;
+
+  > section {
+    position: absolute;
+    border: solid pink;
+    width: 10%;
+    height: 2000px;
+    background: url("images/photo_testuser_3.jpg");
+    background-attachment: fixed;
+  }
+
+  /* display: flex;
   align-items: center;
   height: 100%;
   transition: 0.5s all;
@@ -246,29 +162,7 @@ export const FirstImageContainer = styled.div`
   right: 0;
   img {
     width: 700px;
-  }
-  @media screen and (max-width: 1000px) {
-    position: static;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 0px;
-    img {
-      width: 500px;
-    }
-  }
-  @media screen and (max-width: 37.5rem) {
-    margin-bottom: 0;
-    img {
-      width: 317px;
-    }
-  }
-  @media screen and (max-width: 420px) {
-    img {
-      width: 287px;
-    }
-  }
+  } */
 `;
 
 export const AllLandingContainer = styled.div`

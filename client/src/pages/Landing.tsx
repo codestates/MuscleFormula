@@ -16,6 +16,15 @@ export default function Landing() {
   const scrollHandler = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
+
+  const scrollSide = () => {
+    $(window).scroll(function () {
+      let scroll_position = $(window).scroll();
+      $("section").css({
+        "background-position-x": +scroll_position + "px",
+      });
+    });
+  };
   return (
     <PC>
       <AllLandingContainer>
@@ -27,11 +36,18 @@ export default function Landing() {
             <div className="page1">
               page1
               <FirstImageContainer>
-                <img
+                {/* <img
                   className="page1"
                   src="images/photo_testuser_3.jpg"
                   alt="landingpage_img1"
-                ></img>
+                ></img> */}
+                <section></section>
+                <script
+                  src="https://code.jquery.com/jquery-3.6.0.js"
+                  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+                  crossOrigin="anonymous"
+                ></script>
+                <script type="text/javascript">{scrollSide}</script>
               </FirstImageContainer>
               <FirstTextContainer>
                 <div className="text">
