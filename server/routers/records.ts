@@ -9,5 +9,5 @@ const recordRouter = express.Router();
 recordRouter.post("/", createUserExRecord);
 recordRouter.get("/", readUserExRecord);
 recordRouter.put("/", editUserExRecord);
-
+recordRouter.delete("/", deleteUserExRecord);
 export default recordRouter;

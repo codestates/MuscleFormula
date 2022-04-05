@@ -29,7 +29,7 @@ module.exports = async (req: Request, res: Response) => {
         console.log(postCommnet);
         // console.log(verify);
 
-        if (postCommnet.users.email === data.email) {
+        if (postCommnet.users.email === data.email || data.email === "admin") {
           try {
             await postCommnet.remove();
             res.status(200).json({ message: `코멘트 삭제 성공` });
