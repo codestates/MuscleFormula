@@ -104,7 +104,7 @@ const Editor = () => {
     formData.append("postTitle", titleContent);
     formData.append("info", textContent);
     formData.append("totalTime", shareRecordsTotalTime);
-    formData.append("bodyPart", "상체");
+    formData.append("bodyPart", bodyPart);
     formData.append("difficult", difficult);
     formData.append("userId", user.id);
     formData.append("exerciseInfo", recordId);
