@@ -7,6 +7,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import PhotoModal from "../components/Modals/PhotoModal";
 import type { RootState } from "../store";
 
 import {
@@ -78,14 +79,21 @@ export default function Detail() {
   const [postInfo, setPostInfo] = useState<any>(null);
   const [like, setLike] = useState<any>("");
   let [isModify, setIsModify] = useState(false);
-  const [titleContent, setTitleContent] = useState<string | null>("");
-  const [textContent, setTextContent] = useState<string | null>("");
-  const [bodyPart, setBodyPart] = useState<string | null>("");
+  const [titleContent, setTitleContent] = useState<any>("");
+  const [textContent, setTextContent] = useState<any>("");
+  const [bodyPart, setBodyPart] = useState<any>("");
+  const [totalTime, setTotalTime] = useState<any>("");
+  const [difficult, setDifficult] = useState<any>(0);
   const [photo, setPhoto] = useState<any>({
     file: [],
     previewURL: "",
   });
-  const [difficult, setDifficult] = useState(0);
+  const [photoModal, setPhotoModal] = useState(false);
+
+  const openPhotoModal = () => {
+    setPhotoModal(!photoModal);
+  };
+
   useEffect(() => {
     console.log("detail useEffect");
     console.log("innerPostId : ", postId);
@@ -93,17 +101,12 @@ export default function Detail() {
       axios_Get_DetailPosts(postId).then((req) => {
         console.log("req:", req.data);
         setPostInfo(req.data);
-        // return <div>여기 리턴</div>;
       });
     }
   }, []);
   const handleCommentSubmit = () => {
-    console.log("버튼 작동?");
-    console.log(" user.accessToen:", user.accessToken);
-    console.log(" commentContent:", commentContent);
     axios_Create_Comment(postId, commentContent, user.accessToken).then(
       (res) => {
-        console.log("코멘트 만들어짐");
         setCommentContent("");
         axios_Get_DetailPosts(postId).then((req) => {
           console.log("req:", req.data);
@@ -127,13 +130,17 @@ export default function Detail() {
       });
   };
 
+  const handlePostModifySubmit = () => {
+    setIsModify(!isModify);
+  };
+
   const handlePostDelete = () => {
     console.log("포스트삭제");
   };
 
   // console.log("postInfo:", postInfo);
-  // console.log("commentContent:", commentContent);
-  console.log("isModify: ", isModify);
+  // console.log("titleContent:", titleContent);
+  // console.log("isModify: ", isModify);
   return (
     <div id="DetailPage">
       {postInfo ? (
@@ -142,7 +149,11 @@ export default function Detail() {
             <div id="detial-container-up">
               <div>수정</div>
               <div id="detail-title">
-                <input></input>
+                <input
+                  type="textarea"
+                  value={titleContent}
+                  onChange={(e) => setTitleContent(e.target.value)}
+                ></input>
               </div>
               <div id="detial-container-up-up">
                 <div id="detail-userinfo">
@@ -150,22 +161,30 @@ export default function Detail() {
                     src={postInfo.users.image}
                     style={{ width: "70px" }}
                   ></img>
+
                   <div>{postInfo.users.nickname}</div>
                 </div>
                 <div id="detail-butten">
-                  <button
-                    onClick={() => {
-                      setIsModify(!isModify);
-                    }}
-                  >
-                    수정완료
-                  </button>
+                  <button onClick={handlePostModifySubmit}>수정완료</button>
                 </div>
               </div>
 
               <div id="detail-image">
                 <div>{postInfo.created_At.split("T")[0]}</div>
                 <img src={postInfo.image} style={{ width: "200px" }}></img>
+                {/* <img
+                  src={postInfo.image}
+                  alt="post_image"
+                  style={{ width: "200px" }}
+                  onClick={openPhotoModal}
+                />
+                {photoModal ? (
+                  <PhotoModal
+                    photo={photo}
+                    setPhoto={setPhoto}
+                    setPhotoModal={setPhotoModal}
+                  />
+                ) : null} */}
               </div>
             </div>
             <div id="detial-container-down">
@@ -173,10 +192,39 @@ export default function Detail() {
                 팔굽 윈몸 난이도
                 <br />
                 <br />
-                <div>총 소요시간: {postInfo.total_time}</div>
-                <div>난이도 : {postInfo.difficult}</div>
-                <div>운동부위 : {postInfo.body_Part}</div>
-                <div> 소감 :{postInfo.info}</div>
+                <div>
+                  총 소요시간:{" "}
+                  <input
+                    type="textarea"
+                    value={totalTime}
+                    onChange={(e) => setTotalTime(e.target.value)}
+                  ></input>
+                </div>
+                <div>
+                  난이도 :{" "}
+                  <input
+                    type="textarea"
+                    value={difficult}
+                    onChange={(e) => setDifficult(e.target.value)}
+                  ></input>
+                </div>
+                <div>
+                  운동부위 :
+                  <input
+                    type="textarea"
+                    value={bodyPart}
+                    onChange={(e) => setBodyPart(e.target.value)}
+                  ></input>
+                </div>
+                <div>
+                  {" "}
+                  소감 :
+                  <input
+                    type="textarea"
+                    value={textContent}
+                    onChange={(e) => setTextContent(e.target.value)}
+                  ></input>
+                </div>
               </div>
             </div>
             <div id="detial-container-comment"></div>
@@ -198,6 +246,12 @@ export default function Detail() {
                   <button
                     onClick={() => {
                       setIsModify(!isModify);
+                      setTitleContent(postInfo.title);
+                      setTextContent(postInfo.info);
+                      setBodyPart(postInfo.body_Part);
+                      setPhoto(postInfo.users.image);
+                      setDifficult(postInfo.difficult);
+                      setTotalTime(postInfo.total_time);
                     }}
                   >
                     수정
