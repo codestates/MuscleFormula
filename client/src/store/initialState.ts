@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from "axios";
+
 type InitialState = {
   test: { id: number; name: string; quan: number }[];
   count: number;
@@ -5,7 +7,7 @@ type InitialState = {
     id: number | string;
     nickname: string;
     image: string;
-    accessToken: string;
+    accessToken: AxiosRequestConfig<any> | string | undefined | any;
   };
   isLogin: boolean;
   notification: [];

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {useState} from 'react';
+import { useState } from "react";
 
 const PhotoUploaderContainer = styled.div`
   > .upload-show {
@@ -56,7 +56,7 @@ const PhotoUploaderContainer = styled.div`
     }
   }
   > .no-image-show {
-      display: none;
+    display: none;
   }
 `;
 
@@ -98,7 +98,7 @@ const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto }) => {
   let profile_preview = null;
   if (photo.file !== null) {
     profile_preview = photo.file[0]?.type.includes("image/") ? (
-      <img src={photo.previewURL} alt="selected_image"/>
+      <img src={photo.previewURL} alt="selected_image" />
     ) : (
       <video src={photo.previewURL} />
     );
@@ -106,29 +106,33 @@ const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto }) => {
 
   return (
     <PhotoUploaderContainer>
-      <label className={isShow ? "upload-show" :  "no-upload-show"} htmlFor="upload-file" onClick={()=> setIsShow(false)}>
-      <i className="fas fa-camera"></i>
+      <label
+        className={isShow ? "upload-show" : "no-upload-show"}
+        htmlFor="upload-file"
+        onClick={() => setIsShow(false)}
+      >
+        <i className="fas fa-camera"></i>
         이미지 업로드
-      <input
-        id="upload-file"
-        type="file"
-        accept="image/*, video/*"
-        multiple
-        onChange={uploadFile}
-      />
+        <input
+          id="upload-file"
+          type="file"
+          accept="image/*, video/*"
+          multiple
+          onChange={uploadFile}
+        />
       </label>
       <label className={isShow ? "no-image-show" : "image-show"}>
-      {profile_preview}
-      <input
-        id="upload-file"
-        type="file"
-        accept="image/*, video/*"
-        multiple
-        onChange={uploadFile}
-      />
+        {profile_preview}
+        <input
+          id="upload-file"
+          type="file"
+          accept="image/*, video/*"
+          multiple
+          onChange={uploadFile}
+        />
       </label>
     </PhotoUploaderContainer>
   );
 };
 
-export default PhotoUploader
+export default PhotoUploader;
