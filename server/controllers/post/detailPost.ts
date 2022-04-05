@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { Posts } from "../../models/entity/Post";
 import { Post_Comments } from "../../models/entity/Post_Comment";
 import { Post_Likes } from "../../models/entity/Post_Like";
+import { Record } from "../../models/entity/Record";
 dotenv.config();
 
 module.exports = async (req: Request, res: Response) => {
@@ -13,9 +14,14 @@ module.exports = async (req: Request, res: Response) => {
   //console.log("makePost body : ", req.body);
 
   const detailPost = await getRepository(Posts).findOne({
-    relations: ["post_comments", "post_likes", "users"],
+    relations: ["post_comments", "post_likes", "users", "exerciseInfo"],
     where: { id: postId },
   });
+  const detailPostexInfo = await getRepository(Record).findOne({
+    relations: ["ex_record"],
+    where: { id: detailPost?.exerciseInfo.id },
+  });
+  console.log(detailPostexInfo);
   const findComment: any = await getRepository(Post_Comments).find({
     relations: ["users"],
     where: { post: postId },
@@ -72,6 +78,7 @@ module.exports = async (req: Request, res: Response) => {
       total_time: detailPost.total_time,
       created_At: detailPost.created_At,
       body_part: detailPost.body_Part,
+      exerciseInfo: detailPostexInfo,
       total_comment: detailComment,
       total_Likes: detailLike,
     });
