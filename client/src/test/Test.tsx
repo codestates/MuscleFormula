@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { UpperTab } from "./TabTest";
 
 export const TestContainer = styled.div`
   padding-top: 5rem;
@@ -7,7 +6,6 @@ export const TestContainer = styled.div`
 function Test() {
   return (
     <TestContainer>
-      <UpperTab/>
     </TestContainer>
   );
 }

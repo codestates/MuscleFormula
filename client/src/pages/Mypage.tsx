@@ -12,6 +12,8 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { settings } from "../slideSetting";
 import NoPost from "../components/NoPost";
+import axios from "axios";
+import MyPostTab from "../components/MyPostTab";
 
 export default function Maypage() {
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
@@ -21,6 +23,7 @@ export default function Maypage() {
   }
 
   const [myPosts, setMyPosts] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
   const [lastTime, setLastTime] = useState("");
   const [todayTime, setTodayTime] = useState("");
   const [bestTime, setBestTime] = useState("");
@@ -33,6 +36,19 @@ export default function Maypage() {
       setBestTime(res.data.mypageData.users.exerciseInfo.bestTime);
     });
   }, []);
+  
+  useEffect(()=> {
+    let serverUrl=`http://localhost:4000`
+    axios.get(`${serverUrl}/like`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`
+      }
+    })
+    .then((res)=> {
+      console.log('라이크응답',res.data);
+      setLikedPosts(res.data);
+    });
+  })
 
   return (
     <div id="mypage-container">
@@ -51,11 +67,7 @@ export default function Maypage() {
       <div className="mypost-container">
         <div className="mypost">
           {myPosts.length > 0 ? (
-            <Slider {...settings}>
-              {myPosts.map((el, idx) => (
-                <PostThumbnail postThumb={el} key={idx} />
-              ))}
-            </Slider>
+            <MyPostTab myPosts={myPosts} likedPosts={likedPosts}/>
           ) : (
             <NoPost />
           )}
