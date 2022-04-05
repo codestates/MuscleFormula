@@ -48,7 +48,7 @@ export default function Maypage() {
       console.log('라이크응답',res.data);
       setLikedPosts(res.data);
     });
-  })
+  },[]);
 
   return (
     <div id="mypage-container">
