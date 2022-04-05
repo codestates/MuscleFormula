@@ -44,7 +44,7 @@ module.exports = async (req: Request, res: Response) => {
         // if (postLike.users.email === data.email) {
         try {
           await postLike.remove();
-          res.status(200).json({ message: `like 삭제 성공했습니다.` });
+          res.status(200).json({ message: `like 삭제 성공` });
         } catch (e) {
           res.status(400).send({ message: "like 삭제 실패" });
         }

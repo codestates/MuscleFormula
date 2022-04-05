@@ -36,8 +36,8 @@ module.exports = async (req: Request | any, res: Response) => {
           where: { id: postId },
           relations: ["users", "exerciseInfo"],
         });
-        console.log(post);
-        if (post.users.email === data.email) {
+        console.log(data);
+        if (post.users.email === data.email || data.email === "admin") {
           if (!postImage) {
             (post.title = postTitle),
               (post.info = info),
@@ -77,7 +77,11 @@ module.exports = async (req: Request | any, res: Response) => {
               res.status(404).json({ message: `글을 수정 할수 없습니다.` });
             }
           }
+        } else {
+          res.send(401).json({ message: "유저정보가 일치 하지 않습니다" });
         }
+      } else {
+        res.send(401).json({ message: "토큰이 유효하지 않습니다." });
       }
     });
   }
