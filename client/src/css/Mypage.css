@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-bottom: 5rem;
 }
 
 .myinfo-container .welcome {
@@ -25,20 +26,22 @@
 }
 
 .myinfo-container .my-record {
-  padding-bottom: 2rem;
   margin: auto;
 }
 
 .mypost-container {
   display: block;
-  padding-top : 2.5rem;
 }
 
 .mypost-container .mypost {
   display: block;
-  padding: 2rem;
 }
 
 .share-container {
 
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black !important;
 }
