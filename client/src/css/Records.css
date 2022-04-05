@@ -28,9 +28,9 @@
 }
 
 .record-total {
-  min-width: 280px;
+  min-width: 250px;
   font-size: x-large;
-  padding: 1rem 2.5rem;
+  padding: 1.2rem;
   font-family: "IBM Plex Sans KR", sans-serif;
   background-color: white;
   margin-bottom: 1rem;
@@ -43,18 +43,18 @@
 .today-exercise-container {
   display: flex;
   flex-direction: column;
+  min-width: 250px;
+  padding: 0rem 1.2rem;
 }
 
 .exercise-input-container {
   display: flex;
   flex-direction: column;
-  min-width: 280px;
-  padding: 0rem 1.2rem;
 }
 
 .exercise-input-container .greeting {
   font-size: large;
-  margin: 0rem 1rem;
+  margin-bottom: 1.2rem;
 }
 
 
@@ -62,9 +62,8 @@
   width: 10rem;
   border: none;
   border-bottom: 2px solid black;
-  margin: 0rem 1rem;
+  margin-bottom: 0.5rem;
   font-size: medium;
-  margin-top: 0.5rem;
 }
 
 .exercise-input-container input:focus {
@@ -76,13 +75,11 @@
   text-align: right;
   border: none;
   border-bottom: 2px solid black;
-  margin: 0rem 1rem;
+  margin-bottom: 1rem;
   font-size: medium;
-  margin-top: 0.3rem;
 }
 
 .exercise-input-container button {
-  margin-top: 1.5rem;
   font-size: medium;
   cursor: pointer;
   background-color: black;
@@ -93,20 +90,14 @@
 }
 
 .exercise-container {
-  display: flex;
-  flex-direction: column;
-  min-width: 280px;
-  padding: 1rem;
-}
-
-.record-save-container {
-  display: flex;
-  flex-direction: column;
-  min-width: 280px;
-  padding: 0rem 1.2rem;
+  padding: 2rem;
 }
 
 .record-save {
+  min-width: 211.61px;
+}
+
+.record-save{
   font-size: medium;
   cursor: pointer;
   background-color: #00cc99;
@@ -114,5 +105,4 @@
   border: none;
   padding: 0.3rem;
   border-radius: 10px;
-  text-align: center;
 }

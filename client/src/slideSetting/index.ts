@@ -14,14 +14,14 @@ export const settings = {
       }
     },
     {
-      breakpoint: 820,
+      breakpoint: 940,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2,
       }
     },
     {
-      breakpoint: 540,
+      breakpoint: 680,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,

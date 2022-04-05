@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box;
-  border: 1px solid gray;
 }
 
 body {
@@ -14,7 +13,4 @@ body {
   z-index: 100;
 }
 
-.slick-prev:before,
-.slick-next:before {
-  color: black !important;
-}
+
