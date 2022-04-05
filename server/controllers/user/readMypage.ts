@@ -78,7 +78,9 @@ module.exports = async (req: Request, res: Response) => {
 
           return sum;
         });
+        //console.log(maxValue);
         let sum = Math.max(...maxValue);
+        // console.log(sum);
         //console.log("123", findTodayTime);
         const crawlLastTime = findLastTime?.ex_record.map((el) => {
           const dateData = el.time_record;
@@ -102,7 +104,7 @@ module.exports = async (req: Request, res: Response) => {
         const lastTime = showtime(translateLastTime);
         const todayTime = showtime(translatetodayTime);
         const bestTime = showtime(sum);
-        console.log(bestTime);
+        //console.log(bestTime);
 
         function showtime(item) {
           let hour = Math.floor(item / 3600);
@@ -115,12 +117,13 @@ module.exports = async (req: Request, res: Response) => {
             ":" +
             sec.toString().padStart(2, "0");
           //console.log(output);
-          if (output === "NaN:NaN:NaN") {
+          if (output === "NaN:NaN:NaN" || output === "-Infinity:NaN:NaN") {
             return "없음";
           } else {
             return output;
           }
         }
+        //console.log(bestTime);
         //console.log("a", allInfo);
         //console.log("b", data);
         if (allInfo) {

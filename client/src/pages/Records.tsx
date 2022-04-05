@@ -8,6 +8,7 @@ import type { RootState } from "../store";
 import CalendarRecord from "../components/CalendarRecord";
 import NeedLogin from "../components/NeedLogin";
 import Loading from "../components/Loading";
+import { axios_Delete_UserRecord } from "../axios/index";
 export default function Records() {
   const showToday = () => {
     let today = new Date();
@@ -44,6 +45,17 @@ export default function Records() {
   const [savedRecords, setSavedRecords] = useState<RecordType[]>([]);
   const [submitDay, setSubmitDay] = useState(getDate());
   let serverUrl = "http://localhost:4000";
+  let user = useSelector((state: RootState) => state.userInfo.userInfo);
+  const submitDelete = (genre: string) => {
+    axios_Delete_UserRecord(genre, user.accessToken, submitDay).then((res) => {
+      setSavedRecords(res.data.data.exerciseInfo);
+      setRecords([]);
+    });
+    setIsLoading(false);
+    alert("운동기록이 삭제 되었습니다.");
+    // setSavedRecords(res.data.data.exerciseInfo);
+    // setRecords([]);
+  };
 
   useEffect(() => {
     if (submitDay) {
@@ -69,13 +81,12 @@ export default function Records() {
     return hours + "시간 " + minutes + "분 " + seconds + "초";
   }
 
-  let user = useSelector((state: RootState) => state.userInfo.userInfo);
   const localUser = localStorage.getItem("userInfo");
   if (localUser !== null) {
     user = JSON.parse(localUser);
   }
   let isLogin = useSelector((state: RootState) => state.userInfo.isLogin);
-  const localLogin = localStorage.getItem('isLogin');
+  const localLogin = localStorage.getItem("isLogin");
   if (localLogin !== null) {
     isLogin = JSON.parse(localLogin);
   }
@@ -116,8 +127,8 @@ export default function Records() {
             setSavedRecords(res.data.data.exerciseInfo);
             setRecords([]);
           });
-          setIsLoading(false);
-          alert('기록되었습니다');
+        setIsLoading(false);
+        alert("기록되었습니다");
       });
   };
 
@@ -161,79 +172,86 @@ export default function Records() {
 
   return (
     <div>
-    {isLogin === false
-    ? 
-    <div id="no-record-container">
-      <NeedLogin/>
-    </div>
-    : 
-    <div id="record-container">
-      <div className="record-today">
-        <i className="fa-solid fa-stopwatch"></i> {showToday()}
-      </div>
-      <div className="record-uploaded">
-        {savedRecords.map((record, idx) => (
-          <CalendarRecord key={idx} record={record} />
-        ))}
-      </div>
-      <div className="record-total">
-        <div className="record-time">{showTime(totalTime())}</div>
-        <div className="record-time-detail">운동했습니다</div>
-      </div>
-      {isLoading? 
-      <div className="loading"><Loading/></div>
-      :
-      <div className="today-exercise-container">
-        <div className="exercise-input-container">
-          <div className="greeting">오늘은 어떤 운동을 할까요?</div>
-            <input
-              className="exercise"
-              type="text"
-              placeholder="운동명을 입력하세요"
-              value={exercise.genre}
-              onChange={handleInputValue("genre")}
-            />
-          <div className="number-container">
-            <input
-              className="number"
-              type="number"
-              min="0"
-              value={exercise.weight}
-              onChange={handleInputValue("weight")}
-            />{" "}kg
-            <input
-              className="number"
-              type="number"
-              min="0"
-              value={exercise.count}
-              onChange={handleInputValue("count")}
-              />{" "}회
+      {isLogin === false ? (
+        <div id="no-record-container">
+          <NeedLogin />
+        </div>
+      ) : (
+        <div id="record-container">
+          <div className="record-today">
+            <i className="fa-solid fa-stopwatch"></i> {showToday()}
+          </div>
+          <div className="record-uploaded">
+            {savedRecords.map((record, idx) => (
+              <CalendarRecord
+                key={idx}
+                record={record}
+                submitDelete={submitDelete}
+              />
+            ))}
+          </div>
+          <div className="record-total">
+            <div className="record-time">{showTime(totalTime())}</div>
+            <div className="record-time-detail">운동했습니다</div>
+          </div>
+          {isLoading ? (
+            <div className="loading">
+              <Loading />
             </div>
-          <button onClick={addExercise}>입력</button>
+          ) : (
+            <div className="today-exercise-container">
+              <div className="exercise-input-container">
+                <div className="greeting">오늘은 어떤 운동을 할까요?</div>
+                <input
+                  className="exercise"
+                  type="text"
+                  placeholder="운동명을 입력하세요"
+                  value={exercise.genre}
+                  onChange={handleInputValue("genre")}
+                />
+                <div className="number-container">
+                  <input
+                    className="number"
+                    type="number"
+                    min="0"
+                    value={exercise.weight}
+                    onChange={handleInputValue("weight")}
+                  />{" "}
+                  kg
+                  <input
+                    className="number"
+                    type="number"
+                    min="0"
+                    value={exercise.count}
+                    onChange={handleInputValue("count")}
+                  />{" "}
+                  회
+                </div>
+                <button onClick={addExercise}>입력</button>
+              </div>
+
+              <div className="exercise-container">
+                {records.map((exercise, idx) => (
+                  <Record
+                    key={idx}
+                    exercise={exercise}
+                    deleteRecord={deleteRecord}
+                    idx={idx}
+                    getRecordValue={getRecordValue}
+                  />
+                ))}
+              </div>
+              {records.length ? (
+                <div className="record-save-container">
+                  <button className="record-save" onClick={submitRecord}>
+                    기록하기
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          )}
         </div>
-      
-        <div className="exercise-container">
-          {records.map((exercise, idx) => (
-            <Record
-              key={idx}
-              exercise={exercise}
-              deleteRecord={deleteRecord}
-              idx={idx}
-              getRecordValue={getRecordValue}
-            />
-          ))}
-        </div>
-        {records.length ? (
-        <div className="record-save-container">
-          <button className="record-save" onClick={submitRecord}>
-            기록하기
-          </button>
-        </div>
-        ) : null}
-      </div>
-      }
-    </div>
-    }
+      )}
     </div>
   );
 }

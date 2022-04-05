@@ -135,7 +135,7 @@ const Editor = () => {
             공유한 기록
             {shareRecords !== null
               ? shareRecords.map((record: RecordType, idx: number) => (
-                  <CalendarRecord key={idx} record={record} />
+                  <CalendarRecord key={idx} record={record} submitDelete />
                 ))
               : null}
           </div>

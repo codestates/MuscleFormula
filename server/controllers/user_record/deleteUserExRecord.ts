@@ -29,7 +29,7 @@ module.exports = async (req: Request, res: Response) => {
           where: { users: data.id, created_at: req.query.date },
         });
         // console.log(findrecord);
-        // console.log(req.query.date);
+        console.log(req.query);
         const findrecordId = findrecord?.id;
         if (findrecord) {
           const userRecord: any = await getRepository(Ex_Records).findOne({

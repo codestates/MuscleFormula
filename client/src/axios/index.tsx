@@ -213,3 +213,25 @@ export const axios_Put_comment = (
     }
   );
 };
+export const axios_Delete_UserRecord = (
+  genre: string,
+  accessToken: string,
+  date: string
+) => {
+  return axios
+    .delete(`${serverURI}/record/?date=${date}`, {
+      data: { genre: genre },
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .then(async () => {
+      let middle = await axios.get(`${serverURI}/record?date=${date}`, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      return middle;
+    });
+};
