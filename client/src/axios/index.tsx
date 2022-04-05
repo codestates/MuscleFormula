@@ -1,15 +1,26 @@
 import React from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
+
 // import { useNavigate } from "react-router-dom";
 // const navigate = useNavigate();
 const qs = require("qs");
 const clientURI = `http://localhost:3000`;
 const serverURI = `http://localhost:4000`;
+// const serverURI = `https://server.muscleformula.xyz`;
+
 const kakao = {
   clientID: "7d8937ab746c6e3604651e33e259fc1d",
   clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
   redirectUri: "http://localhost:3000/callbackKakao",
 };
+// let user = useSelector((state: RootState) => state.userInfo.userInfo);
+// const localUser = localStorage.getItem("userInfo");
+// if (localUser !== null) {
+//   user = JSON.parse(localUser);
+// }
+// const accessToken = user.accessToken;
 
 export const axios_Signup = (
   userEmail: string,
@@ -234,4 +245,65 @@ export const axios_Delete_UserRecord = (
 
       return middle;
     });
+};
+
+export const axios_Get_UserRecord = (
+  submitDay: string,
+  accessToken: string
+) => {
+  return axios.get(`${serverURI}/record?date=${submitDay}`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const axios_Post_UserRecord = (records: any, accessToken: string) => {
+  return axios.post(
+    `${serverURI}/record`,
+    {
+      record: records,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};
+
+export const axios_Get_UserRecord_Date = (
+  date: string,
+  accessToken: string
+) => {
+  return axios.get(`${serverURI}/record?date=${date}`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const axios_Put_User = (formData: any, accessToken: string) => {
+  return axios.put(`${serverURI}/user`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const axios_Get_Like = (accessToken: string) => {
+  return axios.get(`${serverURI}/like`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const axios_Delete_User = (accessToken: string) => {
+  return axios.delete(`${serverURI}/user`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
 };

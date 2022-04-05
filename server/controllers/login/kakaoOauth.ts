@@ -9,11 +9,11 @@ const qs = require("qs");
 
 dotenv.config();
 // https://kauth.kakao.com
-const kakao = {
-  clientID: "7d8937ab746c6e3604651e33e259fc1d",
-  clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
-  redirectUri: "http://localhost:4000/kakaooauth",
-};
+// const kakao = {
+//   clientID: "7d8937ab746c6e3604651e33e259fc1d",
+//   clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
+//   redirectUri: "http://localhost:4000/kakaooauth",
+// };
 
 // const getTokenUrl = `https://kauth.kakao.com/oauth/token`;
 // const kakaoInfoUrl = `https://www.kakaoapis.com/oauth2/v3/userinfo`;
