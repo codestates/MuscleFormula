@@ -30,7 +30,8 @@ export default function Main() {
   useEffect(() => {
     axios_GetPosts().then((res) => {
       setPosts(res.data.posts);
-      console.log('포스트들',res.data.posts);
+      setshowPosts(res.data.posts);
+      console.log("포스트들", res.data.posts);
       setRankData(res.data.rankData);
     });
   }, [shareRecordsId]);
@@ -50,6 +51,12 @@ export default function Main() {
       <div id="postthumb-container">
         {showPosts.length > 0 ? (
           showPosts.map((el, idx) => (
+            <div className="post-thumbs" key={idx}>
+              <PostThumbnail postThumb={el} key={idx} />
+            </div>
+          ))
+        ) : posts.length > 0 ? (
+          posts.map((el, idx) => (
             <div className="post-thumbs" key={idx}>
               <PostThumbnail postThumb={el} key={idx} />
             </div>
