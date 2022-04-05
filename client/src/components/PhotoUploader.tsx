@@ -63,9 +63,10 @@ const PhotoUploaderContainer = styled.div`
 interface PhotoUploaderProps {
   photo: any;
   setPhoto: React.Dispatch<any>;
+  photoUrl: string;
 }
 
-const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto }) => {
+const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto, photoUrl }) => {
   // const [photo, setPhoto] = useState<any>({
   //   file: [],
   //   previewURL: "",
@@ -111,8 +112,15 @@ const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto }) => {
         htmlFor="upload-file"
         onClick={() => setIsShow(false)}
       >
-        <i className="fas fa-camera"></i>
-        이미지 업로드
+        {photoUrl 
+        ?
+        <img src={photoUrl} alt="post"/>
+        :
+        <div className="default-upload-image">
+          <i className="fas fa-camera"></i>
+          이미지 업로드
+        </div>
+        }
         <input
           id="upload-file"
           type="file"

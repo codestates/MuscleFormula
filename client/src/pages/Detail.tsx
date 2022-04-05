@@ -227,7 +227,8 @@ export default function Detail() {
                   <img
                     src={postInfo.users.image}
                     style={{ width: "70px" }}
-                  ></img>
+                    alt ="user"
+                  />
                   <div>{postInfo.users.nickname}</div>
                 </div>
                 <div id="detail-butten">
@@ -237,8 +238,7 @@ export default function Detail() {
 
               <div id="detail-image">
                 <div>{postInfo.created_At.split("T")[0]}</div>
-                <img src={postInfo.image} style={{ width: "200px" }}></img>
-                <PhotoUploader photo={photo} setPhoto={setPhoto} />
+                <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl={postInfo.image}/>
                 {/* <img
                   src={postInfo.image}
                   alt="post_image"

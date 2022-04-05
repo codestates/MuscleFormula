@@ -130,7 +130,7 @@ const Editor = () => {
             contentEditable="true"
             onInput={(e) => setTitleContent(e.currentTarget.textContent)}
           ></div>
-          <PhotoUploader photo={photo} setPhoto={setPhoto} />
+          <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl=""/>
           <div id="record-container">
             공유한 기록
             {shareRecords !== null
