@@ -106,6 +106,19 @@ export const axios_CreatePost = (formData: any, accessToken: string) => {
     // withCredentials: true,
   });
 };
+export const axios_Put_Post = (
+  formData: any,
+  postId: string | number,
+  accessToken: string
+) => {
+  return axios.put(`${serverURI}/posts/${postId}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      authorization: `Bearer ${accessToken}`,
+    },
+    // withCredentials: true,
+  });
+};
 export const axios_GetPosts = () => {
   return axios.get(`${serverURI}/posts`);
 };
@@ -174,7 +187,7 @@ export const axios_Delete_comment = (
   });
 };
 export const axios_Delete_Post = (
-  postId: number | string,
+  postId: number | string | undefined,
   accessToken: string
 ) => {
   return axios.delete(`${serverURI}/posts/${postId}`, {

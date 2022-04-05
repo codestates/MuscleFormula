@@ -1,20 +1,32 @@
 /**포스트 상세 페이지**/
-
 import Comment from "../components/Comment";
 import { useSelector } from "react-redux";
 import axios from "axios";
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import PhotoModal from "../components/Modals/PhotoModal";
 import type { RootState } from "../store";
+import PhotoUploader from "../components/PhotoUploader";
+import CalendarRecord from "../components/CalendarRecord";
 
 import {
   axios_Get_DetailPosts,
+  axios_Delete_Post,
   axios_Create_Comment,
   axios_Create_Like,
   axios_Delete_Like,
+  axios_Put_Post,
 } from "../axios";
+
+const FormData = require("form-data");
+
+interface RecordType {
+  genre: string;
+  weight: number;
+  count: number;
+  time_record: number;
+}
 
 export const Main = styled.div`
   border: 3px solid green;
@@ -63,8 +75,8 @@ export const Main = styled.div`
     }
   }
 `;
-
 export default function Detail() {
+  const navigate = useNavigate();
   let { postId } = useParams();
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
   const localUser = localStorage.getItem("userInfo");
@@ -74,18 +86,28 @@ export default function Detail() {
   console.log("detail Page");
   console.log("params postId:", postId);
 
-  const [commentContent, setCommentContent] = useState<string | null | any>("");
   const [postInfo, setPostInfo] = useState<any>(null);
+  console.log("postInfo:", postInfo);
+  const [commentContent, setCommentContent] = useState<string | null | any>("");
   const [like, setLike] = useState<any>("");
   let [isModify, setIsModify] = useState(false);
-  const [titleContent, setTitleContent] = useState<string | null>("");
-  const [textContent, setTextContent] = useState<string | null>("");
-  const [bodyPart, setBodyPart] = useState<string | null>("");
+  const [titleContent, setTitleContent] = useState<any>("");
+  const [textContent, setTextContent] = useState<any>("");
+  const [bodyPart, setBodyPart] = useState<any>("");
+  const [totalTime, setTotalTime] = useState<any>("");
+  const [difficult, setDifficult] = useState<any>(0);
   const [photo, setPhoto] = useState<any>({
     file: [],
     previewURL: "",
   });
-  const [difficult, setDifficult] = useState(0);
+  const [exInfo, setExInfo] = useState("");
+  const [photoModal, setPhotoModal] = useState(false);
+  const [isLike, setIsLike] = useState(false);
+
+  const openPhotoModal = () => {
+    setPhotoModal(!photoModal);
+  };
+
   useEffect(() => {
     console.log("detail useEffect");
     console.log("innerPostId : ", postId);
@@ -93,17 +115,17 @@ export default function Detail() {
       axios_Get_DetailPosts(postId).then((req) => {
         console.log("req:", req.data);
         setPostInfo(req.data);
-        // return <div>여기 리턴</div>;
+        let likeFiler = req.data.total_Likes.filter((e: any) => {
+          return e.users.id === user.id;
+        });
+        console.log("likeFiler 있음? :", likeFiler.length > 0);
+        setIsLike(likeFiler.length > 0);
       });
     }
   }, []);
   const handleCommentSubmit = () => {
-    console.log("버튼 작동?");
-    console.log(" user.accessToen:", user.accessToken);
-    console.log(" commentContent:", commentContent);
     axios_Create_Comment(postId, commentContent, user.accessToken).then(
       (res) => {
-        console.log("코멘트 만들어짐");
         setCommentContent("");
         axios_Get_DetailPosts(postId).then((req) => {
           console.log("req:", req.data);
@@ -117,23 +139,75 @@ export default function Detail() {
     axios_Create_Like(postId, user.accessToken)
       .then((res) => {
         setLike("생성");
+        axios_Get_DetailPosts(postId).then((req) => {
+          console.log("req:", req.data);
+          setPostInfo(req.data);
+          let likeFiler = req.data.total_Likes.filter((e: any) => {
+            return e.users.id === user.id;
+          });
+          console.log("likeFiler 있음? :", likeFiler.length > 0);
+          setIsLike(likeFiler.length > 0);
+        });
       })
       .catch((err) => {
         console.log("err  :", err);
-        // delete 안됨
-        axios_Delete_Like(postId, user.accessToken);
+        axios_Delete_Like(postId, user.accessToken).then(() => {
+          axios_Get_DetailPosts(postId).then((req) => {
+            console.log("req:", req.data);
+            setPostInfo(req.data);
+            let likeFiler = req.data.total_Likes.filter((e: any) => {
+              return e.users.id === user.id;
+            });
+            console.log("likeFiler 있음? :", likeFiler.length > 0);
+            setIsLike(likeFiler.length > 0);
+          });
+        });
         console.log("하트 삭제됨");
         setLike("삭제");
       });
   };
 
-  const handlePostDelete = () => {
-    console.log("포스트삭제");
+  const handlePostModifySubmit = () => {
+    //
+    const formData = new FormData();
+    formData.append("postTitle", titleContent);
+    formData.append("info", textContent);
+    formData.append("exerciseInfo", exInfo);
+    formData.append("totalTime", totalTime);
+    formData.append("difficult", difficult);
+    formData.append("bodyPart", "상체");
+    formData.append("postImage", photo.file[0]);
+
+    console.log("수정 완료 버튼 ");
+    axios_Put_Post(formData, postInfo.id, user.accessToken).then(() => {
+      axios_Get_DetailPosts(postId)
+        .then((req) => {
+          console.log("req:", req.data);
+          setPostInfo(req.data);
+        })
+        .then(() => {
+          setIsModify(!isModify);
+        });
+    });
   };
 
+  const handlePostDelete = () => {
+    console.log("포스트삭제");
+    axios_Delete_Post(postId, user.accessToken).then(() => {
+      navigate("/main");
+      // window.location.replace("/main"); // 새로고침후 이동
+    });
+  };
+
+  const handleGetbodyPart = (e: any) => {
+    console.log("e.target.value:", e.target.value);
+    setBodyPart(e.target.value);
+  };
   // console.log("postInfo:", postInfo);
-  // console.log("commentContent:", commentContent);
-  console.log("isModify: ", isModify);
+  // console.log("titleContent:", titleContent);
+  // console.log("isModify: ", isModify);
+  // let shareRecords = postInfo.exerciseInfo.ex_record;
+  // console.log("shareRecords :", shareRecords);
   return (
     <div id="DetailPage">
       {postInfo ? (
@@ -142,7 +216,11 @@ export default function Detail() {
             <div id="detial-container-up">
               <div>수정</div>
               <div id="detail-title">
-                <input></input>
+                <input
+                  type="textarea"
+                  value={titleContent}
+                  onChange={(e) => setTitleContent(e.target.value)}
+                ></input>
               </div>
               <div id="detial-container-up-up">
                 <div id="detail-userinfo">
@@ -153,19 +231,27 @@ export default function Detail() {
                   <div>{postInfo.users.nickname}</div>
                 </div>
                 <div id="detail-butten">
-                  <button
-                    onClick={() => {
-                      setIsModify(!isModify);
-                    }}
-                  >
-                    수정완료
-                  </button>
+                  <button onClick={handlePostModifySubmit}>수정완료</button>
                 </div>
               </div>
 
               <div id="detail-image">
                 <div>{postInfo.created_At.split("T")[0]}</div>
                 <img src={postInfo.image} style={{ width: "200px" }}></img>
+                <PhotoUploader photo={photo} setPhoto={setPhoto} />
+                {/* <img
+                  src={postInfo.image}
+                  alt="post_image"
+                  style={{ width: "200px" }}
+                  onClick={openPhotoModal}
+                />
+                {photoModal ? (
+                  <PhotoModal
+                    photo={photo}
+                    setPhoto={setPhoto}
+                    setPhotoModal={setPhotoModal}
+                  />
+                ) : null} */}
               </div>
             </div>
             <div id="detial-container-down">
@@ -173,10 +259,45 @@ export default function Detail() {
                 팔굽 윈몸 난이도
                 <br />
                 <br />
-                <div>총 소요시간: {postInfo.total_time}</div>
-                <div>난이도 : {postInfo.difficult}</div>
-                <div>운동부위 : {postInfo.body_Part}</div>
-                <div> 소감 :{postInfo.info}</div>
+                <div>
+                  총 소요시간:{" "}
+                  <input
+                    type="textarea"
+                    value={totalTime}
+                    onChange={(e) => setTotalTime(e.target.value)}
+                  ></input>
+                </div>
+                <div>
+                  난이도 :{" "}
+                  <input
+                    type="textarea"
+                    value={difficult}
+                    onChange={(e) => setDifficult(e.target.value)}
+                  ></input>
+                </div>
+                <div>
+                  운동부위 :
+                  {/* <input
+                    type="textarea"
+                    value={bodyPart}
+                    onChange={(e) => setBodyPart(e.target.value)}
+                  ></input> */}
+                  <select id="dropdown" onChange={handleGetbodyPart}>
+                    <option value={bodyPart}>{bodyPart}</option>
+                    <option value="전신">전신</option>
+                    <option value="상체">상체</option>
+                    <option value="하체">하체</option>
+                  </select>
+                </div>
+                <div>
+                  {" "}
+                  소감 :
+                  <input
+                    type="textarea"
+                    value={textContent}
+                    onChange={(e) => setTextContent(e.target.value)}
+                  ></input>
+                </div>
               </div>
             </div>
             <div id="detial-container-comment"></div>
@@ -198,6 +319,13 @@ export default function Detail() {
                   <button
                     onClick={() => {
                       setIsModify(!isModify);
+                      setTitleContent(postInfo.title);
+                      setTextContent(postInfo.info);
+                      setBodyPart(postInfo.body_part);
+                      // setPhoto(postInfo.users.image);
+                      setDifficult(postInfo.difficult);
+                      setTotalTime(postInfo.total_time);
+                      setExInfo(postInfo.exerciseInfo.id);
                     }}
                   >
                     수정
@@ -213,19 +341,34 @@ export default function Detail() {
             </div>
             <div id="detial-container-down">
               <div id="detail-exInfo">
-                팔굽 윈몸 난이도
+                {postInfo.exerciseInfo.ex_record[0].genre}
+                {/* {postInfo.exerciseInfo !== null ? (
+                  postInfo.exerciseInfo.map(
+                    (record: RecordType, idx: number) => (
+                      <CalendarRecord key={idx} record={record} />
+                    )
+                  )
+                ) : (
+                  <div></div>
+                )} */}
                 <br />
                 <br />
                 <div>총 소요시간: {postInfo.total_time}</div>
                 <div>난이도 : {postInfo.difficult}</div>
-                <div>운동부위 : {postInfo.body_Part}</div>
+                <div>운동부위 : {postInfo.body_part}</div>
                 <div> 소감 :{postInfo.info}</div>
               </div>
             </div>
             <div id="detial-container-comment">
-              <button onClick={handleLikeSubmit} style={{ width: "50px" }}>
-                ❤️
-              </button>
+              {isLike ? (
+                <button onClick={handleLikeSubmit} style={{ width: "50px" }}>
+                  ❤️
+                </button>
+              ) : (
+                <button onClick={handleLikeSubmit} style={{ width: "50px" }}>
+                  🖤
+                </button>
+              )}
 
               <div id="detail-Comment-input">
                 글쓰기
