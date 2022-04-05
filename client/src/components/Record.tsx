@@ -17,7 +17,7 @@ export const TimerContainer = styled.div`
   align-items: center;
   flex-flow: row wrap;
   > .start, .stop {
-    margin: 0.5rem;
+    margin: 0.3rem;
     width: 70px;
     font-size: large;
     font-size: large;

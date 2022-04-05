@@ -13,18 +13,18 @@ export const RecordContainer = styled.div`
   font-size: large;
   border-bottom: solid 1px lightgrey;
   > div {
-    padding-right: 0.5rem;
+    padding-right: 0.3rem;
     font-size: medium;
   }
   > .exercise-name {
     width: 6rem;
   }
   > .exercise-weight {
-    width: 4rem;
+    width: 3.5rem;
     text-align: right;
   }
   > .exercise-count {
-    width: 4rem;
+    width: 3.5rem;
     text-align: right;
   }
   > div:last-child {
