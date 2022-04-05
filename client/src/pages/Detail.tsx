@@ -168,7 +168,7 @@ export default function Detail() {
   };
 
   const handlePostModifySubmit = () => {
-    setIsModify(!isModify);
+    //
     const formData = new FormData();
     formData.append("postTitle", titleContent);
     formData.append("info", textContent);
@@ -179,7 +179,16 @@ export default function Detail() {
     formData.append("postImage", photo.file[0]);
 
     console.log("수정 완료 버튼 ");
-    axios_Put_Post(formData, postInfo.id, user.accessToken);
+    axios_Put_Post(formData, postInfo.id, user.accessToken).then(() => {
+      axios_Get_DetailPosts(postId)
+        .then((req) => {
+          console.log("req:", req.data);
+          setPostInfo(req.data);
+        })
+        .then(() => {
+          setIsModify(!isModify);
+        });
+    });
   };
 
   const handlePostDelete = () => {
