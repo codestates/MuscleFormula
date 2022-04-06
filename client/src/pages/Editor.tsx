@@ -106,8 +106,9 @@ const Editor = () => {
     formData.append("totalTime", shareRecordsTotalTime);
     formData.append("bodyPart", bodyPart);
     formData.append("difficult", difficult);
-    formData.append("userId", user.id);
+    // formData.append("userId", user.id);
     formData.append("exerciseInfo", recordId);
+    console.log(formData);
 
     axios_CreatePost(formData, user.accessToken);
     dispatch(RESET());
@@ -130,12 +131,12 @@ const Editor = () => {
             contentEditable="true"
             onInput={(e) => setTitleContent(e.currentTarget.textContent)}
           ></div>
-          <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl=""/>
+          <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl="" />
           <div id="record-container">
             공유한 기록
             {shareRecords !== null
               ? shareRecords.map((record: RecordType, idx: number) => (
-                  <CalendarRecord key={idx} record={record}/>
+                  <CalendarRecord key={idx} record={record} />
                 ))
               : null}
           </div>

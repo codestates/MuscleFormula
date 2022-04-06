@@ -2,13 +2,13 @@ import React from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
-
+//require('dotenv').config();
 // import { useNavigate } from "react-router-dom";
 // const navigate = useNavigate();
 const qs = require("qs");
 const clientURI = `http://localhost:3000`;
-const serverURI = `http://localhost:4000`;
-// const serverURI = `https://server.muscleformula.xyz`;
+const serverURI = `https://server.muscleformula.xyz`;
+//const serverURI = process.env.SERVER_URI;
 
 const kakao = {
   clientID: "7d8937ab746c6e3604651e33e259fc1d",
@@ -109,6 +109,7 @@ export const axios_GetUser_toGoogleTOken = (accessToken: string) => {
 };
 
 export const axios_CreatePost = (formData: any, accessToken: string) => {
+  console.log(formData);
   return axios.post(`${serverURI}/posts`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",

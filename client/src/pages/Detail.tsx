@@ -43,24 +43,24 @@ export const Main = styled.div`
     display: flex;
     width: 100%;
   }
-  > #detial-container-up {
+  > #detail-container-up {
     border: 1px solid gray;
 
     display: flex;
     flex: 2 0 auto;
     flex-direction: column;
-    > #detial-container-up-up {
+    > #detail-container-up-up {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
     }
   }
-  > #detial-container-down {
+  > #detail-container-down {
     border: 1px solid gray;
 
     flex: 1 0 auto;
   }
-  > #detial-container-comment {
+  > #detail-container-comment {
     border: 1px solid gray;
     display: flex;
     flex-direction: column;
@@ -213,7 +213,7 @@ export default function Detail() {
       {postInfo ? (
         isModify ? (
           <Main>
-            <div id="detial-container-up">
+            <div id="detail-container-up">
               <div>수정</div>
               <div id="detail-title">
                 <input
@@ -222,7 +222,7 @@ export default function Detail() {
                   onChange={(e) => setTitleContent(e.target.value)}
                 ></input>
               </div>
-              <div id="detial-container-up-up">
+              <div id="detail-container-up-up">
                 <div id="detail-userinfo">
                   <img
                     src={postInfo.users.image}
@@ -258,9 +258,8 @@ export default function Detail() {
                 ) : null} */}
               </div>
             </div>
-            <div id="detial-container-down">
+            <div id="detail-container-down">
               <div id="detail-exInfo">
-                팔굽 윈몸 난이도
                 <br />
                 <br />
                 <div>
@@ -304,14 +303,13 @@ export default function Detail() {
                 </div>
               </div>
             </div>
-            <div id="detial-container-comment"></div>
+            <div id="detail-container-comment"></div>
           </Main>
         ) : (
           <Main>
-            <div id="detial-container-up">
-              <div>완료</div>
+            <div id="detail-container-up">
               <div id="detail-title">{postInfo.title}</div>
-              <div id="detial-container-up-up">
+              <div id="detail-container-up-up">
                 <div id="detail-userinfo">
                   <img
                     src={postInfo.users.image}
@@ -349,7 +347,7 @@ export default function Detail() {
                 <img src={postInfo.image} style={{ width: "200px" }}></img>
               </div>
             </div>
-            <div id="detial-container-down">
+            <div id="detail-container-down">
               <div id="detail-exInfo">
                 {postInfo.exerciseInfo.ex_record[0].genre}
                 {/* {postInfo.exerciseInfo !== null ? (
@@ -369,7 +367,7 @@ export default function Detail() {
                 <div> 소감 :{postInfo.info}</div>
               </div>
             </div>
-            <div id="detial-container-comment">
+            <div id="detail-container-comment">
               {isLike ? (
                 <button onClick={handleLikeSubmit} style={{ width: "50px" }}>
                   ❤️
