@@ -130,8 +130,8 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
   const navigate = useNavigate();
   const numToStar = (num: number) => {
     if (num === 0) return "☆";
-    let star = ""
-    for (let i = 0; i < num ; i++) {
+    let star = "";
+    for (let i = 0; i < num; i++) {
       star += "★";
     }
     return star;
