@@ -17,25 +17,14 @@ export const Stars = styled.div`
   }
 `;
 
-export default function labelStarPoint (number:number) {
-
+export default function labelStarPoint(number: number) {
   return (
     <Stars>
-      <label className={5 - number > 0 ? `no-color` : `color`}>
-        ★
-      </label>
-      <label className={4 - number > 0 ? `no-color` : `color`}>
-        ★
-      </label>
-      <label className={3 - number > 0 ? `no-color` : `color`}>
-        ★
-      </label>
-      <label className={2 - number > 0 ? `no-color` : `color`}>
-        ★
-      </label>
-      <label className={1 - number > 0 ? `no-color` : `color`}>
-        ★
-      </label>
+      <label className={5 - number > 0 ? `no-color` : `color`}>★</label>
+      <label className={4 - number > 0 ? `no-color` : `color`}>★</label>
+      <label className={3 - number > 0 ? `no-color` : `color`}>★</label>
+      <label className={2 - number > 0 ? `no-color` : `color`}>★</label>
+      <label className={1 - number > 0 ? `no-color` : `color`}>★</label>
     </Stars>
   );
-};
+}
