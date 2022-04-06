@@ -82,9 +82,7 @@ module.exports = async (req: Request, res: Response) => {
       posts: createed,
     });
   } else if (rankData.length > 3) {
-    let returndata = [];
     for (let i = 0; i < 3; i++) {
-      rankData[i].total_time = showtime(rankData[i].total_time);
       rankData[i].total_time = showtime(rankData[i].total_time);
     }
     const createed = allInfo.map((item) => {
