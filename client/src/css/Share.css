@@ -26,13 +26,13 @@
   background-color: #00cc99;
 }
 
-#calendar-record-container{
+#calendar-record-container {
   min-width: 250px;
   padding: 1.2rem;
   margin-bottom: 1rem;
 }
 
-#share-button button{
+#share-button button {
   font-size: medium;
   cursor: pointer;
   background-color: black;
@@ -40,7 +40,7 @@
   border: none;
   padding: 0.3rem;
   border-radius: 10px;
-} 
+}
 
 #share-button .show {
   min-width: 211.61px;
@@ -50,4 +50,3 @@
 #share-button .no-show {
   display: none;
 }
-

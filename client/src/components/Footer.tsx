@@ -133,6 +133,8 @@ export default function Footer() {
             &copy; Team 가보자고
             <br />
             <a href="https://icons8.com">아이콘Icons8</a>에서 아이콘 제공
+            <a href="http://www.freepik.com/terms_of_use">freepick</a>에서
+            이미지 사용
           </p>
           <div className="contact">
             {/* <span><i className='fas fa-phone'></i>&nbsp; 123-123-123</span>  */}
