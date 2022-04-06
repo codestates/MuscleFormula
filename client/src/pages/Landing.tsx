@@ -654,11 +654,6 @@ function Landing() {
     },
   ];
 
-  // 마지막 버튼 밑으로 스크롤이 내려간 상태로 메인으로 연결되는 것을 방지해 주는 핸들러
-  const scrollHandler = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  };
-
   return (
     <AllLandingContainer>
       <BodyOutContainer>
@@ -749,3 +744,4 @@ function Landing() {
 }
 
 export default Landing;
+
