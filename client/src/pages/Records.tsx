@@ -158,7 +158,7 @@ export default function Records() {
   };
 
   return (
-    <div>
+    <div id="record-container-wrapper">
       {isLogin === false ? (
         <div id="no-record-container">
           <NeedLogin />
