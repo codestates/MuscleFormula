@@ -1,6 +1,6 @@
 /**포스트 상세 페이지**/
 import Comment from "../components/Comment";
-import { useSelector } from "react-redux";
+import { useSelector, useStore } from "react-redux";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -41,6 +41,7 @@ interface RecordType {
 
 export const Main = styled.div`
   //border: 3px solid greens;
+  margin-top: 4rem;
   margin: auto;
 
   /* 화면 중앙으로 만들기 */
@@ -59,7 +60,7 @@ export const Main = styled.div`
     display: flex;
     min-width: 20rem;
     flex-direction: column;
-    > #detail-title {
+    > .detail-title {
       font-size: 1.5rem;
       border-bottom: 1px solid grey;
     }
@@ -275,6 +276,7 @@ export default function Detail() {
         })
         .then(() => {
           setIsModify(!isModify);
+          setShowDifficult(false);
         });
     });
   };
@@ -305,6 +307,9 @@ export default function Detail() {
     console.log("e.target.value:", e.target.value);
     setBodyPart(e.target.value);
   };
+
+
+  const [showDifficult, setShowDifficult] = useState(false);
   // console.log("postInfo:", postInfo);
   // console.log("titleContent:", titleContent);
   // console.log("isModify: ", isModify);
@@ -322,7 +327,7 @@ export default function Detail() {
                   type="textarea"
                   value={titleContent}
                   onChange={(e) => setTitleContent(e.target.value)}
-                ></input>
+                />
               </div>
               <div id="detail-container-up-up">
                 <div id="detail-userinfo">
@@ -365,9 +370,11 @@ export default function Detail() {
                 <br />
                 <br />
                 <div>총 소요시간: {showTime(postInfo.total_time)} </div>
-                <div>
+                <div onClick={()=> setShowDifficult(true)}>
                   난이도 :{" "}
-                  <StarPoint setDifficult={setDifficult}/>
+                  {!showDifficult? 
+                  labelStarPoint(difficult):
+                  <StarPoint setDifficult={setDifficult}/>}
                 </div>
                 <div>
                   운동부위 :
@@ -399,7 +406,7 @@ export default function Detail() {
         ) : (
           <Main>
             <div id="detail-container-up">
-              <div id="detail-title">{postInfo.title}</div>
+              <div className="detail-title">{postInfo.title}</div>
               <div id="detail-container-up-up">
                 <div id="detail-userinfo">
                   <img
