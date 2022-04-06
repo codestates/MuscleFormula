@@ -227,7 +227,7 @@ export default function Detail() {
                   <img
                     src={postInfo.users.image}
                     style={{ width: "70px" }}
-                    alt ="user"
+                    alt="user"
                   />
                   <div>{postInfo.users.nickname}</div>
                 </div>
@@ -238,7 +238,11 @@ export default function Detail() {
 
               <div id="detail-image">
                 <div>{postInfo.created_At.split("T")[0]}</div>
-                <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl={postInfo.image}/>
+                <PhotoUploader
+                  photo={photo}
+                  setPhoto={setPhoto}
+                  photoUrl={postInfo.image}
+                />
                 {/* <img
                   src={postInfo.image}
                   alt="post_image"
@@ -316,21 +320,27 @@ export default function Detail() {
                   <div>{postInfo.users.nickname}</div>
                 </div>
                 <div id="detail-butten">
-                  <button
-                    onClick={() => {
-                      setIsModify(!isModify);
-                      setTitleContent(postInfo.title);
-                      setTextContent(postInfo.info);
-                      setBodyPart(postInfo.body_part);
-                      // setPhoto(postInfo.users.image);
-                      setDifficult(postInfo.difficult);
-                      setTotalTime(postInfo.total_time);
-                      setExInfo(postInfo.exerciseInfo.id);
-                    }}
-                  >
-                    수정
-                  </button>
-                  <button onClick={handlePostDelete}>삭제</button>
+                  {postInfo.users.id === user.id ? (
+                    <div>
+                      <button
+                        onClick={() => {
+                          setIsModify(!isModify);
+                          setTitleContent(postInfo.title);
+                          setTextContent(postInfo.info);
+                          setBodyPart(postInfo.body_part);
+                          // setPhoto(postInfo.users.image);
+                          setDifficult(postInfo.difficult);
+                          setTotalTime(postInfo.total_time);
+                          setExInfo(postInfo.exerciseInfo.id);
+                        }}
+                      >
+                        수정
+                      </button>
+                      <button onClick={handlePostDelete}>삭제</button>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
               </div>
 
