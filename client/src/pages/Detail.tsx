@@ -19,6 +19,8 @@ import {
   axios_Delete_Like,
   axios_Put_Post,
 } from "../axios";
+import StarPoint from "../components/StarPoint";
+import labelStarPoint from "../functions/labelStarPoint";
 
 const FormData = require("form-data");
 function showTime(duration: number) {
@@ -308,14 +310,6 @@ export default function Detail() {
   // console.log("isModify: ", isModify);
   // let shareRecords = postInfo.exerciseInfo.ex_record;
   // console.log("shareRecords :", shareRecords);
-  const numToStar = (num: number) => {
-    if (num === 0) return "☆";
-    let star = "";
-    for (let i = 0; i < num; i++) {
-      star += "★";
-    }
-    return star;
-  };
   return (
     <div id="DetailPage">
       {postInfo ? (
@@ -373,11 +367,7 @@ export default function Detail() {
                 <div>총 소요시간: {showTime(postInfo.total_time)} </div>
                 <div>
                   난이도 :{" "}
-                  <input
-                    type="textarea"
-                    value={difficult}
-                    onChange={(e) => setDifficult(e.target.value)}
-                  ></input>
+                  <StarPoint setDifficult={setDifficult}/>
                 </div>
                 <div>
                   운동부위 :
@@ -462,7 +452,7 @@ export default function Detail() {
                 <br />
                 <br />
                 <div>총 소요시간: {showTime(postInfo.total_time)} </div>
-                <div>난이도 : {numToStar(postInfo.difficult)}</div>
+                <div>난이도 : {labelStarPoint(postInfo.difficult)}</div>
                 <div>운동부위 : {postInfo.body_part}</div>
                 <div> 소감 :{postInfo.info}</div>
               </div>
