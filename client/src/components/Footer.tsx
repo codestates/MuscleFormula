@@ -8,15 +8,11 @@ export const Foot = styled.footer`
   display: flex;
   transform: translateY(100%);
   flex-direction: column;
-
   width: 100%;
-
   color: #686868;
-
   > #destination .a {
     position: fixed;
   }
-
   > button.btn-big {
     padding: 0.3rem 1rem;
     background: #00ff99;
@@ -24,7 +20,6 @@ export const Foot = styled.footer`
     border: 1px solid transparent;
     border-radius: 0.25rem;
   }
-
   > .footer-container {
     /* transform:translateY(100%);  */
     color: #686868;
@@ -33,12 +28,10 @@ export const Foot = styled.footer`
     flex-direction: row;
     background: #c0c0c0;
   }
-
   > .footer-container .footer-section {
     flex: 1;
     padding: 25px;
   }
-
   > .footer-container h1,
   .footer-container p {
     color: black;
@@ -51,27 +44,21 @@ export const Foot = styled.footer`
   > .footer-container .about .contact span {
     /* border: dashed blue; */
     display: block;
-
     margin-bottom: 0.1 rem;
   }
-
   > .footer-container .about a {
     color: #686868;
     text-decoration: none;
   }
-
   /* 
 > .footer-container .about a:hover {
 border: 1px solid white;
 color: white;
 transition: all .3s;
  
-
 }*/
-
   > .footer-container .links ul a {
     display: flex;
-
     margin-bottom: 0rem;
     text-decoration-line: none;
     list-style: none;
@@ -82,12 +69,9 @@ transition: all .3s;
   color:white;
   margin-left: 15px;
   transition: all .3s;
-
 }  */
-
   > .footer-container .contact-input {
     /* border: solid 1px red; */
-
     display: flex;
     flex-direction: column;
     background: #686868;
@@ -97,45 +81,33 @@ transition: all .3s;
     padding: 0.2rem 1.1rem;
     /* border: none; */
   }
-
   > .footer-container .contact-input:focus {
     background: #686868;
   }
   > .footer-bottom {
     /* border: 1px solid red; */
     color: #686868;
-
     width: 100%;
     text-align: center;
     bottom: 0px;
     left: 0px;
     padding-top: 20px;
-
     /* border: 1px solid darkblue; */
   }
 `;
 export default function Footer() {
+  const scrollUp = () => {
+    window.scrollBy(0, -window.innerHeight);
+  };
   return (
     <Foot>
-      <div id="destination">
-        <button onClick={Scroll}>
-          <i className="fa fa-arrow-up" aria-hidden="true"></i>
-        </button>
-      </div>
+      <div id="destination"></div>
       <div className="footer-container">
         <div className="footer-section about">
           <h1 className="logo-text">
             <span>Muscle</span>Formula
           </h1>
-          <p>
-            &nbsp;설립일 :2022년 03월 17일 <br />
-            &nbsp;Project : GG , 근의 공식 <br />
-            &copy; Team 가보자고
-            <br />
-            <a href="https://icons8.com">아이콘Icons8</a>에서 아이콘 제공
-            <a href="http://www.freepik.com/terms_of_use">freepick</a>에서
-            이미지 사용
-          </p>
+
           <div className="contact">
             {/* <span><i className='fas fa-phone'></i>&nbsp; 123-123-123</span>  */}
             <span>
@@ -143,6 +115,19 @@ export default function Footer() {
               &nbsp;MuscleFormula365@gmail.com
             </span>
           </div>
+          <div className="team-name-container">
+            <a href="https://github.com/codestates/MuscleFormula">
+              <i className="fa-brands fa-github"></i>Muscle Formula
+            </a>
+          </div>
+
+          <p>
+            &nbsp;설립일 :2022년 03월 17일 <br />
+            &nbsp;Project : GG , 근의 공식 <br />
+            &copy; Team 가보자고
+            <br />
+            <a href="https://icons8.com">아이콘Icons8</a>에서 아이콘 제공
+          </p>
           {/* <div className="socials">
              
               <a href="#"><i className='fab fa-facebook'></i></a>
