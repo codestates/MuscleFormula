@@ -21,7 +21,6 @@ import {
   axios_Put_Post,
 } from "../axios";
 import StarPoint from "../components/StarPoint";
-import labelStarPoint from "../functions/labelStarPoint";
 
 const FormData = require("form-data");
 function showTime(duration: number) {
@@ -71,7 +70,7 @@ export const Main = styled.div`
     min-width: 20rem;
     flex-direction: column;
 
-    > #detail-title {
+    > .detail-title {
       padding-top: 1rem;
       font-size: 1.5rem;
       border-bottom: 1px solid grey;
@@ -346,14 +345,13 @@ export default function Detail() {
     setBodyPart(e.target.value);
   };
 
-
   const [showDifficult, setShowDifficult] = useState(false);
   // console.log("postInfo:", postInfo);
   // console.log("titleContent:", titleContent);
   // console.log("isModify: ", isModify);
   // let shareRecords = postInfo.exerciseInfo.ex_record;
   // console.log("shareRecords :", shareRecords);
-  
+
   return (
     <div id="DetailPage">
       {postInfo ? (
@@ -409,11 +407,13 @@ export default function Detail() {
                 <br />
                 <br />
                 <div>총 소요시간: {showTime(postInfo.total_time)} </div>
-                <div onClick={()=> setShowDifficult(true)}>
+                <div onClick={() => setShowDifficult(true)}>
                   난이도 :{" "}
-                  {!showDifficult? 
-                  labelStarPoint(difficult):
-                  <StarPoint setDifficult={setDifficult}/>}
+                  {!showDifficult ? (
+                    labelStarPoint(difficult)
+                  ) : (
+                    <StarPoint setDifficult={setDifficult} />
+                  )}
                 </div>
                 <div>
                   운동부위 :
@@ -553,11 +553,11 @@ export default function Detail() {
               </div>
             </div>
             {deleteModal ? (
-                  <DeleteModal
-                    setDeleteModal={setDeleteModal}
-                    handlePostDelete={handlePostDelete}
-                  />
-                ) : null}
+              <DeleteModal
+                setDeleteModal={setDeleteModal}
+                handlePostDelete={handlePostDelete}
+              />
+            ) : null}
           </Main>
         )
       ) : (
