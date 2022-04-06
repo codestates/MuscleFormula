@@ -4,25 +4,25 @@ import Slider from "react-slick";
 import { settings } from "../slideSetting";
 import PostThumbnail from "../components/PostThumbnail";
 import { useEffect, useState } from "react";
-import { axios_GetPosts } from "../axios";
+import { axios_Get_Posts } from "../axios";
 
-
-export default function ReactSlick (){
+export default function ReactSlick() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios_GetPosts().then((res) => {
+    axios_Get_Posts().then((res) => {
       setPosts(res.data.posts);
       console.log(res.data.posts);
     });
   }, []);
 
-
   return (
-      <div>
-        <Slider {...settings}>
-         {posts.map((el, idx) => <PostThumbnail key={idx} postThumb={el}/>)}
-        </Slider>
-      </div>
-    );
+    <div>
+      <Slider {...settings}>
+        {posts.map((el, idx) => (
+          <PostThumbnail key={idx} postThumb={el} />
+        ))}
+      </Slider>
+    </div>
+  );
 }
