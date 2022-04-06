@@ -357,16 +357,14 @@ export default function Detail() {
             </div>
             <div id="detail-container-down">
               <div id="detail-exInfo">
-                {postInfo.exerciseInfo.ex_record[0].genre}
-                {/* {postInfo.exerciseInfo !== null ? (
-                  postInfo.exerciseInfo.map(
-                    (record: RecordType, idx: number) => (
-                      <CalendarRecord key={idx} record={record} />
+                {console.log("what doyou have?", postInfo)}
+                {postInfo !== null
+                  ? postInfo.exerciseInfo.ex_record.map(
+                      (record: RecordType, idx: number) => (
+                        <CalendarRecord key={idx} record={record} />
+                      )
                     )
-                  )
-                ) : (
-                  <div></div>
-                )} */}
+                  : null}
                 <br />
                 <br />
                 <div>총 소요시간: {postInfo.total_time}</div>
@@ -411,14 +409,14 @@ export default function Detail() {
                     </li>
                   ))
                 ) : (
-                  <div>없음</div>
+                  <div>작성된 댓글이 없습니다!</div>
                 )}
               </ul>
             </div>
           </Main>
         )
       ) : (
-        <div>없</div>
+        <div>없음</div>
       )}
     </div>
   );
