@@ -66,7 +66,11 @@ interface PhotoUploaderProps {
   photoUrl: string;
 }
 
-const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto, photoUrl }) => {
+const PhotoUploader: React.FC<PhotoUploaderProps> = ({
+  photo,
+  setPhoto,
+  photoUrl,
+}) => {
   // const [photo, setPhoto] = useState<any>({
   //   file: [],
   //   previewURL: "",
@@ -112,15 +116,14 @@ const PhotoUploader: React.FC<PhotoUploaderProps> = ({ photo, setPhoto, photoUrl
         htmlFor="upload-file"
         onClick={() => setIsShow(false)}
       >
-        {photoUrl 
-        ?
-        <img src={photoUrl} alt="post"/>
-        :
-        <div className="default-upload-image">
-          <i className="fas fa-camera"></i>
-          이미지 업로드
-        </div>
-        }
+        {photoUrl ? (
+          <img src={photoUrl} alt="post" style={{ width: "300px" }} />
+        ) : (
+          <div className="default-upload-image">
+            <i className="fas fa-camera"></i>
+            이미지 업로드
+          </div>
+        )}
         <input
           id="upload-file"
           type="file"
