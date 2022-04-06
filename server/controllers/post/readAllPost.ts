@@ -53,6 +53,34 @@ module.exports = async (req: Request, res: Response) => {
   //console.log(rankData);
   if (rankData.length === 0) {
     res.status(200);
+  } else if (rankData.length < 3) {
+    for (let i = 0; i < rankData.length; i++) {
+      rankData[i].total_time = showtime(rankData[i].total_time);
+      const createed = allInfo.map((item) => {
+        const data = {
+          user: {
+            userId: item.users.id,
+            nickname: item.users.nickname,
+            image: item.users.image,
+          },
+          postId: item.id,
+          postTitle: item.title,
+          info: item.info,
+          postImage: item.image,
+          bodyPart: item.body_Part,
+          difficult: item.difficult,
+          totalTime: item.total_time,
+          total_comments: item.post_comments.length,
+          total_Likes: item.post_likes.length,
+          created_At: item.created_At,
+        };
+        return data;
+      });
+      res.status(200).json({
+        rankData: rankData,
+        posts: createed,
+      });
+    }
   } else if (rankData.length > 3) {
     for (let i = 0; i < 3; i++) {
       rankData[i].total_time = showtime(rankData[i].total_time);
@@ -81,35 +109,5 @@ module.exports = async (req: Request, res: Response) => {
         posts: createed,
       });
     }
-  } else {
-    for (let i = 0; i < rankData.length; i++) {
-      rankData[i].total_time = showtime(rankData[i].total_time);
-      const createed = allInfo.map((item) => {
-        const data = {
-          user: {
-            userId: item.users.id,
-            nickname: item.users.nickname,
-            image: item.users.image,
-          },
-          postId: item.id,
-          postTitle: item.title,
-          info: item.info,
-          postImage: item.image,
-          bodyPart: item.body_Part,
-          difficult: item.difficult,
-          totalTime: item.total_time,
-          total_comments: item.post_comments.length,
-          total_Likes: item.post_likes.length,
-          created_At: item.created_At,
-        };
-        return data;
-      });
-      res.status(200).json({
-        rankData: rankData,
-        posts: createed,
-      });
-    }
-
-    console.log(rankData);
   }
 };
