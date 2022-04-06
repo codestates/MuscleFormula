@@ -9,15 +9,15 @@ export const RecordContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-family: "IBM Plex Sans KR", sans-serif;
   font-size: large;
   border-bottom: solid 1px lightgrey;
+  padding-bottom: 0.3rem;
   > div {
     padding-right: 0.3rem;
     font-size: medium;
   }
   > .exercise-name {
-    width: 6rem;
+    width: 5rem;
   }
   > .exercise-weight {
     width: 3.5rem;
