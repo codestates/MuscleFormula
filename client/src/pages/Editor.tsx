@@ -32,11 +32,18 @@ export const Main = styled.div`
     > #record-container {
       border: 3px solid green;
     }
+
     > #editor-titleContent {
       border: 3px solid gray;
     }
-    > #editor-textContent {
+    > #editor-titleContent:empty:before{
+      content: attr(placeholder);
+      display: block; 
+    }
+    > #editor-textContent:empty:before{
       border: 3px solid gray;
+      content: attr(placeholder);
+      display: block;
     }
   }
 `;
@@ -87,6 +94,8 @@ const Editor = () => {
 
   //total타임 shareRecords에서 계산
   console.log("shareRecords에서 time_record", shareRecords);
+<<<<<<< HEAD
+=======
   let shareRecordsTotalTime = 0;
   if (shareRecords !== null) {
     shareRecordsTotalTime = shareRecords.reduce((a, b) => {
@@ -94,6 +103,7 @@ const Editor = () => {
     }, 0);
   }
   console.log("shareRecordsTotalTime", shareRecordsTotalTime);
+>>>>>>> feature
 
   let dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
@@ -125,10 +135,10 @@ const Editor = () => {
     <div id="EditorPage">
       <Main>
         <div id="editor-container">
-          <div>제목</div>
           <div
             id="editor-titleContent"
             contentEditable="true"
+            placeholder="제목을 입력해주세요."
             onInput={(e) => setTitleContent(e.currentTarget.textContent)}
           ></div>
           <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl="" />
@@ -140,13 +150,19 @@ const Editor = () => {
                 ))
               : null}
           </div>
-          <div>내용</div>
           <div
             id="editor-textContent"
             contentEditable="true"
+            placeholder="내용을 입력해주세요"
             onInput={(e) => setTextContent(e.currentTarget.textContent)}
           ></div>
           <div>드롭다운 (상체, 하체, 전신)</div>
+<<<<<<< HEAD
+          <div>
+            난이도
+            <div>
+              <StarPoint setValue={setDifficult} />
+=======
           <select id="dropdown" onChange={handleGetbodyPart}>
             <option value="미선택">선택해주세요</option>
             <option value="전신">전신</option>
@@ -157,6 +173,7 @@ const Editor = () => {
             난이도
             <div>
               <StarPoint setDifficult={setDifficult} />
+>>>>>>> feature
             </div>
           </div>
           <div>
