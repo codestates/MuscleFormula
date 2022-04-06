@@ -177,8 +177,9 @@ const Editor = () => {
     formData.append("totalTime", shareRecordsTotalTime);
     formData.append("bodyPart", bodyPart);
     formData.append("difficult", difficult);
-    formData.append("userId", user.id);
+    // formData.append("userId", user.id);
     formData.append("exerciseInfo", recordId);
+    console.log(formData);
 
     axios_CreatePost(formData, user.accessToken);
     dispatch(RESET());
@@ -206,7 +207,7 @@ const Editor = () => {
         <div id="record-container">
             {shareRecords !== null
               ? shareRecords.map((record: RecordType, idx: number) => (
-                  <CalendarRecord key={idx} record={record}/>
+                  <CalendarRecord key={idx} record={record} />
                 ))
               : null}
         </div>

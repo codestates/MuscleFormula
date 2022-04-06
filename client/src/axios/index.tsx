@@ -2,19 +2,14 @@ import React from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
-
+//require('dotenv').config();
 // import { useNavigate } from "react-router-dom";
 // const navigate = useNavigate();
 const qs = require("qs");
 const clientURI = `http://localhost:3000`;
-const serverURI = `http://localhost:4000`;
-// const serverURI = `https://server.muscleformula.xyz`;
+const serverURI = `https://server.muscleformula.xyz`;
+//const serverURI = process.env.SERVER_URI;
 
-const kakao = {
-  clientID: "7d8937ab746c6e3604651e33e259fc1d",
-  clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
-  redirectUri: "http://localhost:3000/callbackKakao",
-};
 // let user = useSelector((state: RootState) => state.userInfo.userInfo);
 // const localUser = localStorage.getItem("userInfo");
 // if (localUser !== null) {
@@ -22,22 +17,24 @@ const kakao = {
 // }
 // const accessToken = user.accessToken;
 
+//----------------------------------------------------------------
+// ! oauth
+const kakao = {
+  clientID: "7d8937ab746c6e3604651e33e259fc1d",
+  clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
+  redirectUri: "http://localhost:3000/callbackKakao",
+};
+
 export const axios_Signup = (
   userEmail: string,
   userNickname: string,
   userPassword: string
 ) => {
-  return axios.post(
-    `${serverURI}/sign/up`,
-    {
-      email: userEmail,
-      nickname: userNickname,
-      password: userPassword,
-    }
-    // {
-    //   withCredentials: true,
-    // }
-  );
+  return axios.post(`${serverURI}/sign/up`, {
+    email: userEmail,
+    nickname: userNickname,
+    password: userPassword,
+  });
 };
 
 export const axios_Login = (userEmail: string, userPassword: string) => {
@@ -100,6 +97,8 @@ export const axios_GetGoogleToken = (code: string) => {
     code: code,
     grant_type: "authorization_code",
     redirect_uri: `${clientURI}/callbackGoogle`,
+    response_type: code,
+    scope: "https://www.googleapis.com/auth/userinfo.email",
   });
 };
 export const axios_GetUser_toGoogleTOken = (accessToken: string) => {
@@ -107,123 +106,28 @@ export const axios_GetUser_toGoogleTOken = (accessToken: string) => {
     accessToken,
   });
 };
+//----------------------------------------------------------------
+// ! User
 
-export const axios_CreatePost = (formData: any, accessToken: string) => {
-  return axios.post(`${serverURI}/posts`, formData, {
+export const axios_Put_User = (formData: any, accessToken: string) => {
+  return axios.put(`${serverURI}/user`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
       authorization: `Bearer ${accessToken}`,
     },
-    // withCredentials: true,
   });
-};
-export const axios_Put_Post = (
-  formData: any,
-  postId: string | number,
-  accessToken: string
-) => {
-  return axios.put(`${serverURI}/posts/${postId}`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      authorization: `Bearer ${accessToken}`,
-    },
-    // withCredentials: true,
-  });
-};
-export const axios_GetPosts = () => {
-  return axios.get(`${serverURI}/posts`);
 };
 
-export const axios_GetMyPosts = (accessToken: string) => {
-  return axios.get(`${serverURI}/user`, {
+export const axios_Delete_User = (accessToken: string) => {
+  return axios.delete(`${serverURI}/user`, {
     headers: {
       authorization: `Bearer ${accessToken}`,
     },
   });
 };
 
-export const axios_Get_DetailPosts = (postId: number | string | undefined) => {
-  return axios.get(`${serverURI}/posts/${postId}`);
-};
-
-export const axios_Create_Comment = (
-  postId: string | undefined,
-  comment: string | null,
-  accessToken: string
-) => {
-  return axios.post(
-    `${serverURI}/comment/${postId}`,
-    { comment },
-    {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-      // withCredentials: true,
-    }
-  );
-};
-export const axios_Create_Like = (
-  postId: string | undefined,
-  accessToken: string
-) => {
-  return axios.post(
-    `${serverURI}/like/${postId}`,
-    {},
-    {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
-};
-export const axios_Delete_Like = (
-  postId: string | undefined,
-  accessToken: string
-) => {
-  return axios.delete(`${serverURI}/like/${postId}`, {
-    headers: {
-      authorization: `Bearer ${accessToken}`,
-    },
-  });
-};
-
-export const axios_Delete_comment = (
-  commentId: number,
-  accessToken: string
-) => {
-  return axios.delete(`${serverURI}/comment/${commentId}`, {
-    headers: {
-      authorization: `Bearer ${accessToken}`,
-    },
-  });
-};
-export const axios_Delete_Post = (
-  postId: number | string | undefined,
-  accessToken: string
-) => {
-  return axios.delete(`${serverURI}/posts/${postId}`, {
-    headers: {
-      authorization: `Bearer ${accessToken}`,
-    },
-  });
-};
-export const axios_Put_comment = (
-  commentId: number,
-  comment: string,
-  accessToken: string
-) => {
-  return axios.put(
-    `${serverURI}/comment/${commentId}`,
-    {
-      comment: comment,
-    },
-    {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
-};
+//----------------------------------------------------------------
+// ! UserRecord
 export const axios_Delete_UserRecord = (
   genre: string,
   accessToken: string,
@@ -283,14 +187,110 @@ export const axios_Get_UserRecord_Date = (
   });
 };
 
-export const axios_Put_User = (formData: any, accessToken: string) => {
-  return axios.put(`${serverURI}/user`, formData, {
+//----------------------------------------------------------------
+// ! post
+
+export const axios_Get_Posts = () => {
+  return axios.get(`${serverURI}/posts`);
+};
+
+export const axios_CreatePost = (formData: any, accessToken: string) => {
+  return axios.post(`${serverURI}/posts`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
       authorization: `Bearer ${accessToken}`,
     },
+    // withCredentials: true,
   });
 };
+export const axios_Put_Post = (
+  formData: any,
+  postId: string | number,
+  accessToken: string
+) => {
+  return axios.put(`${serverURI}/posts/${postId}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      authorization: `Bearer ${accessToken}`,
+    },
+    // withCredentials: true,
+  });
+};
+
+export const axios_GetMyPosts = (accessToken: string) => {
+  return axios.get(`${serverURI}/user`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const axios_Get_DetailPosts = (postId: number | string | undefined) => {
+  return axios.get(`${serverURI}/posts/${postId}`);
+};
+
+export const axios_Delete_Post = (
+  postId: number | string | undefined,
+  accessToken: string
+) => {
+  return axios.delete(`${serverURI}/posts/${postId}`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+//----------------------------------------------------------------
+// ! Commnet
+
+export const axios_Create_Comment = (
+  postId: string | undefined,
+  comment: string | null,
+  accessToken: string
+) => {
+  return axios.post(
+    `${serverURI}/comment/${postId}`,
+    { comment },
+    {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+      // withCredentials: true,
+    }
+  );
+};
+
+export const axios_Put_comment = (
+  commentId: number,
+  comment: string,
+  accessToken: string
+) => {
+  return axios.put(
+    `${serverURI}/comment/${commentId}`,
+    {
+      comment: comment,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};
+
+export const axios_Delete_comment = (
+  commentId: number,
+  accessToken: string
+) => {
+  return axios.delete(`${serverURI}/comment/${commentId}`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+//----------------------------------------------------------------
+// ! Like
 
 export const axios_Get_Like = (accessToken: string) => {
   return axios.get(`${serverURI}/like`, {
@@ -300,8 +300,25 @@ export const axios_Get_Like = (accessToken: string) => {
   });
 };
 
-export const axios_Delete_User = (accessToken: string) => {
-  return axios.delete(`${serverURI}/user`, {
+export const axios_Create_Like = (
+  postId: string | undefined,
+  accessToken: string
+) => {
+  return axios.post(
+    `${serverURI}/like/${postId}`,
+    {},
+    {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};
+export const axios_Delete_Like = (
+  postId: string | undefined,
+  accessToken: string
+) => {
+  return axios.delete(`${serverURI}/like/${postId}`, {
     headers: {
       authorization: `Bearer ${accessToken}`,
     },

@@ -85,37 +85,54 @@ export default function Share() {
 
   return (
     <div id="share-container-wrapper">
-      {isLogin === false ? (
-        <div id="no-share-container">
-          <NeedLogin />
+      <div id="share-container">
+        <div id="calendar-container">
+          <Calendar date={date} setDate={setDate} />
         </div>
-      ) : (
-        <div id="share-container">
-          <div id="calendar-container">
-            <Calendar date={date} setDate={setDate} />
-          </div>
-          <div id="calendar-record-container">
-            {records !== null ? (
-              records.map((record, idx) => (
-                <CalendarRecord
-                  key={idx}
-                  record={record}
-                />
-              ))
-            ) : (
-              <NoRecord />
-            )}
-          </div>
-          <div id="share-button">
-            <button
-              className={records ? "show" : "no-show"}
-              onClick={handleShare}
-            >
-              선택하기
-            </button>
-          </div>
+        <div id="calendar-record-container">
+          {records ? (
+            records.map((record, idx) => (
+              <CalendarRecord key={idx} record={record} />
+            ))
+          ) : (
+            <div></div>
+          )}
         </div>
-      )}
+        <div>
+          <button onClick={handleShare}>선택하기</button>
+        </div>
+
+        <div>
+          {isLogin === false ? (
+            <div id="no-share-container">
+              <NeedLogin />
+            </div>
+          ) : (
+            <div id="share-container">
+              <div id="calendar-container">
+                <Calendar date={date} setDate={setDate} />
+              </div>
+              <div id="calendar-record-container">
+                {records !== null ? (
+                  records.map((record, idx) => (
+                    <CalendarRecord key={idx} record={record} />
+                  ))
+                ) : (
+                  <NoRecord />
+                )}
+              </div>
+              <div id="share-button">
+                <button
+                  className={records ? "show" : "no-show"}
+                  onClick={handleShare}
+                >
+                  선택하기
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
