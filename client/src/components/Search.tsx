@@ -29,31 +29,6 @@ const AllpostDataDumy = [
   },
 ];
 
-const SearchBar = styled.div`
-  position: relative;
-  display: flex;
-  padding: 0.5rem;
-  width: 80vw;
-  max-width: 350px;
-  border-bottom: 2px solid black;
-  > input {
-    display: flex;
-    align-items: flex-end;
-    width: 100%;
-    border: none;
-    font-size: 18px;
-  }
-  > input:focus {
-    outline: none;
-  }
-  > img {
-    display: flex;
-    align-items: flex-end;
-    width: 30px;
-    margin-left: auto;
-  }
-`;
-
 const boxShadow = "0 4px 6px rgb(32 33 36 / 28%)";
 const activeBorderRadius = "1rem 1rem 0 0";
 const inactiveBorderRadius = "1rem 1rem 1rem 1rem";
@@ -61,9 +36,10 @@ const inactiveBorderRadius = "1rem 1rem 1rem 1rem";
 export const InputContainer: InputContainerType = styled.div`
   /* margin-top: 8rem; */
   background-color: #ffffff;
+  width: 17.5rem;
   display: flex;
   flex-direction: row;
-  padding: 1rem;
+  padding: 0.5rem;
   border: 1px solid rgb(223, 225, 229);
   border-radius: ${(props: any) =>
     props.hasText ? activeBorderRadius : inactiveBorderRadius};
@@ -72,6 +48,14 @@ export const InputContainer: InputContainerType = styled.div`
 
   &:focus-within {
     box-shadow: ${boxShadow};
+  }
+
+  > img {
+    display: flex;
+    align-items: flex-end;
+    width: 25px;
+    margin-left: auto;
+    margin-right: 0.5rem;
   }
 
   > input {
@@ -195,15 +179,12 @@ const Search: React.FC<SearchType> = ({ posts, setshowPosts }) => {
   };
 
   return (
-    // <SearchBar>
-    //   <input type="text" placeholder="검색어를 입력하세요" />
-    //   <img src="../images/icon_search.png" alt="search" />
-    // </SearchBar>
-
     <div className="autocomplete-wrapper" onKeyUp={handleKeyUp}>
       <InputContainer hasText={hasText}>
+        <img src="../images/icon_search.png" alt="search"/>
         <input
           type="text"
+          placeholder="검색어를 입력해주세요"
           className="autocomplete-input"
           onChange={handleInputChange}
           value={inputValue}
