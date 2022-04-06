@@ -82,10 +82,14 @@ module.exports = async (req: Request, res: Response) => {
       posts: createed,
     });
   } else if (rankData.length > 3) {
-    let Rank: any = [];
+    let Rank: any = [
+      { total_time: null, nickname: null },
+      { total_time: null, nickname: null },
+      { total_time: null, nickname: null },
+    ];
     for (let i = 0; i < 3; i++) {
-      let returnrankData = showtime(rankData[i].total_time);
-      Rank.push(returnrankData);
+      Rank[i].total_time = showtime(rankData[i].total_time);
+      Rank[i].nickname = rankData[i].nickname;
     }
     const createed = allInfo.map((item) => {
       const data = {
