@@ -678,10 +678,7 @@ function Landing() {
               </Link>
             </FirstTextContainer>
             <FirstImageContainer>
-              <img
-                src="./images/Landing_page1.jpg"
-                alt="landingpage_img1"
-              />
+              <img src="./images/Landing_page1.jpg" alt="landingpage_img1" />
             </FirstImageContainer>
           </FirstLandingContainer>
         </BodyContainer>
@@ -728,7 +725,7 @@ function Landing() {
                   </ThirTextContainer>
                   <ThirImageContainer id="3rd" idx={idx}>
                     {" "}
-                    <img src={el.img} alt={el.title[0]}/>
+                    <img src={el.img} alt={el.title[0]} />
                   </ThirImageContainer>
                 </AllContainer>
               </ThirLandingContainer>
@@ -748,4 +745,3 @@ function Landing() {
 }
 
 export default Landing;
-
