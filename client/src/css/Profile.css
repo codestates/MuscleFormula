@@ -3,10 +3,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 4rem;
+  margin-bottom: 3rem;
 }
 
 #profile-setting-container {
-  margin-top: 10rem;
+  margin-top: 4rem;
   padding: 3rem;
   display: flex;
   flex-direction:column;

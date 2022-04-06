@@ -1,4 +1,6 @@
 import "./css/App.css";
+import { PC, Mobile } from "./mediaQuery";
+import Footer from "./components/Footer";
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
@@ -8,8 +10,6 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Share from "./pages/Share";
 import Records from "./pages/Records";
-import Alarm from "./pages/Alarm";
-import Chat from "./pages/Chat";
 import Maypage from "./pages/Mypage";
 import Profile from "./pages/Profile";
 import Editor from "./pages/Editor";
@@ -60,14 +60,22 @@ const App: React.FC = () => {
         <Route path="/record" element={<Records />} />
         <Route path="/share" element={<Share />} />
         <Route path="/editor" element={<Editor />} />
-        <Route path="/alarm" element={<Alarm />} />
-        <Route path="/chat" element={<Chat />} />
         <Route path="/test" element={<Test />} />
         <Route path="/testEdit" element={<EditorTest />} />
         <Route path="/callbackKakao" element={<CallbackKakao />} />
         <Route path="/callbackGoogle" element={<CallbackGoogle />} />
         <Route path="/" element={<Landing />} />
       </Routes>
+      <PC>
+        <footer className="pc-footer">
+          <Footer />
+        </footer>
+      </PC>
+      <Mobile>
+        <footer className="m-footer">
+          <Footer />
+        </footer>
+      </Mobile>
     </div>
   );
 };

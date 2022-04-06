@@ -29,7 +29,7 @@ export const Foot = styled.header`
 `;
 
 export const NavPC = styled.nav`
-  height: 5rem;
+  height: 4rem;
   padding: 1rem;
   background: #f2f2f2;
   display: flex;
@@ -39,7 +39,7 @@ export const NavPC = styled.nav`
   > .nav-title {
     flex: none;
     margin-right: 5rem;
-    font-size: 2rem;
+    font-size: x-large;
     font-family: "IBM Plex Sans KR", sans-serif;
     > #logo {
       margin-left: 1rem;
@@ -124,7 +124,7 @@ export const NavPC = styled.nav`
   }
 `;
 export const UpNavMobile = styled.nav`
-  height: 4.5rem;
+  height: 4rem;
   padding: 1rem;
   display: flex;
   flex-direction: row;
@@ -197,11 +197,11 @@ export const UpNavMobile = styled.nav`
   }
 `;
 export const DownNavMobile = styled.nav`
-  height: 4rem;
+  height: 3.5rem;
   padding: 1rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background: #f2f2f2;
   box-shadow: 0px -3px 10px 0px rgba(0, 0, 0, 0.2);
@@ -238,8 +238,6 @@ export default function Nav() {
   const [main, setMain] = useState("outline");
   const [record, setRecord] = useState("outline");
   const [share, setShare] = useState("outline");
-  const [alarm, setAlarm] = useState("outline");
-  const [chat, setChat] = useState("outline");
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const className = e.currentTarget.className;
@@ -249,16 +247,12 @@ export default function Nav() {
         setMain("fill");
         setRecord("outline");
         setShare("outline");
-        setAlarm("outline");
-        setChat("outline");
         break;
       case "nav-menu record":
         navigate("/record");
         setMain("outline");
         setRecord("fill");
         setShare("outline");
-        setAlarm("outline");
-        setChat("outline");
         break;
       case "nav-menu share":
         dispatch(RESET());
@@ -266,26 +260,6 @@ export default function Nav() {
         setMain("outline");
         setRecord("outline");
         setShare("fill");
-        setAlarm("outline");
-        setChat("outline");
-        break;
-      case "nav-menu alarm":
-        navigate("/alarm");
-        setMain("outline");
-        setRecord("outline");
-        setShare("outline");
-        setAlarm("fill");
-        setChat("outline");
-        break;
-      case "nav-menu chat":
-        navigate("/chat");
-        setMain("outline");
-        setRecord("outline");
-        setShare("outline");
-        setAlarm("outline");
-        setChat("fill");
-        break;
-      default:
         break;
     }
   };
@@ -312,12 +286,6 @@ export default function Nav() {
             </Link>
             <Link to="/share" className="nav-menu" onClick={()=>dispatch(RESET())}>
               <li>공유하기</li>
-            </Link>
-            <Link to="/alarm" className="nav-menu">
-              <li>알림</li>
-            </Link>
-            <Link to="/chat" className="nav-menu">
-              <li>채팅</li>
             </Link>
             {isLogin ? (
               <span className="nav-user">
@@ -373,12 +341,6 @@ export default function Nav() {
             </li>
             <li className="nav-menu share" onClick={handleClick}>
               <img src={`../images/icon_share_${share}.png`} alt="share" />
-            </li>
-            <li className="nav-menu alarm" onClick={handleClick}>
-              <img src={`../images/icon_alarm_${alarm}.png`} alt="alarm" />
-            </li>
-            <li className="nav-menu chat" onClick={handleClick}>
-              <img src={`../images/icon_chat_${chat}.png`} alt="chat" />
             </li>
           </DownNavMobile>
         </Foot>
