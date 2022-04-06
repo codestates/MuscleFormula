@@ -38,7 +38,7 @@ interface RecordType {
 }
 
 export const Main = styled.div`
-  //border: 3px solid green;
+  //border: 3px solid greens;
   margin: auto;
 
   /* 화면 중앙으로 만들기 */
