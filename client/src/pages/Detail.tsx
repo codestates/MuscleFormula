@@ -21,7 +21,15 @@ import {
 } from "../axios";
 
 const FormData = require("form-data");
-
+function showTime(duration: number) {
+  let seconds: number | string = Math.floor(duration % 60);
+  let minutes: number | string = Math.floor((duration / 60) % 60);
+  let hours: number | string = Math.floor((duration / (60 * 60)) % 24);
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+  return hours + "시간 " + minutes + "분 " + seconds + "초";
+}
 interface RecordType {
   genre: string;
   weight: number;
@@ -277,14 +285,7 @@ export default function Detail() {
               <div id="detail-exInfo">
                 <br />
                 <br />
-                <div>
-                  총 소요시간:{" "}
-                  <input
-                    type="textarea"
-                    value={totalTime}
-                    onChange={(e) => setTotalTime(e.target.value)}
-                  ></input>
-                </div>
+                <div>총 소요시간: {showTime(postInfo.total_time)} </div>
                 <div>
                   난이도 :{" "}
                   <input
@@ -369,7 +370,7 @@ export default function Detail() {
                 )} */}
                 <br />
                 <br />
-                <div>총 소요시간: {postInfo.total_time}</div>
+                <div>총 소요시간: {showTime(postInfo.total_time)} </div>
                 <div>난이도 : {postInfo.difficult}</div>
                 <div>운동부위 : {postInfo.body_part}</div>
                 <div> 소감 :{postInfo.info}</div>

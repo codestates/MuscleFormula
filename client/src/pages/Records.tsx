@@ -109,25 +109,7 @@ export default function Records() {
 
   const submitRecord = () => {
     setIsLoading(true);
-    // axios
-    //   .post(
-    //     `${serverUrl}/record`,
-    //     {
-    //       record: records,
-    //     },
-    //     {
-    //       headers: {
-    //         authorization: `Bearer ${user.accessToken}`,
-    //       },
-    //     }
-    //   )
     axios_Post_UserRecord(records, user.accessToken).then(() => {
-      // axios
-      //   .get(`${serverUrl}/record?date=${submitDay}`, {
-      //     headers: {
-      //       authorization: `Bearer ${user.accessToken}`,
-      //     },
-      //   })
       axios_Get_UserRecord(submitDay, user.accessToken).then((res) => {
         setSavedRecords(res.data.data.exerciseInfo);
         setRecords([]);
@@ -188,10 +170,7 @@ export default function Records() {
           </div>
           <div className="record-uploaded">
             {savedRecords.map((record, idx) => (
-              <CalendarRecord
-                key={idx}
-                record={record}
-              />
+              <CalendarRecord key={idx} record={record} />
             ))}
           </div>
           <div className="record-total">
