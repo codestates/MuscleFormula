@@ -37,7 +37,7 @@ export default function Footer() {
 
   return (
     <Foot>
-      <div className="go-to-up" onClick={scrollUp}>
+      <div className="go-to-up" onClick={scrollTop}>
         <i className="fa-solid fa-circle-chevron-up"></i>
       </div>
       <div className="team-name-container">
@@ -47,10 +47,6 @@ export default function Footer() {
       </div>
       <div className="source-container">
         <a href="https://icons8.com">아이콘Icons8</a>에서 아이콘 제공 &nbsp;
-        <a href="./Policy/PrivacyPolicy.me ">Terms&Conditions</a> &nbsp;
-        <a href="./Policy/ Terms&Conditions.me ">Terms&Conditions</a>
-        &nbsp;
-        {/* <img src="./Policy/PrivacyPolicy.html">PrivacyPolicy&nbsp;</img> */}
       </div>
     </Foot>
   );

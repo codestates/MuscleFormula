@@ -201,7 +201,8 @@ export const axios_CreatePost = (formData: any, accessToken: string) => {
       authorization: `Bearer ${accessToken}`,
     },
     // withCredentials: true,
-  });
+  })
+  .then (() => window.location.replace("/main"))
 };
 export const axios_Put_Post = (
   formData: any,

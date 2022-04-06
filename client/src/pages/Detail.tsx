@@ -416,7 +416,8 @@ export default function Detail() {
                     className="user-image"
                     src={postInfo.users.image}
                     style={{ width: "50px" }}
-                  ></img>
+                    alt="user"
+                  />
                   <div className="user-nickname">{postInfo.users.nickname}</div>
                 </div>
                 {postInfo.users.id === user.id ? (
@@ -437,12 +438,6 @@ export default function Detail() {
                 ) : (
                   <div></div>
                 )}
-                {deleteModal ? (
-                  <DeleteModal
-                    setDeleteModal={setDeleteModal}
-                    handlePostDelete={handlePostDelete}
-                  />
-                ) : null}
               </div>
 
               <div id="detail-image">
@@ -522,6 +517,12 @@ export default function Detail() {
                 )}
               </ul>
             </div>
+            {deleteModal ? (
+                  <DeleteModal
+                    setDeleteModal={setDeleteModal}
+                    handlePostDelete={handlePostDelete}
+                  />
+                ) : null}
           </Main>
         )
       ) : (
