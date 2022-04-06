@@ -82,8 +82,10 @@ module.exports = async (req: Request, res: Response) => {
       posts: createed,
     });
   } else if (rankData.length > 3) {
+    let Rank: any = [];
     for (let i = 0; i < 3; i++) {
-      rankData[i].total_time = showtime(rankData[i].total_time);
+      let returnrankData = showtime(rankData[i].total_time);
+      Rank.push(returnrankData);
     }
     const createed = allInfo.map((item) => {
       const data = {
@@ -106,7 +108,7 @@ module.exports = async (req: Request, res: Response) => {
       return data;
     });
     res.status(200).json({
-      rankData: rankData,
+      rankData: Rank,
       posts: createed,
     });
   }
