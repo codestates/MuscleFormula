@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.app-nav-container {
+  position: relative;
+  z-index: 100;
+}
+
+.pc-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.m-footer {
+  position: relative;
+  bottom: 3rem;
+  width: 100%;
+}
