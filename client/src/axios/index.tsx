@@ -97,6 +97,8 @@ export const axios_GetGoogleToken = (code: string) => {
     code: code,
     grant_type: "authorization_code",
     redirect_uri: `${clientURI}/callbackGoogle`,
+    response_type: code,
+    scope: "https://www.googleapis.com/auth/userinfo.email",
   });
 };
 export const axios_GetUser_toGoogleTOken = (accessToken: string) => {
