@@ -87,6 +87,8 @@ const Editor = () => {
 
   //total타임 shareRecords에서 계산
   console.log("shareRecords에서 time_record", shareRecords);
+<<<<<<< HEAD
+=======
   let shareRecordsTotalTime = 0;
   if (shareRecords !== null) {
     shareRecordsTotalTime = shareRecords.reduce((a, b) => {
@@ -94,6 +96,7 @@ const Editor = () => {
     }, 0);
   }
   console.log("shareRecordsTotalTime", shareRecordsTotalTime);
+>>>>>>> feature
 
   let dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
@@ -146,6 +149,12 @@ const Editor = () => {
             onInput={(e) => setTextContent(e.currentTarget.textContent)}
           ></div>
           <div>드롭다운 (상체, 하체, 전신)</div>
+<<<<<<< HEAD
+          <div>
+            난이도
+            <div>
+              <StarPoint setValue={setDifficult} />
+=======
           <select id="dropdown" onChange={handleGetbodyPart}>
             <option value="미선택">선택해주세요</option>
             <option value="전신">전신</option>
@@ -156,6 +165,7 @@ const Editor = () => {
             난이도
             <div>
               <StarPoint setDifficult={setDifficult} />
+>>>>>>> feature
             </div>
           </div>
           <div>
