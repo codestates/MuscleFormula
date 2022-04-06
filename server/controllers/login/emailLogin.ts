@@ -39,7 +39,7 @@ module.exports = async (req: Request, res: Response) => {
       //domain: "/",
       //path: "/",
       httpOnly: true,
-      // secure: true,
+      secure: true,
       sameSite: "none",
     });
 
