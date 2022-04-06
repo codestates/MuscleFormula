@@ -121,7 +121,7 @@ const Editor = () => {
     dispatch(RESET());
     // navigate("/main");
     // location.reload(); // 새로고침 내장함수 추가
-    window.location.replace("/main"); // 새로고침후 이동
+    //window.location.replace("/main"); // 새로고침후 이동
   };
 
   const handleGetbodyPart = (e: any) => {
