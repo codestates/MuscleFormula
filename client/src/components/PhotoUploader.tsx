@@ -13,8 +13,19 @@ const PhotoUploaderContainer = styled.div`
     color: grey;
     background-color: lightgrey;
     height: 300px;
-    > i {
-      font-size: 5rem;
+    > img {
+      width: 100%;
+      background-color: white;
+    }
+    > .default-upload-image {
+      display: flex;
+      flex-direction: column;
+      font-size: large;
+      align-items: center;
+      justify-content: center;
+    }
+    > .default-upload-image > i{
+      font-size: 3.5rem;
     }
     > input {
       text-decoration: none;
@@ -39,10 +50,10 @@ const PhotoUploaderContainer = styled.div`
     z-index: 1;
     border-radius: 20px;
     > img {
-      height: 300px;
+      width: 100%;
     }
     > video {
-      height: 300px;
+      width: 100%;
     }
     > input {
       text-decoration: none;
