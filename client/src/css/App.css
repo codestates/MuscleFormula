@@ -13,4 +13,14 @@ body {
   z-index: 100;
 }
 
+.pc-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
 
+.m-footer {
+  position: relative;
+  bottom: 3rem;
+  width: 100%;
+}

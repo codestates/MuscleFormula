@@ -1,4 +1,6 @@
 /**공유 전 페이지 : 날짜별 운동 기록을 클릭하고 공유하기 버튼을 클릭**/
+import { PC, Mobile } from "../mediaQuery";
+import Footer from "../components/Footer";
 import Calendar from "../components/Calendar";
 import { useState, useEffect } from "react";
 import "../css/Share.css";
@@ -39,16 +41,6 @@ export default function Share() {
   let dispatch: AppDispatch = useDispatch();
   //로컬스토리지에서 토큰 가져옴
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
-  const submitDelete = (genre: string) => {
-    axios_Delete_UserRecord(genre, user.accessToken, date).then((res) => {
-      setRecords(res.data.data.exerciseInfo);
-      setRecords([]);
-    });
-    //setIsLoading(false);
-    alert("운동기록이 삭제 되었습니다.");
-    // setRecords(res.data.data.exerciseInfo);
-    // setRecords([]);
-  };
   const localUser = localStorage.getItem("userInfo");
   if (localUser !== null) {
     user = JSON.parse(localUser);
@@ -92,39 +84,55 @@ export default function Share() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      {isLogin === false ? (
-        <div id="no-share-container">
-          <NeedLogin />
+    <div id="share-container-wrapper">
+      <div id="share-container">
+        <div id="calendar-container">
+          <Calendar date={date} setDate={setDate} />
         </div>
-      ) : (
-        <div id="share-container">
-          <div id="calendar-container">
-            <Calendar date={date} setDate={setDate} />
-          </div>
-          <div id="calendar-record-container">
-            {records !== null ? (
-              records.map((record, idx) => (
-                <CalendarRecord
-                  key={idx}
-                  record={record}
-                  submitDelete={submitDelete}
-                />
-              ))
-            ) : (
-              <NoRecord />
-            )}
-          </div>
-          <div id="share-button">
-            <button
-              className={records ? "show" : "no-show"}
-              onClick={handleShare}
-            >
-              선택하기
-            </button>
-          </div>
+        <div id="calendar-record-container">
+          {records ? (
+            records.map((record, idx) => (
+              <CalendarRecord key={idx} record={record} />
+            ))
+          ) : (
+            <div></div>
+          )}
         </div>
-      )}
+        <div>
+          <button onClick={handleShare}>선택하기</button>
+        </div>
+
+        <div>
+          {isLogin === false ? (
+            <div id="no-share-container">
+              <NeedLogin />
+            </div>
+          ) : (
+            <div id="share-container">
+              <div id="calendar-container">
+                <Calendar date={date} setDate={setDate} />
+              </div>
+              <div id="calendar-record-container">
+                {records !== null ? (
+                  records.map((record, idx) => (
+                    <CalendarRecord key={idx} record={record} />
+                  ))
+                ) : (
+                  <NoRecord />
+                )}
+              </div>
+              <div id="share-button">
+                <button
+                  className={records ? "show" : "no-show"}
+                  onClick={handleShare}
+                >
+                  선택하기
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

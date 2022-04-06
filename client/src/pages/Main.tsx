@@ -31,7 +31,6 @@ export default function Main() {
     axios_Get_Posts().then((res) => {
       setPosts(res.data.posts);
       setshowPosts(res.data.posts);
-      console.log("포스트들", res.data.posts);
       setRankData(res.data.rankData);
     });
   }, [shareRecordsId]);
@@ -65,9 +64,6 @@ export default function Main() {
           <NoPost />
         )}
       </div>
-      <PC>
-        <Footer />
-      </PC>
     </div>
   );
 }
