@@ -29,9 +29,15 @@ import styled from 'styled-components';
   }
 `;
 export default function Footer() {
+
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
   const scrollUp = () => {
     window.scrollBy(0, -window.innerHeight);
   }
+
   return (
     <Foot>
       <div className="go-to-up" onClick={scrollUp}>

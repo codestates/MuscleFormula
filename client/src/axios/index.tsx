@@ -2,13 +2,14 @@ import React from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
-
+//require('dotenv').config();
 // import { useNavigate } from "react-router-dom";
 // const navigate = useNavigate();
 const qs = require("qs");
 const clientURI = `http://localhost:3000`;
-// const serverURI = `http://localhost:4000`;
-const serverURI = `https://server.muscleformula.xyz`;
+const serverURI = `http://localhost:4000`;
+// const serverURI = `https://server.muscleformula.xyz`;
+//const serverURI = process.env.SERVER_URI;
 
 // let user = useSelector((state: RootState) => state.userInfo.userInfo);
 // const localUser = localStorage.getItem("userInfo");
@@ -97,6 +98,8 @@ export const axios_GetGoogleToken = (code: string) => {
     code: code,
     grant_type: "authorization_code",
     redirect_uri: `${clientURI}/callbackGoogle`,
+    response_type: code,
+    scope: "https://www.googleapis.com/auth/userinfo.email",
   });
 };
 export const axios_GetUser_toGoogleTOken = (accessToken: string) => {

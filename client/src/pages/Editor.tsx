@@ -11,39 +11,103 @@ import PhotoUploader from "../components/PhotoUploader";
 
 const FormData = require("form-data");
 
-export const Main = styled.div`
-  margin: 10rem 0rem;
-  border: 3px solid green;
-  padding: 10px;
-  /* 화면 중앙으로 만들기 */
+export const EditorContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-  min-height: 90vh;
-  > #editor-container {
-    border: 3px solid green;
-    padding: 10px;
-    height: 90vh;
-    width: 70vh;
+  justify-content: center;
+  margin: 6rem 0rem;
+  > #editor-container{
+    border-radius: 25px;
+    border: 1px solid lightgrey;
+    padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    min-height: 35rem;
+    width: 310px;
     justify-content: center;
-    justify-content: space-evenly;
+    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
+    > [contenteditable] {
+      outline: 0px solid transparent;
+    }
+    > #editor-title {
+      margin-top: 1rem;
+      border-bottom: 1px solid lightgrey;
+      font-size: x-large;
+      padding-bottom: 0.5rem;
+    }
+    > #editor-title:focus {
+      outline: none;
+    }
+    > #editor-title:empty:before{
+      content: attr(placeholder);
+      color: grey;
+      display: block; 
+    }
+    > #photo-container {
+      margin: 1rem;
+    }
     > #record-container {
-      border: 3px solid green;
+      margin : 0.5rem;
     }
+    > #editor-text{
+      margin : 0.5rem;
+      border-bottom: 1px solid lightgrey;
+      font-size: medium;
+      padding-bottom: 0.7rem;
+    }
+    > #editor-text:empty:before{
+      content: attr(placeholder);
+      color: grey;
+      display: block;
+    }
+    > #dropdown-container {
+      margin : 0.25rem 0.5rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      > .title {
+        width: 6rem;
+        font-weight: bold;
+      }
+      > .dropdown {
+        font-size: medium;
+        width: 7.5rem;
+        border: none;
+      }
+      > .dropdown:focus {
+        outline: none;
+      }
+    }
+    > #difficult-container {
+      margin : 0.25rem 0.5rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      > .title {
+        width: 6rem;
+        font-weight: bold;
+      }
+      > .star-point {
 
-    > #editor-titleContent {
-      border: 3px solid gray;
+      }
+
     }
-    > #editor-titleContent:empty:before {
-      content: attr(placeholder);
-      display: block;
-    }
-    > #editor-textContent:empty:before {
-      border: 3px solid gray;
-      content: attr(placeholder);
-      display: block;
+    > #share-button-container {
+      margin: 2rem 0rem 1rem 0rem;
+      display: flex;
+      justify-content: center;
+      > button {
+        width: 10rem;
+        font-size: medium;
+        cursor: pointer;
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 0.3rem;
+        border-radius: 10px;
+      }
     }
   }
 `;
@@ -113,14 +177,15 @@ const Editor = () => {
     formData.append("totalTime", shareRecordsTotalTime);
     formData.append("bodyPart", bodyPart);
     formData.append("difficult", difficult);
-    formData.append("userId", user.id);
+    // formData.append("userId", user.id);
     formData.append("exerciseInfo", recordId);
+    console.log(formData);
 
     axios_CreatePost(formData, user.accessToken);
     dispatch(RESET());
     // navigate("/main");
     // location.reload(); // 새로고침 내장함수 추가
-    window.location.replace("/main"); // 새로고침후 이동
+    //window.location.replace("/main"); // 새로고침후 이동
   };
 
   const handleGetbodyPart = (e: any) => {
@@ -128,49 +193,54 @@ const Editor = () => {
     setBodyPart(e.target.value);
   };
   return (
-    <div id="EditorPage">
-      <Main>
-        <div id="editor-container">
-          <div
-            id="editor-titleContent"
+    <EditorContainer>
+      <div id="editor-container">
+        <div
+            id="editor-title"
             contentEditable="true"
-            placeholder="제목을 입력해주세요."
+            placeholder="제목"
             onInput={(e) => setTitleContent(e.currentTarget.textContent)}
-          ></div>
-          <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl="" />
-          <div id="record-container">
-            공유한 기록
+        ></div>
+        <div id="photo-container">
+          <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl=""/>
+        </div>
+        <div id="record-container">
             {shareRecords !== null
               ? shareRecords.map((record: RecordType, idx: number) => (
                   <CalendarRecord key={idx} record={record} />
                 ))
               : null}
+        </div>
+        <div
+          id="editor-text"
+          contentEditable="true"
+          placeholder="내용을 입력해주세요"
+          onInput={(e) => setTextContent(e.currentTarget.textContent)}
+        ></div>
+        <div id="dropdown-container">
+          <div className="title">
+          운동부위
           </div>
-          <div
-            id="editor-textContent"
-            contentEditable="true"
-            placeholder="내용을 입력해주세요"
-            onInput={(e) => setTextContent(e.currentTarget.textContent)}
-          ></div>
-          <div>드롭다운 (상체, 하체, 전신)</div>
-          <select id="dropdown" onChange={handleGetbodyPart}>
+          <select className="dropdown" onChange={handleGetbodyPart}>
             <option value="미선택">선택해주세요</option>
             <option value="전신">전신</option>
             <option value="상체">상체</option>
             <option value="하체">하체</option>
           </select>
-          <div>
+        </div>
+        <div id="difficult-container">
+          <div className="title">
             난이도
-            <div>
-              <StarPoint setDifficult={setDifficult} />
-            </div>
           </div>
-          <div>
-            <button onClick={handleSubmit}>공유하기</button>
+          <div className="star-point">
+            <StarPoint setDifficult={setDifficult} />
           </div>
         </div>
-      </Main>
-    </div>
+        <div id="share-button-container">
+          <button onClick={handleSubmit}>공유하기</button>
+        </div>
+      </div>
+    </EditorContainer>
   );
 };
 export default Editor;
