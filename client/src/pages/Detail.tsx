@@ -9,6 +9,7 @@ import PhotoModal from "../components/Modals/PhotoModal";
 import type { RootState } from "../store";
 import PhotoUploader from "../components/PhotoUploader";
 import CalendarRecord from "../components/CalendarRecord";
+import DeleteModal from "../components/Modals/DeleteModal";
 
 import {
   axios_Get_DetailPosts,
@@ -190,7 +191,21 @@ export default function Detail() {
         });
     });
   };
+  const handleModifyPost = () => {
+    setIsModify(!isModify);
+    setTitleContent(postInfo.title);
+    setTextContent(postInfo.info);
+    setBodyPart(postInfo.body_part);
+    // setPhoto(postInfo.users.image);
+    setDifficult(postInfo.difficult);
+    setTotalTime(postInfo.total_time);
+    setExInfo(postInfo.exerciseInfo.id);
+  };
 
+  const [deleteModal, setDeleteModal] = useState(false);
+  const openDeleteModal = () => {
+    setDeleteModal(!deleteModal);
+  };
   const handlePostDelete = () => {
     console.log("포스트삭제");
     axios_Delete_Post(postId, user.accessToken).then(() => {
@@ -322,25 +337,18 @@ export default function Detail() {
                 <div id="detail-butten">
                   {postInfo.users.id === user.id ? (
                     <div>
-                      <button
-                        onClick={() => {
-                          setIsModify(!isModify);
-                          setTitleContent(postInfo.title);
-                          setTextContent(postInfo.info);
-                          setBodyPart(postInfo.body_part);
-                          // setPhoto(postInfo.users.image);
-                          setDifficult(postInfo.difficult);
-                          setTotalTime(postInfo.total_time);
-                          setExInfo(postInfo.exerciseInfo.id);
-                        }}
-                      >
-                        수정
-                      </button>
-                      <button onClick={handlePostDelete}>삭제</button>
+                      <button onClick={handleModifyPost}>수정</button>
+                      <button onClick={openDeleteModal}>삭제</button>
                     </div>
                   ) : (
                     <div></div>
                   )}
+                  {deleteModal ? (
+                    <DeleteModal
+                      setDeleteModal={setDeleteModal}
+                      handlePostDelete={handlePostDelete}
+                    />
+                  ) : null}
                 </div>
               </div>
 

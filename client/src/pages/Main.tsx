@@ -8,7 +8,7 @@ import dummyThumbs from "./dummy/dummyThumbs";
 import Search from "../components/Search";
 import PostThumbnail from "../components/PostThumbnail";
 import TodayKing from "../components/TodayKing";
-import { axios_GetPosts } from "../axios";
+import { axios_Get_Posts } from "../axios";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 import NoPost from "../components/NoPost";
@@ -28,7 +28,7 @@ export default function Main() {
   >([]);
 
   useEffect(() => {
-    axios_GetPosts().then((res) => {
+    axios_Get_Posts().then((res) => {
       setPosts(res.data.posts);
       setshowPosts(res.data.posts);
       console.log("포스트들", res.data.posts);
