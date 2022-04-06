@@ -1,6 +1,6 @@
 /**포스트 상세 페이지**/
 import Comment from "../components/Comment";
-import { useSelector } from "react-redux";
+import { useSelector, useStore } from "react-redux";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,7 +10,8 @@ import type { RootState } from "../store";
 import PhotoUploader from "../components/PhotoUploader";
 import CalendarRecord from "../components/CalendarRecord";
 import DeleteModal from "../components/Modals/DeleteModal";
-
+import labelStarPoint from "../functions/labelStarPoint";
+import NoRecord from "../components/Nocomment";
 import {
   axios_Get_DetailPosts,
   axios_Delete_Post,
@@ -19,6 +20,7 @@ import {
   axios_Delete_Like,
   axios_Put_Post,
 } from "../axios";
+import StarPoint from "../components/StarPoint";
 
 const FormData = require("form-data");
 function showTime(duration: number) {
@@ -39,15 +41,25 @@ interface RecordType {
 
 export const Main = styled.div`
   //border: 3px solid greens;
-  margin: auto;
 
+  margin: 12vh auto;
+  /* margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto; */
+  border-radius: 25px;
+  border: 1px solid lightgrey;
+  padding: 1rem;
   /* 화면 중앙으로 만들기 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 90vh;
   width: 40%;
-
+  min-width: 22rem;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
+  > [contenteditable] {
+    outline: 0px solid transparent;
+  }
   > div {
     display: flex;
     width: 100%;
@@ -57,7 +69,9 @@ export const Main = styled.div`
     display: flex;
     min-width: 20rem;
     flex-direction: column;
-    > #detail-title {
+
+    > .detail-title {
+      padding-top: 1rem;
       font-size: 1.5rem;
       border-bottom: 1px solid grey;
     }
@@ -75,7 +89,7 @@ export const Main = styled.div`
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      padding-top: 3rem;
+      padding-top: 1rem;
       > #detail-userinfo {
         padding: 1rem;
         display: flex;
@@ -116,20 +130,24 @@ export const Main = styled.div`
     }
   }
   > #detail-container-down {
-    border: 1px solid gray;
+    //border: 1px solid gray;
     min-width: 20rem;
     > .detail-exInfo {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       > .user-exInfo {
-        display: flex;
-        flex-direction: column;
+        padding: 1rem;
+      }
+      > .exInfo {
+        padding: 1rem;
+        width: 100%;
       }
     }
   }
   > #detail-container-comment {
-    border: 1px solid gray;
+    // border: 1px solid gray;
     display: flex;
     flex-direction: column;
     min-width: 20rem;
@@ -158,6 +176,29 @@ export const Main = styled.div`
         border: 3px solid lightgreen;
         width: 50%;
       } */
+
+      > button {
+        width: 4rem;
+        font-size: medium;
+        cursor: pointer;
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 0.3rem;
+        border-radius: 2px;
+        border-bottom: 1px solid lightgrey;
+      }
+      > .detail-text {
+        border-bottom: 1px solid lightgrey;
+        font-size: medium;
+        padding: 0.7rem;
+        width: 92%;
+      }
+      > .detail-text:empty:before {
+        content: attr(placeholder);
+        color: grey;
+        display: block;
+      }
     }
   }
 `;
@@ -254,7 +295,6 @@ export default function Detail() {
   };
 
   const handlePostModifySubmit = () => {
-    //
     const formData = new FormData();
     formData.append("postTitle", titleContent);
     formData.append("info", textContent);
@@ -273,6 +313,7 @@ export default function Detail() {
         })
         .then(() => {
           setIsModify(!isModify);
+          setShowDifficult(false);
         });
     });
   };
@@ -303,19 +344,14 @@ export default function Detail() {
     console.log("e.target.value:", e.target.value);
     setBodyPart(e.target.value);
   };
+
+  const [showDifficult, setShowDifficult] = useState(false);
   // console.log("postInfo:", postInfo);
   // console.log("titleContent:", titleContent);
   // console.log("isModify: ", isModify);
   // let shareRecords = postInfo.exerciseInfo.ex_record;
   // console.log("shareRecords :", shareRecords);
-  const numToStar = (num: number) => {
-    if (num === 0) return "☆";
-    let star = "";
-    for (let i = 0; i < num; i++) {
-      star += "★";
-    }
-    return star;
-  };
+
   return (
     <div id="DetailPage">
       {postInfo ? (
@@ -328,7 +364,7 @@ export default function Detail() {
                   type="textarea"
                   value={titleContent}
                   onChange={(e) => setTitleContent(e.target.value)}
-                ></input>
+                />
               </div>
               <div id="detail-container-up-up">
                 <div id="detail-userinfo">
@@ -371,13 +407,13 @@ export default function Detail() {
                 <br />
                 <br />
                 <div>총 소요시간: {showTime(postInfo.total_time)} </div>
-                <div>
+                <div onClick={() => setShowDifficult(true)}>
                   난이도 :{" "}
-                  <input
-                    type="textarea"
-                    value={difficult}
-                    onChange={(e) => setDifficult(e.target.value)}
-                  ></input>
+                  {!showDifficult ? (
+                    labelStarPoint(difficult)
+                  ) : (
+                    <StarPoint setDifficult={setDifficult} />
+                  )}
                 </div>
                 <div>
                   운동부위 :
@@ -409,14 +445,15 @@ export default function Detail() {
         ) : (
           <Main>
             <div id="detail-container-up">
-              <div id="detail-title">{postInfo.title}</div>
+              <div className="detail-title">{postInfo.title}</div>
               <div id="detail-container-up-up">
                 <div id="detail-userinfo">
                   <img
                     className="user-image"
                     src={postInfo.users.image}
                     style={{ width: "50px" }}
-                  ></img>
+                    alt="user"
+                  />
                   <div className="user-nickname">{postInfo.users.nickname}</div>
                 </div>
                 {postInfo.users.id === user.id ? (
@@ -437,12 +474,6 @@ export default function Detail() {
                 ) : (
                   <div></div>
                 )}
-                {deleteModal ? (
-                  <DeleteModal
-                    setDeleteModal={setDeleteModal}
-                    handlePostDelete={handlePostDelete}
-                  />
-                ) : null}
               </div>
 
               <div id="detail-image">
@@ -464,12 +495,12 @@ export default function Detail() {
                       )
                     : null}
                 </div>
-                <br />
-                <br />
-                <div>총 소요시간: {showTime(postInfo.total_time)} </div>
-                <div>난이도 : {numToStar(postInfo.difficult)}</div>
-                <div>운동부위 : {postInfo.body_part}</div>
-                <div> 소감 :{postInfo.info}</div>
+                <div className="exInfo">
+                  <div>총 소요시간: {showTime(postInfo.total_time)} </div>
+                  <div>난이도: {labelStarPoint(postInfo.difficult)}</div>
+                  <div>운동부위 : {postInfo.body_part}</div>
+                  <div> 소감 :{postInfo.info}</div>
+                </div>
               </div>
             </div>
             <div id="detail-container-comment">
@@ -492,36 +523,41 @@ export default function Detail() {
                   </div>
                 )}
               </div>
-
               <div id="detail-Comment-input">
-                글쓰기
-                <input
-                  id="input-test"
-                  type="textarea"
-                  value={commentContent}
-                  onChange={(e) => setCommentContent(e.target.value)}
-                ></input>
+                <div
+                  className="detail-text"
+                  contentEditable="true"
+                  placeholder="댓글 달기..."
+                  onInput={(e) =>
+                    setCommentContent(e.currentTarget.textContent)
+                  }
+                ></div>
                 <button id="comment-submit-btn" onClick={handleCommentSubmit}>
                   게시
                 </button>
               </div>
-
-              <ul>
+              <div className="comment-list">
                 {postInfo.total_comment.length > 0 ? (
                   postInfo.total_comment.map((el: any, idx: any) => (
-                    <li key={idx}>
+                    <div key={idx}>
                       <Comment
                         commentInfo={el}
                         postId={postId}
                         setPostInfo={setPostInfo}
                       ></Comment>
-                    </li>
+                    </div>
                   ))
                 ) : (
-                  <div>작성된 댓글이 없습니다!</div>
+                  <NoRecord />
                 )}
-              </ul>
+              </div>
             </div>
+            {deleteModal ? (
+              <DeleteModal
+                setDeleteModal={setDeleteModal}
+                handlePostDelete={handlePostDelete}
+              />
+            ) : null}
           </Main>
         )
       ) : (

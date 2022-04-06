@@ -40,7 +40,7 @@ export default function Main() {
   const navigate = useNavigate();
   const code = new URLSearchParams(window.location.search).get("code");
   console.log("code", code);
-  console.log("posts :", posts);
+  console.log("posts? :", posts);
   return (
     <div id="main-container">
       <div id="todayking-container">
