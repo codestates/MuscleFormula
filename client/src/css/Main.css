@@ -14,15 +14,15 @@
   justify-content: center;
   width: 100%;
   padding-top: 1rem;
-  padding-bottom: 0.2rem;
+  padding-bottom: 1rem;
   position: sticky;
-  top: 4.4rem;
+  top: 4rem;
   background-color: white;
   z-index: 1;
 }
 
 #postthumb-container {
-  margin: 3rem;
+  margin: 4rem;
   display: flex;
   justify-content: center;
   flex-flow: wrap row;
