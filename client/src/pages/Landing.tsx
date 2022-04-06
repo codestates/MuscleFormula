@@ -9,7 +9,7 @@ import {
   FirstTextContainer,
   FirstImageContainer,
   BigCircle,
-  SmallCircle,
+  SmallTri,
   VerySmallCircle,
   SecLandingContainer,
   SecBodyContainer,
@@ -101,7 +101,7 @@ function LandingPage() {
       <GoTopContainer id="arrow" onClick={scrollHandler}>
         <img src="images/icon_arrow.png" style={{ width: "70px" }}></img>
       </GoTopContainer>
-      <SmallCircle id="small"></SmallCircle>
+      <SmallTri id="small"></SmallTri>
       <VerySmallCircle id="very"></VerySmallCircle>
       <BigCircle id="big"></BigCircle>
       <BodyOutContainer>

@@ -203,7 +203,7 @@ export const BigCircle = styled.span`
   }
 `;
 
-export const SmallCircle = styled.span`
+export const SmallTri = styled.span`
   position: relative;
   /* width: 2.945rem;
   height: 2.945rem; */
