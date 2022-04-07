@@ -71,7 +71,7 @@ export const Main = styled.div`
     display: flex;
     width: 100%;
   }
-  > #detail-container-up {
+  > .detail-container-up {
     //border: 1px solid gray;
     display: flex;
     min-width: 20rem;
@@ -81,8 +81,16 @@ export const Main = styled.div`
       padding-top: 1rem;
       font-size: 1.5rem;
       border-bottom: 1px solid grey;
+      > .edit-title {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 4px;
+        margin: 3px 0;
+        font-size: 14px;
+        width: 100%;
+      }
     }
-    > #detail-image {
+    > .detail-image {
       > .post-date {
         padding-left: 1rem;
         padding-bottom: 1rem;
@@ -92,12 +100,12 @@ export const Main = styled.div`
       }
     }
 
-    > #detail-container-up-up {
+    > .detail-container-up-up {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       padding-top: 1rem;
-      > #detail-userinfo {
+      > .detail-userinfo {
         padding: 1rem;
         display: flex;
         > .user-image {
@@ -109,7 +117,18 @@ export const Main = styled.div`
       }
       > .detail-button {
         display: flex;
+        > .edit-success {
+          margin-top: 1rem;
+          width: 63px;
+          height: 2rem;
+          font-size: small;
+          border-radius: 5px;
+          border: 0px;
+          background-color: #3364eb;
+          color: white;
 
+          cursor: pointer;
+        }
         > .delete-button {
           > .fa-trash-can {
             margin-top: 1rem;
@@ -136,7 +155,7 @@ export const Main = styled.div`
       }
     }
   }
-  > #detail-container-down {
+  > .detail-container-down {
     //border: 1px solid gray;
     min-width: 20rem;
     > .detail-exInfo {
@@ -150,10 +169,26 @@ export const Main = styled.div`
       > .exInfo {
         padding: 1rem;
         width: 100%;
+        > div {
+          padding: 5px;
+          > select {
+            margin-left: 1rem;
+            font-size: 15px;
+          }
+          > textarea {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 4px;
+            margin: 3px 0;
+            font-size: 14px;
+            width: 100%;
+            height: 160px;
+          }
+        }
       }
     }
   }
-  > #detail-container-comment {
+  > .detail-container-comment {
     // border: 1px solid gray;
     display: flex;
     flex-direction: column;
@@ -177,9 +212,9 @@ export const Main = styled.div`
         }
       }
     }
-    > #detail-Comment-input {
+    > .detail-Comment-input {
       display: flex;
-      /* > #div-input {
+      /* > .div-input {
         border: 3px solid lightgreen;
         width: 50%;
       } */
@@ -188,12 +223,12 @@ export const Main = styled.div`
         width: 4rem;
         font-size: medium;
         cursor: pointer;
-        background-color: black;
-        color: white;
         border: none;
         padding: 0.3rem;
         border-radius: 2px;
-        border-bottom: 1px solid lightgrey;
+        border-radius: 5px;
+        background-color: #3364eb;
+        color: white;
       }
       > .detail-text {
         border: 0px solid lightgrey;
@@ -363,101 +398,91 @@ export default function Detail() {
   // console.log("shareRecords :", shareRecords);
 
   return (
-    <div id="DetailPage">
+    <div className="DetailPage">
       {postInfo ? (
         isModify ? (
           <Main>
-            <div id="detail-container-up">
-              <div>수정</div>
-              <div id="detail-title">
+            <div className="detail-container-up">
+              <div className="detail-title">
                 <input
-                  type="textarea"
+                  className="edit-title"
                   value={titleContent}
                   onChange={(e) => setTitleContent(e.target.value)}
-                />
+                ></input>
               </div>
-              <div id="detail-container-up-up">
-                <div id="detail-userinfo">
+              <div className="detail-container-up-up">
+                <div className="detail-userinfo">
                   <img
+                    className="user-image"
                     src={postInfo.users.image}
-                    style={{ width: "70px" }}
+                    style={{ width: "50px" }}
                     alt="user"
                   />
-                  <div>{postInfo.users.nickname}</div>
+                  <div className="user-nickname">{postInfo.users.nickname}</div>
                 </div>
-                <div id="detail-butten">
-                  <button onClick={handlePostModifySubmit}>수정완료</button>
+                <div className="detail-button">
+                  <button
+                    className="edit-success"
+                    onClick={handlePostModifySubmit}
+                  >
+                    수정 완료
+                  </button>
                 </div>
+                {/* onClick={handlePostModifySubmit} */}
               </div>
-
-              <div id="detail-image">
-                <div>{postInfo.created_At.split("T")[0]}</div>
+              <div className="detail-image">
+                <div className="post-date">
+                  {postInfo.created_At.split("T")[0]}
+                </div>
                 <PhotoUploader
                   photo={photo}
                   setPhoto={setPhoto}
                   photoUrl={postInfo.image}
                 />
-                {/* <img
-                  src={postInfo.image}
-                  alt="post_image"
-                  style={{ width: "200px" }}
-                  onClick={openPhotoModal}
-                />
-                {photoModal ? (
-                  <PhotoModal
-                    photo={photo}
-                    setPhoto={setPhoto}
-                    setPhotoModal={setPhotoModal}
-                  />
-                ) : null} */}
               </div>
             </div>
-            <div id="detail-container-down">
-              <div id="detail-exInfo">
-                <br />
-                <br />
-                <div>총 소요시간: {showTime(postInfo.total_time)} </div>
-                <div onClick={() => setShowDifficult(true)}>
-                  난이도 :{" "}
-                  {!showDifficult ? (
-                    labelStarPoint(difficult)
-                  ) : (
-                    <StarPoint setDifficult={setDifficult} />
-                  )}
-                </div>
-                <div>
-                  운동부위 :
-                  {/* <input
-                    type="textarea"
-                    value={bodyPart}
-                    onChange={(e) => setBodyPart(e.target.value)}
-                  ></input> */}
-                  <select id="dropdown" onChange={handleGetbodyPart}>
-                    <option value={bodyPart}>{bodyPart}</option>
-                    <option value="전신">전신</option>
-                    <option value="상체">상체</option>
-                    <option value="하체">하체</option>
-                  </select>
-                </div>
-                <div>
-                  {" "}
-                  소감 :
-                  <input
-                    type="textarea"
-                    value={textContent}
-                    onChange={(e) => setTextContent(e.target.value)}
-                  ></input>
+            <div className="detail-container-down">
+              <div className="detail-exInfo">
+                <div className="exInfo">
+                  <div>총 소요시간: {showTime(postInfo.total_time)} </div>
+                  <div onClick={() => setShowDifficult(true)}>
+                    난이도 :{" "}
+                    {!showDifficult ? (
+                      labelStarPoint(difficult)
+                    ) : (
+                      <StarPoint setDifficult={setDifficult} />
+                    )}
+                  </div>
+                  <div>
+                    운동부위 :
+                    <select className="dropdown" onChange={handleGetbodyPart}>
+                      <option value={bodyPart}>{bodyPart}</option>
+                      <option value="전신">전신</option>
+                      <option value="상체">상체</option>
+                      <option value="하체">하체</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    {" "}
+                    소감 :
+                    <textarea
+                      className="edit-text"
+                      value={textContent}
+                      onChange={(e) => setTextContent(e.target.value)}
+                    ></textarea>
+                  </div>
                 </div>
               </div>
             </div>
-            <div id="detail-container-comment"></div>
+            <div className="detail-container-comment"></div>
           </Main>
         ) : (
           <Main>
-            <div id="detail-container-up">
+            <div className="detail-container-up">
               <div className="detail-title">{postInfo.title}</div>
-              <div id="detail-container-up-up">
-                <div id="detail-userinfo">
+              <div className="detail-container-up-up">
+                <div className="detail-userinfo">
                   <img
                     className="user-image"
                     src={postInfo.users.image}
@@ -486,14 +511,14 @@ export default function Detail() {
                 )}
               </div>
 
-              <div id="detail-image">
+              <div className="detail-image">
                 <div className="post-date">
                   {postInfo.created_At.split("T")[0]}
                 </div>
                 <img className="post-image" src={postInfo.image}></img>
               </div>
             </div>
-            <div id="detail-container-down">
+            <div className="detail-container-down">
               <div className="detail-exInfo">
                 {console.log("what doyou have?", postInfo)}
                 <div className="user-exInfo">
@@ -513,7 +538,7 @@ export default function Detail() {
                 </div>
               </div>
             </div>
-            <div id="detail-container-comment">
+            <div className="detail-container-comment">
               <div className="heart">
                 {isLike ? (
                   <div className="after-like">
@@ -533,7 +558,7 @@ export default function Detail() {
                   </div>
                 )}
               </div>
-              <div id="detail-Comment-input">
+              <div className="detail-Comment-input">
                 {/* <div
                   className="detail-text"
                   contentEditable="true"
@@ -551,7 +576,10 @@ export default function Detail() {
                   }}
                   // onKeyPress={}
                 ></input>
-                <button id="comment-submit-btn" onClick={handleCommentSubmit}>
+                <button
+                  className="comment-submit-btn"
+                  onClick={handleCommentSubmit}
+                >
                   게시
                 </button>
               </div>
