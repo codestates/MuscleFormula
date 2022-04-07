@@ -189,10 +189,12 @@ export const Main = styled.div`
         border-bottom: 1px solid lightgrey;
       }
       > .detail-text {
+        border: 0px solid lightgrey;
         border-bottom: 1px solid lightgrey;
         font-size: medium;
         padding: 0.7rem;
         width: 92%;
+        outline: none;
       }
       > .detail-text:empty:before {
         content: attr(placeholder);
@@ -524,14 +526,23 @@ export default function Detail() {
                 )}
               </div>
               <div id="detail-Comment-input">
-                <div
+                {/* <div
                   className="detail-text"
                   contentEditable="true"
                   placeholder="댓글 달기..."
                   onInput={(e) =>
                     setCommentContent(e.currentTarget.textContent)
                   }
-                ></div>
+                ></div> */}
+                <input
+                  className="detail-text"
+                  value={commentContent}
+                  placeholder="댓글 달기..."
+                  onChange={(e) => {
+                    setCommentContent(e.target.value);
+                  }}
+                  // onKeyPress={}
+                ></input>
                 <button id="comment-submit-btn" onClick={handleCommentSubmit}>
                   게시
                 </button>

@@ -28,7 +28,9 @@ export default function Main() {
   >([]);
 
   useEffect(() => {
+    console.log("작동됨?");
     axios_Get_Posts().then((res) => {
+      console.log("res.data:", res.data);
       setPosts(res.data.posts);
       setshowPosts(res.data.posts);
       setRankData(res.data.rankData);
