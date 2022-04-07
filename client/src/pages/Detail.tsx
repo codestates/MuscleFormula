@@ -581,14 +581,6 @@ export default function Detail() {
                 )}
               </div>
               <div className="detail-Comment-input">
-                {/* <div
-                  className="detail-text"
-                  contentEditable="true"
-                  placeholder="댓글 달기..."
-                  onInput={(e) =>
-                    setCommentContent(e.currentTarget.textContent)
-                  }
-                ></div> */}
                 <input
                   className="detail-text"
                   value={commentContent}
