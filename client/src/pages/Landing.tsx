@@ -5,8 +5,6 @@ interface Idx {
   idx: number;
 }
 
-
-
 export const AllLandingContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -14,6 +12,13 @@ export const AllLandingContainer = styled.div`
   justify-content: center;
   align-items: center;
   transition: 0.5s all;
+  > .reveal {
+    opacity: 0;
+  }
+
+  > .reveal.active {
+    opacity: 1;
+  }
   @media screen and (max-width: 1000px) {
     width: 100%;
     flex-direction: column;
@@ -60,7 +65,7 @@ const leftToRight = keyframes`
   0% {left:0; opacity: 0}
   50% {left: 10rem; opacity: 1}
   100% {left:10rem; opacity: 1}
-`
+`;
 
 export const FirstTextContainer = styled.div`
   display: flex;
@@ -97,7 +102,7 @@ const rightToLeft = keyframes`
   0% {right:0; width:100px;}
   50% {right:10rem; width:229px;}
   100% {right:10rem;}
-`
+`;
 
 export const FirstImageContainer = styled.div`
   position: absolute;
@@ -177,7 +182,7 @@ export const FirstSecondText = styled.div`
 `;
 
 export const GotoMainButton = styled.button`
-  font-family: "IBM Plex Sans KR", sans-serif;;
+  font-family: "IBM Plex Sans KR", sans-serif;
   width: 15rem;
   height: 4rem;
   background: black;
@@ -228,7 +233,7 @@ export const FirstLandingButton = styled.div`
   align-items: center;
   justify-content: center;
   margin: 2rem 0rem 5rem 0rem;
-`
+`;
 
 export const SecLandingContainer = styled.div`
   display: flex;
@@ -320,10 +325,39 @@ export const SecImgContainer = styled.div`
   justify-content: center;
   align-items: center;
   transition: 0.5s all;
+  animation-name: img2;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
   img {
     width: 80px;
     transition: 0.5s all;
   }
+  @keyframes img2 {
+    100% {
+      background-color: white;
+      border-radius: 50% 50% 50% 50%;
+    }
+    //    #00ffcc
+
+    25% {
+      background-color: #00cc99;
+      border-radius: 50%0 0 0;
+    }
+    50% {
+      background-color: #00cc99;
+      border-radius: 50% 50% 0 0;
+    }
+    /* 75% {
+      background-color: ;
+      border-radius: 100% 100% 100% 0;
+    } */
+    0% {
+      background-color: black;
+      border-radius: 0 0 0 0;
+    }
+  }
+
   @media screen and (max-width: 37.5rem) {
     display: flex;
     justify-content: center;
@@ -368,6 +402,8 @@ export const ThirLandingContainer = styled.div<Idx>`
   width: 100%;
   height: 50rem;
   position: relative;
+  transform: translate(0px, 0px);
+  opacity: 1;
   @media screen and (max-width: 1000px) {
     flex-direction: column;
     height: 40rem;
@@ -377,13 +413,17 @@ export const ThirLandingContainer = styled.div<Idx>`
     height: 30rem;
   }
 `;
-
+export const slidein = keyframes`
+from {opacity:1} 
+to   { transform: translate3d(20%, 0,0); opacity:1  }
+`;
 export const ThirTextContainer = styled.div<Idx>`
   position: absolute;
   display: flex;
   flex-direction: column;
   transition: 0.5s all;
   z-index: 2;
+  animation: ${slidein} 3.5s linear 5s infinite;
   left: ${(props) => (props.idx % 2 === 0 ? "0" : "none")};
   right: ${(props) => (props.idx % 2 === 0 ? "none" : "0")};
   @media screen and (max-width: 1000px) {
@@ -419,9 +459,6 @@ export const NumberContainer = styled.div`
     font-size: x-large;
   }
 `;
-
-
-
 
 export const TitleContainer = styled.div`
   font-family: "IBM Plex Sans KR", sans-serif;
@@ -477,6 +514,20 @@ export const DescrContainer = styled.div`
   }
 `;
 
+const img2 = keyframes`
+    from {
+   
+      /* transform: translate3d(42px, -62px, -135px); */
+      transform:translate(0px,-100px);
+      opacity: 0;
+    }
+    to {
+       /* transform: translate3d(5ch, 0.4in, 5em); */
+      transform:translate(0px,-0px); 
+      opacity: 1;
+    }
+`;
+
 export const ThirImageContainer = styled.div<Idx>`
   /* margin: ${(props) =>
     props.idx % 2 === 0 ? "30px 100px 0 0" : "30px 0 0 30px"}; */
@@ -485,10 +536,13 @@ export const ThirImageContainer = styled.div<Idx>`
   z-index: 1;
   left: ${(props) => (props.idx % 2 === 0 ? "none" : "0")};
   right: ${(props) => (props.idx % 2 === 0 ? "0" : "none")};
+
   img {
+    animation: ${img2} 4s ease-in-out 5s alternate infinite;
     width: 300px;
     transition: 0.5s all;
   }
+
   @media screen and (max-width: 1000px) {
     left: none;
     right: none;
@@ -543,6 +597,7 @@ export const ThirdBodyContainer = styled.main`
   width: 100%;
   max-width: 78.75rem;
   padding: 0 27px 0 27px;
+
   @media screen and (max-width: 1000px) {
     padding: 0;
   }
@@ -555,6 +610,24 @@ export const ThirdBodyOutContainer = styled.main`
 `;
 
 function Landing() {
+  const reveal = () => {
+    var reveals = document.querySelectorAll(".reveal");
+
+    for (var i = 0; i < reveals.length; i++) {
+      var windowHeight = window.innerHeight;
+      var elementTop = reveals[i].getBoundingClientRect().top;
+      var elementVisible = 150;
+
+      if (elementTop < windowHeight - elementVisible) {
+        reveals[i].classList.add("active");
+      } else {
+        reveals[i].classList.remove("active");
+      }
+    }
+  };
+
+  window.addEventListener("scroll", reveal);
+
   const SecondLandingPageTxt = [
     {
       title: "실시간 기록 확인",
@@ -568,12 +641,14 @@ function Landing() {
       img: "./images/icon_goldmedal.png",
       descr: [
         "근의 공식은 운동 기록을 통해 다른 유저와 경쟁할 수 있는 플랫폼입니다",
-      ]
+      ],
     },
     {
       title: "운동 게시물 확인",
       img: "./images/icon_bulletin-board-9123.svg",
-      descr: ["근의 공식에서 최신 운동 관련 게시물을 한눈에 확인 할 수 있습니다"],
+      descr: [
+        "근의 공식에서 최신 운동 관련 게시물을 한눈에 확인 할 수 있습니다",
+      ],
     },
   ];
 
@@ -581,38 +656,29 @@ function Landing() {
     {
       number: ["01"],
       title: ["운동 세부 기록을 확인해보세요"],
-      img: ["./images/video_record_1.gif",
-            "./images/video_record_2.gif"],
+      img: ["./images/video_record_1.gif", "./images/video_record_2.gif"],
       descr: [
         "체계적인 운동 루틴을 짜고",
-        "초 단위로 기록을 확인할 수 있습니다"
+        "초 단위로 기록을 확인할 수 있습니다",
       ],
     },
     {
       number: ["02"],
       title: ["유저들간 순위 경쟁을 해보세요"],
       img: ["./images/ilt_medal.png"],
-      descr: [
-        "근의 공식은 상위 3위 랭킹의 유저들에게",
-        "메달을 달아 드립니다",
-      ],
+      descr: ["근의 공식은 상위 3위 랭킹의 유저들에게", "메달을 달아 드립니다"],
     },
     {
       number: ["03"],
-      title: [
-        "다른 사람들은 어떤 운동을 하는지",
-        "게시물을 통해 확인해보세요",
-      ],
-      img: ["./images/cap_post_1.png",
-            "./images/cap_post_2.png"],
+      title: ["다른 사람들은 어떤 운동을 하는지", "게시물을 통해 확인해보세요"],
+      img: ["./images/cap_post_1.png", "./images/cap_post_2.png"],
       descr: [
-        "근의 공식은 자신의 운동 기록을 공유하며", 
+        "근의 공식은 자신의 운동 기록을 공유하며",
         "다른 유저들과 소통할 수 있는 커뮤니티입니다",
         "운동부위, 난이도, 소감을 공유해보세요",
       ],
     },
   ];
-
   const scrollHandler = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
@@ -644,68 +710,70 @@ function Landing() {
           </FirstLandingButton>
         </BodyContainer>
       </BodyOutContainer>
-      <SecLandingContainer>
-        <SecBodyContainer>
-          <SecAllBoxContainer>
-            {SecondLandingPageTxt.map((el, idx) => {
-              return (
-                <SecBoxContainer idx={idx} key={el.title}>
-                  <SecImgContainer>
-                    <img src={el.img} alt={el.title}/>
-                  </SecImgContainer>
-                  <SecBigTxtContainer>{el.title}</SecBigTxtContainer>
-                  <SecDescrContainer>
-                    {el.descr.map((el) => {
-                      return <div key={el[0]}>{el}</div>;
-                    })}
-                  </SecDescrContainer>
-                </SecBoxContainer>
-              );
-            })}
-          </SecAllBoxContainer>
-        </SecBodyContainer>
-      </SecLandingContainer>
-      <ThirdBodyOutContainer>
-        <ThirdBodyContainer>
-          {ThirdLandingPageTxt.map((el, idx) => {
-            return (
-              <ThirLandingContainer idx={idx} key={el.title[0]}>
-                <AllContainer idx={idx}>
-                  <ThirTextContainer idx={idx}>
-                  <NumberContainer>
-                      {el.number.map((el) => {
-                        return <div key={el[0]}>{el}</div>;
-                      })}
-                    </NumberContainer>
-                    <TitleContainer>
-                      {el.title.map((el) => {
-                        return <div key={el[0]}>{el}</div>;
-                      })}
-                    </TitleContainer>
-                    <DescrContainer>
+      <div className="reveal">
+        <SecLandingContainer>
+          <SecBodyContainer>
+            <SecAllBoxContainer>
+              {SecondLandingPageTxt.map((el, idx) => {
+                return (
+                  <SecBoxContainer idx={idx} key={el.title}>
+                    <SecImgContainer>
+                      <img src={el.img} alt={el.title} />
+                    </SecImgContainer>
+                    <SecBigTxtContainer>{el.title}</SecBigTxtContainer>
+                    <SecDescrContainer>
                       {el.descr.map((el) => {
                         return <div key={el[0]}>{el}</div>;
                       })}
-                    </DescrContainer>
-                  </ThirTextContainer>
-                  <ThirImageContainer id="3rd" idx={idx}>
-                  {el.img.map((el) => {
-                      return <img src={el} alt={el}/>
-                    })}
-                  </ThirImageContainer>
-                </AllContainer>
-              </ThirLandingContainer>
-            );
-          })}
-        </ThirdBodyContainer>
-      </ThirdBodyOutContainer>
-      <SevLandingContainer>
-        <Link to="/main">
-          <GotoMainButton onClick={() => scrollHandler()}>
-            근의 공식 시작하기
-          </GotoMainButton>
-        </Link>
-      </SevLandingContainer>
+                    </SecDescrContainer>
+                  </SecBoxContainer>
+                );
+              })}
+            </SecAllBoxContainer>
+          </SecBodyContainer>
+        </SecLandingContainer>
+        <ThirdBodyOutContainer id="thirdout">
+          <ThirdBodyContainer id="thirdcon">
+            {ThirdLandingPageTxt.map((el, idx) => {
+              return (
+                <ThirLandingContainer id="third" idx={idx} key={el.title[0]}>
+                  <AllContainer idx={idx}>
+                    <ThirTextContainer idx={idx}>
+                      <NumberContainer>
+                        {el.number.map((el) => {
+                          return <div key={el[0]}>{el}</div>;
+                        })}
+                      </NumberContainer>
+                      <TitleContainer>
+                        {el.title.map((el) => {
+                          return <div key={el[0]}>{el}</div>;
+                        })}
+                      </TitleContainer>
+                      <DescrContainer>
+                        {el.descr.map((el) => {
+                          return <div key={el[0]}>{el}</div>;
+                        })}
+                      </DescrContainer>
+                    </ThirTextContainer>
+                    <ThirImageContainer id="3Img" idx={idx}>
+                      {el.img.map((el) => {
+                        return <img src={el} alt={el} />;
+                      })}
+                    </ThirImageContainer>
+                  </AllContainer>
+                </ThirLandingContainer>
+              );
+            })}
+          </ThirdBodyContainer>
+        </ThirdBodyOutContainer>
+        <SevLandingContainer id="sev">
+          <Link to="/main">
+            <GotoMainButton onClick={() => scrollHandler()}>
+              근의 공식 시작하기
+            </GotoMainButton>
+          </Link>
+        </SevLandingContainer>
+      </div>
     </AllLandingContainer>
   );
 }
