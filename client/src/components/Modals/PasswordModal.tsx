@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../store";
 import { axios_Put_User } from "../../axios";
+import AlertModal from "./AlertModal";
 export const ModalBackdrop = styled.div`
   position: fixed;
   z-index: 999;
