@@ -367,19 +367,16 @@ export const SecImgContainer = styled.div`
   align-items: center;
   transition: 0.5s all;
   img {
-    width: 135.5px;
-    height: 164.75px;
+    width: 80px;
     transition: 0.5s all;
   }
   @media screen and (max-width: 37.5rem) {
-    height: 99px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: 0.5s all;
     img {
-      width: 74.85px;
-      height: 91px;
+      width: 50px;
       transition: 0.5s all;
     }
   }
@@ -505,8 +502,7 @@ export const ThirImageContainer = styled.div<Idx>`
   left: ${(props) => (props.idx % 2 === 0 ? "none" : "0")};
   right: ${(props) => (props.idx % 2 === 0 ? "0" : "none")};
   img {
-    width: 550px;
-    height: 550px;
+    width: 300px;
     transition: 0.5s all;
   }
   @media screen and (max-width: 1000px) {
@@ -519,8 +515,7 @@ export const ThirImageContainer = styled.div<Idx>`
   }
   @media screen and (max-width: 37.5rem) {
     img {
-      width: 266px;
-      height: 238px;
+      width: 200px;
       transition: 0.5s all;
     }
   }
@@ -644,7 +639,8 @@ function Landing() {
   const ThirdLandingPageTxt = [
     {
       title: ["01", "운동 세부 기록을 확인해보세요"],
-      img: "./images/Landing_page1.svg",
+      img: ["./images/video_record_1.gif",
+            "./images/video_record_2.gif"],
       descr: [
         "체계적인 운동 루틴을 짜고",
         "초 단위로 기록을 확인할 수 있습니다"
@@ -652,7 +648,7 @@ function Landing() {
     },
     {
       title: ["02", "유저들간 순위 경쟁을 해보세요"],
-      img: "./images/Landing_page2.png",
+      img: ["./images/ilt_medal.png"],
       descr: [
         "근의 공식은 상위 3위 랭킹의 유저들에게",
         "메달을 달아 드립니다",
@@ -664,7 +660,8 @@ function Landing() {
         "다른 사람들은 어떤 운동을 하는지",
         "게시물을 통해 확인해보세요",
       ],
-      img: "./images/Lading_page3.svg",
+      img: ["./images/cap_post_1.png",
+            "./images/cap_post_2.png"],
       descr: [
         "근의 공식은 자신의 운동 기록을 공유하며", 
         "다른 유저들과 소통할 수 있는 커뮤니티입니다",
@@ -711,7 +708,7 @@ function Landing() {
               return (
                 <SecBoxContainer idx={idx} key={el.title}>
                   <SecImgContainer>
-                    <img src={el.img} alt={el.title}></img>
+                    <img src={el.img} alt={el.title}/>
                   </SecImgContainer>
                   <SecBigTxtContainer>{el.title}</SecBigTxtContainer>
                   <SecDescrContainer>
@@ -745,8 +742,9 @@ function Landing() {
                     </DescrContainer>
                   </ThirTextContainer>
                   <ThirImageContainer id="3rd" idx={idx}>
-                    {" "}
-                    <img src={el.img} alt={el.title[0]} />
+                  {el.img.map((el) => {
+                      return <img src={el} alt={el}/>
+                    })}
                   </ThirImageContainer>
                 </AllContainer>
               </ThirLandingContainer>
