@@ -97,11 +97,17 @@ export const Postthumb = styled.div`
       border-collapse: collapse;
       margin-left: 0.5rem;
       font-size: small;
-      > tbody > tr:not(:last-of-type) {
-        text-align: left;
-        border-bottom: 1px solid lightgrey;
+      width: 10rem;
+      > tbody {
+        > tr:not(:last-of-type) {
+          text-align: left;
+          border-bottom: 1px solid lightgrey;
+        }
       }
-      > tbody > th,
+      > tbody > tr,
+      th {
+        width: 50px;
+      }
       td {
         padding-left: 0.5rem;
       }
@@ -144,7 +150,13 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
     hours = hours < 10 ? "0" + hours : hours;
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
-    return hours + "시간 " + minutes + "분 " + seconds + "초";
+    if (hours == "00" && minutes === "00") {
+      return seconds + "초";
+    } else if (hours == "00") {
+      return minutes + "분 " + seconds + "초";
+    } else {
+      return hours + "시간 " + minutes + "분 " + seconds + "초";
+    }
   };
   // let postId = postThumb.postId
   return (
