@@ -183,6 +183,7 @@ export const Main = styled.div`
             font-size: 14px;
             width: 100%;
             height: 160px;
+            resize: none;
           }
         }
       }
