@@ -169,7 +169,6 @@ export const Main = styled.div`
         padding: 1rem;
         width: 100%;
         > .exInfo-time-wrapper {
-          border: 1px solid red;
           padding: 5px;
           display: flex;
           flex-direction: row;
@@ -179,6 +178,43 @@ export const Main = styled.div`
           > .exInfo-time {
             width: 10rem;
           }
+        }
+        > .exInfo-difficult-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          > .exInfo-difficult-title {
+            width: 6rem;
+          }
+          > .exInfo-difficult {
+            width: 10rem;
+          }
+        }
+        > .exInfo-bodypart-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          > .exInfo-bodypart-title {
+            width: 6rem;
+          }
+          > .exInfo-bodypart {
+            width: 10rem;
+            > select {
+              width: 7.5rem;
+              font-size: medium;
+              border:none;
+              color: black;
+            }
+            > select:focus {
+              outline: none;
+            }
+          }
+        }
+        > .exInfo-text {
+          padding-top: 2rem;
+          border-top: solid lightgrey 1px;
         }
         > div {
           padding: 5px;
@@ -475,19 +511,20 @@ export default function Detail() {
                       </div>
                     )}
                   </div>
-                  <div>
-                    운동부위 :
-                    <select className="dropdown" onChange={handleGetbodyPart}>
+
+                  <div className="exInfo-bodypart-container">
+                    <div className="exInfo-bodypart-title">운동부위</div>
+                    <div className="exInfo-bodypart">
+                      <select className="dropdown" onChange={handleGetbodyPart}>
                       <option value={bodyPart}>{bodyPart}</option>
                       <option value="전신">전신</option>
                       <option value="상체">상체</option>
                       <option value="하체">하체</option>
                     </select>
+                    </div>
                   </div>
-
                   <div className="post-info">
                     {" "}
-                    소감 :
                     <textarea
                       className="edit-text"
                       value={textContent}
@@ -553,10 +590,30 @@ export default function Detail() {
                     : null}
                 </div>
                 <div className="exInfo">
+                  <div className="exInfo-time-wrapper">
+                    <div className="exInfo-time-title">소요시간</div>
+                    <div className="exInfo-time">
+                      {showTime(postInfo.total_time)}{" "}
+                    </div>
+                  </div>
+                  <div
+                    className="exInfo-difficult-container"
+                  >
+                    <div className="exInfo-difficult-title">난이도</div>
+                      <div className="exInfo-difficult">
+                        {labelStarPoint(postInfo.difficult)}
+                      </div>
+                  </div>
+{/* 
                   <div>총 소요시간: {showTime(postInfo.total_time)} </div>
-                  <div>난이도: {labelStarPoint(postInfo.difficult)}</div>
-                  <div>운동부위 : {postInfo.body_part}</div>
-                  <div> 소감 :{postInfo.info}</div>
+                  <div>난이도: {labelStarPoint(postInfo.difficult)}</div> */}
+                  <div className="exInfo-bodypart-container">
+                    <div className="exInfo-bodypart-title">운동부위</div>
+                    <div className="exInfo-bodypart">
+                      {postInfo.body_part}
+                    </div>
+                  </div>
+                  <div className="exInfo-text">{postInfo.info}</div>
                 </div>
               </div>
             </div>
