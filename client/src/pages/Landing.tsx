@@ -193,6 +193,17 @@ export const GotoMainButton = styled.button`
   &:hover {
     background: #3f3f3f;
   }
+  @media screen and (max-width: 1000px) {
+    font-size: x-large;
+  }
+  @media screen and (max-width: 37.5rem) {
+    width: 10rem;
+    height: 3rem;
+    font-size: large;
+  }
+  @media screen and (max-width: 420px) {
+    font-size: medium;
+  }
 `;
 
 export const BigCircle = styled.span`
@@ -208,63 +219,6 @@ export const BigCircle = styled.span`
   z-index: 1;
   @media screen and (max-width: 1000px) {
     display: none;
-  }
-`;
-
-export const SmallCircle = styled.span`
-  position: relative;
-  left: -10rem;
-  top: 10rem;
-  border-bottom: calc(2.945rem * 1.732) solid #00cc99;
-  border-left: 2.945rem solid transparent;
-  border-right: 2.945rem solid transparent;
-  transition: 0.5s all;
-  z-index: 1;
-  @media screen and (max-width: 1000px) {
-    width: 3.945rem;
-    height: 3.945rem;
-    left: -16.5rem;
-    top: 46.8rem;
-    transition: 0.5s all;
-  }
-  @media screen and (max-width: 37.5rem) {
-    width: 2.945rem;
-    height: 2.945rem;
-    left: -11.3rem;
-    top: 36.5rem;
-    transition: 0.5s all;
-  }
-  @media screen and (max-width: 420px) {
-    width: 1.945rem;
-    height: 1.945rem;
-    left: -8.7rem;
-    top: 28.7rem;
-  }
-`;
-export const VerySmallCircle = styled.span`
-  display: none;
-
-  @media screen and (max-width: 1000px) {
-    display: flex;
-    left: -210px;
-    top: 763px;
-    position: relative;
-    background: #00cc99;
-    border-radius: 100%;
-    box-sizing: border-box;
-    width: 16px;
-    height: 16px;
-    transition: 0.5s all;
-  }
-  @media screen and (max-width: 37.5rem) {
-    left: -138.9px;
-    top: 595px;
-    width: 13px;
-    height: 13px;
-  }
-  @media screen and (max-width: 420px) {
-    left: -108.9px;
-    top: 468px;
   }
 `;
 
@@ -285,7 +239,6 @@ export const SecLandingContainer = styled.div`
   padding: 118px 0 118px 0;
   background: #00cc99;
   justify-content: center;
-  font-family: "IBM Plex Sans KR", sans-serif;
   transition: 0.5s all;
   @media screen and (max-width: 1000px) {
     display: flex;
@@ -339,8 +292,9 @@ export const SecBoxContainer = styled.div<Idx>`
   flex-direction: column;
   background: #f2f2f2;
   box-sizing: border-box;
+  box-shadow: 2px 3px 10px 2px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
-  width: 396px;
+  width: 350px;
   height: 400px;
   justify-content: space-evenly;
   transition: 0.5s all;
@@ -383,23 +337,23 @@ export const SecImgContainer = styled.div`
 `;
 
 export const SecBigTxtContainer = styled.div`
-  font-size: 24px;
-  font-weight: 300;
+  font-size: x-large;
   text-align: center;
   transition: 0.5s all;
+  font-family: "IBM Plex Sans KR", sans-serif;
   @media screen and (max-width: 37.5rem) {
-    font-size: 14px;
+    font-size: large;
     transition: 0.5s all;
   }
 `;
 
 export const SecDescrContainer = styled.div`
-  font-size: 18px;
+  padding: 3rem;
+  font-size: x-large;
   font-weight: 100;
-  text-align: center;
   transition: 0.5s all;
   @media screen and (max-width: 37.5rem) {
-    font-size: 12px;
+    font-size: large;
     transition: 0.5s all;
   }
 `;
@@ -412,15 +366,15 @@ export const ThirLandingContainer = styled.div<Idx>`
   margin-top: ${(props) => (props.idx === 0 ? "110px" : "0")};
   transition: 0.5s all;
   width: 100%;
-  height: 51.313rem;
+  height: 50rem;
   position: relative;
   @media screen and (max-width: 1000px) {
     flex-direction: column;
-    height: 70rem;
+    height: 40rem;
   }
   @media screen and (max-width: 37.5rem) {
     margin-top: 50px;
-    height: 431px;
+    height: 30rem;
   }
 `;
 
@@ -440,8 +394,38 @@ export const ThirTextContainer = styled.div<Idx>`
   }
 `;
 
+export const NumberContainer = styled.div`
+  font-size: 40px;
+  font-weight: bold;
+  z-index: 2;
+  transition: 0.5s all;
+  color: #00cc99;
+  div {
+    margin-bottom: 13px;
+    transition: 0.5s all;
+  }
+  @media screen and (max-width: 1000px) {
+    text-shadow: none;
+  }
+  @media screen and (max-width: 37.5rem) {
+    font-size: xx-large;
+    transition: 0.5s all;
+    div {
+      margin-bottom: 9px;
+      transition: 0.5s all;
+    }
+  }
+  @media screen and (max-width: 420px) {
+    font-size: x-large;
+  }
+`;
+
+
+
+
 export const TitleContainer = styled.div`
-  font-size: 30px;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-size: xx-large;
   font-weight: 300;
   z-index: 2;
   transition: 0.5s all;
@@ -453,7 +437,7 @@ export const TitleContainer = styled.div`
     text-shadow: none;
   }
   @media screen and (max-width: 37.5rem) {
-    font-size: 17px;
+    font-size: x-large;
     transition: 0.5s all;
     div {
       margin-bottom: 9px;
@@ -461,12 +445,12 @@ export const TitleContainer = styled.div`
     }
   }
   @media screen and (max-width: 420px) {
-    font-size: 14px;
+    font-size: large;
   }
 `;
 
 export const DescrContainer = styled.div`
-  font-size: 24px;
+  font-size: x-large;
   font-weight: 100;
   transition: 0.5s all;
   div {
@@ -480,7 +464,7 @@ export const DescrContainer = styled.div`
     }
   }
   @media screen and (max-width: 37.5rem) {
-    font-size: 15px;
+    font-size: large;
     font-weight: 100;
     transition: 0.5s all;
     div {
@@ -489,7 +473,7 @@ export const DescrContainer = styled.div`
     }
   }
   @media screen and (max-width: 420px) {
-    font-size: 12px;
+    font-size: medium;
   }
 `;
 
@@ -515,7 +499,8 @@ export const ThirImageContainer = styled.div<Idx>`
   }
   @media screen and (max-width: 37.5rem) {
     img {
-      width: 200px;
+      width: 150px;
+
       transition: 0.5s all;
     }
   }
@@ -523,8 +508,9 @@ export const ThirImageContainer = styled.div<Idx>`
 
 export const SevLandingContainer = styled.div`
   width: 100%;
-  height: 223px;
-  margin-bottom: 50px;
+  height: 300px;
+  padding-top: 3rem;
+  margin-bottom: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -550,28 +536,6 @@ export const AllContainer = styled.div<Idx>`
     flex-direction: column;
   }
 `;
-export const Circle = styled.span`
-  position: relative;
-  width: 71px;
-  height: 71px;
-  left: -10%;
-  top: 28px;
-
-  border-bottom: calc(51px * 1.732) solid #00cc99;
-  border-left: 51px solid transparent;
-  border-right: 51px solid transparent;
-  transition: 0.5s all;
-  z-index: 0;
-  @media screen and (max-width: 1000px) {
-  }
-  @media screen and (max-width: 37.5rem) {
-    width: 36px;
-    height: 36px;
-    top: 15px;
-    left: -19px;
-    transition: 0.5s all;
-  }
-`;
 
 export const ThirdBodyContainer = styled.main`
   display: flex;
@@ -589,27 +553,6 @@ export const ThirdBodyOutContainer = styled.main`
   display: flex;
   justify-content: center;
 `;
-export const GoTopContainer = styled.div`
-  position: fixed;
-  cursor: pointer;
-  top: 83%;
-  left: 85%;
-  z-index: 99;
-  img {
-    opacity: 0.2;
-    :hover {
-      opacity: 1;
-    }
-  }
-  @media screen and (max-width: 37.5rem) {
-    top: 93%;
-    left: 85%;
-    img {
-      width: 30px;
-      height: 30px;
-    }
-  }
-`;
 
 function Landing() {
   const SecondLandingPageTxt = [
@@ -617,28 +560,27 @@ function Landing() {
       title: "실시간 기록 확인",
       img: "./images/icon_24-hours-timer-12573.svg",
       descr: [
-        "근의 공식을 통해 매일 매일",
-        "본인의 운동기록을 초단위로 기록할 수 있습니다.",
+        "근의 공식을 통해 매일 매일 본인의 운동기록을 초단위로 기록할 수 있습니다",
       ],
     },
     {
       title: "순위 경쟁",
       img: "./images/icon_goldmedal.png",
       descr: [
-        "근의 공식은 운동 기록을 통해",
-        "다른 유저와 경쟁할 수 있는 플랫폼입니다. ",
+        "근의 공식은 운동 기록을 통해 다른 유저와 경쟁할 수 있는 플랫폼입니다",
       ]
     },
     {
       title: "운동 게시물 확인",
       img: "./images/icon_bulletin-board-9123.svg",
-      descr: ["근의 공식에서 최신 운동 관련 게시물을 ", "한눈에 확인 할 수 있습니다."],
+      descr: ["근의 공식에서 최신 운동 관련 게시물을 한눈에 확인 할 수 있습니다"],
     },
   ];
 
   const ThirdLandingPageTxt = [
     {
-      title: ["01", "운동 세부 기록을 확인해보세요"],
+      number: ["01"],
+      title: ["운동 세부 기록을 확인해보세요"],
       img: ["./images/video_record_1.gif",
             "./images/video_record_2.gif"],
       descr: [
@@ -647,7 +589,8 @@ function Landing() {
       ],
     },
     {
-      title: ["02", "유저들간 순위 경쟁을 해보세요"],
+      number: ["02"],
+      title: ["유저들간 순위 경쟁을 해보세요"],
       img: ["./images/ilt_medal.png"],
       descr: [
         "근의 공식은 상위 3위 랭킹의 유저들에게",
@@ -655,8 +598,8 @@ function Landing() {
       ],
     },
     {
+      number: ["03"],
       title: [
-        "03",
         "다른 사람들은 어떤 운동을 하는지",
         "게시물을 통해 확인해보세요",
       ],
@@ -729,7 +672,11 @@ function Landing() {
               <ThirLandingContainer idx={idx} key={el.title[0]}>
                 <AllContainer idx={idx}>
                   <ThirTextContainer idx={idx}>
-                    <Circle></Circle>
+                  <NumberContainer>
+                      {el.number.map((el) => {
+                        return <div key={el[0]}>{el}</div>;
+                      })}
+                    </NumberContainer>
                     <TitleContainer>
                       {el.title.map((el) => {
                         return <div key={el[0]}>{el}</div>;
