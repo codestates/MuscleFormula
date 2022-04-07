@@ -16,12 +16,14 @@ import Editor from "./pages/Editor";
 import Test from "./test/Test";
 import EditorTest from "./test/EditorTest";
 import Landing from "./pages/Landing";
+import { PrivacyPolicy } from "./components/Policy/PrivacyPolicy";
 import CallbackKakao from "./callback/callbackKakao";
 import CallbackGoogle from "./callback/callbackGoogle";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "./store";
 import { LOG_OUT } from "./reducer/userInfoReducer";
+import { TermsAndConditions } from "./components/Policy/TermsAndConditions";
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -64,6 +66,8 @@ const App: React.FC = () => {
         <Route path="/testEdit" element={<EditorTest />} />
         <Route path="/callbackKakao" element={<CallbackKakao />} />
         <Route path="/callbackGoogle" element={<CallbackGoogle />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
+        <Route path="/termsandconditions" element={<TermsAndConditions/>}/>
         <Route path="/" element={<Landing />} />
       </Routes>
       <PC>

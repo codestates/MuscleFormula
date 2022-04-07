@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Terms &amp; Conditions</title>
-    <style>
-      body {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        padding: 1em;
-      }
-    </style>
-  </head>
-  <body>
+import styled from "styled-components"
+
+export const TermsAndConditionsContainer = styled.body`
+  margin: 5rem;
+  color: grey;
+  a {
+    text-decoration: none;
+    text-decoration: underline;
+    color: darkgrey;
+  }
+`
+export function TermsAndConditions () {
+  return (
+  <TermsAndConditionsContainer>
     <strong>Terms &amp; Conditions</strong>
     <p>
       By downloading or using the app, these terms will automatically apply to
@@ -139,7 +139,6 @@
             >Fathom Analytics</a
           >
         </li>
-        <!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
       </ul>
     </div>
     <p>
@@ -214,5 +213,7 @@
         >App Privacy Policy Generator</a
       >
     </p>
-  </body>
-</html>
+  </TermsAndConditionsContainer>
+  )
+}
+  
