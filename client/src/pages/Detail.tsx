@@ -194,6 +194,7 @@ export const Main = styled.div`
             font-size: 14px;
             width: 100%;
             height: 160px;
+            resize: none;
           }
         }
       }
@@ -457,15 +458,20 @@ export default function Detail() {
                 <div className="exInfo">
                   <div className="exInfo-time-wrapper">
                     <div className="exInfo-time-title">소요시간</div>
-                    <div className="exInfo-time">{showTime(postInfo.total_time)} </div>
+                    <div className="exInfo-time">
+                      {showTime(postInfo.total_time)}{" "}
+                    </div>
                   </div>
-                  <div className="exInfo-difficult-container" onClick={() => setShowDifficult(true)}>
+                  <div
+                    className="exInfo-difficult-container"
+                    onClick={() => setShowDifficult(true)}
+                  >
                     <div className="exInfo-difficult-title">난이도</div>
                     {!showDifficult ? (
                       labelStarPoint(difficult)
                     ) : (
                       <div className="exInfo-difficult">
-                      <StarPoint setDifficult={setDifficult} />
+                        <StarPoint setDifficult={setDifficult} />
                       </div>
                     )}
                   </div>
