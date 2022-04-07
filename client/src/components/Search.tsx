@@ -16,11 +16,11 @@ interface SearchType {
 
 const AllpostDataDumy = [
   {
-    postTitle: "수정제목23",
-    bodyPart: "상체",
+    postTitle: "제목",
+    bodyPart: "전신",
     created_At: "2022-04-04T15:00:00.000Z",
     difficult: 3,
-    info: "ㅇㅇㅇ",
+    info: "상세정보",
     postId: 6,
     postImage: "http://localhost:4000/postimg/certificate-g4944fe35c_1920.png",
     totalTime: 9,

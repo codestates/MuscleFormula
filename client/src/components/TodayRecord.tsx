@@ -1,4 +1,4 @@
-/**오늘의 운동왕**/
+/**내 기록 확인**/
 import styled from "styled-components"
 
 export const TodayRecordContainer = styled.ol`
