@@ -204,7 +204,7 @@ export const Main = styled.div`
             > select {
               width: 7.5rem;
               font-size: medium;
-              border:none;
+              border: none;
               color: black;
             }
             > select:focus {
@@ -343,15 +343,19 @@ export default function Detail() {
     }
   }, []);
   const handleCommentSubmit = () => {
-    axios_Create_Comment(postId, commentContent, user.accessToken).then(
-      (res) => {
-        setCommentContent("");
-        axios_Get_DetailPosts(postId).then((req) => {
-          console.log("req:", req.data);
-          setPostInfo(req.data);
-        });
-      }
-    );
+    if (commentContent.length < 2) {
+      return Swal.fire("댓글을 2글자이상 입력하세요");
+    } else {
+      axios_Create_Comment(postId, commentContent, user.accessToken).then(
+        (res) => {
+          setCommentContent("");
+          axios_Get_DetailPosts(postId).then((req) => {
+            console.log("req:", req.data);
+            setPostInfo(req.data);
+          });
+        }
+      );
+    }
   };
   const handleLikeSubmit = () => {
     console.log("하트 누름");
@@ -445,6 +449,12 @@ export default function Detail() {
   // let shareRecords = postInfo.exerciseInfo.ex_record;
   // console.log("shareRecords :", shareRecords);
 
+  const handlePressEnter = (e: { key: string }) => {
+    if (e.key === "Enter") {
+      handleCommentSubmit();
+    }
+  };
+
   return (
     <div className="DetailPage">
       {postInfo ? (
@@ -516,11 +526,11 @@ export default function Detail() {
                     <div className="exInfo-bodypart-title">운동부위</div>
                     <div className="exInfo-bodypart">
                       <select className="dropdown" onChange={handleGetbodyPart}>
-                      <option value={bodyPart}>{bodyPart}</option>
-                      <option value="전신">전신</option>
-                      <option value="상체">상체</option>
-                      <option value="하체">하체</option>
-                    </select>
+                        <option value={bodyPart}>{bodyPart}</option>
+                        <option value="전신">전신</option>
+                        <option value="상체">상체</option>
+                        <option value="하체">하체</option>
+                      </select>
                     </div>
                   </div>
                   <div className="post-info">
@@ -596,22 +606,18 @@ export default function Detail() {
                       {showTime(postInfo.total_time)}{" "}
                     </div>
                   </div>
-                  <div
-                    className="exInfo-difficult-container"
-                  >
+                  <div className="exInfo-difficult-container">
                     <div className="exInfo-difficult-title">난이도</div>
-                      <div className="exInfo-difficult">
-                        {labelStarPoint(postInfo.difficult)}
-                      </div>
+                    <div className="exInfo-difficult">
+                      {labelStarPoint(postInfo.difficult)}
+                    </div>
                   </div>
-{/* 
+                  {/* 
                   <div>총 소요시간: {showTime(postInfo.total_time)} </div>
                   <div>난이도: {labelStarPoint(postInfo.difficult)}</div> */}
                   <div className="exInfo-bodypart-container">
                     <div className="exInfo-bodypart-title">운동부위</div>
-                    <div className="exInfo-bodypart">
-                      {postInfo.body_part}
-                    </div>
+                    <div className="exInfo-bodypart">{postInfo.body_part}</div>
                   </div>
                   <div className="exInfo-text">{postInfo.info}</div>
                 </div>
@@ -645,7 +651,7 @@ export default function Detail() {
                   onChange={(e) => {
                     setCommentContent(e.target.value);
                   }}
-                  // onKeyPress={}
+                  onKeyPress={handlePressEnter}
                 ></input>
                 <button
                   className="comment-submit-btn"
