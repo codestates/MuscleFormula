@@ -2,8 +2,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from "../store";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store";
 import { POST_ID } from "../reducer/postReducer";
 
 export const Postthumb = styled.div`
