@@ -156,7 +156,6 @@ export const Main = styled.div`
     }
   }
   > .detail-container-down {
-    //border: 1px solid gray;
     min-width: 20rem;
     > .detail-exInfo {
       width: 100%;
@@ -169,6 +168,18 @@ export const Main = styled.div`
       > .exInfo {
         padding: 1rem;
         width: 100%;
+        > .exInfo-time-wrapper {
+          border: 1px solid red;
+          padding: 5px;
+          display: flex;
+          flex-direction: row;
+          > .exInfo-time-title {
+            width: 6rem;
+          }
+          > .exInfo-time {
+            width: 10rem;
+          }
+        }
         > div {
           padding: 5px;
           > select {
@@ -444,13 +455,18 @@ export default function Detail() {
             <div className="detail-container-down">
               <div className="detail-exInfo">
                 <div className="exInfo">
-                  <div>총 소요시간: {showTime(postInfo.total_time)} </div>
-                  <div onClick={() => setShowDifficult(true)}>
-                    난이도 :{" "}
+                  <div className="exInfo-time-wrapper">
+                    <div className="exInfo-time-title">소요시간</div>
+                    <div className="exInfo-time">{showTime(postInfo.total_time)} </div>
+                  </div>
+                  <div className="exInfo-difficult-container" onClick={() => setShowDifficult(true)}>
+                    <div className="exInfo-difficult-title">난이도</div>
                     {!showDifficult ? (
                       labelStarPoint(difficult)
                     ) : (
+                      <div className="exInfo-difficult">
                       <StarPoint setDifficult={setDifficult} />
+                      </div>
                     )}
                   </div>
                   <div>
@@ -463,7 +479,7 @@ export default function Detail() {
                     </select>
                   </div>
 
-                  <div>
+                  <div className="post-info">
                     {" "}
                     소감 :
                     <textarea
