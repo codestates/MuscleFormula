@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Privacy Policy</title>
-    <style>
-      body {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        padding: 1em;
-      }
-    </style>
-  </head>
-  <body>
+import styled from "styled-components"
+
+export const PrivacyPolicyContainer = styled.body`
+  margin: 5rem;
+  color: grey;
+  a {
+    text-decoration: none;
+    text-decoration: underline;
+    color: darkgrey;
+  }
+`
+
+export function PrivacyPolicy () {
+  return (
+  <PrivacyPolicyContainer>
     <strong>Privacy Policy</strong>
     <p>
       GabojaGo built the Muscle Formula app as an Open Source app. This SERVICE
@@ -140,7 +141,6 @@
             >Fathom Analytics</a
           >
         </li>
-        <!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
       </ul>
     </div>
     <p><strong>Log Data</strong></p>
@@ -213,7 +213,6 @@
         that we will be able to do the necessary actions.
       </p>
     </div>
-    <!---->
     <p><strong>Changes to This Privacy Policy</strong></p>
     <p>
       We may update our Privacy Policy from time to time. Thus, you are advised
@@ -241,5 +240,7 @@
         >App Privacy Policy Generator</a
       >
     </p>
-  </body>
-</html>
+  </PrivacyPolicyContainer>
+  )
+}
+    
