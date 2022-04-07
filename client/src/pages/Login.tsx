@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { LOG_IN } from "../reducer/userInfoReducer";
 import { useState, useEffect } from "react";
 import type { RootState, AppDispatch } from "../store";
+import Swal from "sweetalert2";
 import styled from "styled-components";
 const qs = require("qs");
 
@@ -223,24 +224,26 @@ export default function Login() {
   const dispatch: AppDispatch = useDispatch();
 
   const loginHangle = async () => {
-    axios_Login(userEmail, userPassword).then((res) => {
-      const { id, image, nickname, loginType } = res.data.user;
-      const accessToken = res.data.accessToken;
-      console.log("이메일로그인", res.data);
-      dispatch(
-        LOG_IN({
-          id,
-          nickname,
-          image,
-          accessToken,
-          loginType
-        })
-      );
-      navigate("/main");
-    })
-    .catch(()=>{
-      alert('이메일 혹은 비밀번호가 일치하지 않습니다')
-    })
+    axios_Login(userEmail, userPassword)
+      .then((res) => {
+        const { id, image, nickname, loginType } = res.data.user;
+        const accessToken = res.data.accessToken;
+        console.log("이메일로그인", res.data);
+        dispatch(
+          LOG_IN({
+            id,
+            nickname,
+            image,
+            accessToken,
+            loginType,
+          })
+        );
+        navigate("/main");
+      })
+      .catch(() => {
+        // alert('이메일 혹은 비밀번호가 일치하지 않습니다')
+        Swal.fire("이메일 혹은 비밀번호가 일치하지 않습니다");
+      });
   };
 
   const changeEmail = (e: string | any) => {
@@ -257,7 +260,10 @@ export default function Login() {
           <div id="login-container-left">
             <div id="greeting-container">
               <div className="greeting">오늘도 힘차게 운동해볼까요?</div>
-              <img src="../images/icon_weightlifting.png" alt="exercising_man" />
+              <img
+                src="../images/icon_weightlifting.png"
+                alt="exercising_man"
+              />
             </div>
             <table id="oauth-container">
               <tbody>
@@ -322,7 +328,10 @@ export default function Login() {
           <div id="login-container">
             <div id="greeting-container">
               <div className="greeting">오늘도 힘차게 운동해볼까요?</div>
-              <img src="../images/icon_weightlifting.png" alt="exercising_man" />
+              <img
+                src="../images/icon_weightlifting.png"
+                alt="exercising_man"
+              />
             </div>
             <div id="user-container">
               <div className="user-input-container">

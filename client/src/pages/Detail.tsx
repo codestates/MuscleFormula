@@ -1,4 +1,5 @@
 /**포스트 상세 페이지**/
+import Swal from "sweetalert2";
 import Comment from "../components/Comment";
 import { useSelector, useStore } from "react-redux";
 import axios from "axios";
@@ -316,6 +317,7 @@ export default function Detail() {
         .then(() => {
           setIsModify(!isModify);
           setShowDifficult(false);
+          Swal.fire("수정완료 되었습니다");
         });
     });
   };

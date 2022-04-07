@@ -1,4 +1,5 @@
 // 시작하자마자 보이는 뻘건색 삭제
+import Swal from "sweetalert2";
 import { PC, Mobile } from "../mediaQuery";
 import Footer from "../components/Footer";
 import axios from "axios";
@@ -184,17 +185,19 @@ export default function Signup() {
                 nickname,
                 image,
                 accessToken,
-                loginType
+                loginType,
               })
             );
             navigate("/main");
           })
           .catch(() => {
-            alert("중복된 이메일이 있습니다");
+            // alert("중복된 이메일이 있습니다");
+            Swal.fire("중복된 이메일이 있습니다");
           });
       });
     } else {
-      alert("회원가입 조건을 모두 맞추어 주십시오");
+      // alert("회원가입 조건을 모두 맞추어 주십시오");
+      Swal.fire("회원가입 조건을 모두 맞추어 주십시오");
     }
   };
 
