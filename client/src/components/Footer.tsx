@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 export const Foot = styled.footer`
   display: flex;
@@ -14,6 +15,7 @@ export const Foot = styled.footer`
     text-align: center;
     font-size: x-large;
   }
+
   a {
     color: darkgrey;
     text-decoration: none;
@@ -22,8 +24,13 @@ export const Foot = styled.footer`
     padding: 0.6rem 0rem;
   }
   > .source-container {
+    text-align: center;
     padding-bottom: 1rem;
     font-size: x-small;
+    > span {
+    cursor: pointer;
+    color: darkgrey;
+  }
   }
 `;
 export default function Footer() {
@@ -35,9 +42,11 @@ export default function Footer() {
     window.scrollBy(0, -window.innerHeight);
   };
 
+  const navigate = useNavigate();
+
   return (
     <Foot>
-      <div className="go-to-up" onClick={scrollUp}>
+      <div className="go-to-up" onClick={scrollTop}>
         <i className="fa-solid fa-circle-chevron-up"></i>
       </div>
       <div className="team-name-container">
@@ -47,10 +56,10 @@ export default function Footer() {
       </div>
       <div className="source-container">
         <a href="https://icons8.com">아이콘Icons8</a>에서 아이콘 제공 &nbsp;
-        <a href="./Policy/PrivacyPolicy.me ">Terms&Conditions</a> &nbsp;
-        <a href="./Policy/ Terms&Conditions.me ">Terms&Conditions</a>
-        &nbsp;
-        {/* <img src="./Policy/PrivacyPolicy.html">PrivacyPolicy&nbsp;</img> */}
+        <br/>
+        <span onClick={()=> {navigate("/privacypolicy")}}>PrivacyPolicy</span>
+        {" "}
+        <span onClick={()=> {navigate("/termsandconditions")}}>Terms&Conditions</span>
       </div>
     </Foot>
   );

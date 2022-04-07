@@ -12,7 +12,7 @@ const PhotoUploaderContainer = styled.div`
     z-index: 1;
     color: grey;
     background-color: lightgrey;
-    height: 300px;
+    height: 200px;
     > img {
       width: 100%;
       background-color: white;
@@ -50,10 +50,10 @@ const PhotoUploaderContainer = styled.div`
     z-index: 1;
     border-radius: 20px;
     > img {
-      width: 100%;
+      height: 200px;
     }
     > video {
-      width: 100%;
+      height: 200px;
     }
     > input {
       text-decoration: none;

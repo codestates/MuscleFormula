@@ -1,6 +1,7 @@
 /**포스트 상세 페이지**/
+import Swal from "sweetalert2";
 import Comment from "../components/Comment";
-import { useSelector } from "react-redux";
+import { useSelector, useStore } from "react-redux";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,7 +11,8 @@ import type { RootState } from "../store";
 import PhotoUploader from "../components/PhotoUploader";
 import CalendarRecord from "../components/CalendarRecord";
 import DeleteModal from "../components/Modals/DeleteModal";
-
+import labelStarPoint from "../functions/labelStarPoint";
+import NoRecord from "../components/Nocomment";
 import {
   axios_Get_DetailPosts,
   axios_Delete_Post,
@@ -19,6 +21,7 @@ import {
   axios_Delete_Like,
   axios_Put_Post,
 } from "../axios";
+import StarPoint from "../components/StarPoint";
 
 const FormData = require("form-data");
 function showTime(duration: number) {
@@ -28,7 +31,13 @@ function showTime(duration: number) {
   hours = hours < 10 ? "0" + hours : hours;
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
-  return hours + "시간 " + minutes + "분 " + seconds + "초";
+  if (hours == "00" && minutes === "00") {
+    return seconds + "초";
+  } else if (hours == "00") {
+    return minutes + "분 " + seconds + "초";
+  } else {
+    return hours + "시간 " + minutes + "분 " + seconds + "초";
+  }
 }
 interface RecordType {
   genre: string;
@@ -39,29 +48,49 @@ interface RecordType {
 
 export const Main = styled.div`
   //border: 3px solid greens;
-  margin: auto;
 
+  margin: 12vh auto;
+  /* margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto; */
+  border-radius: 25px;
+  border: 1px solid lightgrey;
+  padding: 1rem;
   /* 화면 중앙으로 만들기 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 90vh;
   width: 40%;
-
+  min-width: 22rem;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
+  > [contenteditable] {
+    outline: 0px solid transparent;
+  }
   > div {
     display: flex;
     width: 100%;
   }
-  > #detail-container-up {
+  > .detail-container-up {
     //border: 1px solid gray;
     display: flex;
     min-width: 20rem;
     flex-direction: column;
-    > #detail-title {
+
+    > .detail-title {
+      padding-top: 1rem;
       font-size: 1.5rem;
       border-bottom: 1px solid grey;
+      > .edit-title {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 4px;
+        margin: 3px 0;
+        font-size: 14px;
+        width: 100%;
+      }
     }
-    > #detail-image {
+    > .detail-image {
       > .post-date {
         padding-left: 1rem;
         padding-bottom: 1rem;
@@ -71,12 +100,12 @@ export const Main = styled.div`
       }
     }
 
-    > #detail-container-up-up {
+    > .detail-container-up-up {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      padding-top: 3rem;
-      > #detail-userinfo {
+      padding-top: 1rem;
+      > .detail-userinfo {
         padding: 1rem;
         display: flex;
         > .user-image {
@@ -88,7 +117,18 @@ export const Main = styled.div`
       }
       > .detail-button {
         display: flex;
+        > .edit-success {
+          margin-top: 1rem;
+          width: 63px;
+          height: 2rem;
+          font-size: small;
+          border-radius: 5px;
+          border: 0px;
+          background-color: #3364eb;
+          color: white;
 
+          cursor: pointer;
+        }
         > .delete-button {
           > .fa-trash-can {
             margin-top: 1rem;
@@ -115,21 +155,89 @@ export const Main = styled.div`
       }
     }
   }
-  > #detail-container-down {
-    border: 1px solid gray;
+  > .detail-container-down {
     min-width: 20rem;
     > .detail-exInfo {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       > .user-exInfo {
-        display: flex;
-        flex-direction: column;
+        padding: 1rem;
+      }
+      > .exInfo {
+        padding: 1rem;
+        width: 100%;
+        > .exInfo-time-wrapper {
+          padding: 5px;
+          display: flex;
+          flex-direction: row;
+          > .exInfo-time-title {
+            width: 6rem;
+          }
+          > .exInfo-time {
+            width: 10rem;
+          }
+        }
+        > .exInfo-difficult-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          > .exInfo-difficult-title {
+            width: 6rem;
+          }
+          > .exInfo-difficult {
+            width: 10rem;
+          }
+        }
+        > .exInfo-bodypart-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          > .exInfo-bodypart-title {
+            width: 6rem;
+          }
+          > .exInfo-bodypart {
+            width: 10rem;
+            > select {
+              width: 7.5rem;
+              font-size: medium;
+              border: none;
+              color: black;
+            }
+            > select:focus {
+              outline: none;
+            }
+          }
+        }
+        > .exInfo-text {
+          padding-top: 2rem;
+          border-top: solid lightgrey 1px;
+        }
+        > div {
+          padding: 5px;
+          > select {
+            margin-left: 1rem;
+            font-size: 15px;
+          }
+          > textarea {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 4px;
+            margin: 3px 0;
+            font-size: 14px;
+            width: 100%;
+            height: 160px;
+            resize: none;
+          }
+        }
       }
     }
   }
-  > #detail-container-comment {
-    border: 1px solid gray;
+  > .detail-container-comment {
+    // border: 1px solid gray;
     display: flex;
     flex-direction: column;
     min-width: 20rem;
@@ -152,12 +260,37 @@ export const Main = styled.div`
         }
       }
     }
-    > #detail-Comment-input {
+    > .detail-Comment-input {
       display: flex;
-      /* > #div-input {
+      /* > .div-input {
         border: 3px solid lightgreen;
         width: 50%;
       } */
+
+      > button {
+        width: 4rem;
+        font-size: medium;
+        cursor: pointer;
+        border: none;
+        padding: 0.3rem;
+        border-radius: 2px;
+        border-radius: 5px;
+        background-color: #3364eb;
+        color: white;
+      }
+      > .detail-text {
+        border: 0px solid lightgrey;
+        border-bottom: 1px solid lightgrey;
+        font-size: medium;
+        padding: 0.7rem;
+        width: 92%;
+        outline: none;
+      }
+      > .detail-text:empty:before {
+        content: attr(placeholder);
+        color: grey;
+        display: block;
+      }
     }
   }
 `;
@@ -210,15 +343,19 @@ export default function Detail() {
     }
   }, []);
   const handleCommentSubmit = () => {
-    axios_Create_Comment(postId, commentContent, user.accessToken).then(
-      (res) => {
-        setCommentContent("");
-        axios_Get_DetailPosts(postId).then((req) => {
-          console.log("req:", req.data);
-          setPostInfo(req.data);
-        });
-      }
-    );
+    if (commentContent.length < 2) {
+      return Swal.fire("댓글을 2글자이상 입력하세요");
+    } else {
+      axios_Create_Comment(postId, commentContent, user.accessToken).then(
+        (res) => {
+          setCommentContent("");
+          axios_Get_DetailPosts(postId).then((req) => {
+            console.log("req:", req.data);
+            setPostInfo(req.data);
+          });
+        }
+      );
+    }
   };
   const handleLikeSubmit = () => {
     console.log("하트 누름");
@@ -254,7 +391,6 @@ export default function Detail() {
   };
 
   const handlePostModifySubmit = () => {
-    //
     const formData = new FormData();
     formData.append("postTitle", titleContent);
     formData.append("info", textContent);
@@ -273,6 +409,8 @@ export default function Detail() {
         })
         .then(() => {
           setIsModify(!isModify);
+          setShowDifficult(false);
+          Swal.fire("수정완료 되었습니다");
         });
     });
   };
@@ -303,120 +441,123 @@ export default function Detail() {
     console.log("e.target.value:", e.target.value);
     setBodyPart(e.target.value);
   };
+
+  const [showDifficult, setShowDifficult] = useState(false);
   // console.log("postInfo:", postInfo);
   // console.log("titleContent:", titleContent);
   // console.log("isModify: ", isModify);
   // let shareRecords = postInfo.exerciseInfo.ex_record;
   // console.log("shareRecords :", shareRecords);
-  const numToStar = (num: number) => {
-    if (num === 0) return "☆";
-    let star = "";
-    for (let i = 0; i < num; i++) {
-      star += "★";
+
+  const handlePressEnter = (e: { key: string }) => {
+    if (e.key === "Enter") {
+      handleCommentSubmit();
     }
-    return star;
   };
+
   return (
-    <div id="DetailPage">
+    <div className="DetailPage">
       {postInfo ? (
         isModify ? (
           <Main>
-            <div id="detail-container-up">
-              <div>수정</div>
-              <div id="detail-title">
+            <div className="detail-container-up">
+              <div className="detail-title">
                 <input
-                  type="textarea"
+                  className="edit-title"
                   value={titleContent}
                   onChange={(e) => setTitleContent(e.target.value)}
                 ></input>
               </div>
-              <div id="detail-container-up-up">
-                <div id="detail-userinfo">
+              <div className="detail-container-up-up">
+                <div className="detail-userinfo">
                   <img
+                    className="user-image"
                     src={postInfo.users.image}
-                    style={{ width: "70px" }}
+                    style={{ width: "50px" }}
                     alt="user"
                   />
-                  <div>{postInfo.users.nickname}</div>
+                  <div className="user-nickname">{postInfo.users.nickname}</div>
                 </div>
-                <div id="detail-butten">
-                  <button onClick={handlePostModifySubmit}>수정완료</button>
+                <div className="detail-button">
+                  <button
+                    className="edit-success"
+                    onClick={handlePostModifySubmit}
+                  >
+                    수정 완료
+                  </button>
                 </div>
+                {/* onClick={handlePostModifySubmit} */}
               </div>
-
-              <div id="detail-image">
-                <div>{postInfo.created_At.split("T")[0]}</div>
+              <div className="detail-image">
+                <div className="post-date">
+                  {postInfo.created_At.split("T")[0]}
+                </div>
                 <PhotoUploader
                   photo={photo}
                   setPhoto={setPhoto}
                   photoUrl={postInfo.image}
                 />
-                {/* <img
-                  src={postInfo.image}
-                  alt="post_image"
-                  style={{ width: "200px" }}
-                  onClick={openPhotoModal}
-                />
-                {photoModal ? (
-                  <PhotoModal
-                    photo={photo}
-                    setPhoto={setPhoto}
-                    setPhotoModal={setPhotoModal}
-                  />
-                ) : null} */}
               </div>
             </div>
-            <div id="detail-container-down">
-              <div id="detail-exInfo">
-                <br />
-                <br />
-                <div>총 소요시간: {showTime(postInfo.total_time)} </div>
-                <div>
-                  난이도 :{" "}
-                  <input
-                    type="textarea"
-                    value={difficult}
-                    onChange={(e) => setDifficult(e.target.value)}
-                  ></input>
-                </div>
-                <div>
-                  운동부위 :
-                  {/* <input
-                    type="textarea"
-                    value={bodyPart}
-                    onChange={(e) => setBodyPart(e.target.value)}
-                  ></input> */}
-                  <select id="dropdown" onChange={handleGetbodyPart}>
-                    <option value={bodyPart}>{bodyPart}</option>
-                    <option value="전신">전신</option>
-                    <option value="상체">상체</option>
-                    <option value="하체">하체</option>
-                  </select>
-                </div>
-                <div>
-                  {" "}
-                  소감 :
-                  <input
-                    type="textarea"
-                    value={textContent}
-                    onChange={(e) => setTextContent(e.target.value)}
-                  ></input>
+            <div className="detail-container-down">
+              <div className="detail-exInfo">
+                <div className="exInfo">
+                  <div className="exInfo-time-wrapper">
+                    <div className="exInfo-time-title">소요시간</div>
+                    <div className="exInfo-time">
+                      {showTime(postInfo.total_time)}{" "}
+                    </div>
+                  </div>
+                  <div
+                    className="exInfo-difficult-container"
+                    onClick={() => setShowDifficult(true)}
+                  >
+                    <div className="exInfo-difficult-title">난이도</div>
+                    {!showDifficult ? (
+                      labelStarPoint(difficult)
+                    ) : (
+                      <div className="exInfo-difficult">
+                        <StarPoint setDifficult={setDifficult} />
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="exInfo-bodypart-container">
+                    <div className="exInfo-bodypart-title">운동부위</div>
+                    <div className="exInfo-bodypart">
+                      <select className="dropdown" onChange={handleGetbodyPart}>
+                        <option value={bodyPart}>{bodyPart}</option>
+                        <option value="전신">전신</option>
+                        <option value="상체">상체</option>
+                        <option value="하체">하체</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="post-info">
+                    {" "}
+                    <textarea
+                      className="edit-text"
+                      value={textContent}
+                      onChange={(e) => setTextContent(e.target.value)}
+                    ></textarea>
+                  </div>
                 </div>
               </div>
             </div>
-            <div id="detail-container-comment"></div>
+            <div className="detail-container-comment"></div>
           </Main>
         ) : (
           <Main>
-            <div id="detail-container-up">
-              <div id="detail-title">{postInfo.title}</div>
-              <div id="detail-container-up-up">
-                <div id="detail-userinfo">
+            <div className="detail-container-up">
+              <div className="detail-title">{postInfo.title}</div>
+              <div className="detail-container-up-up">
+                <div className="detail-userinfo">
                   <img
                     className="user-image"
                     src={postInfo.users.image}
                     style={{ width: "50px" }}
-                  ></img>
+                    alt="user"
+                  />
                   <div className="user-nickname">{postInfo.users.nickname}</div>
                 </div>
                 {postInfo.users.id === user.id ? (
@@ -437,22 +578,16 @@ export default function Detail() {
                 ) : (
                   <div></div>
                 )}
-                {deleteModal ? (
-                  <DeleteModal
-                    setDeleteModal={setDeleteModal}
-                    handlePostDelete={handlePostDelete}
-                  />
-                ) : null}
               </div>
 
-              <div id="detail-image">
+              <div className="detail-image">
                 <div className="post-date">
                   {postInfo.created_At.split("T")[0]}
                 </div>
                 <img className="post-image" src={postInfo.image}></img>
               </div>
             </div>
-            <div id="detail-container-down">
+            <div className="detail-container-down">
               <div className="detail-exInfo">
                 {console.log("what doyou have?", postInfo)}
                 <div className="user-exInfo">
@@ -464,15 +599,31 @@ export default function Detail() {
                       )
                     : null}
                 </div>
-                <br />
-                <br />
-                <div>총 소요시간: {showTime(postInfo.total_time)} </div>
-                <div>난이도 : {numToStar(postInfo.difficult)}</div>
-                <div>운동부위 : {postInfo.body_part}</div>
-                <div> 소감 :{postInfo.info}</div>
+                <div className="exInfo">
+                  <div className="exInfo-time-wrapper">
+                    <div className="exInfo-time-title">소요시간</div>
+                    <div className="exInfo-time">
+                      {showTime(postInfo.total_time)}{" "}
+                    </div>
+                  </div>
+                  <div className="exInfo-difficult-container">
+                    <div className="exInfo-difficult-title">난이도</div>
+                    <div className="exInfo-difficult">
+                      {labelStarPoint(postInfo.difficult)}
+                    </div>
+                  </div>
+                  {/* 
+                  <div>총 소요시간: {showTime(postInfo.total_time)} </div>
+                  <div>난이도: {labelStarPoint(postInfo.difficult)}</div> */}
+                  <div className="exInfo-bodypart-container">
+                    <div className="exInfo-bodypart-title">운동부위</div>
+                    <div className="exInfo-bodypart">{postInfo.body_part}</div>
+                  </div>
+                  <div className="exInfo-text">{postInfo.info}</div>
+                </div>
               </div>
             </div>
-            <div id="detail-container-comment">
+            <div className="detail-container-comment">
               <div className="heart">
                 {isLike ? (
                   <div className="after-like">
@@ -492,36 +643,45 @@ export default function Detail() {
                   </div>
                 )}
               </div>
-
-              <div id="detail-Comment-input">
-                글쓰기
+              <div className="detail-Comment-input">
                 <input
-                  id="input-test"
-                  type="textarea"
+                  className="detail-text"
                   value={commentContent}
-                  onChange={(e) => setCommentContent(e.target.value)}
+                  placeholder="댓글 달기..."
+                  onChange={(e) => {
+                    setCommentContent(e.target.value);
+                  }}
+                  onKeyPress={handlePressEnter}
                 ></input>
-                <button id="comment-submit-btn" onClick={handleCommentSubmit}>
+                <button
+                  className="comment-submit-btn"
+                  onClick={handleCommentSubmit}
+                >
                   게시
                 </button>
               </div>
-
-              <ul>
+              <div className="comment-list">
                 {postInfo.total_comment.length > 0 ? (
                   postInfo.total_comment.map((el: any, idx: any) => (
-                    <li key={idx}>
+                    <div key={idx}>
                       <Comment
                         commentInfo={el}
                         postId={postId}
                         setPostInfo={setPostInfo}
                       ></Comment>
-                    </li>
+                    </div>
                   ))
                 ) : (
-                  <div>작성된 댓글이 없습니다!</div>
+                  <NoRecord />
                 )}
-              </ul>
+              </div>
             </div>
+            {deleteModal ? (
+              <DeleteModal
+                setDeleteModal={setDeleteModal}
+                handlePostDelete={handlePostDelete}
+              />
+            ) : null}
           </Main>
         )
       ) : (

@@ -1,19 +1,24 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 interface Idx {
   idx: number;
 }
 
 export const AllLandingContainer = styled.div`
-  background: linear-gradient(0deg, #fbfafc, #fbfafc);
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: center;
   align-items: center;
-  font-family: "Gmarket Sans TTF";
   transition: 0.5s all;
+  > .reveal {
+    opacity: 0;
+  }
+
+  > .reveal.active {
+    opacity: 1;
+  }
   @media screen and (max-width: 1000px) {
     width: 100%;
     flex-direction: column;
@@ -26,7 +31,6 @@ export const BodyContainer = styled.main`
   width: 100%;
   max-width: 78.75rem;
   padding: 0 30px 0 30px;
-  background: linear-gradient(0deg, #fbfafc, #fbfafc);
   @media screen and (max-width: 1000px) {
     padding: 0;
   }
@@ -36,19 +40,17 @@ export const BodyOutContainer = styled.main`
   width: 100%;
   display: flex;
   justify-content: center;
-  background: linear-gradient(0deg, #fbfafc, #fbfafc);
 `;
 
 export const FirstLandingContainer = styled.div`
   width: 100%;
-  height: 51.313rem;
+  padding-top: 8rem;
+  height: 30rem;
   display: flex;
   align-items: center;
-  background: linear-gradient(0deg, #fbfafc, #fbfafc);
   transition: 0.5s all;
   position: relative;
   @media screen and (max-width: 1000px) {
-    margin: 70px 0 70px 0;
     height: auto;
     position: static;
     display: flex;
@@ -59,6 +61,12 @@ export const FirstLandingContainer = styled.div`
   }
 `;
 
+const leftToRight = keyframes`
+  0% {left:0; opacity: 0}
+  50% {left: 10rem; opacity: 1}
+  100% {left:10rem; opacity: 1}
+`;
+
 export const FirstTextContainer = styled.div`
   display: flex;
   height: 100%;
@@ -67,6 +75,9 @@ export const FirstTextContainer = styled.div`
   transition: 0.5s all;
   z-index: 2;
   position: absolute;
+  animation-name: ${leftToRight};
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
   @media screen and (max-width: 1000px) {
     position: static;
     margin-top: 20px;
@@ -75,12 +86,22 @@ export const FirstTextContainer = styled.div`
     align-items: center;
     text-align: center;
     width: 100%;
-    height: 313px;
+    height: 250px;
+  }
+  @media screen and (max-width: 37.5rem) {
+    margin-top: 0;
+    height: 200px;
   }
   @media screen and (max-width: 420px) {
     margin-top: 0;
-    height: 250px;
+    height: 150px;
   }
+`;
+
+const rightToLeft = keyframes`
+  0% {right:0; width:100px;}
+  50% {right:10rem; width:229px;}
+  100% {right:10rem;}
 `;
 
 export const FirstImageContainer = styled.div`
@@ -91,90 +112,102 @@ export const FirstImageContainer = styled.div`
   transition: 0.5s all;
   z-index: 1;
   right: 0;
+  animation-name: ${rightToLeft};
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  margin-bottom: 3rem;
+
   img {
-    width: 700px;
+    width: 100%;
   }
+
   @media screen and (max-width: 1000px) {
     position: static;
     width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 0px;
     img {
-      width: 500px;
+      width: 150px;
     }
   }
   @media screen and (max-width: 37.5rem) {
-    margin-bottom: 0;
     img {
-      width: 317px;
+      width: 120px;
     }
   }
   @media screen and (max-width: 420px) {
     img {
-      width: 287px;
+      width: 100px;
     }
   }
 `;
 
 export const FirstText = styled.div`
   font-weight: 100;
-  font-size: 1.5rem;
+  font-size: xx-large;
   transition: 0.5s all;
   span {
-    margin-bottom: 0.813rem;
+    margin-bottom: 1rem;
   }
   @media screen and (max-width: 1000px) {
     div {
-      margin-bottom: 4px;
+      margin-bottom: 0.2rem;
     }
   }
   @media screen and (max-width: 37.5rem) {
-    font-size: 18px;
+    font-size: x-large;
     transition: 0.5s all;
   }
   @media screen and (max-width: 420px) {
-    font-size: 14px;
+    font-size: large;
   }
 `;
 
 export const FirstSecondText = styled.div`
-  font-weight: 300;
-  font-size: 1.875rem;
-  margin: 0.5rem 0 2.75rem 0;
+  font-size: xx-large;
+  margin: 0.5rem 0 2rem 0;
   transition: 0.5s all;
-  text-shadow: 2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff;
+  font-family: "IBM Plex Sans KR", sans-serif;
   @media screen and (max-width: 1000px) {
-    margin: 39px 0 45px 0;
   }
   @media screen and (max-width: 37.5rem) {
-    font-size: 20px;
+    font-size: x-large;
     transition: 0.5s all;
-    margin: 39px 0 45px 0;
     text-shadow: none;
   }
   @media screen and (max-width: 420px) {
-    font-size: 16px;
-    margin: 20px 0 40px 0;
+    font-size: large;
   }
 `;
 
 export const GotoMainButton = styled.button`
-  font-family: "Gmarket Sans TTF";
-  font-weight: 100;
-  width: 13.188rem;
-  height: 4.063rem;
-  background: #2d2d2d;
-  border-radius: 4px;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  width: 15rem;
+  height: 4rem;
+  background: black;
+  padding: 0.3rem;
+  border-radius: 10px;
   box-sizing: border-box;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: x-large;
   color: #ffffff;
   border: none;
+  box-shadow: 2px 3px 10px 2px rgba(0, 0, 0, 0.2);
   transition: 0.5s all;
-  :active {
+  &:hover {
     background: #3f3f3f;
+  }
+  @media screen and (max-width: 1000px) {
+    font-size: x-large;
+  }
+  @media screen and (max-width: 37.5rem) {
+    width: 10rem;
+    height: 3rem;
+    font-size: large;
+  }
+  @media screen and (max-width: 420px) {
+    font-size: medium;
   }
 `;
 
@@ -194,61 +227,12 @@ export const BigCircle = styled.span`
   }
 `;
 
-export const SmallCircle = styled.span`
-  position: relative;
-  left: -10rem;
-  top: 10rem;
-  border-bottom: calc(2.945rem * 1.732) solid #00cc99;
-  border-left: 2.945rem solid transparent;
-  border-right: 2.945rem solid transparent;
-  transition: 0.5s all;
-  z-index: 1;
-  @media screen and (max-width: 1000px) {
-    width: 3.945rem;
-    height: 3.945rem;
-    left: -16.5rem;
-    top: 46.8rem;
-    transition: 0.5s all;
-  }
-  @media screen and (max-width: 37.5rem) {
-    width: 2.945rem;
-    height: 2.945rem;
-    left: -11.3rem;
-    top: 36.5rem;
-    transition: 0.5s all;
-  }
-  @media screen and (max-width: 420px) {
-    width: 1.945rem;
-    height: 1.945rem;
-    left: -8.7rem;
-    top: 28.7rem;
-  }
-`;
-export const VerySmallCircle = styled.span`
-  display: none;
-
-  @media screen and (max-width: 1000px) {
-    display: flex;
-    left: -210px;
-    top: 763px;
-    position: relative;
-    background: #00cc99;
-    border-radius: 100%;
-    box-sizing: border-box;
-    width: 16px;
-    height: 16px;
-    transition: 0.5s all;
-  }
-  @media screen and (max-width: 37.5rem) {
-    left: -138.9px;
-    top: 595px;
-    width: 13px;
-    height: 13px;
-  }
-  @media screen and (max-width: 420px) {
-    left: -108.9px;
-    top: 468px;
-  }
+export const FirstLandingButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0rem 5rem 0rem;
 `;
 
 export const SecLandingContainer = styled.div`
@@ -260,7 +244,6 @@ export const SecLandingContainer = styled.div`
   padding: 118px 0 118px 0;
   background: #00cc99;
   justify-content: center;
-  font-family: Gmarket Sans TTF;
   transition: 0.5s all;
   @media screen and (max-width: 1000px) {
     display: flex;
@@ -312,11 +295,11 @@ export const SecAllBoxContainer = styled.div`
 export const SecBoxContainer = styled.div<Idx>`
   display: flex;
   flex-direction: column;
-  background: #fdfbfe;
-  border: 1px solid #e0dde1;
+  background: #f2f2f2;
   box-sizing: border-box;
-  border-radius: 5px;
-  width: 396px;
+  box-shadow: 2px 3px 10px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  width: 350px;
   height: 400px;
   justify-content: space-evenly;
   transition: 0.5s all;
@@ -342,43 +325,69 @@ export const SecImgContainer = styled.div`
   justify-content: center;
   align-items: center;
   transition: 0.5s all;
+  animation-name: img2;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
   img {
-    width: 135.5px;
-    height: 164.75px;
+    width: 80px;
     transition: 0.5s all;
   }
+  @keyframes img2 {
+    100% {
+      background-color: white;
+      border-radius: 50% 50% 50% 50%;
+    }
+    //    #00ffcc
+
+    25% {
+      background-color: #00cc99;
+      border-radius: 50%0 0 0;
+    }
+    50% {
+      background-color: #00cc99;
+      border-radius: 50% 50% 0 0;
+    }
+    /* 75% {
+      background-color: ;
+      border-radius: 100% 100% 100% 0;
+    } */
+    0% {
+      background-color: black;
+      border-radius: 0 0 0 0;
+    }
+  }
+
   @media screen and (max-width: 37.5rem) {
-    height: 99px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: 0.5s all;
     img {
-      width: 74.85px;
-      height: 91px;
+      width: 50px;
       transition: 0.5s all;
     }
   }
 `;
 
 export const SecBigTxtContainer = styled.div`
-  font-size: 24px;
-  font-weight: 300;
+  font-size: x-large;
   text-align: center;
   transition: 0.5s all;
+  font-family: "IBM Plex Sans KR", sans-serif;
   @media screen and (max-width: 37.5rem) {
-    font-size: 14px;
+    font-size: large;
     transition: 0.5s all;
   }
 `;
 
 export const SecDescrContainer = styled.div`
-  font-size: 18px;
+  padding: 3rem;
+  font-size: x-large;
   font-weight: 100;
-  text-align: center;
   transition: 0.5s all;
   @media screen and (max-width: 37.5rem) {
-    font-size: 12px;
+    font-size: large;
     transition: 0.5s all;
   }
 `;
@@ -391,24 +400,30 @@ export const ThirLandingContainer = styled.div<Idx>`
   margin-top: ${(props) => (props.idx === 0 ? "110px" : "0")};
   transition: 0.5s all;
   width: 100%;
-  height: 51.313rem;
+  height: 50rem;
   position: relative;
+  transform: translate(0px, 0px);
+  opacity: 1;
   @media screen and (max-width: 1000px) {
     flex-direction: column;
-    height: 70rem;
+    height: 40rem;
   }
   @media screen and (max-width: 37.5rem) {
     margin-top: 50px;
-    height: 431px;
+    height: 30rem;
   }
 `;
-
+export const slidein = keyframes`
+from {opacity:1} 
+to   { transform: translate3d(20%, 0,0); opacity:1  }
+`;
 export const ThirTextContainer = styled.div<Idx>`
   position: absolute;
   display: flex;
   flex-direction: column;
   transition: 0.5s all;
   z-index: 2;
+  animation: ${slidein} 3.5s linear 5s infinite;
   left: ${(props) => (props.idx % 2 === 0 ? "0" : "none")};
   right: ${(props) => (props.idx % 2 === 0 ? "none" : "0")};
   @media screen and (max-width: 1000px) {
@@ -419,12 +434,12 @@ export const ThirTextContainer = styled.div<Idx>`
   }
 `;
 
-export const TitleContainer = styled.div`
-  font-size: 30px;
-  font-weight: 300;
+export const NumberContainer = styled.div`
+  font-size: 40px;
+  font-weight: bold;
   z-index: 2;
   transition: 0.5s all;
-  text-shadow: 2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff;
+  color: #00cc99;
   div {
     margin-bottom: 13px;
     transition: 0.5s all;
@@ -433,7 +448,7 @@ export const TitleContainer = styled.div`
     text-shadow: none;
   }
   @media screen and (max-width: 37.5rem) {
-    font-size: 17px;
+    font-size: xx-large;
     transition: 0.5s all;
     div {
       margin-bottom: 9px;
@@ -441,19 +456,44 @@ export const TitleContainer = styled.div`
     }
   }
   @media screen and (max-width: 420px) {
-    font-size: 14px;
+    font-size: x-large;
+  }
+`;
+
+export const TitleContainer = styled.div`
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-size: xx-large;
+  font-weight: 300;
+  z-index: 2;
+  transition: 0.5s all;
+  div {
+    margin-bottom: 13px;
+    transition: 0.5s all;
+  }
+  @media screen and (max-width: 1000px) {
+    text-shadow: none;
+  }
+  @media screen and (max-width: 37.5rem) {
+    font-size: x-large;
+    transition: 0.5s all;
+    div {
+      margin-bottom: 9px;
+      transition: 0.5s all;
+    }
+  }
+  @media screen and (max-width: 420px) {
+    font-size: large;
   }
 `;
 
 export const DescrContainer = styled.div`
-  font-size: 24px;
+  font-size: x-large;
   font-weight: 100;
   transition: 0.5s all;
   div {
     margin-top: 10px;
     margin-bottom: 9px;
     transition: 0.5s all;
-    background: rgba(255, 255, 255, 0.5);
   }
   @media screen and (max-width: 1000px) {
     div {
@@ -461,7 +501,7 @@ export const DescrContainer = styled.div`
     }
   }
   @media screen and (max-width: 37.5rem) {
-    font-size: 15px;
+    font-size: large;
     font-weight: 100;
     transition: 0.5s all;
     div {
@@ -470,8 +510,22 @@ export const DescrContainer = styled.div`
     }
   }
   @media screen and (max-width: 420px) {
-    font-size: 12px;
+    font-size: medium;
   }
+`;
+
+const img2 = keyframes`
+    from {
+   
+      /* transform: translate3d(42px, -62px, -135px); */
+      transform:translate(0px,-100px);
+      opacity: 0;
+    }
+    to {
+       /* transform: translate3d(5ch, 0.4in, 5em); */
+      transform:translate(0px,-0px); 
+      opacity: 1;
+    }
 `;
 
 export const ThirImageContainer = styled.div<Idx>`
@@ -482,11 +536,13 @@ export const ThirImageContainer = styled.div<Idx>`
   z-index: 1;
   left: ${(props) => (props.idx % 2 === 0 ? "none" : "0")};
   right: ${(props) => (props.idx % 2 === 0 ? "0" : "none")};
+
   img {
-    width: 550px;
-    height: 550px;
+    animation: ${img2} 4s ease-in-out 5s alternate infinite;
+    width: 300px;
     transition: 0.5s all;
   }
+
   @media screen and (max-width: 1000px) {
     left: none;
     right: none;
@@ -497,8 +553,8 @@ export const ThirImageContainer = styled.div<Idx>`
   }
   @media screen and (max-width: 37.5rem) {
     img {
-      width: 266px;
-      height: 238px;
+      width: 150px;
+
       transition: 0.5s all;
     }
   }
@@ -506,8 +562,9 @@ export const ThirImageContainer = styled.div<Idx>`
 
 export const SevLandingContainer = styled.div`
   width: 100%;
-  height: 223px;
-  margin-bottom: 50px;
+  height: 300px;
+  padding-top: 3rem;
+  margin-bottom: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -533,28 +590,6 @@ export const AllContainer = styled.div<Idx>`
     flex-direction: column;
   }
 `;
-export const Circle = styled.span`
-  position: relative;
-  width: 71px;
-  height: 71px;
-  left: -10%;
-  top: 28px;
-
-  border-bottom: calc(51px * 1.732) solid #00cc99;
-  border-left: 51px solid transparent;
-  border-right: 51px solid transparent;
-  transition: 0.5s all;
-  z-index: 0;
-  @media screen and (max-width: 1000px) {
-  }
-  @media screen and (max-width: 37.5rem) {
-    width: 36px;
-    height: 36px;
-    top: 15px;
-    left: -19px;
-    transition: 0.5s all;
-  }
-`;
 
 export const ThirdBodyContainer = styled.main`
   display: flex;
@@ -562,7 +597,7 @@ export const ThirdBodyContainer = styled.main`
   width: 100%;
   max-width: 78.75rem;
   padding: 0 27px 0 27px;
-  background: linear-gradient(0deg, #fbfafc, #fbfafc);
+
   @media screen and (max-width: 1000px) {
     padding: 0;
   }
@@ -572,88 +607,78 @@ export const ThirdBodyOutContainer = styled.main`
   width: 100%;
   display: flex;
   justify-content: center;
-  background: linear-gradient(0deg, #fbfafc, #fbfafc);
-`;
-export const GoTopContainer = styled.div`
-  position: fixed;
-  cursor: pointer;
-  top: 83%;
-  left: 85%;
-  z-index: 99;
-  img {
-    opacity: 0.2;
-    :hover {
-      opacity: 1;
-    }
-  }
-  @media screen and (max-width: 37.5rem) {
-    top: 93%;
-    left: 85%;
-    img {
-      width: 30px;
-      height: 30px;
-    }
-  }
 `;
 
 function Landing() {
+  const reveal = () => {
+    var reveals = document.querySelectorAll(".reveal");
+
+    for (var i = 0; i < reveals.length; i++) {
+      var windowHeight = window.innerHeight;
+      var elementTop = reveals[i].getBoundingClientRect().top;
+      var elementVisible = 150;
+
+      if (elementTop < windowHeight - elementVisible) {
+        reveals[i].classList.add("active");
+      } else {
+        reveals[i].classList.remove("active");
+      }
+    }
+  };
+
+  window.addEventListener("scroll", reveal);
+
   const SecondLandingPageTxt = [
+    {
+      title: "실시간 기록 확인",
+      img: "./images/icon_24-hours-timer-12573.svg",
+      descr: [
+        "근의 공식을 통해 매일 매일 본인의 운동기록을 초단위로 기록할 수 있습니다",
+      ],
+    },
     {
       title: "순위 경쟁",
       img: "./images/icon_goldmedal.png",
-
       descr: [
-        "근의 공식은 운동 기록을 통해",
-        "다른 유저와 경쟁할 수 있는 플랫폼입니다. ",
+        "근의 공식은 운동 기록을 통해 다른 유저와 경쟁할 수 있는 플랫폼입니다",
       ],
     },
     {
       title: "운동 게시물 확인",
       img: "./images/icon_bulletin-board-9123.svg",
-      descr: ["근의 공식은 인기 게시물을 ", "한눈에 확인 할 수 있습니다."],
-    },
-    {
-      title: "실시간 기록 확인",
-      img: "./images/icon_24-hours-timer-12573.svg",
       descr: [
-        "근의 공식은 하루동안",
-        "본인의 운동기록을 초단위로 기록할 수 있습니다.",
+        "근의 공식에서 최신 운동 관련 게시물을 한눈에 확인 할 수 있습니다",
       ],
     },
   ];
 
-  const LandingPageTxt = [
+  const ThirdLandingPageTxt = [
     {
-      title: ["01", "운동 세부 기록을", "확인해보세요"],
-      img: "./images/Landing_page1.svg",
+      number: ["01"],
+      title: ["운동 세부 기록을 확인해보세요"],
+      img: ["./images/video_record_1.gif", "./images/video_record_2.gif"],
       descr: [
-        "근의 공식은  본인의 운동 기록을 다른유저들과 소통할 수 있는 커뮤니티입니다 .",
-        "체계적인 운동 루틴",
-        "운동부위, 난이도, 총 소요시간을 선택해 보세요! ",
+        "체계적인 운동 루틴을 짜고",
+        "초 단위로 기록을 확인할 수 있습니다",
       ],
     },
     {
-      title: ["02", "유저들간", "순위 경쟁을 해보세요"],
-      img: "./images/Landing_page2.png",
-      descr: [
-        "근의 공식은 상위 3위 랭킹의 유저들에게",
-        "메달을 달아 드립니다.",
-      ],
+      number: ["02"],
+      title: ["유저들간 순위 경쟁을 해보세요"],
+      img: ["./images/ilt_medal.png"],
+      descr: ["근의 공식은 상위 3위 랭킹의 유저들에게", "메달을 달아 드립니다"],
     },
     {
-      title: [
-        "03",
-        "게시물을  확인해",
-        " 다른 유저들은 어떤 운동을 하는지 확인해보세요",
-      ],
-      img: "./images/Lading_page3.svg",
+      number: ["03"],
+      title: ["다른 사람들은 어떤 운동을 하는지", "게시물을 통해 확인해보세요"],
+      img: ["./images/cap_post_1.png", "./images/cap_post_2.png"],
       descr: [
-        "근의 공식은 ",
-        "게시물을 통해 디테일한 운동 습관을 형성해 줍니다.",
+        "근의 공식은 자신의 운동 기록을 공유하며",
+        "다른 유저들과 소통할 수 있는 커뮤니티입니다",
+        "운동부위, 난이도, 소감을 공유해보세요",
       ],
     },
   ];
-
   const scrollHandler = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
@@ -665,81 +690,90 @@ function Landing() {
           <FirstLandingContainer>
             <FirstTextContainer>
               <FirstText>
-                <div>무료한 일상</div>
-                <div>일상에 지쳐 휴일에는 침대에 누워만 있는 당신.</div>
-                <div>열정만 갖고오세요! 함께 운동하자 GO! </div>
-                <div>함께 가보자 GO!</div>
+                <div>침대에 누워만 있는 당신</div>
+                <div>열정만 가지고 오세요</div>
+                <div>함께 운동하자 GO</div>
               </FirstText>
               <FirstSecondText>
-                근의공식에서 운동으로 기록도 쌓고 교류 해보세요 !
+                <div>근의공식에서 운동기록을 쌓고</div>
+                <div>사람들과 교류해보세요</div>
               </FirstSecondText>
-              <Link to="/main">
-                <GotoMainButton> 근의 공식 시작하기</GotoMainButton>
-              </Link>
             </FirstTextContainer>
             <FirstImageContainer>
-              <img src="./images/Landing_page1.jpg" alt="landingpage_img1" />
+              <img src="./logo.png" alt="logo" />
             </FirstImageContainer>
           </FirstLandingContainer>
+          <FirstLandingButton>
+            <Link to="/main">
+              <GotoMainButton> 근의 공식 시작하기</GotoMainButton>
+            </Link>
+          </FirstLandingButton>
         </BodyContainer>
       </BodyOutContainer>
-      <SecLandingContainer>
-        <SecBodyContainer>
-          <SecAllBoxContainer>
-            {SecondLandingPageTxt.map((el, idx) => {
-              return (
-                <SecBoxContainer idx={idx} key={el.title}>
-                  <SecImgContainer>
-                    <img src={el.img} alt={el.title}></img>
-                  </SecImgContainer>
-                  <SecBigTxtContainer>{el.title}</SecBigTxtContainer>
-                  <SecDescrContainer>
-                    {el.descr.map((el) => {
-                      return <div key={el[0]}>{el}</div>;
-                    })}
-                  </SecDescrContainer>
-                </SecBoxContainer>
-              );
-            })}
-          </SecAllBoxContainer>
-        </SecBodyContainer>
-      </SecLandingContainer>
-      <ThirdBodyOutContainer>
-        <ThirdBodyContainer>
-          {LandingPageTxt.map((el, idx) => {
-            return (
-              <ThirLandingContainer idx={idx} key={el.title[0]}>
-                <AllContainer idx={idx}>
-                  <ThirTextContainer idx={idx}>
-                    <Circle></Circle>
-                    <TitleContainer>
-                      {el.title.map((el) => {
-                        return <div key={el[0]}>{el}</div>;
-                      })}
-                    </TitleContainer>
-                    <DescrContainer>
+      <div className="reveal">
+        <SecLandingContainer>
+          <SecBodyContainer>
+            <SecAllBoxContainer>
+              {SecondLandingPageTxt.map((el, idx) => {
+                return (
+                  <SecBoxContainer idx={idx} key={el.title}>
+                    <SecImgContainer>
+                      <img src={el.img} alt={el.title} />
+                    </SecImgContainer>
+                    <SecBigTxtContainer>{el.title}</SecBigTxtContainer>
+                    <SecDescrContainer>
                       {el.descr.map((el) => {
                         return <div key={el[0]}>{el}</div>;
                       })}
-                    </DescrContainer>
-                  </ThirTextContainer>
-                  <ThirImageContainer id="3rd" idx={idx}>
-                    {" "}
-                    <img src={el.img} alt={el.title[0]} />
-                  </ThirImageContainer>
-                </AllContainer>
-              </ThirLandingContainer>
-            );
-          })}
-        </ThirdBodyContainer>
-      </ThirdBodyOutContainer>
-      <SevLandingContainer>
-        <Link to="/main">
-          <GotoMainButton onClick={() => scrollHandler()}>
-            근의 공식 시작하기
-          </GotoMainButton>
-        </Link>
-      </SevLandingContainer>
+                    </SecDescrContainer>
+                  </SecBoxContainer>
+                );
+              })}
+            </SecAllBoxContainer>
+          </SecBodyContainer>
+        </SecLandingContainer>
+        <ThirdBodyOutContainer id="thirdout">
+          <ThirdBodyContainer id="thirdcon">
+            {ThirdLandingPageTxt.map((el, idx) => {
+              return (
+                <ThirLandingContainer id="third" idx={idx} key={el.title[0]}>
+                  <AllContainer idx={idx}>
+                    <ThirTextContainer idx={idx}>
+                      <NumberContainer>
+                        {el.number.map((el) => {
+                          return <div key={el[0]}>{el}</div>;
+                        })}
+                      </NumberContainer>
+                      <TitleContainer>
+                        {el.title.map((el) => {
+                          return <div key={el[0]}>{el}</div>;
+                        })}
+                      </TitleContainer>
+                      <DescrContainer>
+                        {el.descr.map((el) => {
+                          return <div key={el[0]}>{el}</div>;
+                        })}
+                      </DescrContainer>
+                    </ThirTextContainer>
+                    <ThirImageContainer id="3Img" idx={idx}>
+                      {el.img.map((el) => {
+                        return <img src={el} alt={el} />;
+                      })}
+                    </ThirImageContainer>
+                  </AllContainer>
+                </ThirLandingContainer>
+              );
+            })}
+          </ThirdBodyContainer>
+        </ThirdBodyOutContainer>
+        <SevLandingContainer id="sev">
+          <Link to="/main">
+            <GotoMainButton onClick={() => scrollHandler()}>
+              근의 공식 시작하기
+            </GotoMainButton>
+          </Link>
+        </SevLandingContainer>
+      </div>
     </AllLandingContainer>
   );
 }

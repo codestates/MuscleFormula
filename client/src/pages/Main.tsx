@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Mobile, PC } from "../mediaQuery";
-import axios from "axios";
-import Footer from "../components/Footer";
 import "../css/Main.css";
-import dummyThumbs from "./dummy/dummyThumbs";
 import Search from "../components/Search";
 import PostThumbnail from "../components/PostThumbnail";
 import TodayKing from "../components/TodayKing";
 import { axios_Get_Posts } from "../axios";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from "../store";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
 import NoPost from "../components/NoPost";
 
 export default function Main() {
@@ -28,17 +24,18 @@ export default function Main() {
   >([]);
 
   useEffect(() => {
+    console.log("작동됨?");
     axios_Get_Posts().then((res) => {
+      console.log("res.data:", res.data);
       setPosts(res.data.posts);
       setshowPosts(res.data.posts);
       setRankData(res.data.rankData);
     });
   }, [shareRecordsId]);
 
-  const navigate = useNavigate();
   const code = new URLSearchParams(window.location.search).get("code");
   console.log("code", code);
-  console.log("posts :", posts);
+  console.log("posts? :", posts);
   return (
     <div id="main-container">
       <div id="todayking-container">

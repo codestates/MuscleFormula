@@ -7,13 +7,14 @@ import type { RootState } from "../store";
 // const navigate = useNavigate();
 const qs = require("qs");
 const clientURI = `http://localhost:3000`;
-const serverURI = `https://server.muscleformula.xyz`;
+const serverURI = `http://localhost:4000`;
+// const serverURI = `https://server.muscleformula.xyz`;
 //const serverURI = process.env.SERVER_URI;
 
 // let user = useSelector((state: RootState) => state.userInfo.userInfo);
 // const localUser = localStorage.getItem("userInfo");
 // if (localUser !== null) {
-//   user = JSON.parse(localUser);
+//   user = JSON.parse(localUser);s
 // }
 // const accessToken = user.accessToken;
 
@@ -22,7 +23,7 @@ const serverURI = `https://server.muscleformula.xyz`;
 const kakao = {
   clientID: "7d8937ab746c6e3604651e33e259fc1d",
   clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
-  redirectUri: "http://localhost:3000/callbackKakao",
+  redirectUri: `${clientURI}/callbackKakao`,
 };
 
 export const axios_Signup = (
@@ -195,13 +196,15 @@ export const axios_Get_Posts = () => {
 };
 
 export const axios_CreatePost = (formData: any, accessToken: string) => {
-  return axios.post(`${serverURI}/posts`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      authorization: `Bearer ${accessToken}`,
-    },
-    // withCredentials: true,
-  });
+  return axios
+    .post(`${serverURI}/posts`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${accessToken}`,
+      },
+      // withCredentials: true,
+    })
+    .then(() => window.location.replace("/main"));
 };
 export const axios_Put_Post = (
   formData: any,

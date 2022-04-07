@@ -15,6 +15,8 @@ import {
   axios_Get_UserRecord,
   axios_Post_UserRecord,
 } from "../axios/index";
+import Swal from "sweetalert2";
+
 export default function Records() {
   const showToday = () => {
     let today = new Date();
@@ -52,16 +54,16 @@ export default function Records() {
   const [submitDay, setSubmitDay] = useState(getDate());
   // let serverUrl = "http://localhost:4000";
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
-  const submitDelete = (genre: string) => {
-    axios_Delete_UserRecord(genre, user.accessToken, submitDay).then((res) => {
-      setSavedRecords(res.data.data.exerciseInfo);
-      setRecords([]);
-    });
-    setIsLoading(false);
-    alert("운동기록이 삭제 되었습니다.");
-    // setSavedRecords(res.data.data.exerciseInfo);
-    // setRecords([]);
-  };
+  // const submitDelete = (genre: string) => {
+  //   axios_Delete_UserRecord(genre, user.accessToken, submitDay).then((res) => {
+  //     setSavedRecords(res.data.data.exerciseInfo);
+  //     setRecords([]);
+  //   });
+  //   setIsLoading(false);
+
+  // setSavedRecords(res.data.data.exerciseInfo);
+  // setRecords([]);
+  // };
 
   useEffect(() => {
     if (submitDay) {
@@ -115,7 +117,8 @@ export default function Records() {
         setRecords([]);
       });
       setIsLoading(false);
-      alert("기록되었습니다");
+      // alert();
+      Swal.fire("기록되었습니다");
     });
   };
 
@@ -143,9 +146,11 @@ export default function Records() {
     }, 0);
   };
 
+  console.log("Swal :", Swal);
   const addExercise = () => {
     if (exercise.genre === "") {
-      return alert("운동명을 입력하세요");
+      // return alert("운동명을 입력하세요");
+      return Swal.fire("운동명을 입력하세요");
     } else {
       setExercise({
         genre: "",

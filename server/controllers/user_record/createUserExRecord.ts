@@ -7,13 +7,13 @@ import { Record } from "../../models/entity/Record";
 import { Ex_Records } from "../../models/entity/Ex_Records";
 const jwt = require("jsonwebtoken"); // import는 안되네
 dotenv.config();
-let today = new Date(Date.now());
+let today = new Date();
 let todaySring =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
   console.log("server createUserExRecord in !!");
-
+  console.log(todaySring);
   const { record } = req.body;
   const date = req.query.date;
   console.log("레큐바디", req.body);
