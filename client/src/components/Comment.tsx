@@ -22,22 +22,26 @@ interface PostCommentProps {
 
 export const Body = styled.div`
   // border: 1px solid gray;
-  padding: 1rem 0rem 0rem 0rem;
+  padding: 0.5rem 0rem 0.5rem 0rem;
   border-bottom: 1px solid lightgrey;
+  font-size: small;
   display: flex;
   justify-content: space-between;
   align-items: center;
   > #comment-info {
     display: flex;
-
+    overflow: hidden;
     > #user-info {
+      padding: 0rem 0.2rem 0rem 0.2rem;
       display: flex;
       flex-direction: column;
-      width: 100px;
+      width: 5rem;
       font-size: small;
+      font-weight: bold;
       align-items: center;
       > .user-image {
-        border-radius: 5px;
+        width: 2rem;
+        border-radius: 50%;
       }
     }
   }
@@ -130,8 +134,8 @@ const Comment: React.FC<PostCommentProps> = ({
             <img
               className="user-image"
               src={commentInfo.users.image}
-              style={{ width: "45px" }}
-            ></img>
+              alt="user"
+            />
 
             <div>{commentInfo.users.nickname}</div>
           </div>
