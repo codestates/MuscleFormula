@@ -31,7 +31,13 @@ function showTime(duration: number) {
   hours = hours < 10 ? "0" + hours : hours;
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
-  return hours + "시간 " + minutes + "분 " + seconds + "초";
+  if (hours == "00" && minutes === "00") {
+    return seconds + "초";
+  } else if (hours == "00") {
+    return minutes + "분 " + seconds + "초";
+  } else {
+    return hours + "시간 " + minutes + "분 " + seconds + "초";
+  }
 }
 interface RecordType {
   genre: string;

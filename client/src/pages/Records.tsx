@@ -54,17 +54,16 @@ export default function Records() {
   const [submitDay, setSubmitDay] = useState(getDate());
   // let serverUrl = "http://localhost:4000";
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
-  const submitDelete = (genre: string) => {
-    axios_Delete_UserRecord(genre, user.accessToken, submitDay).then((res) => {
-      setSavedRecords(res.data.data.exerciseInfo);
-      setRecords([]);
-    });
-    setIsLoading(false);
-    // alert();
-    Swal.fire("운동기록이 삭제 되었습니다.");
-    // setSavedRecords(res.data.data.exerciseInfo);
-    // setRecords([]);
-  };
+  // const submitDelete = (genre: string) => {
+  //   axios_Delete_UserRecord(genre, user.accessToken, submitDay).then((res) => {
+  //     setSavedRecords(res.data.data.exerciseInfo);
+  //     setRecords([]);
+  //   });
+  //   setIsLoading(false);
+
+  // setSavedRecords(res.data.data.exerciseInfo);
+  // setRecords([]);
+  // };
 
   useEffect(() => {
     if (submitDay) {
