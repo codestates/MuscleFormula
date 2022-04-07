@@ -50,10 +50,10 @@ const PhotoUploaderContainer = styled.div`
     z-index: 1;
     border-radius: 20px;
     > img {
-      width: 100%;
+      height: 200px;
     }
     > video {
-      width: 100%;
+      height: 200px;
     }
     > input {
       text-decoration: none;

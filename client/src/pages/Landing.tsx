@@ -6,13 +6,12 @@ interface Idx {
 }
 
 export const AllLandingContainer = styled.div`
-  background: linear-gradient(0deg, #fbfafc, #fbfafc);
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: center;
   align-items: center;
-  font-family: "Gmarket Sans TTF";
+  font-family: "IBM Plex Sans KR", sans-serif;
   transition: 0.5s all;
   @media screen and (max-width: 1000px) {
     width: 100%;
@@ -36,7 +35,6 @@ export const BodyOutContainer = styled.main`
   width: 100%;
   display: flex;
   justify-content: center;
-  background: linear-gradient(0deg, #fbfafc, #fbfafc);
 `;
 
 export const FirstLandingContainer = styled.div`
@@ -144,7 +142,6 @@ export const FirstSecondText = styled.div`
   font-size: 1.875rem;
   margin: 0.5rem 0 2.75rem 0;
   transition: 0.5s all;
-  text-shadow: 2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff;
   @media screen and (max-width: 1000px) {
     margin: 39px 0 45px 0;
   }
@@ -161,7 +158,7 @@ export const FirstSecondText = styled.div`
 `;
 
 export const GotoMainButton = styled.button`
-  font-family: "Gmarket Sans TTF";
+  font-family: "IBM Plex Sans KR", sans-serif;;
   font-weight: 100;
   width: 13.188rem;
   height: 4.063rem;
@@ -173,7 +170,7 @@ export const GotoMainButton = styled.button`
   color: #ffffff;
   border: none;
   transition: 0.5s all;
-  :active {
+  :hover {
     background: #3f3f3f;
   }
 `;
@@ -260,7 +257,7 @@ export const SecLandingContainer = styled.div`
   padding: 118px 0 118px 0;
   background: #00cc99;
   justify-content: center;
-  font-family: Gmarket Sans TTF;
+  font-family: "IBM Plex Sans KR", sans-serif;
   transition: 0.5s all;
   @media screen and (max-width: 1000px) {
     display: flex;
@@ -312,10 +309,9 @@ export const SecAllBoxContainer = styled.div`
 export const SecBoxContainer = styled.div<Idx>`
   display: flex;
   flex-direction: column;
-  background: #fdfbfe;
-  border: 1px solid #e0dde1;
+  background: #f2f2f2;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 15px;
   width: 396px;
   height: 400px;
   justify-content: space-evenly;
@@ -424,7 +420,6 @@ export const TitleContainer = styled.div`
   font-weight: 300;
   z-index: 2;
   transition: 0.5s all;
-  text-shadow: 2px 2px #fff, 2px -2px #fff, -2px 2px #fff, -2px -2px #fff;
   div {
     margin-bottom: 13px;
     transition: 0.5s all;
@@ -453,7 +448,6 @@ export const DescrContainer = styled.div`
     margin-top: 10px;
     margin-bottom: 9px;
     transition: 0.5s all;
-    background: rgba(255, 255, 255, 0.5);
   }
   @media screen and (max-width: 1000px) {
     div {
@@ -562,7 +556,6 @@ export const ThirdBodyContainer = styled.main`
   width: 100%;
   max-width: 78.75rem;
   padding: 0 27px 0 27px;
-  background: linear-gradient(0deg, #fbfafc, #fbfafc);
   @media screen and (max-width: 1000px) {
     padding: 0;
   }
@@ -572,7 +565,6 @@ export const ThirdBodyOutContainer = styled.main`
   width: 100%;
   display: flex;
   justify-content: center;
-  background: linear-gradient(0deg, #fbfafc, #fbfafc);
 `;
 export const GoTopContainer = styled.div`
   position: fixed;
@@ -610,13 +602,13 @@ function Landing() {
     {
       title: "운동 게시물 확인",
       img: "./images/icon_bulletin-board-9123.svg",
-      descr: ["근의 공식은 인기 게시물을 ", "한눈에 확인 할 수 있습니다."],
+      descr: ["근의 공식에서 최신 운동 관련 게시물을 ", "한눈에 확인 할 수 있습니다."],
     },
     {
       title: "실시간 기록 확인",
       img: "./images/icon_24-hours-timer-12573.svg",
       descr: [
-        "근의 공식은 하루동안",
+        "근의 공식을 통해 매일 매일",
         "본인의 운동기록을 초단위로 기록할 수 있습니다.",
       ],
     },
@@ -627,7 +619,7 @@ function Landing() {
       title: ["01", "운동 세부 기록을", "확인해보세요"],
       img: "./images/Landing_page1.svg",
       descr: [
-        "근의 공식은  본인의 운동 기록을 다른유저들과 소통할 수 있는 커뮤니티입니다 .",
+        "근의 공식은 자신의 운동 기록을 공유하며 다른 유저들과 소통할 수 있는 커뮤니티입니다",
         "체계적인 운동 루틴",
         "운동부위, 난이도, 총 소요시간을 선택해 보세요! ",
       ],
@@ -637,19 +629,19 @@ function Landing() {
       img: "./images/Landing_page2.png",
       descr: [
         "근의 공식은 상위 3위 랭킹의 유저들에게",
-        "메달을 달아 드립니다.",
+        "메달을 달아 드립니다",
       ],
     },
     {
       title: [
         "03",
-        "게시물을  확인해",
-        " 다른 유저들은 어떤 운동을 하는지 확인해보세요",
+        "게시물을 확인해",
+        "다른 유저들은 어떤 운동을 하는지 확인해보세요",
       ],
       img: "./images/Lading_page3.svg",
       descr: [
         "근의 공식은 ",
-        "게시물을 통해 디테일한 운동 습관을 형성해 줍니다.",
+        "디테일한 운동 습관을 형성해 줍니다.",
       ],
     },
   ];
@@ -665,13 +657,12 @@ function Landing() {
           <FirstLandingContainer>
             <FirstTextContainer>
               <FirstText>
-                <div>무료한 일상</div>
-                <div>일상에 지쳐 휴일에는 침대에 누워만 있는 당신.</div>
-                <div>열정만 갖고오세요! 함께 운동하자 GO! </div>
-                <div>함께 가보자 GO!</div>
+                <div>침대에 누워만 있는 당신</div>
+                <div>열정만 가지고 오세요</div>
+                <div>함께 운동하자 GO! </div>
               </FirstText>
               <FirstSecondText>
-                근의공식에서 운동으로 기록도 쌓고 교류 해보세요 !
+                근의공식에서 운동기록을 쌓고 교류해보세요!
               </FirstSecondText>
               <Link to="/main">
                 <GotoMainButton> 근의 공식 시작하기</GotoMainButton>

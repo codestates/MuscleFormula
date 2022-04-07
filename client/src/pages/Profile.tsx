@@ -18,7 +18,6 @@ export default function Profile() {
   if (localUser !== null) {
     user = JSON.parse(localUser);
   }
-
   //photouploader 변수 선언
   const [photo, setPhoto] = useState<any>({
     file: [],
