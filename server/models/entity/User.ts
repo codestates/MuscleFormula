@@ -5,7 +5,6 @@ import {
   BaseEntity,
   OneToMany,
 } from "typeorm";
-//import { Profile } from "./Profile";
 import { Posts } from "./Post";
 import { Post_Comments } from "./Post_Comment";
 import { Post_Likes } from "./Post_Like";

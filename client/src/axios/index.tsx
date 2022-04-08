@@ -9,6 +9,8 @@ const qs = require("qs");
 const clientURI = `https://www.muscleformula.xyz`;
 // const serverURI = `http://localhost:4000`;
 const serverURI = `https://server.muscleformula.xyz`;
+// const serverURI = `http://localhost:4000`;
+
 //const serverURI = process.env.SERVER_URI;
 
 // let user = useSelector((state: RootState) => state.userInfo.userInfo);
