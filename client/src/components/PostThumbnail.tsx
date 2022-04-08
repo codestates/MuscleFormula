@@ -150,9 +150,9 @@ const PostThumbnail: React.FC<PostThumbnailProps> = ({ postThumb }) => {
     hours = hours < 10 ? "0" + hours : hours;
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
-    if (hours == "00" && minutes === "00") {
+    if (hours === "00" && minutes === "00") {
       return seconds + "초";
-    } else if (hours == "00") {
+    } else if (hours === "00") {
       return minutes + "분 " + seconds + "초";
     } else {
       return hours + "시간 " + minutes + "분 " + seconds + "초";

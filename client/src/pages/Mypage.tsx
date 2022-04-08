@@ -68,11 +68,7 @@ export default function Maypage() {
       </div>
       <div className="mypost-container">
         <div className="mypost">
-          {myPosts.length > 0 ? (
-            <MyPostTab myPosts={myPosts} likedPosts={likedPosts} />
-          ) : (
-            <NoPost />
-          )}
+          <MyPostTab myPosts={myPosts} likedPosts={likedPosts} />
         </div>
       </div>
       <div className="share-container">
