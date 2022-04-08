@@ -333,30 +333,6 @@ export const SecImgContainer = styled.div`
     width: 80px;
     transition: 0.5s all;
   }
-  @keyframes img2 {
-    100% {
-      background-color: white;
-      border-radius: 50% 50% 50% 50%;
-    }
-    //    #00ffcc
-
-    25% {
-      background-color: #00cc99;
-      border-radius: 50%0 0 0;
-    }
-    50% {
-      background-color: #00cc99;
-      border-radius: 50% 50% 0 0;
-    }
-    /* 75% {
-      background-color: ;
-      border-radius: 100% 100% 100% 0;
-    } */
-    0% {
-      background-color: black;
-      border-radius: 0 0 0 0;
-    }
-  }
 
   @media screen and (max-width: 37.5rem) {
     display: flex;
@@ -413,10 +389,12 @@ export const ThirLandingContainer = styled.div<Idx>`
     height: 30rem;
   }
 `;
+
 export const slidein = keyframes`
-from {opacity:1} 
-to   { transform: translate3d(20%, 0,0); opacity:1  }
+  from { opacity:1 } 
+  to   { transform: translate3d(20%, 0,0); opacity:1  }
 `;
+
 export const ThirTextContainer = styled.div<Idx>`
   position: absolute;
   display: flex;
@@ -516,13 +494,10 @@ export const DescrContainer = styled.div`
 
 const img2 = keyframes`
     from {
-   
-      /* transform: translate3d(42px, -62px, -135px); */
       transform:translate(0px,-100px);
       opacity: 0;
     }
     to {
-       /* transform: translate3d(5ch, 0.4in, 5em); */
       transform:translate(0px,-0px); 
       opacity: 1;
     }
@@ -610,23 +585,6 @@ export const ThirdBodyOutContainer = styled.main`
 `;
 
 function Landing() {
-  const reveal = () => {
-    var reveals = document.querySelectorAll(".reveal");
-
-    for (var i = 0; i < reveals.length; i++) {
-      var windowHeight = window.innerHeight;
-      var elementTop = reveals[i].getBoundingClientRect().top;
-      var elementVisible = 150;
-
-      if (elementTop < windowHeight - elementVisible) {
-        reveals[i].classList.add("active");
-      } else {
-        reveals[i].classList.remove("active");
-      }
-    }
-  };
-
-  window.addEventListener("scroll", reveal);
 
   const SecondLandingPageTxt = [
     {
@@ -710,7 +668,6 @@ function Landing() {
           </FirstLandingButton>
         </BodyContainer>
       </BodyOutContainer>
-      <div className="reveal">
         <SecLandingContainer>
           <SecBodyContainer>
             <SecAllBoxContainer>
@@ -773,7 +730,6 @@ function Landing() {
             </GotoMainButton>
           </Link>
         </SevLandingContainer>
-      </div>
     </AllLandingContainer>
   );
 }
