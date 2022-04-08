@@ -1,5 +1,6 @@
 /**오늘의 운동왕**/
 import styled from "styled-components"
+import { secToTime } from "../functions";
 
 export const TodayKingContainer = styled.ol`
   position : relative;
@@ -63,13 +64,13 @@ const TodayKing:React.FC<TodayKingProps> = ({rankData}) => {
         </tr>
         <tr>
           <td>
-            {rankData[0] ? rankData[0].total_time : '기록없음'}
+            {rankData[0] ? secToTime(Number(rankData[0].total_time)) : '기록없음'}
           </td>
           <td>
-            {rankData[1] ? rankData[1].total_time : '기록없음'}
+            {rankData[1] ? secToTime(Number(rankData[1].total_time)) : '기록없음'}
           </td>
           <td>
-            {rankData[2] ? rankData[2].total_time : '기록없음'}
+            {rankData[2] ? secToTime(Number(rankData[2].total_time)) : '기록없음'}
           </td>
         </tr>
         </tbody>

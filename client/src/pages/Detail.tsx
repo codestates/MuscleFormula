@@ -1,12 +1,10 @@
 /**포스트 상세 페이지**/
 import swal from "sweetalert";
 import Comment from "../components/Comment";
-import { useSelector, useStore } from "react-redux";
-import axios from "axios";
+import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import PhotoModal from "../components/Modals/PhotoModal";
 import type { RootState } from "../store";
 import PhotoUploader from "../components/PhotoUploader";
 import CalendarRecord from "../components/CalendarRecord";
@@ -31,9 +29,9 @@ function showTime(duration: number) {
   hours = hours < 10 ? "0" + hours : hours;
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
-  if (hours == "00" && minutes === "00") {
+  if (hours === "00" && minutes === "00") {
     return seconds + "초";
-  } else if (hours == "00") {
+  } else if (hours === "00") {
     return minutes + "분 " + seconds + "초";
   } else {
     return hours + "시간 " + minutes + "분 " + seconds + "초";
@@ -47,17 +45,10 @@ interface RecordType {
 }
 
 export const Main = styled.div`
-  //border: 3px solid greens;
-
   margin: 12vh auto;
-  /* margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto; */
   border-radius: 25px;
   border: 1px solid lightgrey;
   padding: 1rem;
-  /* 화면 중앙으로 만들기 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,7 +62,6 @@ export const Main = styled.div`
     width: 100%;
   }
   > .detail-container-up {
-    //border: 1px solid gray;
     display: flex;
     min-width: 20rem;
     flex-direction: column;
@@ -81,13 +71,15 @@ export const Main = styled.div`
       padding-bottom: 0.5rem;
       font-size: x-large;
       border-bottom: 1px solid grey;
+      margin-bottom: 0.5rem;
       > .edit-title {
         border: none;
         border-radius: 4px;
-        padding: 4px;
-        margin: 3px 0;
+        padding-top: 1rem;
+        padding-bottom: 0.5rem;
         font-size: x-large;
-        width: 100%;
+        width: 100%; 
+        height: 30px;
         &:focus {
           outline: 2px solid grey;
         }
