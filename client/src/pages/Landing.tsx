@@ -12,13 +12,7 @@ export const AllLandingContainer = styled.div`
   justify-content: center;
   align-items: center;
   transition: 0.5s all;
-  > .reveal {
-    opacity: 0;
-  }
 
-  > .reveal.active {
-    opacity: 1;
-  }
   @media screen and (max-width: 1000px) {
     width: 100%;
     flex-direction: column;
@@ -196,7 +190,8 @@ export const GotoMainButton = styled.button`
   box-shadow: 2px 3px 10px 2px rgba(0, 0, 0, 0.2);
   transition: 0.5s all;
   &:hover {
-    background: #3f3f3f;
+    transition: all 0.3s ease;
+    background: #00cc99;
   }
   @media screen and (max-width: 1000px) {
     font-size: x-large;
@@ -210,7 +205,36 @@ export const GotoMainButton = styled.button`
     font-size: medium;
   }
 `;
-
+export const SigninButton = styled.button`
+  font-family: "IBM Plex Sans KR", sans-serif;
+  width: 10rem;
+  height: 4rem;
+  background: black;
+  padding: 0.3rem;
+  border-radius: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: x-large;
+  color: #ffffff;
+  border: none;
+  box-shadow: 2px 3px 10px 2px rgba(0, 0, 0, 0.2);
+  transition: 0.5s all;
+  &:hover {
+    transition: all 0.3s ease;
+    background: #00cc99;
+  }
+  @media screen and (max-width: 1000px) {
+    font-size: x-large;
+  }
+  @media screen and (max-width: 37.5rem) {
+    width: 10rem;
+    height: 3rem;
+    font-size: large;
+  }
+  @media screen and (max-width: 420px) {
+    font-size: medium;
+  }
+`;
 export const BigCircle = styled.span`
   position: absolute;
   left: 15.5rem;
@@ -585,7 +609,6 @@ export const ThirdBodyOutContainer = styled.main`
 `;
 
 function Landing() {
-
   const SecondLandingPageTxt = [
     {
       title: "실시간 기록 확인",
@@ -665,71 +688,79 @@ function Landing() {
             <Link to="/main">
               <GotoMainButton> 근의 공식 시작하기</GotoMainButton>
             </Link>
+            &emsp;
+            <Link to="/login">
+              <SigninButton>로그인하기</SigninButton>
+            </Link>
           </FirstLandingButton>
         </BodyContainer>
       </BodyOutContainer>
-        <SecLandingContainer>
-          <SecBodyContainer>
-            <SecAllBoxContainer>
-              {SecondLandingPageTxt.map((el, idx) => {
-                return (
-                  <SecBoxContainer idx={idx} key={el.title}>
-                    <SecImgContainer>
-                      <img src={el.img} alt={el.title} />
-                    </SecImgContainer>
-                    <SecBigTxtContainer>{el.title}</SecBigTxtContainer>
-                    <SecDescrContainer>
+      <SecLandingContainer>
+        <SecBodyContainer>
+          <SecAllBoxContainer>
+            {SecondLandingPageTxt.map((el, idx) => {
+              return (
+                <SecBoxContainer idx={idx} key={el.title}>
+                  <SecImgContainer>
+                    <img src={el.img} alt={el.title} />
+                  </SecImgContainer>
+                  <SecBigTxtContainer>{el.title}</SecBigTxtContainer>
+                  <SecDescrContainer>
+                    {el.descr.map((el) => {
+                      return <div key={el[0]}>{el}</div>;
+                    })}
+                  </SecDescrContainer>
+                </SecBoxContainer>
+              );
+            })}
+          </SecAllBoxContainer>
+        </SecBodyContainer>
+      </SecLandingContainer>
+      <ThirdBodyOutContainer id="thirdout">
+        <ThirdBodyContainer id="thirdcon">
+          {ThirdLandingPageTxt.map((el, idx) => {
+            return (
+              <ThirLandingContainer id="third" idx={idx} key={el.title[0]}>
+                <AllContainer idx={idx}>
+                  <ThirTextContainer idx={idx}>
+                    <NumberContainer>
+                      {el.number.map((el) => {
+                        return <div key={el[0]}>{el}</div>;
+                      })}
+                    </NumberContainer>
+                    <TitleContainer>
+                      {el.title.map((el) => {
+                        return <div key={el[0]}>{el}</div>;
+                      })}
+                    </TitleContainer>
+                    <DescrContainer>
                       {el.descr.map((el) => {
                         return <div key={el[0]}>{el}</div>;
                       })}
-                    </SecDescrContainer>
-                  </SecBoxContainer>
-                );
-              })}
-            </SecAllBoxContainer>
-          </SecBodyContainer>
-        </SecLandingContainer>
-        <ThirdBodyOutContainer id="thirdout">
-          <ThirdBodyContainer id="thirdcon">
-            {ThirdLandingPageTxt.map((el, idx) => {
-              return (
-                <ThirLandingContainer id="third" idx={idx} key={el.title[0]}>
-                  <AllContainer idx={idx}>
-                    <ThirTextContainer idx={idx}>
-                      <NumberContainer>
-                        {el.number.map((el) => {
-                          return <div key={el[0]}>{el}</div>;
-                        })}
-                      </NumberContainer>
-                      <TitleContainer>
-                        {el.title.map((el) => {
-                          return <div key={el[0]}>{el}</div>;
-                        })}
-                      </TitleContainer>
-                      <DescrContainer>
-                        {el.descr.map((el) => {
-                          return <div key={el[0]}>{el}</div>;
-                        })}
-                      </DescrContainer>
-                    </ThirTextContainer>
-                    <ThirImageContainer id="3Img" idx={idx}>
-                      {el.img.map((el) => {
-                        return <img src={el} alt={el} />;
-                      })}
-                    </ThirImageContainer>
-                  </AllContainer>
-                </ThirLandingContainer>
-              );
-            })}
-          </ThirdBodyContainer>
-        </ThirdBodyOutContainer>
-        <SevLandingContainer id="sev">
-          <Link to="/main">
-            <GotoMainButton onClick={() => scrollHandler()}>
-              근의 공식 시작하기
-            </GotoMainButton>
-          </Link>
-        </SevLandingContainer>
+                    </DescrContainer>
+                  </ThirTextContainer>
+                  <ThirImageContainer id="3Img" idx={idx}>
+                    {el.img.map((el) => {
+                      return <img src={el} alt={el} />;
+                    })}
+                  </ThirImageContainer>
+                </AllContainer>
+              </ThirLandingContainer>
+            );
+          })}
+        </ThirdBodyContainer>
+      </ThirdBodyOutContainer>
+      <SevLandingContainer id="sev">
+        <Link to="/main">
+          <GotoMainButton onClick={() => scrollHandler()}>
+            근의 공식 시작하기
+          </GotoMainButton>
+        </Link>
+        &emsp;
+        <Link to="/login">
+          <SigninButton>로그인하기</SigninButton>
+        </Link>
+      </SevLandingContainer>
     </AllLandingContainer>
   );
 }
