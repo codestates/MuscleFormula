@@ -35,12 +35,9 @@ const App: React.FC = () => {
     isLogin = JSON.parse(localLogin);
   }
   useEffect(() => {
-    console.log(" useEffect 시간타이머 작동");
     if (isLogin) {
-      console.log(" if 시간타이머 작동");
       let oneDay = 1000 * 60 * 60 * 24;
       setTimeout(() => {
-        console.log("10초 후에 로그아웃됨");
         navigate("/main");
         dispatch(LOG_OUT());
         return swal("유효시간이 지나 자동으로 로그아웃 되었습니다");

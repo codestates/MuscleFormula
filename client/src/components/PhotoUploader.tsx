@@ -88,16 +88,12 @@ const PhotoUploader: React.FC<PhotoUploaderProps> = ({
   // });
   const [isShow, setIsShow] = useState(true);
   const uploadFile = (e: any) => {
-    console.log("input img", e);
-    console.log("e.stopPropagation: ", e.stopPropagation);
     e.stopPropagation();
     // 파일 또는 Blob 개체를 사용하여 읽을 파일 또는 데이터를 지정하여
     // 웹 응용 프로그램이 사용자 컴퓨터에 저장된 파일(또는 원시 데이터 버퍼)의 내용을
     // 비동기적으로 읽을 수 있도록 합니다.
     let reader = new FileReader();
-    console.log("reader :", reader);
     let file = e.target.files[0];
-    console.log("e.target.files :", e.target.files);
     const filesInArr = Array.from(e.target.files);
 
     reader.onloadend = () => {

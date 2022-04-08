@@ -93,19 +93,15 @@ const Comment: React.FC<PostCommentProps> = ({
 }) => {
   let [isModify, setIsModify] = useState(false);
   let [modifyComment, setModifyComment] = useState(commentInfo.comment);
-  // console.log("modifyComment :", modifyComment);
-  // console.log("commentInfo :", commentInfo);
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
   const localUser = localStorage.getItem("userInfo");
   if (localUser !== null) {
     user = JSON.parse(localUser);
   }
-  //console.log(commentInfo);
   const handleCommentDelete = () => {
     axios_Delete_comment(commentInfo.id, user.accessToken).then(() => {
       // window.location.replace(`/detail/${postId}`); // 새로고침후 이동
       axios_Get_DetailPosts(postId).then((req) => {
-        console.log("req:", req.data);
         setPostInfo(req.data);
         // return <div>여기 리턴</div>;
       });
@@ -113,11 +109,9 @@ const Comment: React.FC<PostCommentProps> = ({
   };
 
   const handleCommentModify = () => {
-    console.log("handleCommentModify 작동?");
     axios_Put_comment(commentInfo.id, modifyComment, user.accessToken).then(
       (response) => {
         axios_Get_DetailPosts(postId).then((req) => {
-          console.log("req:", req.data);
           setPostInfo(req.data);
           // return <div>여기 리턴</div>;
         });
@@ -125,7 +119,6 @@ const Comment: React.FC<PostCommentProps> = ({
     );
     setIsModify(!isModify);
   };
-  console.log(user);
   return (
     <div>
       <Body>

@@ -15,7 +15,6 @@ export default function Main() {
   );
   const [posts, setPosts] = useState([]);
   const [showPosts, setshowPosts] = useState(posts);
-  console.log("showPosts:", showPosts);
   useEffect(() => {
     setshowPosts(posts);
   }, [posts]);
@@ -24,9 +23,7 @@ export default function Main() {
   >([]);
 
   useEffect(() => {
-    console.log("작동됨?");
     axios_Get_Posts().then((res) => {
-      console.log("res.data:", res.data);
       setPosts(res.data.posts);
       setshowPosts(res.data.posts);
       setRankData(res.data.rankData);
@@ -34,8 +31,6 @@ export default function Main() {
   }, [shareRecordsId]);
 
   const code = new URLSearchParams(window.location.search).get("code");
-  console.log("code", code);
-  console.log("posts? :", posts);
   return (
     <div id="main-container">
       <div id="todayking-container">

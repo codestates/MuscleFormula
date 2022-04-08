@@ -105,7 +105,6 @@ export const DropDownContainer = styled.ul`
 `;
 
 const Search: React.FC<SearchType> = ({ posts, setshowPosts }) => {
-  console.log("posts in search", posts);
   let AllpostData = posts || AllpostDataDumy;
   const [hasText, setHasText] = useState<any>(false);
   const [inputValue, setInputValue] = useState("");

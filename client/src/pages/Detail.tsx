@@ -344,11 +344,8 @@ export default function Detail() {
   if (localUser !== null) {
     user = JSON.parse(localUser);
   }
-  console.log("detail Page");
-  console.log("params postId:", postId);
 
   const [postInfo, setPostInfo] = useState<any>(null);
-  console.log("postInfo:", postInfo);
   const [commentContent, setCommentContent] = useState<string | null | any>("");
   const [like, setLike] = useState<any>("");
   let [isModify, setIsModify] = useState(false);
@@ -370,16 +367,12 @@ export default function Detail() {
   };
 
   useEffect(() => {
-    console.log("detail useEffect");
-    console.log("innerPostId : ", postId);
     if (postId) {
       axios_Get_DetailPosts(postId).then((req) => {
-        console.log("req:", req.data);
         setPostInfo(req.data);
         let likeFiler = req.data.total_Likes.filter((e: any) => {
           return e.users.id === user.id;
         });
-        console.log("likeFiler 있음? :", likeFiler.length > 0);
         setIsLike(likeFiler.length > 0);
       });
     }
@@ -392,7 +385,6 @@ export default function Detail() {
         (res) => {
           setCommentContent("");
           axios_Get_DetailPosts(postId).then((req) => {
-            console.log("req:", req.data);
             setPostInfo(req.data);
           });
         }
@@ -400,34 +392,27 @@ export default function Detail() {
     }
   };
   const handleLikeSubmit = () => {
-    console.log("하트 누름");
     axios_Create_Like(postId, user.accessToken)
       .then((res) => {
         setLike("생성");
         axios_Get_DetailPosts(postId).then((req) => {
-          console.log("req:", req.data);
           setPostInfo(req.data);
           let likeFiler = req.data.total_Likes.filter((e: any) => {
             return e.users.id === user.id;
           });
-          console.log("likeFiler 있음? :", likeFiler.length > 0);
           setIsLike(likeFiler.length > 0);
         });
       })
       .catch((err) => {
-        console.log("err  :", err);
         axios_Delete_Like(postId, user.accessToken).then(() => {
           axios_Get_DetailPosts(postId).then((req) => {
-            console.log("req:", req.data);
             setPostInfo(req.data);
             let likeFiler = req.data.total_Likes.filter((e: any) => {
               return e.users.id === user.id;
             });
-            console.log("likeFiler 있음? :", likeFiler.length > 0);
             setIsLike(likeFiler.length > 0);
           });
         });
-        console.log("하트 삭제됨");
         setLike("삭제");
       });
   };
@@ -442,11 +427,9 @@ export default function Detail() {
     formData.append("bodyPart", "상체");
     formData.append("postImage", photo.file[0]);
 
-    console.log("수정 완료 버튼 ");
     axios_Put_Post(formData, postInfo.id, user.accessToken).then(() => {
       axios_Get_DetailPosts(postId)
         .then((req) => {
-          console.log("req:", req.data);
           setPostInfo(req.data);
         })
         .then(() => {
@@ -472,7 +455,6 @@ export default function Detail() {
     setDeleteModal(!deleteModal);
   };
   const handlePostDelete = () => {
-    console.log("포스트삭제");
     axios_Delete_Post(postId, user.accessToken).then(() => {
       navigate("/main");
       // window.location.replace("/main"); // 새로고침후 이동
@@ -480,16 +462,10 @@ export default function Detail() {
   };
 
   const handleGetbodyPart = (e: any) => {
-    console.log("e.target.value:", e.target.value);
     setBodyPart(e.target.value);
   };
 
   const [showDifficult, setShowDifficult] = useState(false);
-  // console.log("postInfo:", postInfo);
-  // console.log("titleContent:", titleContent);
-  // console.log("isModify: ", isModify);
-  // let shareRecords = postInfo.exerciseInfo.ex_record;
-  // console.log("shareRecords :", shareRecords);
 
   const handlePressEnter = (e: { key: string }) => {
     if (e.key === "Enter") {
@@ -648,7 +624,6 @@ export default function Detail() {
             </div>
             <div className="detail-container-down">
               <div className="detail-exInfo">
-                {console.log("what doyou have?", postInfo)}
                 <div className="user-exInfo-wrapper">
                   <div className="user-exInfo">
                   {postInfo !== null

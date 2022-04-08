@@ -152,14 +152,9 @@ export default function Signup() {
   const [userPassword, serUserPassword] = useState("");
   const [userPasswordCheck, serUserPasswordCheck] = useState("");
   const [userNicknameCheck, serUserNicknameCheck] = useState(true);
-  console.log("userNicknameCheck:", userNicknameCheck);
   const matchEmail =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   const matchPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
-  // console.log("signUp test페이지");
-  // console.log("카운터", count);
-  // console.log("유저정보", user);
-  // console.log("로그인", isLogin);
 
   const isValidEmail = matchEmail.test(userEmail);
   const isValidPassword = matchPassword.test(userPassword);
@@ -178,7 +173,6 @@ export default function Signup() {
           .then((res) => {
             const { id, image, nickname, loginType } = res.data.user;
             const accessToken = res.data.accessToken;
-            console.log("회원가입로그인", res.data);
             dispatch(
               LOG_IN({
                 id,
@@ -211,7 +205,6 @@ export default function Signup() {
   useEffect(() => {
     axios_GetNickname(userNickname)
       .then((res) => {
-        console.log("nickname res :", res);
         serUserNicknameCheck(true);
       })
       .catch((err) => {
