@@ -7,19 +7,28 @@ import { Record } from "../../models/entity/Record";
 import { Ex_Records } from "../../models/entity/Ex_Records";
 const jwt = require("jsonwebtoken"); // import는 안되네
 dotenv.config();
-let today = new Date();
-let todaySring =
-  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
   console.log("server createUserExRecord in !!");
-  console.log(todaySring);
+  let today = new Date(Date.now());
+  let todaySring =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  let time = new Date();
+  // const secToTime = (time) => {
+  //   let years = time.getFullYear();
+  //   let month = time.getMonth() + 1;
+  //   let days = time.getDate();
+  //   month = month < 10 ? "0" + month : month;
+  //   days = days < 10 ? "0" + days : days;
+
+  //   return years + "-" + month + "-" + days;
+  // };
   const { record } = req.body;
   const date = req.query.date;
   console.log("레큐바디", req.body);
   console.log("req.cookies:", req.cookies);
 
-  //console.log(todaySring);
+  //console.log(secToTime(time));
   //   const user = await getRepository(Users).findOne({
   //     relations: ["profile"],
   //     where: { id: data.id },
@@ -51,6 +60,10 @@ module.exports = async (req: Request, res: Response) => {
             relations: ["users", "ex_record"],
             where: { users: data.id, created_at: todaySring },
           });
+          //console.log(data.id);
+          //console.log(secToTime(time));
+          console.log(todaySring);
+          console.log("123", findExRecord);
           if (!findExRecord) {
             const makeExRecord = Record.create({
               users: data.id,
@@ -69,7 +82,7 @@ module.exports = async (req: Request, res: Response) => {
           where: { users: data.id, created_at: todaySring },
         });
         let a: any = findrecord?.id;
-        console.log(findrecord?.users.email);
+        console.log("?", findrecord);
         if (findrecord?.users.email === data.email) {
           record.forEach(async (item) => {
             const createed = Ex_Records.create({
@@ -97,7 +110,7 @@ module.exports = async (req: Request, res: Response) => {
             });
           }, 1000);
         } else {
-          res.status(404).send({ message: "유저정보가 일치하지 않습니다" });
+          res.status(404).send({ message: "유저정보가 일치하지 않습니다?" });
         }
       }
     });
