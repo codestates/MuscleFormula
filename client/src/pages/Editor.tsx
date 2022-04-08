@@ -25,7 +25,7 @@ export const EditorContainer = styled.div`
     flex-direction: column;
     align-items: stretch;
     min-height: 35rem;
-    width: 310px;
+    max-width: 30rem;
     justify-content: center;
     box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
     > [contenteditable] {

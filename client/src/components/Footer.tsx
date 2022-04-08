@@ -14,6 +14,14 @@ export const Foot = styled.footer`
     right: 2rem;
     text-align: center;
     font-size: x-large;
+    transition: all 0.9s, color 0.3;
+  }
+  > .go-to-up :hover {
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 5px 5px rgba (0, 0, 0, 0.6);
+    -o-box-shadow: 5px 5px rgba(0, 0, 0, 0.6);
+    border-radius: 100px;
   }
 
   a {
@@ -28,9 +36,9 @@ export const Foot = styled.footer`
     padding-bottom: 1rem;
     font-size: x-small;
     > span {
-    cursor: pointer;
-    color: darkgrey;
-  }
+      cursor: pointer;
+      color: darkgrey;
+    }
   }
 `;
 export default function Footer() {
@@ -56,10 +64,21 @@ export default function Footer() {
       </div>
       <div className="source-container">
         <a href="https://icons8.com">아이콘Icons8</a>에서 아이콘 제공 &nbsp;
-        <br/>
-        <span onClick={()=> {navigate("/privacypolicy")}}>PrivacyPolicy</span>
-        {" "}
-        <span onClick={()=> {navigate("/termsandconditions")}}>Terms&Conditions</span>
+        <br />
+        <span
+          onClick={() => {
+            navigate("/privacypolicy");
+          }}
+        >
+          PrivacyPolicy
+        </span>{" "}
+        <span
+          onClick={() => {
+            navigate("/termsandconditions");
+          }}
+        >
+          Terms&Conditions
+        </span>
       </div>
     </Foot>
   );
