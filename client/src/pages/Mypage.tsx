@@ -48,7 +48,6 @@ export default function Maypage() {
     //   }
     // })
     axios_Get_Like(user.accessToken).then((res: any) => {
-      console.log("라이크응답", res.data);
       setLikedPosts(res.data);
     });
   }, []);
