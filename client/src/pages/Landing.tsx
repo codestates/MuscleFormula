@@ -205,36 +205,6 @@ export const GotoMainButton = styled.button`
     font-size: medium;
   }
 `;
-export const SigninButton = styled.button`
-  font-family: "IBM Plex Sans KR", sans-serif;
-  width: 10rem;
-  height: 4rem;
-  background: black;
-  padding: 0.3rem;
-  border-radius: 10px;
-  box-sizing: border-box;
-  cursor: pointer;
-  font-size: x-large;
-  color: #ffffff;
-  border: none;
-  box-shadow: 2px 3px 10px 2px rgba(0, 0, 0, 0.2);
-  transition: 0.5s all;
-  &:hover {
-    transition: all 0.3s ease;
-    background: #00cc99;
-  }
-  @media screen and (max-width: 1000px) {
-    font-size: x-large;
-  }
-  @media screen and (max-width: 37.5rem) {
-    width: 10rem;
-    height: 3rem;
-    font-size: large;
-  }
-  @media screen and (max-width: 420px) {
-    font-size: medium;
-  }
-`;
 export const BigCircle = styled.span`
   position: absolute;
   left: 15.5rem;
@@ -688,10 +658,6 @@ function Landing() {
             <Link to="/main">
               <GotoMainButton> 근의 공식 시작하기</GotoMainButton>
             </Link>
-            &emsp;
-            <Link to="/login">
-              <SigninButton>로그인하기</SigninButton>
-            </Link>
           </FirstLandingButton>
         </BodyContainer>
       </BodyOutContainer>
@@ -755,10 +721,6 @@ function Landing() {
           <GotoMainButton onClick={() => scrollHandler()}>
             근의 공식 시작하기
           </GotoMainButton>
-        </Link>
-        &emsp;
-        <Link to="/login">
-          <SigninButton>로그인하기</SigninButton>
         </Link>
       </SevLandingContainer>
     </AllLandingContainer>
