@@ -1,5 +1,5 @@
 /**포스트 상세 페이지**/
-import Swal from "sweetalert2";
+import swal from "sweetalert";
 import Comment from "../components/Comment";
 import { useSelector, useStore } from "react-redux";
 import axios from "axios";
@@ -386,7 +386,7 @@ export default function Detail() {
   }, []);
   const handleCommentSubmit = () => {
     if (commentContent.length < 2) {
-      return Swal.fire("댓글을 2글자이상 입력하세요");
+      return swal("댓글을 2글자이상 입력하세요");
     } else {
       axios_Create_Comment(postId, commentContent, user.accessToken).then(
         (res) => {
@@ -452,7 +452,7 @@ export default function Detail() {
         .then(() => {
           setIsModify(!isModify);
           setShowDifficult(false);
-          Swal.fire("수정완료 되었습니다");
+          swal("수정완료 되었습니다");
         });
     });
   };

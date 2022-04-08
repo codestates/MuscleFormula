@@ -21,7 +21,7 @@ import CallbackGoogle from "./callback/callbackGoogle";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "./store";
-import Swal from "sweetalert2";
+import swal from "sweetalert";
 import { LOG_OUT } from "./reducer/userInfoReducer";
 import { TermsAndConditions } from "./components/Policy/TermsAndConditions";
 
@@ -43,7 +43,7 @@ const App: React.FC = () => {
         console.log("10초 후에 로그아웃됨");
         navigate("/main");
         dispatch(LOG_OUT());
-        return Swal.fire("유효시간이 지나 자동으로 로그아웃 되었습니다");
+        return swal("유효시간이 지나 자동으로 로그아웃 되었습니다");
       }, oneDay);
     }
   }, [isLogin]);

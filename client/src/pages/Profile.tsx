@@ -1,4 +1,4 @@
-import Swal from "sweetalert2";
+import swal from "sweetalert";
 import "../css/Profile.css";
 import { PC, Mobile } from "../mediaQuery";
 import Footer from "../components/Footer";
@@ -59,11 +59,11 @@ export default function Profile() {
 
   const handleProfileNick = () => {
     if (user.nickname === userNickname) {
-      return Swal.fire("동일한 닉네임입니다");
+      return swal("동일한 닉네임입니다");
     }
     if (userNicknameCheck) {
       if (userNickname.length === 0) {
-        return Swal.fire("닉네임을 입력해주세요");
+        return swal("닉네임을 입력해주세요");
       } else {
         const formData = new FormData();
         formData.append("nickname", userNickname);
@@ -77,11 +77,11 @@ export default function Profile() {
         // })
         axios_Put_User(formData, user.accessToken).then((res) => {
           dispatch(EDIT_NICK(res.data.Data.nickname));
-          return Swal.fire("닉네임이 변경되었습니다");
+          return swal("닉네임이 변경되었습니다");
         });
       }
     } else {
-      return Swal.fire("다른 닉네임을 입력해주세요");
+      return swal("다른 닉네임을 입력해주세요");
     }
   };
 
