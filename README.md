@@ -51,17 +51,21 @@
 * Stack : 추후작성
 * contributions
   * 추후작성
+
   
  </details>
 <br>
+
 
  ### 손태권 [`KAPUIST`](https://github.com/KAPUIST)
 * position : Back-end 
 * Stack: 추후작성
 * contributions
   *  추후작성
+
  </details>
 <br>
+
 
 
 ### 양지윤 [`jiyuunyang`](https://github.com/jiyuunyang)
@@ -69,6 +73,7 @@
 * Stack : 추후작성
 * contributions
   *  추후작성
+
 
  
 </details>
@@ -81,8 +86,10 @@
 * contributions
   * 추후작성
 
+
 </details>
 <br>
+
 
 
 
