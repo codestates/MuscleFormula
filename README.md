@@ -50,7 +50,7 @@
 * position : Front-end 
 * Stack : 추후작성
 * contributions
-  * 추후작성
+    * SR, 일정 관리, 랜딩 페이지, 푸터 작성
 
   
  </details>
@@ -72,10 +72,13 @@
 * position : Front-end 
 * Stack : 추후작성
 * contributions
-  *  추후작성
+  *  리덕스 툴킷 세팅
+  *  운동기록 페이지 작성
+  *  캘린더 컴포넌트 작성
+  *  마이페이지 작성
+  *  모달창, 탭 구현
+  *  CSS 전반 관리
 
-
- 
 </details>
 <br>
 
