@@ -1,5 +1,5 @@
 // 시작하자마자 보이는 뻘건색 삭제
-import Swal from "sweetalert2";
+import swal from "sweetalert";
 import { PC, Mobile } from "../mediaQuery";
 import Footer from "../components/Footer";
 import axios from "axios";
@@ -192,12 +192,12 @@ export default function Signup() {
           })
           .catch(() => {
             // alert("중복된 이메일이 있습니다");
-            Swal.fire("중복된 이메일이 있습니다");
+            swal("중복된 이메일이 있습니다");
           });
       });
     } else {
       // alert("회원가입 조건을 모두 맞추어 주십시오");
-      Swal.fire("회원가입 조건을 모두 맞추어 주십시오");
+      swal("회원가입 조건을 모두 맞추어 주십시오");
     }
   };
 

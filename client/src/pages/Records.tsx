@@ -15,7 +15,7 @@ import {
   axios_Get_UserRecord,
   axios_Post_UserRecord,
 } from "../axios/index";
-import Swal from "sweetalert2";
+import swal from "sweetalert";
 
 export default function Records() {
   const showToday = () => {
@@ -118,7 +118,7 @@ export default function Records() {
       });
       setIsLoading(false);
       // alert();
-      Swal.fire("기록되었습니다");
+      swal("기록되었습니다");
     });
   };
 
@@ -146,11 +146,10 @@ export default function Records() {
     }, 0);
   };
 
-  console.log("Swal :", Swal);
   const addExercise = () => {
     if (exercise.genre === "") {
       // return alert("운동명을 입력하세요");
-      return Swal.fire("운동명을 입력하세요");
+      return swal("운동명을 입력하세요");
     } else {
       setExercise({
         genre: "",
