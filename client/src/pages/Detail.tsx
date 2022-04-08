@@ -475,7 +475,7 @@ export default function Detail() {
     console.log("포스트삭제");
     axios_Delete_Post(postId, user.accessToken).then(() => {
       navigate("/main");
-      // window.location.replace("/main"); // 새로고침후 이동
+      // window.location.replace("/main"); // 새로고침후 이동s
     });
   };
 
