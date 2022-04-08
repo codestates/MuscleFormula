@@ -76,7 +76,7 @@ module.exports = async (req: Request, res: Response) => {
         });
         let a: any = findrecord?.id;
         console.log(findrecord?.users.email);
-        if (findrecord?.users.email === data.email) {
+        if (findrecord) {
           record.forEach(async (item) => {
             const createed = Ex_Records.create({
               record: a,
