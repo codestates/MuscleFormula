@@ -46,7 +46,6 @@ interface CalendarRecordProps {
 const CalendarRecord: React.FC<CalendarRecordProps> = ({
   record,
 }) => {
-  console.log(record);
   function secToTime(duration: number) {
     let seconds: number | string = Math.floor(duration % 60);
     let minutes: number | string = Math.floor((duration / 60) % 60);

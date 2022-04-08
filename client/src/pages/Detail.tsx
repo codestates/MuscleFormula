@@ -1,12 +1,10 @@
 /**포스트 상세 페이지**/
-import Swal from "sweetalert2";
+import swal from "sweetalert";
 import Comment from "../components/Comment";
-import { useSelector, useStore } from "react-redux";
-import axios from "axios";
+import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import PhotoModal from "../components/Modals/PhotoModal";
 import type { RootState } from "../store";
 import PhotoUploader from "../components/PhotoUploader";
 import CalendarRecord from "../components/CalendarRecord";
@@ -31,9 +29,9 @@ function showTime(duration: number) {
   hours = hours < 10 ? "0" + hours : hours;
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
-  if (hours == "00" && minutes === "00") {
+  if (hours === "00" && minutes === "00") {
     return seconds + "초";
-  } else if (hours == "00") {
+  } else if (hours === "00") {
     return minutes + "분 " + seconds + "초";
   } else {
     return hours + "시간 " + minutes + "분 " + seconds + "초";
@@ -47,22 +45,14 @@ interface RecordType {
 }
 
 export const Main = styled.div`
-  //border: 3px solid greens;
-
   margin: 12vh auto;
-  /* margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto; */
   border-radius: 25px;
   border: 1px solid lightgrey;
   padding: 1rem;
-  /* 화면 중앙으로 만들기 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 40%;
-  min-width: 22rem;
+  max-width: 30rem;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
   > [contenteditable] {
     outline: 0px solid transparent;
@@ -72,22 +62,27 @@ export const Main = styled.div`
     width: 100%;
   }
   > .detail-container-up {
-    //border: 1px solid gray;
     display: flex;
     min-width: 20rem;
     flex-direction: column;
 
     > .detail-title {
       padding-top: 1rem;
-      font-size: 1.5rem;
+      padding-bottom: 0.5rem;
+      font-size: x-large;
       border-bottom: 1px solid grey;
+      margin-bottom: 0.5rem;
       > .edit-title {
-        border: 1px solid #ddd;
+        border: none;
         border-radius: 4px;
-        padding: 4px;
-        margin: 3px 0;
-        font-size: 14px;
-        width: 100%;
+        padding-top: 1rem;
+        padding-bottom: 0.5rem;
+        font-size: x-large;
+        width: 100%; 
+        height: 30px;
+        &:focus {
+          outline: 2px solid grey;
+        }
       }
     }
     > .detail-button {
@@ -101,7 +96,7 @@ export const Main = styled.div`
         font-size: small;
         border-radius: 5px;
         border: 0px;
-        background-color: #3364eb;
+        background-color: grey;
         color: white;
         cursor: pointer;
       }
@@ -109,7 +104,7 @@ export const Main = styled.div`
         > .fa-trash-can {
           margin-top: 1rem;
           font-size: 1.5rem;
-          padding: 0.5rem;
+          padding: 0rem 0.5rem;
           cursor: pointer;
         }
         > .fa-trash-can:hover {
@@ -120,7 +115,7 @@ export const Main = styled.div`
         > .fa-pen-to-square {
           margin-top: 1rem;
           font-size: 1.5rem;
-          padding: 0.5rem;
+          padding: 0rem 0.5rem;
           cursor: pointer;
         }
         > .fa-pen-to-square:hover {
@@ -129,6 +124,7 @@ export const Main = styled.div`
       }
     }
     > .detail-image {
+      height: 100%;
       > .post-date {
         padding-left: 1rem;
         padding-bottom: 1rem;
@@ -144,10 +140,10 @@ export const Main = styled.div`
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      padding-top: 1rem;
       > .detail-userinfo {
         display: flex;
         align-items: center;
+        padding-left: 0.5rem;
         > .user-image-wrapper {
           position: relative;
           width: 3rem;
@@ -180,8 +176,13 @@ export const Main = styled.div`
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      > .user-exInfo {
-        padding: 1rem;
+      > .user-exInfo-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        > .user-exInfo {
+          padding: 1rem;
+        }
       }
       > .exInfo {
         padding: 0.5rem;
@@ -192,6 +193,7 @@ export const Main = styled.div`
           flex-direction: row;
           > .exInfo-time-title {
             width: 6rem;
+            font-weight: bold;
           }
           > .exInfo-time {
             width: 10rem;
@@ -205,6 +207,7 @@ export const Main = styled.div`
           align-items: center;
           > .exInfo-difficult-title {
             width: 6rem;
+            font-weight: bold;
           }
           > .exInfo-difficult {
             width: 10rem;
@@ -212,17 +215,20 @@ export const Main = styled.div`
         }
         > .exInfo-bodypart-container {
           padding-left: 0.5rem;
+          margin-bottom: 0.5rem;
           display: flex;
           flex-direction: row;
           justify-content: flex-start;
           align-items: center;
           > .exInfo-bodypart-title {
             width: 6rem;
+            font-weight: bold;
           }
           > .exInfo-bodypart {
             width: 10rem;
             > select {
-              width: 7.5rem;
+              margin-left: -5px;
+              width: 7.6rem;
               font-size: medium;
               border: none;
               color: black;
@@ -240,19 +246,17 @@ export const Main = styled.div`
         }
         > .post-info {
           padding: 5px;
-          > select {
-            margin-left: 1rem;
-            font-size: 15px;
-          }
           > .edit-text {
             border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 4px;
+            border-radius: 5px;
             margin: 3px 0;
-            font-size: 14px;
+            font-size: 16px;
             width: 100%;
             height: 160px;
             resize: none;
+            &:focus {
+              outline: 2px solid grey;
+            }
           }
         }
       }
@@ -299,11 +303,12 @@ export const Main = styled.div`
       } */
 
       > button {
-        width: 4rem;
-        font-size: medium;
+        height: 2rem;
+        width: 3rem;
+        font-size: small;
         cursor: pointer;
         border: none;
-        border-radius: 10px;
+        border-radius: 5px;
         background-color: grey;
         color: white;
       }
@@ -331,11 +336,8 @@ export default function Detail() {
   if (localUser !== null) {
     user = JSON.parse(localUser);
   }
-  console.log("detail Page");
-  console.log("params postId:", postId);
 
   const [postInfo, setPostInfo] = useState<any>(null);
-  console.log("postInfo:", postInfo);
   const [commentContent, setCommentContent] = useState<string | null | any>("");
   const [like, setLike] = useState<any>("");
   let [isModify, setIsModify] = useState(false);
@@ -357,29 +359,24 @@ export default function Detail() {
   };
 
   useEffect(() => {
-    console.log("detail useEffect");
-    console.log("innerPostId : ", postId);
     if (postId) {
       axios_Get_DetailPosts(postId).then((req) => {
-        console.log("req:", req.data);
         setPostInfo(req.data);
         let likeFiler = req.data.total_Likes.filter((e: any) => {
           return e.users.id === user.id;
         });
-        console.log("likeFiler 있음? :", likeFiler.length > 0);
         setIsLike(likeFiler.length > 0);
       });
     }
   }, []);
   const handleCommentSubmit = () => {
     if (commentContent.length < 2) {
-      return Swal.fire("댓글을 2글자이상 입력하세요");
+      return swal("댓글을 2글자이상 입력하세요");
     } else {
       axios_Create_Comment(postId, commentContent, user.accessToken).then(
         (res) => {
           setCommentContent("");
           axios_Get_DetailPosts(postId).then((req) => {
-            console.log("req:", req.data);
             setPostInfo(req.data);
           });
         }
@@ -387,34 +384,27 @@ export default function Detail() {
     }
   };
   const handleLikeSubmit = () => {
-    console.log("하트 누름");
     axios_Create_Like(postId, user.accessToken)
       .then((res) => {
         setLike("생성");
         axios_Get_DetailPosts(postId).then((req) => {
-          console.log("req:", req.data);
           setPostInfo(req.data);
           let likeFiler = req.data.total_Likes.filter((e: any) => {
             return e.users.id === user.id;
           });
-          console.log("likeFiler 있음? :", likeFiler.length > 0);
           setIsLike(likeFiler.length > 0);
         });
       })
       .catch((err) => {
-        console.log("err  :", err);
         axios_Delete_Like(postId, user.accessToken).then(() => {
           axios_Get_DetailPosts(postId).then((req) => {
-            console.log("req:", req.data);
             setPostInfo(req.data);
             let likeFiler = req.data.total_Likes.filter((e: any) => {
               return e.users.id === user.id;
             });
-            console.log("likeFiler 있음? :", likeFiler.length > 0);
             setIsLike(likeFiler.length > 0);
           });
         });
-        console.log("하트 삭제됨");
         setLike("삭제");
       });
   };
@@ -429,17 +419,15 @@ export default function Detail() {
     formData.append("bodyPart", "상체");
     formData.append("postImage", photo.file[0]);
 
-    console.log("수정 완료 버튼 ");
     axios_Put_Post(formData, postInfo.id, user.accessToken).then(() => {
       axios_Get_DetailPosts(postId)
         .then((req) => {
-          console.log("req:", req.data);
           setPostInfo(req.data);
         })
         .then(() => {
           setIsModify(!isModify);
           setShowDifficult(false);
-          Swal.fire("수정완료 되었습니다");
+          swal("수정완료 되었습니다");
         });
     });
   };
@@ -459,24 +447,17 @@ export default function Detail() {
     setDeleteModal(!deleteModal);
   };
   const handlePostDelete = () => {
-    console.log("포스트삭제");
     axios_Delete_Post(postId, user.accessToken).then(() => {
       navigate("/main");
-      // window.location.replace("/main"); // 새로고침후 이동
+      // window.location.replace("/main"); // 새로고침후 이동s
     });
   };
 
   const handleGetbodyPart = (e: any) => {
-    console.log("e.target.value:", e.target.value);
     setBodyPart(e.target.value);
   };
 
   const [showDifficult, setShowDifficult] = useState(false);
-  // console.log("postInfo:", postInfo);
-  // console.log("titleContent:", titleContent);
-  // console.log("isModify: ", isModify);
-  // let shareRecords = postInfo.exerciseInfo.ex_record;
-  // console.log("shareRecords :", shareRecords);
 
   const handlePressEnter = (e: { key: string }) => {
     if (e.key === "Enter") {
@@ -523,15 +504,28 @@ export default function Detail() {
                 <div className="post-date">
                   {postInfo.created_At.split("T")[0]}
                 </div>
-                <PhotoUploader
+              <div className="post-image">
+              <PhotoUploader
                   photo={photo}
                   setPhoto={setPhoto}
                   photoUrl={postInfo.image}
                 />
               </div>
+              </div>
             </div>
             <div className="detail-container-down">
               <div className="detail-exInfo">
+              <div className="user-exInfo-wrapper">
+                  <div className="user-exInfo">
+                  {postInfo !== null
+                    ? postInfo.exerciseInfo.ex_record.map(
+                        (record: RecordType, idx: number) => (
+                          <CalendarRecord key={idx} record={record} />
+                        )
+                      )
+                    : null}
+                  </div>
+                </div>
                 <div className="exInfo">
                   <div className="exInfo-time-wrapper">
                     <div className="exInfo-time-title">소요시간</div>
@@ -617,13 +611,13 @@ export default function Detail() {
                 <div className="post-date">
                   {postInfo.created_At.split("T")[0]}
                 </div>
-                <img className="post-image" src={postInfo.image}></img>
+                <img className="post-image" src={postInfo.image} alt="post"/>
               </div>
             </div>
             <div className="detail-container-down">
               <div className="detail-exInfo">
-                {console.log("what doyou have?", postInfo)}
-                <div className="user-exInfo">
+                <div className="user-exInfo-wrapper">
+                  <div className="user-exInfo">
                   {postInfo !== null
                     ? postInfo.exerciseInfo.ex_record.map(
                         (record: RecordType, idx: number) => (
@@ -631,6 +625,7 @@ export default function Detail() {
                         )
                       )
                     : null}
+                  </div>
                 </div>
                 <div className="exInfo">
                   <div className="exInfo-time-wrapper">

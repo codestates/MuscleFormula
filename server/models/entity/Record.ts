@@ -6,8 +6,6 @@ import {
   OneToMany,
   ManyToOne,
 } from "typeorm";
-import { Post_Comments } from "./Post_Comment";
-import { Post_Likes } from "./Post_Like";
 import { Ex_Records } from "./Ex_Records";
 import { Users } from "./User";
 import { Posts } from "./Post";

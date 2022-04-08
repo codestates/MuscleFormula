@@ -25,7 +25,7 @@ export default function NoPost() {
   return (
     <NoContentContainer>
       <img src="../images/icon_yoga.png" alt="no_content"/>
-      <div>공유한 포스팅이 없습니다<br></br>운동을 <strong onClick={()=>navigate("/record")}>기록하고 공유</strong>해보세요</div>
+      <div>포스팅이 없습니다<br></br>운동을 <strong onClick={()=>navigate("/record")}>기록하고 공유</strong>해보세요</div>
     </NoContentContainer>
   )
 }

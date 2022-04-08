@@ -48,7 +48,6 @@ export default function Maypage() {
     //   }
     // })
     axios_Get_Like(user.accessToken).then((res: any) => {
-      console.log("라이크응답", res.data);
       setLikedPosts(res.data);
     });
   }, []);
@@ -69,11 +68,7 @@ export default function Maypage() {
       </div>
       <div className="mypost-container">
         <div className="mypost">
-          {myPosts.length > 0 ? (
-            <MyPostTab myPosts={myPosts} likedPosts={likedPosts} />
-          ) : (
-            <NoPost />
-          )}
+          <MyPostTab myPosts={myPosts} likedPosts={likedPosts} />
         </div>
       </div>
       <div className="share-container">

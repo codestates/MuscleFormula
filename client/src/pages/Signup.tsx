@@ -1,5 +1,5 @@
 // 시작하자마자 보이는 뻘건색 삭제
-import Swal from "sweetalert2";
+import swal from "sweetalert";
 import { PC, Mobile } from "../mediaQuery";
 import Footer from "../components/Footer";
 import axios from "axios";
@@ -152,14 +152,9 @@ export default function Signup() {
   const [userPassword, serUserPassword] = useState("");
   const [userPasswordCheck, serUserPasswordCheck] = useState("");
   const [userNicknameCheck, serUserNicknameCheck] = useState(true);
-  console.log("userNicknameCheck:", userNicknameCheck);
   const matchEmail =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   const matchPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
-  // console.log("signUp test페이지");
-  // console.log("카운터", count);
-  // console.log("유저정보", user);
-  // console.log("로그인", isLogin);
 
   const isValidEmail = matchEmail.test(userEmail);
   const isValidPassword = matchPassword.test(userPassword);
@@ -178,7 +173,6 @@ export default function Signup() {
           .then((res) => {
             const { id, image, nickname, loginType } = res.data.user;
             const accessToken = res.data.accessToken;
-            console.log("회원가입로그인", res.data);
             dispatch(
               LOG_IN({
                 id,
@@ -192,12 +186,12 @@ export default function Signup() {
           })
           .catch(() => {
             // alert("중복된 이메일이 있습니다");
-            Swal.fire("중복된 이메일이 있습니다");
+            swal("중복된 이메일이 있습니다");
           });
       });
     } else {
       // alert("회원가입 조건을 모두 맞추어 주십시오");
-      Swal.fire("회원가입 조건을 모두 맞추어 주십시오");
+      swal("회원가입 조건을 모두 맞추어 주십시오");
     }
   };
 
@@ -211,7 +205,6 @@ export default function Signup() {
   useEffect(() => {
     axios_GetNickname(userNickname)
       .then((res) => {
-        console.log("nickname res :", res);
         serUserNicknameCheck(true);
       })
       .catch((err) => {

@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { LOG_IN } from "../reducer/userInfoReducer";
 import { useState, useEffect } from "react";
 import type { RootState, AppDispatch } from "../store";
-import Swal from "sweetalert2";
+import swal from "sweetalert";
 import styled from "styled-components";
 const qs = require("qs");
 
@@ -219,7 +219,6 @@ export default function Login() {
   const googleCodeGetRUI = `https://accounts.google.com/o/oauth2/auth?client_id=1062811618314-04ajm3grgt3c9hf51lq1911qt3el9ro9.apps.googleusercontent.com&access_type=offline&redirect_uri=http://localhost:3000/callbackGoogle&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
   const kakaoCodeGetURI = `https://kauth.kakao.com/oauth/authorize?client_id=7d8937ab746c6e3604651e33e259fc1d&redirect_uri=http://localhost:3000/callbackKakao&response_type=code`;
   const code: any = new URLSearchParams(window.location.search).get("code");
-  console.log("받음 code :", code);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
@@ -228,7 +227,6 @@ export default function Login() {
       .then((res) => {
         const { id, image, nickname, loginType } = res.data.user;
         const accessToken = res.data.accessToken;
-        console.log("이메일로그인", res.data);
         dispatch(
           LOG_IN({
             id,
@@ -242,7 +240,7 @@ export default function Login() {
       })
       .catch(() => {
         // alert('이메일 혹은 비밀번호가 일치하지 않습니다')
-        Swal.fire("이메일 혹은 비밀번호가 일치하지 않습니다");
+        swal("이메일 혹은 비밀번호가 일치하지 않습니다");
       });
   };
 
@@ -278,9 +276,6 @@ export default function Login() {
                       <img
                         src="../images/icon_kakao.png"
                         alt="logoKakao"
-                        onClick={() => {
-                          console.log("kakao");
-                        }}
                       />
                     </a>
                   </th>
@@ -373,9 +368,6 @@ export default function Login() {
                       <img
                         src="../images/icon_kakao.png"
                         alt="logoKakao"
-                        onClick={() => {
-                          console.log("kakao");
-                        }}
                       />
                     </a>
                   </th>

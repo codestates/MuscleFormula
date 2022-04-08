@@ -5,7 +5,6 @@ import { Posts } from "../../models/entity/Post";
 import { Record } from "../../models/entity/Record";
 
 dotenv.config();
-
 module.exports = async (req: Request, res: Response) => {
   console.log("server readAllPost in !!");
 
@@ -50,12 +49,19 @@ module.exports = async (req: Request, res: Response) => {
   let rankData = maxValue.sort((a, b) => {
     return b.total_time - a.total_time;
   });
+  console.log(rankData.length);
   //console.log(rankData);
   if (rankData.length === 0) {
     res.status(200);
-  } else if (rankData.length < 3) {
+  } else if (rankData.length <= 3) {
+    let Rank: any = [
+      { total_time: null, nickname: null },
+      { total_time: null, nickname: null },
+      { total_time: null, nickname: null },
+    ];
     for (let i = 0; i < rankData.length; i++) {
-      rankData[i].total_time = showtime(rankData[i].total_time);
+      Rank[i].total_time = showtime(rankData[i].total_time);
+      Rank[i].nickname = rankData[i].nickname;
     }
     const createed = allInfo.map((item) => {
       const data = {
@@ -75,6 +81,7 @@ module.exports = async (req: Request, res: Response) => {
         total_Likes: item.post_likes.length,
         created_At: item.created_At,
       };
+
       return data;
     });
     res.status(200).json({

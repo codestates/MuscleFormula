@@ -1,5 +1,5 @@
 /**공유 전 페이지 : 날짜별 운동 기록을 클릭하고 공유하기 버튼을 클릭**/
-import Swal from "sweetalert2";
+import swal from "sweetalert";
 import { PC, Mobile } from "../mediaQuery";
 import Footer from "../components/Footer";
 import Calendar from "../components/Calendar";
@@ -67,7 +67,7 @@ export default function Share() {
 
   const handleShare = () => {
     if (records === null) {
-      return Swal.fire("공유할 기록이 없습니다");
+      return swal("공유할 기록이 없습니다");
     } else {
       dispatch(SHARE(records));
       dispatch(SHARE_ID(recordsId));

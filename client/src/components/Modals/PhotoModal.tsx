@@ -78,8 +78,6 @@ const PhotoModal: React.FC<PhotoModalProps> = ({
     setPhotoModal((cur) => !cur);
   };
 
-  console.log(photo,'포토');
-
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
   const localUser = localStorage.getItem("userInfo");
   if (localUser !== null) {
