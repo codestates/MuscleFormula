@@ -8,27 +8,30 @@ import { Posts } from "../../models/entity/Post";
 import { Ex_Records } from "../../models/entity/Ex_Records";
 
 dotenv.config();
-let yesterdays = new Date(Date.now());
-let today = new Date(Date.now());
-let test = today.getDate() - 1;
-if (test === 0) {
-  yesterdays.setDate(yesterdays.getDate() - 1);
-} else {
-  yesterdays.setDate(yesterdays.getDate());
-}
-let yesterday =
-  yesterdays.getFullYear() +
-  "-" +
-  (yesterdays.getMonth() + 1) +
-  "-" +
-  (yesterdays.getDate() - 1);
-//console.log(yesterday);
-let findtoday =
-  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-//console.log(findtoday);
 
 module.exports = async (req: Request, res: Response) => {
   console.log("server readMypage in !!");
+  let findtoday =
+    new Date().getFullYear() +
+    "-" +
+    (new Date().getMonth() + 1) +
+    "-" +
+    new Date().getDate();
+  // console.log(findtoday);
+  let backofday = new Date();
+
+  if (backofday.getDate() - 1 === 0) {
+    backofday.setDate(backofday.getDate() - 1);
+  } else {
+    backofday.setDate(backofday.getDate());
+  }
+  let yesterday =
+    backofday.getFullYear() +
+    "-" +
+    (backofday.getMonth() + 1) +
+    "-" +
+    (backofday.getDate() - 1);
+  console.log(yesterday);
 
   const auth = req.headers["authorization"];
   //const params = req.params;

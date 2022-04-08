@@ -1,4 +1,5 @@
 /**공유 전 페이지 : 날짜별 운동 기록을 클릭하고 공유하기 버튼을 클릭**/
+import swal from "sweetalert";
 import { PC, Mobile } from "../mediaQuery";
 import Footer from "../components/Footer";
 import Calendar from "../components/Calendar";
@@ -66,7 +67,7 @@ export default function Share() {
 
   const handleShare = () => {
     if (records === null) {
-      return alert("공유할 기록이 없습니다");
+      return swal("공유할 기록이 없습니다");
     } else {
       dispatch(SHARE(records));
       dispatch(SHARE_ID(recordsId));
@@ -79,35 +80,35 @@ export default function Share() {
   return (
     <div id="share-container-wrapper">
       <div>
-          {isLogin === false ? (
-            <div id="no-share-container">
-              <NeedLogin />
+        {isLogin === false ? (
+          <div id="no-share-container">
+            <NeedLogin />
+          </div>
+        ) : (
+          <div id="share-container">
+            <div id="calendar-container">
+              <Calendar date={date} setDate={setDate} />
             </div>
-          ) : (
-            <div id="share-container">
-              <div id="calendar-container">
-                <Calendar date={date} setDate={setDate} />
-              </div>
-              <div id="calendar-record-container">
-                {records !== null ? (
-                  records.map((record, idx) => (
-                    <CalendarRecord key={idx} record={record} />
-                  ))
-                ) : (
-                  <NoRecord />
-                )}
-              </div>
-              <div id="share-button">
-                <button
-                  className={records ? "show" : "no-show"}
-                  onClick={handleShare}
-                >
-                  선택하기
-                </button>
-              </div>
+            <div id="calendar-record-container">
+              {records !== null ? (
+                records.map((record, idx) => (
+                  <CalendarRecord key={idx} record={record} />
+                ))
+              ) : (
+                <NoRecord />
+              )}
             </div>
-          )}
-        </div>
+            <div id="share-button">
+              <button
+                className={records ? "show" : "no-show"}
+                onClick={handleShare}
+              >
+                선택하기
+              </button>
+            </div>
+          </div>
+        )}
       </div>
+    </div>
   );
 }

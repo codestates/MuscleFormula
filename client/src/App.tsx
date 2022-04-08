@@ -14,14 +14,16 @@ import Maypage from "./pages/Mypage";
 import Profile from "./pages/Profile";
 import Editor from "./pages/Editor";
 import Test from "./test/Test";
-import EditorTest from "./test/EditorTest";
 import Landing from "./pages/Landing";
+import { PrivacyPolicy } from "./components/Policy/PrivacyPolicy";
 import CallbackKakao from "./callback/callbackKakao";
 import CallbackGoogle from "./callback/callbackGoogle";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "./store";
+import swal from "sweetalert";
 import { LOG_OUT } from "./reducer/userInfoReducer";
+import { TermsAndConditions } from "./components/Policy/TermsAndConditions";
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -33,14 +35,12 @@ const App: React.FC = () => {
     isLogin = JSON.parse(localLogin);
   }
   useEffect(() => {
-    console.log(" useEffect 시간타이머 작동");
     if (isLogin) {
-      console.log(" if 시간타이머 작동");
       let oneDay = 1000 * 60 * 60 * 24;
       setTimeout(() => {
-        console.log("10초 후에 로그아웃됨");
         navigate("/main");
         dispatch(LOG_OUT());
+        return swal("유효시간이 지나 자동으로 로그아웃 되었습니다");
       }, oneDay);
     }
   }, [isLogin]);
@@ -61,9 +61,10 @@ const App: React.FC = () => {
         <Route path="/share" element={<Share />} />
         <Route path="/editor" element={<Editor />} />
         <Route path="/test" element={<Test />} />
-        <Route path="/testEdit" element={<EditorTest />} />
         <Route path="/callbackKakao" element={<CallbackKakao />} />
         <Route path="/callbackGoogle" element={<CallbackGoogle />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
+        <Route path="/termsandconditions" element={<TermsAndConditions/>}/>
         <Route path="/" element={<Landing />} />
       </Routes>
       <PC>

@@ -15,7 +15,7 @@ module.exports = async (req: Request | any, res: Response) => {
 
   //console.log("body", req.file);
   const userImage = files;
-  const getImageUrl = "https://server.muscleformula.xyz";
+  const getImageUrl = process.env.SERVER_URL;
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
   } else {

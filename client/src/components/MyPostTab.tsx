@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { settings } from "../slideSetting";
 import styled from 'styled-components';
+import NoPost from "./NoPost";
 
 export const TabMenu = styled.ul`
   background-color: #f2f2f2;
@@ -30,14 +31,9 @@ export const TabMenu = styled.ul`
     color: rgba(255, 255, 255, 1);
     transition: 0.3s;
   }
-
-  & div.desc {
-    text-align: center;
-  }
 `;
 
 export const Desc = styled.div`
-  text-align: center;
   padding: 3rem;
 `;
 
@@ -93,7 +89,10 @@ export const MyPostTab:React.FC<PostTabProps> = ({ myPosts, likedPosts }) => {
         </TabMenu>
         <Desc>
         <Slider {...settings}>
-        {menuArr[currentTab].content.map((el, idx) => <PostThumbnail postThumb = {el} key={idx}/>)}
+        {
+        menuArr[currentTab].content.length > 0 ?
+        menuArr[currentTab].content.map((el, idx) => <PostThumbnail postThumb = {el} key={idx}/>)
+        : <NoPost/>}
         </Slider>
         </Desc>
       </div>

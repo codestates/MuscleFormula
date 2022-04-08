@@ -6,10 +6,9 @@ import { Posts } from "../../models/entity/Post";
 const jwt = require("jsonwebtoken");
 import { Record } from "../../models/entity/Record";
 dotenv.config();
-let today = new Date(Date.now());
-let todaySring =
-  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
 // date 속성으로 넣으면날짜가 하루 -1 됨 ㅋㅋㅋ
+
 module.exports = async (req: Request | any, res: Response) => {
   console.log("server makePost in !!");
 
@@ -22,7 +21,7 @@ module.exports = async (req: Request | any, res: Response) => {
       filename: "img_post_default.png",
     };
   }
-  const getImageUrl = "https://server.muscleformula.xyz";
+  const getImageUrl = process.env.SERVER_URL;
 
   if (!auth) {
     res.status(401).send({ messege: "엑세스 토큰이 존재하지 않습니다." });
@@ -53,7 +52,12 @@ module.exports = async (req: Request | any, res: Response) => {
             body_Part: bodyPart,
             difficult: difficult,
             image: `${getImageUrl}/postimg/${postImage.filename}`,
-            created_At: todaySring,
+            created_At:
+              new Date().getFullYear() +
+              "-" +
+              (new Date().getMonth() + 1) +
+              "-" +
+              new Date().getDate(),
             users: {
               id: user?.id,
               email: user?.email,
@@ -76,6 +80,7 @@ module.exports = async (req: Request | any, res: Response) => {
                 "exerciseInfo",
               ],
             });
+
             //console.log("allPosters:", allPosters);
             res
               .status(200)

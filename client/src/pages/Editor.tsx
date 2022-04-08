@@ -157,14 +157,12 @@ const Editor = () => {
   //difficult
 
   //total타임 shareRecords에서 계산
-  console.log("shareRecords에서 time_record", shareRecords);
   let shareRecordsTotalTime = 0;
   if (shareRecords !== null) {
     shareRecordsTotalTime = shareRecords.reduce((a, b) => {
       return a + b.time_record;
     }, 0);
   }
-  console.log("shareRecordsTotalTime", shareRecordsTotalTime);
 
   let dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
@@ -179,17 +177,15 @@ const Editor = () => {
     formData.append("difficult", difficult);
     // formData.append("userId", user.id);
     formData.append("exerciseInfo", recordId);
-    console.log(formData);
 
     axios_CreatePost(formData, user.accessToken);
     dispatch(RESET());
     // navigate("/main");
     // location.reload(); // 새로고침 내장함수 추가
-    window.location.replace("/main"); // 새로고침후 이동
+    // window.location.replace("/main"); // 새로고침후 이동
   };
 
   const handleGetbodyPart = (e: any) => {
-    console.log("e.target.value:", e.target.value);
     setBodyPart(e.target.value);
   };
   return (

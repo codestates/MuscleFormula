@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../store";
 import { axios_Put_User } from "../../axios";
+import swal from "sweetalert";
+
 export const ModalBackdrop = styled.div`
   position: fixed;
   z-index: 999;
@@ -135,11 +137,13 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ setPasswordModal }) => {
       // })
 
       axios_Put_User(formData, user.accessToken).then(() => {
-        alert("변경되었습니다");
+        // alert("변경되었습니다");
+        swal("변경되었습니다");
         setPasswordModal((cur) => !cur);
       });
     } else {
-      alert("비밀번호 양식에 맞추어 주십시오");
+      // alert("비밀번호 양식에 맞추어 주십시오");
+      swal("비밀번호 양식에 맞추어 주십시오");
     }
   };
 

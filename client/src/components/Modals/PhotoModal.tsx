@@ -25,14 +25,11 @@ export const ModalContainer = styled.div`
   margin: 120px auto;
 `;
 
-export const ModalView = styled.div.attrs((props) => ({
-  // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있습니다.
-  role: "dialog",
-}))`
+export const ModalView = styled.div`
   border-radius: 10px;
   background-color: #ffffff;
   width: 310px;
-  height: 420px;
+  height: 20rem;
   > .desc {
     display: flex;
     flex-direction: column;
@@ -45,10 +42,11 @@ export const ModalView = styled.div.attrs((props) => ({
       font-size: large;
     }
     > .photoUploader-wrapper {
-      height: 300px;
       margin: 1rem 1rem;
+      height: 200px;
     }
     > .choice {
+      margin-bottom: 2rem;
       > button {
         font-size: medium;
         cursor: pointer;

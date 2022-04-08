@@ -13,34 +13,7 @@ export const CalendarContainer = styled.div`
   > .date-container{
     display: flex;
     flex-direction: row;
-    > .specified {
-      
-    }
-    /* > input {
-    border: none;
-    width: 20px;
-    font-size: large;
-    background-color: transparent;
-    }
-    > input:focus {
-      outline: none;
-    } */
-    /* > input[type=date]::-webkit-datetime-edit-text { 
-      -webkit-appearance: none; 
-      display: none; 
-    } 
-    > input[type=date]::-webkit-datetime-edit-month-field { 
-      -webkit-appearance: none; 
-      display: none; 
-    } 
-    > input[type=date]::-webkit-datetime-edit-day-field { 
-      -webkit-appearance: none; 
-      display: none; 
-    } 
-    > input[type=date]::-webkit-datetime-edit-year-field { 
-      -webkit-appearance: none; 
-      display: none; 
-    } */
+
   }
   > .after {
     padding-left: 1.5rem;
@@ -58,11 +31,7 @@ interface CalendarProps{
 }
 const Calendar:React.FC<CalendarProps> = ({date, setDate}) => {
 
-  const handleDate = () => {
-    
-  }
-
-  const getDate = (specified :Date) => {
+  const getSpDate = (specified :Date) => {
     let year: number | string = specified.getFullYear();
     let month: number | string = specified.getMonth() + 1;
     let date: number | string = specified.getDate();
@@ -85,7 +54,7 @@ const Calendar:React.FC<CalendarProps> = ({date, setDate}) => {
       return week[daynum];
     };
 
-    let submitDate = getDate(specified);
+    let submitDate = getSpDate(specified);
     setDate(submitDate);
 
     return `${month}월 ${date}일 ${checkDay(daynum)}요일`
@@ -97,12 +66,7 @@ const Calendar:React.FC<CalendarProps> = ({date, setDate}) => {
         <i className="fa-solid fa-angle-left" onClick={()=>(setNumber((cur)=> cur-1))}></i>
       </div>
       <div className="date-container">
-        {/* <input type="date"
-          required pattern="\d{4}-\d{2}-\d{2}"
-          // max={getDate(new Date())} 
-          value={date}
-          onChange={(e)=>setDate(e.target.value)}/> */}
-        <div className="specified" onClick={handleDate}> 
+        <div className="specified"> 
           {showDay(number)}
         </div>
       </div>

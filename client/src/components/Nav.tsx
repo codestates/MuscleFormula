@@ -41,6 +41,7 @@ export const NavPC = styled.nav`
     margin-right: 5rem;
     font-size: x-large;
     font-family: "IBM Plex Sans KR", sans-serif;
+    cursor: pointer;
     > #logo {
       margin-left: 1rem;
       width: 50px;
@@ -137,6 +138,7 @@ export const UpNavMobile = styled.nav`
     margin-right: auto;
     font-size: 1.5rem;
     font-family: "IBM Plex Sans KR", sans-serif;
+    cursor: pointer;
     > #logo {
       margin-left: 1rem;
       width: 40px;
@@ -274,7 +276,7 @@ export default function Nav() {
       <PC>
         <Head>
           <NavPC>
-            <span className="nav-title">
+            <span className="nav-title" onClick={()=>navigate("/")}>
               <img id="logo" src="../logo.png" alt="logo" />
               근의 공식
             </span>
@@ -309,7 +311,7 @@ export default function Nav() {
       <Mobile>
         <Head>
           <UpNavMobile>
-            <span className="nav-title">
+            <span className="nav-title" onClick={()=>navigate("/")}>
               <img id="logo" src="../logo.png" alt="logo" />
               근의 공식
             </span>
