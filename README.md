@@ -48,7 +48,7 @@
 
  ### 김경연 [`kimkyoungyeon`](https://github.com/kim-kyoungyeon)
 * position : Front-end 
-* Stack : 추후작성
+* Stack : Typescript, React, Styled-Component, CSS
 * contributions
     * SR, 일정 관리, 랜딩 페이지, 푸터 작성
 
@@ -59,7 +59,7 @@
 
  ### 손태권 [`KAPUIST`](https://github.com/KAPUIST)
 * position : Back-end 
-* Stack: 추후작성
+* Stack: Typescript, TypeORM, Express, Node.js, Mysql, AWS, Styled-Component
 * contributions
   *  typeORM을 이용한 entity구성
   *  OneToMany를 이용한 관계 구성
@@ -81,7 +81,7 @@
 
 ### 양지윤 [`jiyuunyang`](https://github.com/jiyuunyang)
 * position : Front-end 
-* Stack : 추후작성
+* Stack : Typescript, React, Redux-toolkit, Styled-Component, CSS
 * contributions
   *  리덕스 툴킷 세팅
   *  운동기록 페이지 작성
@@ -96,7 +96,7 @@
 
 ### 추홍욱 [`ChooHongWook`](https://github.com/ChooHongWook)
 * position : Back-end 
-* Stack: 추후작성
+* Stack: Typescript, Express, TypeORM, Mysql, React, Redux-toolkit, Styled-Component
 * contributions
   * typeORM을 이용한 entity구성
   * OneToMany를 이용한 관계 구성
