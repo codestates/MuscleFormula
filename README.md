@@ -61,7 +61,18 @@
 * position : Back-end 
 * Stack: 추후작성
 * contributions
-  *  추후작성
+  *  typeORM을 이용한 entity구성
+  *  OneToMany를 이용한 관계 구성
+  *  CASADE를 이용한 연관 데이터 삭제
+  *  토큰기반 인증 구현
+  *  Google OAUTH 구현
+  *  로그인, 유저, 유저운동기록, 포스트, 좋아요 CRUD 구현
+  *  데이터베이스 연결
+  *  AWS 배포
+  *  S3, CloudFront를 이용한 CDN 구축 및 정적 파일 배포
+  *  EC2, ELB, ACM을 이용, SSL, TLS를 적용한 HTTPS 통신
+  *  Route 53을 이용한 호스팅 및 도메인 연결
+
 
  </details>
 <br>
@@ -87,7 +98,13 @@
 * position : Back-end 
 * Stack: 추후작성
 * contributions
-  * 추후작성
+  * typeORM을 이용한 entity구성
+  * OneToMany를 이용한 관계 구성
+  * Post, User, Comment CRUD 엔드포인트 작성
+  * 회원가입 페이지 유효성 검사
+  * 회원가입시 사용하고자하는 닉네임이 변할때 마다 사용가능한지여부 확인
+  * Detail page, Editor page 기능 및 css틀 작성
+  * Detail page에서 좋아요와 댓글 작성 및 확인기능 작성
 
 
 </details>
