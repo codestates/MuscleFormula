@@ -7,19 +7,25 @@ import { Record } from "../../models/entity/Record";
 import { Ex_Records } from "../../models/entity/Ex_Records";
 const jwt = require("jsonwebtoken"); // import는 안되네
 dotenv.config();
-let today = new Date();
-let todaySring =
-  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 module.exports = async (req: Request, res: Response) => {
   console.log("server createUserExRecord in !!");
-  console.log(todaySring);
+  let time = new Date();
+  const secToTime = (time) => {
+    let years = time.getFullYear();
+    let month = time.getMonth() + 1;
+    let days = time.getDate();
+    month = month < 10 ? "0" + month : month;
+    days = days < 10 ? "0" + days : days;
+
+    return years + "-" + month + "-" + days;
+  };
   const { record } = req.body;
   const date = req.query.date;
   console.log("레큐바디", req.body);
   console.log("req.cookies:", req.cookies);
 
-  //console.log(todaySring);
+  //console.log(secToTime(time));
   //   const user = await getRepository(Users).findOne({
   //     relations: ["profile"],
   //     where: { id: data.id },
@@ -49,12 +55,12 @@ module.exports = async (req: Request, res: Response) => {
         } else if (user.email === data.email) {
           const findExRecord = await getRepository(Record).findOne({
             relations: ["users", "ex_record"],
-            where: { users: data.id, created_at: todaySring },
+            where: { users: data.id, created_at: secToTime(time) },
           });
           if (!findExRecord) {
             const makeExRecord = Record.create({
               users: data.id,
-              created_at: todaySring,
+              created_at: secToTime(time),
             });
             try {
               await makeExRecord.save();
@@ -66,7 +72,7 @@ module.exports = async (req: Request, res: Response) => {
         }
         const findrecord = await getRepository(Record).findOne({
           relations: ["users", "ex_record"],
-          where: { users: data.id, created_at: todaySring },
+          where: { users: data.id, created_at: secToTime(time) },
         });
         let a: any = findrecord?.id;
         console.log(findrecord?.users.email);
