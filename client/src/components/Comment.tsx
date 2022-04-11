@@ -40,6 +40,7 @@ export const Body = styled.div`
       font-weight: bold;
       align-items: center;
       > .user-image-container {
+        position: relative;
         width: 2rem;
         height: 2rem;
         border-radius: 50%;
