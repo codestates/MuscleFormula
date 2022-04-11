@@ -1,11 +1,9 @@
-import axios from "axios";
 import { axios_Login } from "../axios";
-import React from "react";
 import { Mobile, PC } from "../mediaQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { LOG_IN } from "../reducer/userInfoReducer";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import type { RootState, AppDispatch } from "../store";
 import swal from "sweetalert";
 import styled from "styled-components";

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "../css/Main.css";
 import Search from "../components/Search";
 import PostThumbnail from "../components/PostThumbnail";

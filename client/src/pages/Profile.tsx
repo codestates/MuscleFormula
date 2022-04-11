@@ -1,13 +1,10 @@
 import swal from "sweetalert";
 import "../css/Profile.css";
-import { PC, Mobile } from "../mediaQuery";
-import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from "../store";
+import type { RootState } from "../store";
 import React, { useState, useEffect } from "react";
 import PhotoModal from "../components/Modals/PhotoModal";
 import { axios_GetNickname } from "../axios";
-import axios from "axios";
 import { EDIT_NICK } from "../reducer/userInfoReducer";
 import QuitModal from "../components/Modals/QuitModal";
 import PasswordModal from "../components/Modals/PasswordModal";
