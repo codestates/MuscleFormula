@@ -11,7 +11,17 @@ dotenv.config();
 
 module.exports = async (req: Request | any, res: Response) => {
   console.log("server makePost in !!");
+  let time = new Date();
+  const secToTime = (time) => {
+    let years = time.getFullYear();
+    let month = time.getMonth() + 1;
+    let days = time.getDate();
+    month = month < 10 ? "0" + month : month;
+    days = days < 10 ? "0" + days : days;
 
+    return years + "-" + month + "-" + days;
+  };
+  console.log(secToTime(time));
   const auth = req.headers["authorization"];
   const { postTitle, info, totalTime, difficult, bodyPart, exerciseInfo } =
     req.body;
@@ -52,12 +62,7 @@ module.exports = async (req: Request | any, res: Response) => {
             body_Part: bodyPart,
             difficult: difficult,
             image: `${getImageUrl}/postimg/${postImage.filename}`,
-            created_At:
-              new Date().getFullYear() +
-              "-" +
-              (new Date().getMonth() + 1) +
-              "-" +
-              new Date().getDate(),
+            created_At: secToTime(time),
             users: {
               id: user?.id,
               email: user?.email,

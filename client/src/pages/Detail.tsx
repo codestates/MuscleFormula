@@ -2,7 +2,7 @@
 import swal from "sweetalert";
 import Comment from "../components/Comment";
 import { useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import type { RootState } from "../store";

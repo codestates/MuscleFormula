@@ -1,20 +1,13 @@
 /**마이 페이지**/
-import { PC, Mobile } from "../mediaQuery";
-import Footer from "../components/Footer";
 import "../css/Mypage.css";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
 import TodayRecord from "../components/TodayRecord";
 import Share from "./Share";
-import PostThumbnail from "../components/PostThumbnail";
 import { useState, useEffect } from "react";
 import { axios_GetMyPosts } from "../axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import { settings } from "../slideSetting";
-import NoPost from "../components/NoPost";
-import axios from "axios";
 import MyPostTab from "../components/MyPostTab";
 import { axios_Get_Like } from "../axios";
 

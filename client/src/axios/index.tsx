@@ -1,14 +1,12 @@
-import React from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import type { RootState } from "../store";
 //require('dotenv').config();
 // import { useNavigate } from "react-router-dom";
 // const navigate = useNavigate();
 const qs = require("qs");
-const clientURI = `http://localhost:3000`;
-// const serverURI = `https://server.muscleformula.xyz`;
-const serverURI = `http://localhost:4000`;
+const clientURI = `https://www.muscleformula.xyz`;
+// const serverURI = `http://localhost:4000`;
+const serverURI = `https://server.muscleformula.xyz`;
+// const serverURI = `http://localhost:4000`;
 
 //const serverURI = process.env.SERVER_URI;
 

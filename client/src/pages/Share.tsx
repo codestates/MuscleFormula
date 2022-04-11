@@ -1,21 +1,17 @@
 /**공유 전 페이지 : 날짜별 운동 기록을 클릭하고 공유하기 버튼을 클릭**/
 import swal from "sweetalert";
-import { PC, Mobile } from "../mediaQuery";
-import Footer from "../components/Footer";
 import Calendar from "../components/Calendar";
 import { useState, useEffect } from "react";
 import "../css/Share.css";
 import CalendarRecord from "../components/CalendarRecord";
-import { generatePath, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //공유하기 버튼을 누르면 Post Editor로 이동
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 import { SHARE, SHARE_ID } from "../reducer/shareReducer";
-import axios from "axios";
 import NoRecord from "../components/NoRecord";
 import NeedLogin from "../components/NeedLogin";
 import {
-  axios_Delete_UserRecord,
   axios_Get_UserRecord_Date,
 } from "../axios/index";
 
