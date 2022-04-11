@@ -39,9 +39,20 @@ export const Body = styled.div`
       font-size: small;
       font-weight: bold;
       align-items: center;
-      > .user-image {
+      > .user-image-container {
         width: 2rem;
+        height: 2rem;
         border-radius: 50%;
+        overflow: hidden;
+        background-color: white;
+        > .user-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
     }
   }
@@ -124,12 +135,13 @@ const Comment: React.FC<PostCommentProps> = ({
       <Body>
         <div id="comment-info">
           <div id="user-info">
+            <div className="user-image-container">
             <img
               className="user-image"
               src={commentInfo.users.image}
               alt="user"
             />
-
+            </div>
             <div>{commentInfo.users.nickname}</div>
           </div>
         </div>
