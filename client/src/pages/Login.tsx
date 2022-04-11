@@ -204,7 +204,7 @@ export default function Login() {
   const kakao = {
     clientID: "7d8937ab746c6e3604651e33e259fc1d",
     clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
-    redirectUri: "http://localhost:3000/login",
+    redirectUri: "https://www.muscleformula.xyz/login",
   };
 
   const user = useSelector((state: RootState) => state.userInfo.userInfo);
@@ -214,8 +214,8 @@ export default function Login() {
   const [userPassword, setUserPassword] = useState("");
   const [getcode, setGetcode] = useState("");
 
-  const googleCodeGetRUI = `https://accounts.google.com/o/oauth2/auth?client_id=1062811618314-04ajm3grgt3c9hf51lq1911qt3el9ro9.apps.googleusercontent.com&access_type=offline&redirect_uri=http://localhost:3000/callbackGoogle&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
-  const kakaoCodeGetURI = `https://kauth.kakao.com/oauth/authorize?client_id=7d8937ab746c6e3604651e33e259fc1d&redirect_uri=http://localhost:3000/callbackKakao&response_type=code`;
+  const googleCodeGetRUI = `https://accounts.google.com/o/oauth2/auth?client_id=1062811618314-04ajm3grgt3c9hf51lq1911qt3el9ro9.apps.googleusercontent.com&access_type=offline&redirect_uri=https://www.muscleformula.xyz/callbackGoogle&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
+  const kakaoCodeGetURI = `https://kauth.kakao.com/oauth/authorize?client_id=7d8937ab746c6e3604651e33e259fc1d&redirect_uri=https://www.muscleformula.xyz/callbackKakao&response_type=code`;
   const code: any = new URLSearchParams(window.location.search).get("code");
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
@@ -271,10 +271,7 @@ export default function Login() {
                   </th>
                   <th>
                     <a href={kakaoCodeGetURI}>
-                      <img
-                        src="../images/icon_kakao.png"
-                        alt="logoKakao"
-                      />
+                      <img src="../images/icon_kakao.png" alt="logoKakao" />
                     </a>
                   </th>
                 </tr>
@@ -363,10 +360,7 @@ export default function Login() {
                   </th>
                   <th>
                     <a href={kakaoCodeGetURI}>
-                      <img
-                        src="../images/icon_kakao.png"
-                        alt="logoKakao"
-                      />
+                      <img src="../images/icon_kakao.png" alt="logoKakao" />
                     </a>
                   </th>
                 </tr>

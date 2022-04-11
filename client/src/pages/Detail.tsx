@@ -416,7 +416,7 @@ export default function Detail() {
     formData.append("exerciseInfo", exInfo);
     formData.append("totalTime", totalTime);
     formData.append("difficult", difficult);
-    formData.append("bodyPart", "상체");
+    formData.append("bodyPart", bodyPart);
     formData.append("postImage", photo.file[0]);
 
     axios_Put_Post(formData, postInfo.id, user.accessToken).then(() => {

@@ -3,7 +3,8 @@ import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 // const navigate = useNavigate();
 const qs = require("qs");
-const clientURI = `http://localhost:3000`;
+const clientURI = `https://www.muscleformula.xyz`;
+// const serverURI = `http://localhost:4000`;
 const serverURI = `https://server.muscleformula.xyz`;
 // const serverURI = `http://localhost:4000`;
 
