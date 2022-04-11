@@ -16,6 +16,7 @@ export const TodayKingContainer = styled.ol`
     > tbody
       > tr {
         > th {
+          width: 5rem;
           > img {
             width: 40px;
           }
