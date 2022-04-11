@@ -1,17 +1,13 @@
 /**날짜별 운동 기록 페이지**/
-import { PC, Mobile } from "../mediaQuery";
-import Footer from "../components/Footer";
 import "../css/Records.css";
 import Record from "../components/Record";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
 import CalendarRecord from "../components/CalendarRecord";
 import NeedLogin from "../components/NeedLogin";
 import Loading from "../components/Loading";
 import {
-  axios_Delete_UserRecord,
   axios_Get_UserRecord,
   axios_Post_UserRecord,
 } from "../axios/index";
@@ -52,27 +48,9 @@ export default function Records() {
 
   const [savedRecords, setSavedRecords] = useState<RecordType[]>([]);
   const [submitDay, setSubmitDay] = useState(getDate());
-  // let serverUrl = "http://localhost:4000";
   let user = useSelector((state: RootState) => state.userInfo.userInfo);
-  // const submitDelete = (genre: string) => {
-  //   axios_Delete_UserRecord(genre, user.accessToken, submitDay).then((res) => {
-  //     setSavedRecords(res.data.data.exerciseInfo);
-  //     setRecords([]);
-  //   });
-  //   setIsLoading(false);
-
-  // setSavedRecords(res.data.data.exerciseInfo);
-  // setRecords([]);
-  // };
-
   useEffect(() => {
     if (submitDay) {
-      // axios
-      //   .get(`${serverUrl}/record?date=${submitDay}`, {
-      //     headers: {
-      //       authorization: `Bearer ${user.accessToken}`,
-      //     },
-      //   })
       axios_Get_UserRecord(submitDay, user.accessToken).then((res) => {
         setSavedRecords(res.data.data.exerciseInfo);
       });

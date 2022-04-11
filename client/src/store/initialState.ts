@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 
-type InitialState = {
+export type InitialState = {
   userInfo: {
     id: number | string;
     nickname: string;

@@ -1,4 +1,3 @@
-/**검색창**/
 import { useState, useEffect } from "react";
 import styled, { StyledComponentBase } from "styled-components";
 interface InputContainerType extends StyledComponentBase<any, {}> {

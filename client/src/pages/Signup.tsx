@@ -1,16 +1,12 @@
-// 시작하자마자 보이는 뻘건색 삭제
 import swal from "sweetalert";
-import { PC, Mobile } from "../mediaQuery";
-import Footer from "../components/Footer";
-import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 import { axios_Signup, axios_GetNickname, axios_Login } from "../axios";
 
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from "../store";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store";
 import { LOG_IN } from "../reducer/userInfoReducer";
 
 export const SignupContainer = styled.div`
@@ -221,7 +217,6 @@ export default function Signup() {
   return (
     <SignupContainer>
       <div id="signup-container">
-        {/* <img id="logo" src="../logo.png" alt="logo" /> */}
         <div className="greeting">
           <div className="headline">
             매일의 운동<br></br>
