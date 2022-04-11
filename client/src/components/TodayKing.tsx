@@ -13,17 +13,17 @@ export const TodayKingContainer = styled.ol`
   border-radius: 30px;
   background-color: #f2f2f2;
   > table {
+    width: 300px;
+    table-layout: fixed;
     > tbody
       > tr {
-        > th {
-          width: 6rem;
+        > th, td {
+          overflow: hidden;
+          text-align: center;
+          padding: 0rem 0.5rem;
           > img {
             width: 40px;
           }
-        }
-        > td {
-          text-align: center;
-          padding: 0rem 0.5rem;
         }
       }
   }
