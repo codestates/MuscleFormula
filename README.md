@@ -39,7 +39,7 @@
 
 
  # 팀원소개 
-> Music-Flower Developers!
+> MuscleFormula Developers!
 
 
 
