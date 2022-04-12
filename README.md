@@ -29,7 +29,7 @@
 
 
 
-# MuscleFormula Feature
+# Muscle Formula √ Feature
 
 - 본인의 운동 기능을 기록할 수 있습니다. 
 - 운동기록이 높은 상위 랭크의 유저를 확인할 수 있습니다. 
@@ -39,7 +39,7 @@
 
 
  # 팀원소개 
-> MuscleFormula Developers!
+> Muscle Formula √ Developers!
 
 
 
