@@ -20,7 +20,7 @@ export const ModalBackdrop = styled.div`
 
 export const ModalContainer = styled.div`
   text-align: center;
-  margin: 120px auto;
+  margin: 1rem auto;
 `;
 
 export const ModalView = styled.div`
@@ -43,10 +43,10 @@ export const ModalView = styled.div`
       font-size: medium;
     }
     > .user-password {
-      padding: 0rem 2.8rem;
+      padding: 0rem 2rem;
     }
     > .user-password-check {
-      padding: 0rem 2.8rem;
+      padding: 0rem 2rem;
     }
     > .user-password > .input-container {
       display: flex;
@@ -61,6 +61,7 @@ export const ModalView = styled.div`
       }
     }
     > .user-password > p {
+      font-size: small;
       color: red;
     }
 
@@ -77,6 +78,7 @@ export const ModalView = styled.div`
       }
     }
     > .user-password-check > p {
+      font-size: small;
       color: red;
     }
 
