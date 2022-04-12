@@ -24,7 +24,7 @@
 ## 💪 Muscle Formula 
  
 
-(Music-Flower 사이트로 이동)
+(Muscle-Formula 사이트로 이동)
 [Go Exercise! 🏃!!](https://www.muscleformula.xyz)
 
 
