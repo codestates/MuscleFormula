@@ -13,7 +13,6 @@ import Records from "./pages/Records";
 import Maypage from "./pages/Mypage";
 import Profile from "./pages/Profile";
 import Editor from "./pages/Editor";
-import Test from "./test/Test";
 import Landing from "./pages/Landing";
 import { PrivacyPolicy } from "./components/Policy/PrivacyPolicy";
 import CallbackKakao from "./callback/callbackKakao";
@@ -60,7 +59,6 @@ const App: React.FC = () => {
         <Route path="/record" element={<Records />} />
         <Route path="/share" element={<Share />} />
         <Route path="/editor" element={<Editor />} />
-        <Route path="/test" element={<Test />} />
         <Route path="/callbackKakao" element={<CallbackKakao />} />
         <Route path="/callbackGoogle" element={<CallbackGoogle />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
