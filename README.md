@@ -81,10 +81,11 @@
 * Stack : Typescript, React, Redux-toolkit, Styled-Component, CSS
 * contributions
   *  리덕스 툴킷 세팅
-  *  운동기록 페이지 작성
+  *  네비게이션 컴포넌트 작성
   *  캘린더 컴포넌트 작성
+  *  운동기록 페이지 작성
   *  마이페이지 작성
-  *  프로필 수정 페이지 작성
+  *  프로필 수정페이지 작성
   *  모달창, 탭 구현
   *  CSS 전반 관리
 
