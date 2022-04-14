@@ -1,5 +1,5 @@
 
-[![logo(https://user-images.githubusercontent.com/91522788/158545367-149b8f72-0e75-4996-bd2b-e01b4f5cbe0d. png)]](https://www.muscleformula.xyz) 
+[![logo and title](https://user-images.githubusercontent.com/91522788/158545367-149b8f72-0e75-4996-bd2b-e01b4f5cbe0d.png)](https://www.muscleformula.xyz) 
 <br/>
 *클릭하면 근의공식 홈페이지로 이동합니다*
  
