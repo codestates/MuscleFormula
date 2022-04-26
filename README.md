@@ -44,7 +44,7 @@
 
 
 
- ### 김경연 [`kimkyoungyeon`](https://github.com/kim-kyoungyeon)
+ ### 김경연 [`kimkyoungyeon`](https://github.com/kim-kyoungyeon/kyoungyeon.github.io)
 * position : Front-end 
 * Stack : Typescript, React, Styled-Component, CSS
 * contributions
