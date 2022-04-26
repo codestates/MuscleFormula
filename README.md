@@ -44,7 +44,7 @@
 
 
 
- ### 김경연 [`kimkyoungyeon`](https://github.com/kim-kyoungyeon/kyoungyeon.github.io)
+ ### 🏅 김경연 [`kimkyoungyeon`](https://github.com/kim-kyoungyeon/kyoungyeon.github.io)
 * position : Front-end 
 * Stack : Typescript, React, Styled-Component, CSS
 * contributions
@@ -55,7 +55,7 @@
 <br>
 
 
- ### 손태권 [`KAPUIST`](https://github.com/KAPUIST)
+ ### 🏅 손태권 [`KAPUIST`](https://github.com/KAPUIST)
 * position : Back-end 
 * Stack: Typescript, TypeORM, Express, Node.js, Mysql, AWS, Styled-Component
 * contributions
@@ -77,7 +77,7 @@
 
 
 
-### 양지윤 [`jiyuunyang`](https://github.com/jiyuunyang)
+### 🏅 양지윤 [`jiyuunyang`](https://github.com/jiyuunyang)
 * position : Front-end 
 * Stack : Typescript, React, Redux-toolkit, Styled-Component, CSS
 * contributions
@@ -94,7 +94,7 @@
 <br>
 
 
-### 추홍욱 [`ChooHongWook`](https://github.com/ChooHongWook)
+### 🏅 추홍욱 [`ChooHongWook`](https://github.com/ChooHongWook)
 * position : Back-end 
 * Stack: Typescript, Express, TypeORM, Mysql, React, Redux-toolkit, Styled-Component
 * contributions
