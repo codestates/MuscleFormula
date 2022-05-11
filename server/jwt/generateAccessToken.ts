@@ -13,7 +13,7 @@ export async function generateAccessToken(
       email: email,
       password: password,
       iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24, // 2년 짜리
+      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24, // 24시간 
       //연습용 exp: Math.floor(Date.now() / 1000) + 60 * 5, 5분 짜리
     },
     process.env.ACCESS_SECRET
